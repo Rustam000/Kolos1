@@ -86,24 +86,35 @@ export default function Login() {
       {/* //////////////////////////////////////// */}
       {/* //////////////////////////////////////// */}
       {/* временная кнопка для быстрой аутентификации на время разработки*/}
-      <button
+      <div
         style={{
-          position: "absolute",
-          top: "1rem",
-          right: "1rem",
-          padding: "0.5rem",
-        }}
-        tabIndex="-1"
-        onClick={() => {
-          const formData = {
-            login: "dev",
-            password: "dev",
-          };
-          dispatch(authActions.logUserIn(formData));
+          position: "fixed",
+          bottom: 0,
+          padding: "1rem",
+          backgroundColor: "orange",
         }}
       >
-        dev log in
-      </button>
+        <span>
+          {"Это временный элемент. Логин и пароль на данный момент: dev/dev."}
+          <br />
+          {"Кнопка позволяет быстро авторизоваться ========>>>>>>>>>     "}
+        </span>
+        <button
+          style={{
+            padding: "0.5rem",
+          }}
+          tabIndex="-1"
+          onClick={() => {
+            const formData = {
+              login: "dev",
+              password: "dev",
+            };
+            dispatch(authActions.logUserIn(formData));
+          }}
+        >
+          быстрый вход
+        </button>
+      </div>
     </div>
   );
 }
