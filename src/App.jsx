@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Layout from "./components/Layout/Layout";
 import Warehouse from "./pages/Warehouse/Warehouse";
+import DistributorProfile from "./pages/DistributorProfile/DistributorProfile";
 
 const guestRoutes = (
   <>
@@ -18,8 +19,10 @@ const authorizedRoutes = (
       <Route index element={<Navigate to="/warehouse" />} />
       <Route path="/warehouse" element={<Warehouse />} />
       <Route path="/distributors" element={<p>distributors</p>} />
+      <Route path="/distributor" element={<DistributorProfile />} />
     </Route>
-    <Route path="*" element={<Navigate to="/warehouse" />} />
+    {/* <Route path="*" element={<Navigate to="/warehouse" />} /> */}
+    <Route path="*" element={<Navigate to="/distributor" />} />
   </>
 );
 

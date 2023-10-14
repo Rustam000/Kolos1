@@ -1,0 +1,15 @@
+.Header {
+  padding-block: 22.5px;
+  border-bottom: 1px solid #e7e7e7;
+  background: var(--white-white, #fff);
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+}
+
+.logo {
+  margin-right: auto;
+}
