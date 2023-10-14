@@ -1,7 +1,7 @@
 /* временный шрифт */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@100;300;400;500;700&display=swap");
 :root {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Rubik", sans-serif;
   --purple: #5050ff;
   --main-color: #3ba1ff;
   --black: #000000cc;
