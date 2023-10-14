@@ -37,6 +37,8 @@ const columns = [
     id: "action",
     label: "Ред.",
     align: "left",
+    onClick: (id) => console.log(id),
+    icon: "icon",
   },
 ];
 
@@ -45,7 +47,6 @@ export default function Warehouse() {
     <div className={styles.Warehouse}>
       <div className="container">
         <h1>страница Cклад</h1>
-        <div style={{ height: "2rem" }}></div>
         <BasicTable data={products} columns={columns} />
       </div>
     </div>

@@ -35,7 +35,9 @@ export default function BasicTable({ data, columns }) {
                 if (col.id === "action") {
                   return (
                     <TableCell key={col.id + row._id}>
-                      <button>edit</button>
+                      <button onClick={() => col.onClick(row._id)}>
+                        {col.icon}
+                      </button>
                     </TableCell>
                   );
                 }
