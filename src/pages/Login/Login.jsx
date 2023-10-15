@@ -92,6 +92,7 @@ export default function Login() {
 }
 
 function TemporaryDevNavbar() {
+  const dispatch = useDispatch();
   return (
     <nav
       className="TEMPORARY_DEV_NAVBAR"
