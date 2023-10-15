@@ -41,6 +41,7 @@ export default function Login() {
             name="login"
             value={login}
             onChange={(event) => setLogin(event.target.value)}
+            autoComplete="off"
           />
           <p className={styles.error}>
             {error === "try_again" &&
@@ -57,6 +58,7 @@ export default function Login() {
               name="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              autoComplete="off"
             />
             <img
               className={styles.passwordIcon}
