@@ -46,7 +46,7 @@ export default function Warehouse() {
   return (
     <div className={styles.Warehouse}>
       <div className="container">
-        <h1>страница Cклад</h1>
+        <h1 style={{ textAlign: "center" }}>Страница Склад</h1>
         <BasicTable data={products} columns={columns} />
       </div>
     </div>

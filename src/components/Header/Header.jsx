@@ -6,7 +6,9 @@ export default function Header({ children }) {
     <header className={styles.Header}>
       <div className="container">
         <div className={styles.flexContainer}>
-          <Logo />
+          <span className={styles.logoWrapper}>
+            <Logo />
+          </span>
           {children}
         </div>
       </div>
