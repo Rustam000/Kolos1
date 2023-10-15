@@ -14,7 +14,7 @@ export default function BasicTable({ data, columns }) {
         <TableHead>
           <TableRow>
             {columns.map((col) => (
-              <TableCell key={col.id} align={col.align}>
+              <TableCell key={col.dataKey} align={col.align}>
                 {col.label}
               </TableCell>
             ))}
@@ -27,14 +27,16 @@ export default function BasicTable({ data, columns }) {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               {columns.map((col) => {
-                if (col.id === "index") {
+                if (col.dataKey === "rowIndex") {
                   return (
-                    <TableCell key={col.id + row._id}>{rowIndex + 1}</TableCell>
+                    <TableCell key={col.dataKey + row._id}>
+                      {rowIndex + 1}
+                    </TableCell>
                   );
                 }
-                if (col.id === "action") {
+                if (col.dataKey === "action") {
                   return (
-                    <TableCell key={col.id + row._id}>
+                    <TableCell key={col.dataKey + row._id}>
                       <button onClick={() => col.onClick(row._id)}>
                         {col.icon}
                       </button>
@@ -43,10 +45,10 @@ export default function BasicTable({ data, columns }) {
                 }
                 return (
                   <TableCell
-                    key={col.id + row._id}
-                    data-cell={`${rowIndex}-${col.id}`}
+                    key={col.dataKey + row._id}
+                    data-cell={`${rowIndex}-${col.dataKey}`}
                   >
-                    {row[col.id]}
+                    {row[col.dataKey]}
                   </TableCell>
                 );
               })}

@@ -4,40 +4,40 @@ import styles from "./Warehouse.module.css";
 
 const columns = [
   {
-    id: "index",
+    dataKey: "rowIndex",
     label: "№",
     align: "left",
   },
   {
-    id: "name",
+    dataKey: "name",
     label: "Наименование",
     align: "left",
   },
   {
-    id: "num_id",
+    dataKey: "num_id",
     label: "Уникальный код",
     align: "left",
   },
   {
-    id: "unit",
+    dataKey: "unit",
     label: "Ед. изм.",
     align: "left",
   },
   {
-    id: "quantity",
+    dataKey: "quantity",
     label: "Кол-во",
     align: "left",
   },
   {
-    id: "price",
+    dataKey: "price",
     label: "Цена",
     align: "left",
   },
   {
-    id: "action",
+    dataKey: "action",
     label: "Ред.",
     align: "left",
-    onClick: (id) => console.log(id),
+    onClick: (dataKey) => console.log(dataKey),
     icon: "icon",
   },
 ];

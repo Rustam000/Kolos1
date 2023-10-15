@@ -7,8 +7,10 @@ export default function Layout() {
   return (
     <div className={styles.Layout}>
       <Header>
-        <Button variant="secondary">Склад</Button>
-        <Button>Дистрибьюторы</Button>
+        <Button variant="secondary" width="narrow">
+          Склад
+        </Button>
+        <Button width="narrow">Дистрибьюторы</Button>
       </Header>
       <Outlet />
       <TemporaryDevNavbar />
