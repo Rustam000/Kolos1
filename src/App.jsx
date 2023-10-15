@@ -5,10 +5,16 @@ import Login from "./pages/Login/Login";
 import Layout from "./components/Layout/Layout";
 import Warehouse from "./pages/Warehouse/Warehouse";
 import DistributorProfile from "./pages/DistributorProfile/DistributorProfile";
+import Distributors from "./pages/Distributors/Distributors";
+import EditDistributor from "./pages/EditDistributor/EditDistributor";
+import EditProduct from "./pages/EditProduct/EditProduct";
+import Order from "./pages/Order/Order";
+import Return from "./pages/Return/Return";
 
 const publicRoutes = (
   <>
     <Route path="/login" element={<Login />} />
+    {/* Логин */}
     <Route path="*" element={<Navigate to="/login" />} />
   </>
 );
@@ -17,12 +23,28 @@ const privateRoutes = (
   <>
     <Route path="/" element={<Layout />}>
       <Route index element={<Navigate to="/warehouse" />} />
+      {/* Cклад */}
       <Route path="/warehouse" element={<Warehouse />} />
-      <Route path="/distributors" element={<p>distributors</p>} />
+      {/* Перечень дистрибьюторов */}
+      <Route path="/distributors" element={<Distributors />} />
+      {/* Карточка дистрибьютора */}
       <Route path="/distributor" element={<DistributorProfile />} />
+      {/* Создание дистрибьютора */}
+      <Route path="/create-distributor" element={<EditDistributor />} />
+      {/* Редактирование дистрибьютора */}
+      <Route path="/edit-distributor" element={<EditDistributor />} />
+      {/* Создание товара */}
+      <Route path="/create-product" element={<EditProduct />} />
+      {/* Редактирование товара */}
+      <Route path="/edit-product" element={<EditProduct />} />
+      {/* Отпуск товара*/}
+      <Route path="/order" element={<Order />} />
+      {/* Возврат товара*/}
+      <Route path="/return" element={<Return />} />
     </Route>
     {/* <Route path="*" element={<Navigate to="/warehouse" />} /> */}
-    <Route path="*" element={<Navigate to="/distributor" />} />
+    <Route path="/login" element={<Navigate to="/warehouse" />} />
+    <Route path="*" element={<h1 style={{ textAlign: "center" }}>404</h1>} />
   </>
 );
 
