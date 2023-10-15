@@ -86,35 +86,42 @@ export default function Login() {
       {/* //////////////////////////////////////// */}
       {/* //////////////////////////////////////// */}
       {/* временная кнопка для быстрой аутентификации на время разработки*/}
-      <div
+      <TemporaryDevNavbar />
+    </div>
+  );
+}
+
+function TemporaryDevNavbar() {
+  return (
+    <nav
+      className="TEMPORARY_DEV_NAVBAR"
+      style={{
+        position: "fixed",
+        bottom: 0,
+        padding: "1rem",
+        backgroundColor: "orange",
+      }}
+    >
+      <span>
+        {"Это временный элемент. Логин и пароль на данный момент: dev/dev."}
+        <br />
+        {"Кнопка позволяет быстро авторизоваться ========>>>>>>>>>     "}
+      </span>
+      <button
         style={{
-          position: "fixed",
-          bottom: 0,
-          padding: "1rem",
-          backgroundColor: "orange",
+          padding: "0.5rem",
+        }}
+        tabIndex="-1"
+        onClick={() => {
+          const formData = {
+            login: "dev",
+            password: "dev",
+          };
+          dispatch(authActions.logUserIn(formData));
         }}
       >
-        <span>
-          {"Это временный элемент. Логин и пароль на данный момент: dev/dev."}
-          <br />
-          {"Кнопка позволяет быстро авторизоваться ========>>>>>>>>>     "}
-        </span>
-        <button
-          style={{
-            padding: "0.5rem",
-          }}
-          tabIndex="-1"
-          onClick={() => {
-            const formData = {
-              login: "dev",
-              password: "dev",
-            };
-            dispatch(authActions.logUserIn(formData));
-          }}
-        >
-          быстрый вход
-        </button>
-      </div>
-    </div>
+        быстрый вход
+      </button>
+    </nav>
   );
 }
