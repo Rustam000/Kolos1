@@ -1,13 +1,14 @@
 import { Link, Outlet } from "react-router-dom";
 import styles from "./Layout.module.css";
 import Header from "../Header/Header";
+import Button from "../UI/Button/Button";
 
 export default function Layout() {
   return (
     <div className={styles.Layout}>
       <Header>
-        <button>Склад</button>
-        <button>Дистрибьюторы</button>
+        <Button variant="secondary">Склад</Button>
+        <Button>Дистрибьюторы</Button>
       </Header>
       <Outlet />
       <TemporaryDevNavbar />

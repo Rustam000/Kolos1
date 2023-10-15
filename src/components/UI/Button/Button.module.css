@@ -1,0 +1,52 @@
+.Button {
+  display: inline-flex;
+  height: 45px;
+  padding-block: 8px;
+  padding-inline: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--main-color, #3ba1ff);
+  transition: box-shadow;
+  outline: none;
+}
+
+.Button:disabled {
+  background-color: gray;
+  border: 1px solid gray;
+  color: white;
+}
+
+.Button:hover,
+.Button:focus-visible,
+.Button:focus {
+  /* font-weight: 500; */
+  box-shadow: 0px 0px 12px 4px #d6d6d6;
+}
+
+.Button:active {
+  box-shadow: 0px 0px 12px 4px #d6d6d6 inset;
+}
+
+.wide {
+  padding-inline: 39px;
+}
+
+.narrow {
+  padding-inline: 12px;
+}
+
+.full {
+  width: 100%;
+}
+
+.primary {
+  background-color: var(--main-color, #3ba1ff);
+  color: white;
+}
+
+.secondary {
+  background-color: transparent;
+  color: var(--main-color, #3ba1ff);
+}
