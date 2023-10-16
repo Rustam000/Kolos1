@@ -22,6 +22,10 @@ export const authSlice = createSlice({
         state.error = state.failedAttempts >= 4 ? "access_denied" : "try_again";
       }
     },
+    clearError: (state) => {
+      if (state.error === "access_denied") return state;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     //

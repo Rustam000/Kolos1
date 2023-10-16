@@ -28,6 +28,10 @@ export default function Login() {
     formRef.current?.login.focus();
   }, []);
 
+  useEffect(() => {
+    dispatch(authActions.clearError());
+  }, [login, password]);
+
   return (
     <div className={styles.LoginPage}>
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
