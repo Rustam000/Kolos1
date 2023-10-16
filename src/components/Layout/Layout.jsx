@@ -25,11 +25,21 @@ function TemporaryDevNavbar() {
       style={{
         position: "fixed",
         bottom: 0,
+        left: 0,
+        right: 0,
         padding: "1rem",
         backgroundColor: "orange",
       }}
     >
-      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          marginBottom: "1rem",
+        }}
+      >
         <Link to="/warehouse">Cклад</Link>
         <Link to="/distributors">Перечень дистрибьюторов</Link>
         <Link to="/distributor">Карточка дистрибьютора</Link>
