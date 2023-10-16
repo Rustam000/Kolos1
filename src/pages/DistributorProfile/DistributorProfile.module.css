@@ -1,0 +1,108 @@
+.DistributorProfile {
+  padding-bottom: 180px;
+}
+
+.undo {
+  margin-top: 74px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  color: var(--main-color, #3ba1ff);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.28px;
+}
+
+.heading {
+  margin-top: 24px;
+}
+
+.mainSection {
+  margin-top: 41px;
+  padding: 66px 48px 110px;
+  border-radius: 10px;
+  border: 1px solid var(--neutral-10, #e7e8e7);
+  background: var(--white-white, #fff);
+  box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.05);
+}
+
+.infoBlock {
+  display: flex;
+  justify-content: start;
+  gap: 13px;
+}
+
+.infoRows {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: 0.3px;
+}
+
+.infoRowLabel {
+  margin-right: 1ch;
+  font-weight: 600;
+}
+
+.actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 20px;
+}
+
+.filterbar {
+  margin-block: 29px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  & input[type="search"] {
+    min-width: 453px;
+  }
+
+  & input,
+  & select {
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--stroke, #e7e8e7);
+    background: #efefef;
+    padding-inline: 15px;
+  }
+  & select {
+    min-width: 170px;
+  }
+}
+
+.filterbarDate {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.nav {
+  margin-top: 73px;
+  display: flex;
+  align-items: stretch;
+  gap: 32px;
+
+  & span {
+    margin-left: auto;
+    padding-inline: 39px;
+    height: 49px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background: #efefef;
+  }
+}
