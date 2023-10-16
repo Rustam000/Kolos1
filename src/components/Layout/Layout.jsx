@@ -6,6 +6,7 @@ import Button from "../UI/Button/Button";
 export default function Layout() {
   return (
     <div className={styles.Layout}>
+      <TemporaryDevNavbar />
       <Header>
         <Button variant="secondary" width="narrow">
           Склад
@@ -13,7 +14,6 @@ export default function Layout() {
         <Button width="narrow">Дистрибьюторы</Button>
       </Header>
       <Outlet />
-      <TemporaryDevNavbar />
     </div>
   );
 }
@@ -23,10 +23,10 @@ function TemporaryDevNavbar() {
     <nav
       className="TEMPORARY_DEV_NAVBAR"
       style={{
-        position: "fixed",
+        /* position: "fixed",
         bottom: 0,
         left: 0,
-        right: 0,
+        right: 0, */
         padding: "1rem",
         backgroundColor: "orange",
       }}
@@ -50,7 +50,9 @@ function TemporaryDevNavbar() {
         <Link to="/order">Отпуск товар</Link>
         <Link to="/return">Возврат товар</Link>
       </div>
-      <h2 style={{ textAlign: "center" }}>{"Это временный элемент!"}</h2>
+      <h2 style={{ textAlign: "center" }}>
+        {"Временная навигационная панель"}
+      </h2>
     </nav>
   );
 }
