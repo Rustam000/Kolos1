@@ -36,7 +36,7 @@ function TemporaryDevNavbar() {
           display: "flex",
           gap: "1rem",
           flexWrap: "wrap",
-          justifyContent: "space-between",
+          justifyContent: "space-around",
           marginBottom: "1rem",
         }}
       >
@@ -44,11 +44,11 @@ function TemporaryDevNavbar() {
         <Link to="/distributors">Перечень дистрибьюторов</Link>
         <Link to="/distributor">Карточка дистрибьютора</Link>
         <Link to="/create-distributor">Создание дистрибьютора</Link>
-        <Link to="/edit-distributor">Редактирование дистрибьютора</Link>
+        {/* <Link to="/edit-distributor">Редактирование дистрибьютора</Link> */}
         <Link to="/create-product">Создание товара</Link>
-        <Link to="/edit-product">Редактирование товара</Link>
-        <Link to="/order">Отпуск товар</Link>
-        <Link to="/return">Возврат товар</Link>
+        {/* <Link to="/edit-product">Редактирование товара</Link> */}
+        <Link to="/order">Отпуск товара</Link>
+        {/* <Link to="/return">Возврат товара</Link> */}
       </div>
       <h2 style={{ textAlign: "center" }}>
         {"Временная навигационная панель"}

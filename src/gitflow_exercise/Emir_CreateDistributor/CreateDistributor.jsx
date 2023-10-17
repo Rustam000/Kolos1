@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-//import './CreateDistributor.css'
+//import "./CreateDistributor.css";
 
 const Form = styled.form`
   display: flex;

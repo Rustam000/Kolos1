@@ -1,5 +1,5 @@
 import React from "react";
-//import './EditProduct.css';
+//import "./EditProduct.css";
 
 const EditProduct = () => {
   return (
