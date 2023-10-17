@@ -3,6 +3,7 @@ import BasicTable from "../../components/MUITable/MUITable";
 import { products } from "../../components/MUITable/beer_data";
 import Button from "../../components/UI/Button/Button";
 import styles from "./Distributors.module.css";
+import { distributors } from "./distributor_data";
 
 const tableColumns = [
   {
@@ -12,35 +13,13 @@ const tableColumns = [
   },
   {
     dataKey: "name",
-    label: "Наименование",
+    label: "ФИО",
     align: "left",
   },
   {
-    dataKey: "num_id",
-    label: "Уникальный код",
+    dataKey: "region",
+    label: "Регион",
     align: "left",
-  },
-  {
-    dataKey: "unit",
-    label: "Ед. изм.",
-    align: "left",
-  },
-  {
-    dataKey: "quantity",
-    label: "Кол-во",
-    align: "left",
-  },
-  {
-    dataKey: "price",
-    label: "Цена",
-    align: "left",
-  },
-  {
-    dataKey: "action",
-    label: "Ред.",
-    align: "left",
-    onClick: (dataKey) => console.log(dataKey),
-    icon: "icon",
   },
 ];
 
@@ -59,7 +38,7 @@ export default function Distributors() {
             Создать
           </Button>
         </div>
-        <BasicTable data={products} columns={tableColumns} />
+        <BasicTable data={distributors} columns={tableColumns} />
       </div>
     </div>
   );
