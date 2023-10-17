@@ -1,14 +1,12 @@
-import React from 'react';
-import './EditProduct.css';
+import React from "react";
+//import './EditProduct.css';
 
 const EditProduct = () => {
   return (
     <div className="header">
       <div className="rectangle-1905"></div>
       <div className="logo-colos">
-        <div className="logo">
-          {/* Your logo elements */}
-        </div>
+        <div className="logo">{/* Your logo elements */}</div>
         <div className="colos">Колос</div>
       </div>
       <div className="warehouse">
@@ -26,11 +24,7 @@ const EditProduct = () => {
       </div>
       <div className="cube">
         <div className="input-field">
-          <input
-            type="text"
-            className="input"
-            placeholder="Пиво"
-          />
+          <input type="text" className="input" placeholder="Пиво" />
         </div>
         <div className="input-field" style={{ left: "536px" }}>
           <input
@@ -39,26 +33,38 @@ const EditProduct = () => {
             placeholder="Идентификационный номер"
           />
         </div>
-        <div className="input-field" style={{ width: "160px", height: "60px", left: "404px", top: "250px" }}>
-          <input
-            type="text"
-            className="input"
-            placeholder="Количество"
-          />
+        <div
+          className="input-field"
+          style={{
+            width: "160px",
+            height: "60px",
+            left: "404px",
+            top: "250px",
+          }}
+        >
+          <input type="text" className="input" placeholder="Количество" />
         </div>
-        <div className="input-field" style={{ width: "160px", height: "60px", left: "607px", top: "250px" }}>
-          <input
-            type="text"
-            className="input"
-            placeholder="Цена"
-          />
+        <div
+          className="input-field"
+          style={{
+            width: "160px",
+            height: "60px",
+            left: "607px",
+            top: "250px",
+          }}
+        >
+          <input type="text" className="input" placeholder="Цена" />
         </div>
-        <div className="input-field" style={{ width: "150px", height: "60px", left: "807px", top: "250px" }}>
-          <input
-            type="text"
-            className="input"
-            placeholder="Сумма"
-          />
+        <div
+          className="input-field"
+          style={{
+            width: "150px",
+            height: "60px",
+            left: "807px",
+            top: "250px",
+          }}
+        >
+          <input type="text" className="input" placeholder="Сумма" />
           <div className="rectangle-1922">
             <div className="currency">KGS</div>
           </div>
@@ -83,16 +89,10 @@ const EditProduct = () => {
       </div>
       {/* Кнопка удалитm */}
       <div className="frame-300">
-        <div className="delete-button">
-          Удалить
-        </div>
-
-        
+        <div className="delete-button">Удалить</div>
       </div>
       <div className="frame-301">
-        <div className="save-button">
-          Сохранить
-        </div>
+        <div className="save-button">Сохранить</div>
       </div>
     </div>
   );

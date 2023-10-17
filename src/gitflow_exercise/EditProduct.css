@@ -1,402 +1,394 @@
-body {
+/* body {
     background-color: #F9F9F9;
-  }
-  
-  .header {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 92.83%;
-  }
-  
-  .rectangle-1905 {
-    box-sizing: border-box;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background: #FFFFFF;
-    border-bottom: 1px solid #E7E7E7;
-  }
-  
-  .logo-colos {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    gap: 4px;
-    position: absolute;
-    left: 8.4%;
-    right: 84.72%;
-    top: 25%;
-    bottom: 26.25%;
-  }
-  
-  .logo {
-    width: 32px;
-    height: 39px;
-  }
-  
-  .vector {
-    background: #3BA1FF;
-  }
-  
-  .colos {
-    width: 63px;
-    height: 24px;
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-    color: #3BA1FF;
-  }
-  
-  .warehouse {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 12px;
-    gap: 10px;
-    position: absolute;
-    left: 77.36%;
-    right: 18.19%;
-    top: 25%;
-    bottom: 25%;
-    background: #3BA1FF;
-    border: 1px solid #E7E8E7;
-    border-radius: 10px;
-  }
-  
-  .sklad {
-    width: 40px;
-    height: 18px;
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 136%;
-    color: #FFFFFF;
-  }
-  
-  .distributor {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 12px;
-    gap: 10px;
-    position: absolute;
-    left: 83.54%;
-    right: 8.33%;
-    top: 25%;
-    bottom: 25%;
-    background: #EAEAEA;
-    border: 1px solid #E7E8E7;
-    border-radius: 10px;
-  }
-  
-  .distrib {
-    width: 93px;
-    height: 18px;
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 136%;
-    color: rgba(0, 0, 0, 0.8);
-  }
-  
-  .cancel-button {
-    position: absolute;
-    width: 84px;
-    height: 20px;
-    left: 254px;
-    top: 154px;
-  }
-  
-  .cancel-button button {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.02em;
-    color: #3BA1FF;
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  
-  .cancel-text {
-    margin-left: 5px;
-  }
-  
-  /* Стили для иконки "Отменить" */
-  .fi-sr-angle-small-left {
-    position: absolute;
-    left: -8.33%;
-    right: 84.52%;
-    top: 0%;
-    bottom: 0%;
-  }
-  
-  /* Стили для фонового прямоугольника кнопки */
-  .back {
-    position: absolute;
-    left: 20.24%;
-    right: -1.19%;
-    top: 0%;
-    bottom: 0%;
-    padding: 5px 10px; 
-    background: #3BA1FF;
-    border: none;
-    border-radius: 5px; 
-  }
-  
-  .create-product {
-    position: absolute;
-    width: 253px;
-    height: 48px;
-    left: 254px;
-    top: 198px;
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 34px;
-    line-height: 140%;
-    letter-spacing: 0.02em;
-    color: rgba(0, 0, 0, 0.8);
-    margin-left: -260px;
-    margin-top: -175px;
-  }
-  
-  .input-field { 
-    box-sizing: border-box;
-    position: absolute;
-    width: 394px; 
-    height: 60px; 
-    top: 104px; 
-    left: 77px; 
-    background: #F0F0F0;
-    border: 1px solid #E7E8E7;
-    border-radius: 10px;
-    display: flex;
-    align-items: center; 
-    padding: 10px; 
-  }
-  
-  .input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    padding: 0;
-  }
-  
-  .input::placeholder {
-    color: #848484;
-    font-size: 14px;
-  }
-  
-  .input-field2 { 
-    box-sizing: border-box;
-    position: absolute;
-    width: 394px; 
-    height: 60px; 
-    top: 104px; 
-    left: 550px; 
-    background: #F0F0F0;
-    border: 1px solid #E7E8E7;
-    border-radius: 10px;
-    display: flex;
-    align-items: center; 
-    padding: 10px; 
-  }
-  
-  .input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    padding: 0;
-  }
-  
-  .input::placeholder {
-    color: #848484;
-    font-size: 14px;
-  }
-  
-  .rectangle-1922 {
-    box-sizing: border-box;
-    position: absolute;
-    left: 60.67%;
-    right: 0%;
-    top: 2.34%;
-    bottom: 0%;
-    background: #E4E4E4;
-    border: 1px solid #E7E8E7;
-    border-radius: 10px;
-  }
-  
-  .dropdown {
-    position: absolute;
-    width: 293px; 
-    height: 60px;
-    left: -730px;
-    top: -2px;
-    background: #F0F0F0;
-    border: 1px solid #E7E8E7;
-    border-radius: 10px;
-  }
-  
-  .dropdown-select {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    padding: 0;
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 140%;
-    letter-spacing: 0.02em;
-    color: rgba(0, 0, 0, 0.8);
-  }
-  
-  /* дропдаун стрела */
-  .dropdown-select::-ms-expand {
-    display: none;
-  }
-  
-  .dropdown-select option {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 140%;
-    letter-spacing: 0.02em;
-    color: rgba(0, 0, 0, 0.8);
-  }
-  
-  
-  .category-dropdown {
-    position: absolute;
-    width: 293px; 
-    height: 60px;
-    left: -730px;
-    top: 150px;
-  }
-  
-  
-  .category-dropdown-select {
-    width: 100%;
-    height: 100%;
-    background: #F0F0F0;
-    border: 1px solid #E7E8E7;
-    border-radius: 10px;
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 140%;
-    letter-spacing: 0.02em;
-    color: rgba(0, 0, 0, 0.8);
-    outline: none;
-  }
-  
-  
-  .category-dropdown-select::-ms-expand {
-    display: none;
-  }
-  
-  
-  .category-dropdown-select option {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 140%;
-    letter-spacing: 0.02em;
-    color: rgba(0, 0, 0, 0.8);
-  }
-  
-  /* удалить */
-  .frame-300 {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 16px 39px;
-    gap: 10px;
-    position: absolute;
-    width: 141px;
-    height: 49px;
-    left: 580px;
-    top: 800px;
-    border: 1px solid #848484;
-    border-radius: 10px;
-  }
-  
-  .frame-301 {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 86px;
-    gap: 10px;
-    position: absolute;
-    width: 141px;
-    height: 49px;
-    left: 750px;
-    top: 800px;
-    background: #3BA1FF;
-    border-radius: 10px;
-  }
-  
-  /* Сохранить */
-  .frame-301 .save-button {
-    width: 75px;
-    height: 17px;
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: justify;
-    letter-spacing: 0.02em;
-    color: #FFFFFF;
-  }
-  
-  
-  .cube {
-    box-sizing: border-box;
-    position: absolute;
-    width: 1020px;
-    height: 639px;
-    left: calc(50% - 920px / 2);
-    top: 287px;
-    background: #FFFFFF;
-    border: 1px solid #E7E8E7;
-    box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-  }
-  
-  
-  
+  } */
+
+.header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 92.83%;
+}
+
+.rectangle_1905 {
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.logo_colos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  gap: 4px;
+  position: absolute;
+  left: 8.4%;
+  right: 84.72%;
+  top: 25%;
+  bottom: 26.25%;
+}
+
+.logo {
+  width: 32px;
+  height: 39px;
+}
+
+.vector {
+  background: #3ba1ff;
+}
+
+.colos {
+  width: 63px;
+  height: 24px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #3ba1ff;
+}
+
+.warehouse {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 10px;
+  position: absolute;
+  left: 77.36%;
+  right: 18.19%;
+  top: 25%;
+  bottom: 25%;
+  background: #3ba1ff;
+  border: 1px solid #e7e8e7;
+  border-radius: 10px;
+}
+
+.sklad {
+  width: 40px;
+  height: 18px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 136%;
+  color: #ffffff;
+}
+
+.distributor {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 10px;
+  position: absolute;
+  left: 83.54%;
+  right: 8.33%;
+  top: 25%;
+  bottom: 25%;
+  background: #eaeaea;
+  border: 1px solid #e7e8e7;
+  border-radius: 10px;
+}
+
+.distrib {
+  width: 93px;
+  height: 18px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 136%;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.cancel_button {
+  position: absolute;
+  width: 84px;
+  height: 20px;
+  left: 254px;
+  top: 154px;
+}
+
+.cancel_button button {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  color: #3ba1ff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.cancel_text {
+  margin-left: 5px;
+}
+
+/* Стили для иконки "Отменить" */
+.fi_sr_angle_small_left {
+  position: absolute;
+  left: -8.33%;
+  right: 84.52%;
+  top: 0%;
+  bottom: 0%;
+}
+
+/* Стили для фонового прямоугольника кнопки */
+.back {
+  position: absolute;
+  left: 20.24%;
+  right: -1.19%;
+  top: 0%;
+  bottom: 0%;
+  padding: 5px 10px;
+  background: #3ba1ff;
+  border: none;
+  border-radius: 5px;
+}
+
+.create_product {
+  position: absolute;
+  width: 253px;
+  height: 48px;
+  left: 254px;
+  top: 198px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 140%;
+  letter-spacing: 0.02em;
+  color: rgba(0, 0, 0, 0.8);
+  margin-left: -260px;
+  margin-top: -175px;
+}
+
+.input_field {
+  box-sizing: border-box;
+  position: absolute;
+  width: 394px;
+  height: 60px;
+  top: 104px;
+  left: 77px;
+  background: #f0f0f0;
+  border: 1px solid #e7e8e7;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 0;
+}
+
+.input::placeholder {
+  color: #848484;
+  font-size: 14px;
+}
+
+.input_field2 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 394px;
+  height: 60px;
+  top: 104px;
+  left: 550px;
+  background: #f0f0f0;
+  border: 1px solid #e7e8e7;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 0;
+}
+
+.input::placeholder {
+  color: #848484;
+  font-size: 14px;
+}
+
+.rectangle_1922 {
+  box-sizing: border-box;
+  position: absolute;
+  left: 60.67%;
+  right: 0%;
+  top: 2.34%;
+  bottom: 0%;
+  background: #e4e4e4;
+  border: 1px solid #e7e8e7;
+  border-radius: 10px;
+}
+
+.dropdown {
+  position: absolute;
+  width: 293px;
+  height: 60px;
+  left: -730px;
+  top: -2px;
+  background: #f0f0f0;
+  border: 1px solid #e7e8e7;
+  border-radius: 10px;
+}
+
+.dropdown_select {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 0;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 140%;
+  letter-spacing: 0.02em;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* дропдаун стрела */
+.dropdown_select::-ms-expand {
+  display: none;
+}
+
+.dropdown_select option {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 140%;
+  letter-spacing: 0.02em;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.category_dropdown {
+  position: absolute;
+  width: 293px;
+  height: 60px;
+  left: -730px;
+  top: 150px;
+}
+
+.category_dropdown_select {
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+  border: 1px solid #e7e8e7;
+  border-radius: 10px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 140%;
+  letter-spacing: 0.02em;
+  color: rgba(0, 0, 0, 0.8);
+  outline: none;
+}
+
+.category_dropdown_select::-ms-expand {
+  display: none;
+}
+
+.category_dropdown_select option {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 140%;
+  letter-spacing: 0.02em;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* удалить */
+.frame_300 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 39px;
+  gap: 10px;
+  position: absolute;
+  width: 141px;
+  height: 49px;
+  left: 580px;
+  top: 800px;
+  border: 1px solid #848484;
+  border-radius: 10px;
+}
+
+.frame_301 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 86px;
+  gap: 10px;
+  position: absolute;
+  width: 141px;
+  height: 49px;
+  left: 750px;
+  top: 800px;
+  background: #3ba1ff;
+  border-radius: 10px;
+}
+
+/* Сохранить */
+.frame_301 .save_button {
+  width: 75px;
+  height: 17px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: justify;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.cube {
+  box-sizing: border-box;
+  position: absolute;
+  width: 1020px;
+  height: 639px;
+  left: calc(50% - 920px / 2);
+  top: 287px;
+  background: #ffffff;
+  border: 1px solid #e7e8e7;
+  box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
