@@ -1,17 +1,24 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
 import Header from "../Header/Header";
 import Button from "../UI/Button/Button";
 
 export default function Layout() {
+  const navigate = useNavigate();
   return (
     <div className={styles.Layout}>
       <TemporaryDevNavbar />
       <Header>
-        <Button variant="secondary" width="narrow">
+        <Button
+          variant="secondary"
+          width="narrow"
+          onClick={() => navigate("/warehouse")}
+        >
           Склад
         </Button>
-        <Button width="narrow">Дистрибьюторы</Button>
+        <Button width="narrow" onClick={() => navigate("/distributors")}>
+          Дистрибьюторы
+        </Button>
       </Header>
       <Outlet />
     </div>
