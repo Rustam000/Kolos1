@@ -4,7 +4,7 @@ import { products } from "../../components/MUITable/beer_data";
 import Button from "../../components/UI/Button/Button";
 import styles from "./Warehouse.module.css";
 
-const columns = [
+const tableColumns = [
   {
     dataKey: "rowIndex",
     label: "№",
@@ -63,7 +63,7 @@ export default function Warehouse() {
             Создать
           </Button>
         </div>
-        <BasicTable data={products} columns={columns} />
+        <BasicTable data={products} columns={tableColumns} />
       </div>
     </div>
   );
