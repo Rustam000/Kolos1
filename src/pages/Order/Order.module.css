@@ -1,0 +1,97 @@
+.prod {
+   border: 1px solid;
+   width: 665px;
+   height: 700px;
+   margin: 10px;
+   border-radius: 4px;
+}
+.dis {
+   border: 1px solid;
+   width: 665px;
+   height: 700px;
+   margin: 10px;
+   border-radius: 4px;
+}
+.box {
+   display: flex;
+   justify-content: center;
+   text-align: center;
+}
+.prod h2 {
+   text-align: left;
+   margin: 10px;
+}
+.destre {
+   text-align: left;
+   display: flex;
+   margin: 5px;
+}
+.bgimg {
+   background-image: url('./img/dis.png');
+   width: 184px;
+   height: 196px;
+   background-repeat: no-repeat;
+   margin: 10px;
+}
+.info {
+   margin-top: 5px;
+}
+.info p {
+   margin-top: 10px;
+   size: 15px;
+}
+.search {
+   width: 600px;
+   height: 40px;
+   background-color: #EFEFEF;
+   border-radius: 6px;
+   margin: 35px;
+   border: none;
+}
+.Order {
+   text-align: center;
+}
+.back {
+   height: 55px;
+   width: 170px;
+   border-radius: 4px;
+   background-color: #fff;
+}
+
+.infoRow {
+   margin-right: 1ch;
+   font-weight: 600;
+}
+.print {
+   width: 230px;
+   margin: 0 20px;
+   height: 55px;
+   background-color: #E2E2E2;
+   border-radius: 4px;
+   border: none;
+}
+.save {
+   width: 210px;
+   height: 55px;
+   background-color: #3BA1FF;
+   color: #fff;
+   border-radius: 4px;
+   border: none;
+}
+
+.btn {
+   display: flex;
+   justify-content: space-between;
+   width: 1350px;
+   height: 55px;
+   margin: 40px auto;
+}
+
+.result {
+   text-align: end;
+   display: flex;
+   margin-top: 155px;
+   justify-content: end;
+   width: 47;
+   height: 34px;
+}
