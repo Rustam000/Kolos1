@@ -14,7 +14,11 @@ export default function BasicTable({ data, columns }) {
         <TableHead>
           <TableRow>
             {columns.map((col) => (
-              <TableCell key={col.dataKey} align={col.align}>
+              <TableCell
+                sx={{ backgroundColor: "rgba(0, 0, 0, 0.06)" }}
+                key={col.dataKey}
+                align={col.align}
+              >
                 {col.label}
               </TableCell>
             ))}
