@@ -1,6 +1,6 @@
 import CustomTable from "../../components/CustomTable/CustomTable";
 import { products } from "../../components/CustomTable/beer_data";
-import Button from "../../components/UI/Button/Button";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./DistributorProfile.module.css";
 import angleBracketLeftIcon from "../../assets/icons/fi-sr-angle-small-left.svg";
 import editIcon from "../../assets/icons/edit.svg";
@@ -86,11 +86,11 @@ export default function DistributorProfile() {
                 +996 550 366 001
               </p>
               <div className={styles.actions}>
-                <Button variant="secondary">Возврат</Button>
-                <Button variant="secondary">Продать</Button>
-                <Button variant="primary" width="narrow">
+                <CustomButton variant="secondary">Возврат</CustomButton>
+                <CustomButton variant="secondary">Продать</CustomButton>
+                <CustomButton variant="primary" width="narrow">
                   <img src={editIcon} alt="edit icon" />
-                </Button>
+                </CustomButton>
               </div>
             </div>
           </div>
@@ -106,8 +106,10 @@ export default function DistributorProfile() {
           </form>
           <CustomTable data={products} columns={tableColumns} />
           <div className={styles.nav}>
-            <Button variant="primary">Список история продаж</Button>
-            <Button variant="secondary">Список история возврата</Button>
+            <CustomButton variant="primary">Список история продаж</CustomButton>
+            <CustomButton variant="secondary">
+              Список история возврата
+            </CustomButton>
             <span className={styles.total}>
               {"Итого: "}
               {total}

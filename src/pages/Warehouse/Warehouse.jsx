@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import CustomTable from "../../components/CustomTable/CustomTable";
 import { products } from "../../components/CustomTable/beer_data";
-import Button from "../../components/UI/Button/Button";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Warehouse.module.css";
 
 const tableColumns = [
@@ -58,10 +58,13 @@ export default function Warehouse() {
           <select name="" id="">
             <option value="all">Норма</option>
           </select>
-          <Button variant="secondary">Архив</Button>
-          <Button variant="primary" onClick={() => navigate("/create-product")}>
+          <CustomButton variant="secondary">Архив</CustomButton>
+          <CustomButton
+            variant="primary"
+            onClick={() => navigate("/create-product")}
+          >
             Создать
-          </Button>
+          </CustomButton>
         </div>
         <CustomTable data={products} columns={tableColumns} />
       </div>

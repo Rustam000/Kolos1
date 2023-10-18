@@ -1,4 +1,4 @@
-import styles from "./Button.module.css";
+import styles from "./CustomButton.module.css";
 
 /**
  * @typedef {'narrow' | 'wide' | 'full'} ButtonWidth
@@ -15,7 +15,7 @@ import styles from "./Button.module.css";
  * @description variant can be: primary|secondary
  *
  */
-export default function Button({
+export default function CustomButton({
   children,
   width = "wide", //wide|narrow|full
   variant = "primary", //primary|secondary
