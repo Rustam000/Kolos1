@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
 import Header from "../Header/Header";
-import Button from "../UI/Button/Button";
+import CustomButton from "../UI/CustomButton/CustomButton";
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -9,16 +9,16 @@ export default function Layout() {
     <div className={styles.Layout}>
       <TemporaryDevNavbar />
       <Header>
-        <Button
+        <CustomButton
           variant="secondary"
           width="narrow"
           onClick={() => navigate("/warehouse")}
         >
           Склад
-        </Button>
-        <Button width="narrow" onClick={() => navigate("/distributors")}>
+        </CustomButton>
+        <CustomButton width="narrow" onClick={() => navigate("/distributors")}>
           Дистрибьюторы
-        </Button>
+        </CustomButton>
       </Header>
       <Outlet />
     </div>

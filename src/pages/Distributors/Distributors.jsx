@@ -1,7 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import BasicTable from "../../components/MUITable/MUITable";
-import { products } from "../../components/MUITable/beer_data";
-import Button from "../../components/UI/Button/Button";
+import CustomTable from "../../components/CustomTable/CustomTable";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Distributors.module.css";
 import { distributors } from "./distributor_data";
 
@@ -31,14 +29,14 @@ export default function Distributors() {
         <div className={styles.filterbar}>
           <input type="search" placeholder="Поиск..." />
 
-          <Button
+          <CustomButton
             variant="primary"
             onClick={() => navigate("/create-distributor")}
           >
             Создать
-          </Button>
+          </CustomButton>
         </div>
-        <BasicTable data={distributors} columns={tableColumns} />
+        <CustomTable data={distributors} columns={tableColumns} />
       </div>
     </div>
   );
