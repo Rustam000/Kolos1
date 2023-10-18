@@ -1,5 +1,5 @@
-import BasicTable from "../../components/MUITable/MUITable";
-import { products } from "../../components/MUITable/beer_data";
+import CustomTable from "../../components/CustomTable/CustomTable";
+import { products } from "../../components/CustomTable/beer_data";
 import Button from "../../components/UI/Button/Button";
 import styles from "./DistributorProfile.module.css";
 import angleBracketLeftIcon from "../../assets/icons/fi-sr-angle-small-left.svg";
@@ -104,7 +104,7 @@ export default function DistributorProfile() {
               <input type="date" />
             </label>
           </form>
-          <BasicTable data={products} columns={tableColumns} />
+          <CustomTable data={products} columns={tableColumns} />
           <div className={styles.nav}>
             <Button variant="primary">Список история продаж</Button>
             <Button variant="secondary">Список история возврата</Button>

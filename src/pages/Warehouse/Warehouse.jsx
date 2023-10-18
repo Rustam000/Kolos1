@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import BasicTable from "../../components/MUITable/MUITable";
-import { products } from "../../components/MUITable/beer_data";
+import CustomTable from "../../components/CustomTable/CustomTable";
+import { products } from "../../components/CustomTable/beer_data";
 import Button from "../../components/UI/Button/Button";
 import styles from "./Warehouse.module.css";
 
@@ -63,7 +63,7 @@ export default function Warehouse() {
             Создать
           </Button>
         </div>
-        <BasicTable data={products} columns={tableColumns} />
+        <CustomTable data={products} columns={tableColumns} />
       </div>
     </div>
   );
