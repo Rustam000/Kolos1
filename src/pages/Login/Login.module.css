@@ -13,11 +13,11 @@
   width: 470px;
   background-color: #fff;
   border-radius: 20px;
-  padding: 76px 56px;
+  padding: 76px 56px 0;
 }
 
 .label {
-  margin-top: 9px;
+  margin-top: 28px;
   display: block;
 }
 
@@ -29,8 +29,10 @@
 }
 
 .inputCaption {
+  margin-bottom: 4px;
   font-size: 13px;
   font-weight: 400;
+  letter-spacing: 0.26px;
 }
 
 .input {
@@ -40,30 +42,35 @@
   border: 1px solid var(--black, #000000cc);
   color: var(--black, #000000cc);
   background: transparent;
-  padding-inline: 10px;
+  padding-inline: 15px;
   font-size: 13px;
   font-weight: 400;
   outline-color: var(--main-color);
 }
 
-.input:invalid {
+.input[name="password"] {
+  padding-right: 45px;
+}
+
+.input.invalid {
   border-color: var(--red, #b3261e);
 }
 
 .inputWrapper {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .passwordIcon {
   position: absolute;
-  right: 10px;
-  bottom: 15px;
+  right: 15px;
   cursor: pointer;
 }
 
 .submitButton {
   width: 100%;
-  margin-top: 27px;
+  margin-top: 46px;
   height: 50px;
   border-radius: 10px;
   border: none;
@@ -75,6 +82,7 @@
   outline-width: 1px;
   outline-color: var(--main-color, #3ba1ff);
   transition: box-shadow;
+  cursor: pointer;
 }
 
 .submitButton:hover,
@@ -95,11 +103,10 @@
 }
 
 .error {
-  height: 24px;
-  padding-top: 4px;
-  /* margin-top: 4px; */
+  height: 110px;
+  padding-top: 10px;
   color: var(--red, #b3261e);
   font-size: 12px;
   font-weight: 400;
-  overflow-y: visible;
+  text-align: center;
 }

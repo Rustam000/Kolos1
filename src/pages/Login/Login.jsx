@@ -16,7 +16,6 @@ export default function Login() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    //const form = event.target;
     const formData = {
       login,
       password,
@@ -40,24 +39,20 @@ export default function Login() {
         <label className={styles.label}>
           <p className={styles.inputCaption}>Логин</p>
           <input
-            className={styles.input}
+            className={`${styles.input} ${error && styles.invalid}`}
             type="text"
             name="login"
             value={login}
             onChange={(event) => setLogin(event.target.value)}
             autoComplete="off"
           />
-          <p className={styles.error}>
-            {error === "try_again" &&
-              "Неправильные данные! Попробуйте еще раз!"}
-          </p>
         </label>
         {/*  */}
         <label className={styles.label}>
           <p className={styles.inputCaption}>Пароль</p>
           <div className={styles.inputWrapper}>
             <input
-              className={styles.input}
+              className={`${styles.input} ${error && styles.invalid}`}
               type={hidePassword ? "password" : "text"}
               name="password"
               value={password}
@@ -67,15 +62,11 @@ export default function Login() {
             <img
               className={styles.passwordIcon}
               role="button"
-              src={hidePassword ? eyeIconShow : eyeIconHide}
+              src={hidePassword ? eyeIconHide : eyeIconShow}
               alt="show password"
               onClick={() => setHidePassword(!hidePassword)}
             />
           </div>
-          <p className={styles.error}>
-            {error === "try_again" &&
-              "Неправильные данные! Попробуйте еще раз!"}
-          </p>
         </label>
         {/*  */}
         <button
@@ -87,6 +78,7 @@ export default function Login() {
         <p className={styles.error}>
           {error === "access_denied" &&
             "Программа временно не работает. Обратитесь к администратору!"}
+          {error === "try_again" && "Неправильные данные! Попробуйте еще раз!"}
         </p>
       </form>
       {/* //////////////////////////////////////// */}
