@@ -10,6 +10,7 @@ import EditDistributor from "./pages/EditDistributor/EditDistributor";
 import EditProduct from "./pages/EditProduct/EditProduct";
 import Order from "./pages/Order/Order";
 import Return from "./pages/Return/Return";
+import Archive from "./pages/Archive/Archive";
 
 const publicRoutes = (
   <>
@@ -41,6 +42,8 @@ const privateRoutes = (
       <Route path="/order" element={<Order />} />
       {/* Возврат товара*/}
       <Route path="/return" element={<Return />} />
+      {/* Архив*/}
+      <Route path="/archive" element={<Archive />} />
     </Route>
     {/* <Route path="*" element={<Navigate to="/warehouse" />} /> */}
     <Route path="/login" element={<Navigate to="/warehouse" />} />

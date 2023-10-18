@@ -56,6 +56,7 @@ function TemporaryDevNavbar() {
         {/* <Link to="/edit-product">Редактирование товара</Link> */}
         <Link to="/order">Отпуск товара</Link>
         {/* <Link to="/return">Возврат товара</Link> */}
+        <Link to="/archive">Архив</Link>
       </div>
       <h2 style={{ textAlign: "center" }}>
         {"Временная навигационная панель"}
