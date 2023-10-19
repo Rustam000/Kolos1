@@ -1,15 +1,7 @@
 import { useState } from "react";
 import styles from "./EditDistributor.module.css";
-import styled from "styled-components";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
-
-const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-`;
 
 export default function EditDistributor() {
   const [formData, setFormData] = useState({
@@ -48,17 +40,17 @@ export default function EditDistributor() {
         <PageHeading heading="Создать дистрибьютора" />
         <FormContainer>
           <form className={styles.form}>
-            <label>
+            <label className={styles.fileInput}>
               <input
                 type="file"
                 accept="image/*"
                 onChange={handlePhotoChange}
               />
             </label>
-            <div className={styles.formBlock}>
-              <div className={styles.qw}>
-                ФИО
-                <Input
+            <fieldset className={styles.formFlexRow}>
+              <label className={styles.formInput}>
+                <p>ФИО</p>
+                <input
                   type="text"
                   name="fullName"
                   value={formData.fullName}
@@ -66,10 +58,10 @@ export default function EditDistributor() {
                   placeholder="Иванов Иван Иванович"
                   required
                 />
-              </div>
-              <div className={styles.qw}>
-                Фактическое место жительства
-                <Input
+              </label>
+              <label className={styles.formInput}>
+                <p>Фактическое место жительства</p>
+                <input
                   type="text"
                   name="actualAddress"
                   value={formData.actualAddress}
@@ -77,10 +69,12 @@ export default function EditDistributor() {
                   placeholder="Пример: обл. Чуй, рай. Сокулук, с. Село, "
                   required
                 />
-              </div>
-              <div className={styles.qw}>
-                Адрес по прописке
-                <Input
+              </label>
+            </fieldset>
+            <fieldset className={styles.formFlexRow}>
+              <label className={styles.formInput}>
+                <p>Адрес по прописке</p>
+                <input
                   type="text"
                   name="address"
                   value={formData.address}
@@ -88,10 +82,10 @@ export default function EditDistributor() {
                   placeholder="Пример: обл. Чуй, рай. Сокулук, с. Село, "
                   required
                 />
-              </div>
-              <div className={styles.er}>
-                Регион
-                <Input
+              </label>
+              <label className={styles.formInput}>
+                <p>Регион</p>
+                <input
                   type="text"
                   name="region"
                   value={formData.region}
@@ -99,10 +93,10 @@ export default function EditDistributor() {
                   placeholder="Например: Чуй"
                   required
                 />
-              </div>
-              <div className={styles.er}>
-                ИНН
-                <Input
+              </label>
+              <label className={styles.formInput}>
+                <p>ИНН</p>
+                <input
                   type="text"
                   name="inn"
                   value={formData.inn}
@@ -110,10 +104,12 @@ export default function EditDistributor() {
                   placeholder="0000000000"
                   required
                 />
-              </div>
-              <div className={styles.ty}>
-                Номер паспорта
-                <Input
+              </label>
+            </fieldset>
+            <fieldset className={styles.formFlexRow}>
+              <label className={styles.formInput}>
+                <p>Номер паспорта</p>
+                <input
                   type="text"
                   name="passportNumber"
                   value={formData.passportNumber}
@@ -121,10 +117,10 @@ export default function EditDistributor() {
                   placeholder="000000"
                   required
                 />
-              </div>
-              <div className={styles.ty}>
-                Серия паспорта
-                <Input
+              </label>
+              <label className={styles.formInput}>
+                <p>Серия паспорта</p>
+                <input
                   type="text"
                   name="passportSeries"
                   value={formData.passportSeries}
@@ -132,10 +128,10 @@ export default function EditDistributor() {
                   placeholder="000000"
                   required
                 />
-              </div>
-              <div className={styles.ty}>
-                Орган выдачи
-                <Input
+              </label>
+              <label className={styles.formInput}>
+                <p>Орган выдачи</p>
+                <input
                   type="text"
                   name="issuedBy"
                   value={formData.issuedBy}
@@ -143,10 +139,10 @@ export default function EditDistributor() {
                   placeholder="000000"
                   required
                 />
-              </div>
-              <div className={styles.ty}>
-                Дата выдачи
-                <Input
+              </label>
+              <label className={styles.formInput}>
+                <p>Дата выдачи</p>
+                <input
                   type="text"
                   name="issueDate"
                   value={formData.issueDate}
@@ -154,10 +150,10 @@ export default function EditDistributor() {
                   placeholder="000000"
                   required
                 />
-              </div>
-              <div className={styles.ty}>
-                Срок действия
-                <Input
+              </label>
+              <label className={styles.formInput}>
+                <p>Срок действия</p>
+                <input
                   type="text"
                   name="validity"
                   value={formData.expireDate}
@@ -165,10 +161,12 @@ export default function EditDistributor() {
                   placeholder="0000000"
                   required
                 />
-              </div>
-              <div className={styles.ui}>
-                Контактный номер №1
-                <Input
+              </label>
+            </fieldset>
+            <fieldset className={styles.formFlexRow}>
+              <label className={styles.formInput}>
+                <p>Контактный номер №1</p>
+                <input
                   type="text"
                   name="contactNumber1"
                   value={formData.contactNumber1}
@@ -176,10 +174,10 @@ export default function EditDistributor() {
                   placeholder="+996 "
                   required
                 />
-              </div>
-              <div className={styles.ui}>
-                Контактный номер №2
-                <Input
+              </label>
+              <label className={styles.formInput}>
+                <p>Контактный номер №2</p>
+                <input
                   type="text"
                   name="contactNumber2"
                   value={formData.contactNumber2}
@@ -187,26 +185,19 @@ export default function EditDistributor() {
                   placeholder="+996"
                   required
                 />
-              </div>
+              </label>
+            </fieldset>
+            <div className={styles.formButtonRow}>
+              <button className={styles.remove} type="button">
+                Удалить
+              </button>
+              <button className={styles.saveButton} onClick={handleSave}>
+                Сохранить
+              </button>
             </div>
-            <button className={styles.saveButton} onClick={handleSave}>
-              Сохранить
-            </button>
-            <button className={styles.remove}>Удалить</button>
           </form>
         </FormContainer>
       </div>
     </div>
   );
 }
-
-/* export default function EditDistributor() {
-  return (
-    <div className={styles.EditDistributor}>
-      <h1 style={{ textAlign: "center" }}>
-        Страница Создания/редактирования Дистрибьютора
-      </h1>
-      <CreateDistributor />
-    </div>
-  );
-} */

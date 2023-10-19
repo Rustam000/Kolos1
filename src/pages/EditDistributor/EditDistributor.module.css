@@ -1,5 +1,5 @@
 .EditDistributor {
-  /*  */
+  padding-bottom: 192px;
 }
 
 .narrowContainer {
@@ -8,9 +8,57 @@
 }
 
 .form {
-  /*  */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 34px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.28px;
 }
 
+.fileInput {
+  width: 163px;
+  height: 133px;
+  border: 1px dashed var(--main-color, #3ba1ff);
+  color: var(--main-color, #3ba1ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formFlexRow {
+  border: none;
+  display: flex;
+  gap: 29px;
+}
+
+.formButtonRow {
+  composes: formFlexRow;
+  margin-top: 32px;
+}
+
+.formInput {
+  flex-grow: 1;
+
+  & p {
+    margin-bottom: 10px;
+  }
+
+  & input {
+    width: 100%;
+    height: 44px;
+    padding-inline: 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid var(--stroke, #e7e8e7);
+    background: rgba(241, 241, 241, 0.6);
+  }
+}
 /* ------------------------------------ */
 /* .form {
   width: 5px;
