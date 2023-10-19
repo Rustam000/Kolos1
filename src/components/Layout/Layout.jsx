@@ -4,22 +4,10 @@ import Header from "../Header/Header";
 import CustomButton from "../UI/CustomButton/CustomButton";
 
 export default function Layout() {
-  const navigate = useNavigate();
   return (
     <div className={styles.Layout}>
       <TemporaryDevNavbar />
-      <Header>
-        <CustomButton
-          variant="secondary"
-          width="narrow"
-          onClick={() => navigate("/warehouse")}
-        >
-          Склад
-        </CustomButton>
-        <CustomButton width="narrow" onClick={() => navigate("/distributors")}>
-          Дистрибьюторы
-        </CustomButton>
-      </Header>
+      <Header />
       <Outlet />
     </div>
   );
