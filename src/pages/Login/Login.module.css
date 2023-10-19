@@ -101,9 +101,9 @@
 }
 
 .submitButton:disabled {
-  background-color: gray;
-  border: 1px solid gray;
-  color: white;
+  background: var(--Grey-6, #efefef);
+  border: 1px solid var(--Grey-6, #efefef);
+  color: #666666;
 }
 
 .error {

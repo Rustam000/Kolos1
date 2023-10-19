@@ -13,9 +13,9 @@
 }
 
 .Button:disabled {
-  background-color: gray;
-  border: 1px solid gray;
-  color: white;
+  background-color: #efefef;
+  border: 1px solid #efefef;
+  color: #666666;
 }
 
 .Button:hover,
@@ -29,12 +29,16 @@
   box-shadow: 0px 0px 12px 4px #d6d6d6 inset;
 }
 
-.wide {
-  padding-inline: 39px;
-}
-
 .narrow {
   padding-inline: 12px;
+}
+
+.medium {
+  padding-inline: 23px;
+}
+
+.wide {
+  padding-inline: 39px;
 }
 
 .full {
