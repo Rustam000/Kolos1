@@ -1,147 +1,124 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 import styles from "./EditProduct.module.css";
-import { Link } from 'react-router-dom';
+import FormContainer from "../../components/FormContainer/FormContainer";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
 
 export default function EditProduct() {
-  const [name, setName] = useState('');
-  const [idNumber, setIdNumber] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [price, setPrice] = useState('');
-  const [sum, setSum] = useState('');
-  const [unit, setUnit] = useState('шт');
-  const [category, setCategory] = useState('Алкогольное');
+  const [formData, setFormData] = useState({
+    name: '',
+    idNumber: '',
+    quantity: '',
+    price: '',
+    sum: '',
+    unit: 'шт',
+    category: 'Алкогольное'
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({ ...prevState, [name]: value }));
+  };
 
   const handleSave = (e) => {
-    e.preventDefault(); // Prevent default behaviors like form submission
-    console.log({
-      name,
-      idNumber,
-      quantity,
-      price,
-      sum,
-      unit,
-      category
-    });
+    e.preventDefault();
+    console.log(formData);
   };
 
   return (
-    <div className={styles.header}>
-      <div className={styles.cancel_button}>
-        <button className={styles.back}>
-          <Link to="/Warehouse" className={styles.cancel_text}>
-          <span className={styles.fi_sr_angle_small_left}></span>
-          <span className={styles.cancel_text}>Отменить</span>
-          </Link>
-          <div className={styles.create_product}>Создать товар</div>
-        </button>
-      </div>
-      <div className={styles.cube}>
-        <div className={styles.input_field}>
-          <input 
-            type="text" 
-            className={styles.input} 
-            placeholder="Пиво"
-            value={name}
-            onChange={e => setName(e.target.value)} 
-          />
-          <span className={styles.sampleText}>Наименование</span>
-        </div>
-
-        <div className={styles.input_field} style={{ left: "480px" }}>
-          <input 
-            type="text" 
-            className={styles.input}
-            value={idNumber}
-            onChange={e => setIdNumber(e.target.value)} 
-          />
-          <span className={styles.sampleText}>Идентификационный номер</span>
-        </div>
-
-        <div className={styles.input_field} style={{width: "150px", height: "50px", left: "360px", top: "230px"}}>
-          <input 
-            type="text" 
-            className={styles.input} 
-            placeholder="1000"
-            value={quantity}
-            onChange={e => setQuantity(e.target.value)} 
-          />
-          <span className={styles.sampleText}>Количество</span>
-        </div>
-
-        <div className={styles.input_field} style={{width: "150px", height: "50px", left: "540px", top: "230px"}}>
-          <input 
-            type="text" 
-            className={styles.input} 
-            placeholder="0.00"
-            value={price}
-            onChange={e => setPrice(e.target.value)} 
-          />
-          <span className={styles.sampleText}>Цена</span>
-        </div>
-
-        <div className={styles.input_field} style={{width: "150px", height: "50px", left: "720px", top: "230px"}}>
-          <input 
-            type="text" 
-            className={styles.input} 
-            placeholder="0.00"
-            value={sum}
-            onChange={e => setSum(e.target.value)} 
-          />
-          <span className={styles.sampleText}>Сумма</span>
-        </div>
-
-        <div className={styles.dropdown} style={{width: "290px", height: "50px", left: "50px", top: "230px"}}>
-          <select 
-            className={styles.dropdown_select}
-            value={unit}
-            onChange={e => setUnit(e.target.value)}
-          >
-            <option value="шт">шт</option>
-            <option value="кг">кг</option>
-            <option value="л">л</option>
-            <option value="м">м</option>
-          </select>
-          <span className={styles.sampleText}>Ед.измерения</span>
-        </div>
-
-        <div className={styles.category_dropdown} style={{width: "250px", height: "50px", left: "50px", top: "350px"}}>
-          <select 
-            className={styles.category_dropdown_select}
-            value={category}
-            onChange={e => setCategory(e.target.value)}
-          >
-            <option value="Алкогольное">Алкогольное</option>
-            <option value="Безалкогольное">Безалкогольное</option>
-            <option value="Category 3">Category 3</option>
-          </select>
-          <span className={styles.sampleText}>Категория</span>
-        </div>
-      </div>
-
-      <button className={styles.frame_300}>
-       Удалить
-      </button>
-
-      <button className={styles.frame_301} onClick={handleSave} type="button">
-        <span className={styles.save_button}>Сохранить</span>
-      </button>
-
-      <div className={styles.selection}>
-        <span className={styles.selectionTitle}>Ваш текст здесь</span>
-        <div className={styles.checkBoxes}>
-          <label className={styles.frame}>
-            <input type="checkbox" className={styles.radioButton} checked readOnly />
-            <span className={styles.checkboxLabel}>Норма</span>
-          </label>
-          <label className={styles.frame}>
-            <input type="checkbox" className={styles.radioButton} disabled />
-            <span className={styles.checkboxLabel}>Брак</span>
-          </label>
-          <label className={styles.frame}>
-            <input type="checkbox" className={styles.radioButton} disabled />
-            <span className={styles.checkboxLabel}>Просрочка</span>
-          </label>
-        </div>
+    <div className={styles.EditProduct}>
+      <div className={styles.narrowContainer}>
+        <FormContainer>
+          <form className={styles.form} onSubmit={handleSave}>
+            <fieldset className={styles.formFlexRow}>
+              <label className={styles.formInput}>
+                <p>Наименование</p>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Пиво"
+                />
+              </label>
+              <label className={styles.formInput}>
+                <p>Идентификационный номер</p>
+                <input
+                  type="text"
+                  name="idNumber"
+                  value={formData.idNumber}
+                  onChange={handleInputChange}
+                />
+              </label>
+              <label className={styles.formInput}>
+                <p>Количество</p>
+                <input
+                  type="text"
+                  name="quantity"
+                  value={formData.quantity}
+                  onChange={handleInputChange}
+                  placeholder="1000"
+                />
+              </label>
+              <label className={styles.formInput}>
+                <p>Цена</p>
+                <input
+                  type="text"
+                  name="price"
+                  value={formData.price}
+                  onChange={handleInputChange}
+                  placeholder="0.00"
+                />
+              </label>
+              <label className={styles.formInput}>
+                <p>Сумма</p>
+                <input
+                  type="text"
+                  name="sum"
+                  value={formData.sum}
+                  onChange={handleInputChange}
+                  placeholder="0.00"
+                />
+              </label>
+            </fieldset>
+            <fieldset className={styles.formFlexRow}>
+              <label className={styles.formDropdown}>
+                <p>Ед.измерения</p>
+                <select
+                  name="unit"
+                  value={formData.unit}
+                  onChange={handleInputChange}
+                  className={styles.dropdown_select}
+                >
+                  <option value="шт">шт</option>
+                  <option value="кг">кг</option>
+                  <option value="л">л</option>
+                  <option value="м">м</option>
+                </select>
+              </label>
+              <label className={styles.formDropdown}>
+                <p>Категория</p>
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  className={styles.category_dropdown_select}
+                >
+                  <option value="Алкогольное">Алкогольное</option>
+                  <option value="Безалкогольное">Безалкогольное</option>
+                  <option value="Category 3">Category 3</option>
+                </select>
+              </label>
+            </fieldset>
+            <div className={styles.formButtonRow}>
+              <CustomButton type="button" variant="secondary">
+                Удалить
+              </CustomButton>
+              <CustomButton type="submit" width="xwide">
+                Сохранить
+              </CustomButton>
+            </div>
+          </form>
+        </FormContainer>
       </div>
     </div>
   );
