@@ -41,6 +41,10 @@
   padding-inline: 39px;
 }
 
+.xwide {
+  padding-inline: 86px;
+}
+
 .full {
   width: 100%;
 }

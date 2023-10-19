@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./EditDistributor.module.css";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
 
 export default function EditDistributor() {
   const [formData, setFormData] = useState({
@@ -34,12 +35,17 @@ export default function EditDistributor() {
     // Здесь отправьте данные formData на сервер через API
   };
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log(formData);
+  }
+
   return (
     <div className={styles.EditDistributor}>
       <div className={styles.narrowContainer}>
         <PageHeading heading="Создать дистрибьютора" />
         <FormContainer>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <label className={styles.fileInput}>
               <input
                 type="file"
@@ -155,8 +161,8 @@ export default function EditDistributor() {
                 <p>Срок действия</p>
                 <input
                   type="text"
-                  name="validity"
-                  value={formData.expireDate}
+                  name="expiryDate"
+                  value={formData.expiryDate}
                   onChange={handleInputChange}
                   placeholder="0000000"
                   required
@@ -168,8 +174,8 @@ export default function EditDistributor() {
                 <p>Контактный номер №1</p>
                 <input
                   type="text"
-                  name="contactNumber1"
-                  value={formData.contactNumber1}
+                  name="phoneNumber1"
+                  value={formData.phoneNumber1}
                   onChange={handleInputChange}
                   placeholder="+996 "
                   required
@@ -179,21 +185,20 @@ export default function EditDistributor() {
                 <p>Контактный номер №2</p>
                 <input
                   type="text"
-                  name="contactNumber2"
-                  value={formData.contactNumber2}
+                  name="phoneNumber2"
+                  value={formData.phoneNumber2}
                   onChange={handleInputChange}
                   placeholder="+996"
-                  required
                 />
               </label>
             </fieldset>
             <div className={styles.formButtonRow}>
-              <button className={styles.remove} type="button">
+              <CustomButton type="button" variant="secondary">
                 Удалить
-              </button>
-              <button className={styles.saveButton} onClick={handleSave}>
+              </CustomButton>
+              <CustomButton width="xwide" onClick={handleSave}>
                 Сохранить
-              </button>
+              </CustomButton>
             </div>
           </form>
         </FormContainer>
