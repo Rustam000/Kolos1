@@ -7,14 +7,18 @@
   margin-inline: auto;
 }
 
-/* ------------------------------------ */
 .form {
+  /*  */
+}
+
+/* ------------------------------------ */
+/* .form {
   width: 5px;
   margin: 0 auto;
   background-color: white;
   width: 920px;
   height: 840px;
-}
+} */
 
 .saveButton {
   width: 265px;
