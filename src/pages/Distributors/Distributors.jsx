@@ -27,7 +27,7 @@ export default function Distributors() {
       <div className="container">
         {/* <h1 style={{ textAlign: "center" }}>Страница Перечень дистрибьюторов</h1> */}
         <div className={styles.filterbar}>
-          <input type="search" placeholder="Поиск..." />
+          
 
           <CustomButton
             variant="primary"
