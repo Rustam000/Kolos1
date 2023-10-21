@@ -14,7 +14,7 @@
     justify-content: space-between;
 }
 
-span {
+.total {
     margin-left: auto;
     padding-inline: 39px;
     height: 49px;

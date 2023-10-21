@@ -27,8 +27,6 @@ export default function Distributors() {
       <div className="container">
         {/* <h1 style={{ textAlign: "center" }}>Страница Перечень дистрибьюторов</h1> */}
         <div className={styles.filterbar}>
-          
-
           <CustomButton
             variant="primary"
             onClick={() => navigate("/create-distributor")}
@@ -36,6 +34,7 @@ export default function Distributors() {
             Создать
           </CustomButton>
         </div>
+
         <CustomTable data={distributors} columns={tableColumns} />
       </div>
     </div>
