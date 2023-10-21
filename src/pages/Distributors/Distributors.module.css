@@ -28,4 +28,7 @@
   & select {
     min-width: 170px;
   }
+  & button {
+    margin-left: auto;
+  }
 }

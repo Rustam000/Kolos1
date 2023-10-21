@@ -3,6 +3,7 @@ import CustomTable from "../../components/CustomTable/CustomTable";
 import { products } from "../../components/CustomTable/beer_data";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Warehouse.module.css";
+import searchIkon from "../../assets/icons/search.svg" 
 
 const tableColumns = [
   {
@@ -51,14 +52,27 @@ export default function Warehouse() {
       <div className="container">
         {/* <h1 style={{ textAlign: "center" }}>Страница Склад</h1> */}
         <div className={styles.filterbar}>
+          <div className={styles.inputContainer}>
           <input type="search" placeholder="Поиск..." />
+          <img src={searchIkon} alt="icon" className={styles.searchIkon} />
+          </div>
           <select name="" id="">
             <option value="all">Все товары</option>
+            <option value="Алкогольное">Алкогольное</option>
+            <option value="Безалкогольное">Безалкогольное</option>
+            <option value="Category 4">Category 4</option>
           </select>
           <select name="" id="">
-            <option value="all">Норма</option>
+            <option value="normal">Норма</option>
+            <option value="overdue">Просрочка</option>
+            <option value="defect">Брак</option>
           </select>
-          <CustomButton variant="secondary">Архив</CustomButton>
+          <CustomButton
+            variant="secondary"
+            onClick={() => navigate("/archive")}
+            >
+              Архив
+          </CustomButton>
           <CustomButton
             variant="primary"
             onClick={() => navigate("/create-product")}

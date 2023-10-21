@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import CustomTable from "../../components/CustomTable/CustomTable";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Distributors.module.css";
@@ -22,13 +23,12 @@ const tableColumns = [
 ];
 
 export default function Distributors() {
+  const navigate = useNavigate();
   return (
     <div className={styles.Distributors}>
       <div className="container">
         {/* <h1 style={{ textAlign: "center" }}>Страница Перечень дистрибьюторов</h1> */}
         <div className={styles.filterbar}>
-          <input type="search" placeholder="Поиск..." />
-
           <CustomButton
             variant="primary"
             onClick={() => navigate("/create-distributor")}
@@ -36,6 +36,7 @@ export default function Distributors() {
             Создать
           </CustomButton>
         </div>
+
         <CustomTable data={distributors} columns={tableColumns} />
       </div>
     </div>
