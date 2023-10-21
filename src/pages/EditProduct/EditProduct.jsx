@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styles from "./EditProduct.module.css";
+import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
+
 
 export default function EditProduct() {
   const [formData, setFormData] = useState({
@@ -27,9 +29,10 @@ export default function EditProduct() {
   return (
     <div className={styles.EditProduct}>
       <div className={styles.narrowContainer}>
+        <PageHeading heading="Создать товар" /> {/* Added PageHeading */}
         <FormContainer>
           <form className={styles.form} onSubmit={handleSave}>
-            <fieldset className={styles.formFlexRow}>
+            <fieldset className={styles.formFlexRowTop}>
               <label className={styles.formInput}>
                 <p>Наименование</p>
                 <input
@@ -49,6 +52,26 @@ export default function EditProduct() {
                   onChange={handleInputChange}
                 />
               </label>
+            </fieldset>
+
+            <fieldset className={styles.formFlexRow}>
+              <div className={styles.measurementCategoryContainer}>
+                <label className={styles.formDropdown}>
+                  <p>Ед.измерения</p>
+                  <select
+                    name="unit"
+                    value={formData.unit}
+                    onChange={handleInputChange}
+                    className={styles.dropdown_select}
+                  >
+                    <option value="шт">шт</option>
+                    <option value="кг">кг</option>
+                    <option value="л">л</option>
+                    <option value="м">м</option>
+                  </select>
+                </label>
+              </div>
+
               <label className={styles.formInput}>
                 <p>Количество</p>
                 <input
@@ -80,35 +103,43 @@ export default function EditProduct() {
                 />
               </label>
             </fieldset>
-            <fieldset className={styles.formFlexRow}>
-              <label className={styles.formDropdown}>
-                <p>Ед.измерения</p>
-                <select
-                  name="unit"
-                  value={formData.unit}
-                  onChange={handleInputChange}
-                  className={styles.dropdown_select}
-                >
-                  <option value="шт">шт</option>
-                  <option value="кг">кг</option>
-                  <option value="л">л</option>
-                  <option value="м">м</option>
-                </select>
-              </label>
-              <label className={styles.formDropdown}>
-                <p>Категория</p>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                  className={styles.category_dropdown_select}
-                >
-                  <option value="Алкогольное">Алкогольное</option>
-                  <option value="Безалкогольное">Безалкогольное</option>
-                  <option value="Category 3">Category 3</option>
-                </select>
-              </label>
-            </fieldset>
+
+            <fieldset className={styles.formBottom}>
+  <div className={styles.measurementCategoryContainer}>
+    <label className={styles.formDropdown}>
+      <p>Категория</p>
+      <select
+        name="category"
+        value={formData.category}
+        onChange={handleInputChange}
+        className={styles.category_dropdown_select}
+      >
+        <option value="Алкогольное">Алкогольное</option>
+        <option value="Безалкогольное">Безалкогольное</option>
+        <option value="Category 3">Category 3</option>
+      </select>
+    </label>
+  </div>
+
+  <div className={styles.selection}>
+    <span className={styles.selectionTitle}>Ваш текст здесь</span>
+    <div className={styles.checkBoxes}>
+      <label className={styles.frame}>
+        <input type="checkbox" className={styles.radioButton} checked readOnly />
+        <span className={styles.checkboxLabel}>Норма</span>
+      </label>
+      <label className={styles.frame}>
+        <input type="checkbox" className={styles.radioButton} disabled />
+        <span className={styles.checkboxLabel}>Брак</span>
+      </label>
+      <label className={styles.frame}>
+        <input type="checkbox" className={styles.radioButton} disabled />
+        <span className={styles.checkboxLabel}>Просрочка</span>
+      </label>
+      </div>
+      </div>
+      </fieldset>
+
             <div className={styles.formButtonRow}>
               <CustomButton type="button" variant="secondary">
                 Удалить

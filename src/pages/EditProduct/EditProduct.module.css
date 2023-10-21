@@ -1,0 +1,163 @@
+.EditProduct {
+  padding-bottom: 192px;
+}
+
+.narrowContainer {
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 34px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.28px;
+}
+
+.fileInput {
+  width: 163px;
+  height: 133px;
+  border: 1px dashed var(--main-color, #3ba1ff);
+  color: var(--main-color, #3ba1ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formFlexRow, .formFlexRowTop, .formBottom {
+  border: none;
+  display: flex;
+  gap: 29px;
+}
+
+.formInput input {
+  width: 140px; 
+}
+
+.measurementCategoryContainer .formDropdown select {
+  width: 293px;
+}
+
+.formButtonRow {
+  margin-top: 32px;
+}
+
+.formBottom {
+  border: none; 
+}
+
+.measurementCategoryContainer .formDropdown .category_dropdown_select {
+  width: 265px;
+}
+
+.selection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkBoxes {
+  display: flex;
+  gap: 10px;
+}
+
+.frame {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.radioButton {
+  width: 24px; 
+  height: 24px;
+  margin: 0;
+}
+
+.formButtonRow {
+  composes: formFlexRow;
+  margin-top: 32px;
+}
+
+.formInput {
+  flex-grow: 1;
+
+  & p {
+    margin-bottom: 10px;
+  }
+
+  & input {
+    width: 100%;
+    height: 44px;
+    padding-inline: 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid var(--stroke, #e7e8e7);
+    background: rgba(241, 241, 241, 0.6);
+  }
+}
+
+.measurementCategoryContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.formDropdown {
+  flex: 1;
+  width: 60%;  /* Maintain the original width setting */
+  
+  & p {
+    margin-bottom: 10px;
+  }
+
+  & select {
+    width: 100%;
+    height: 44px;
+    padding-inline: 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid var(--stroke, #e7e8e7);
+    background: rgba(241, 241, 241, 0.6);
+  }
+}
+
+.measurementCategoryContainer .formDropdown .category_dropdown_select {
+  width: 265px;  /* Maintain the original width for category dropdown */
+}
+.saveButton {
+  width: 265px;
+  height: 49px;
+  background: #3ba1ff;
+  border-radius: 10px;
+}
+
+.remove {
+  border-radius: 10px;
+  width: 141px;
+  height: 49px;
+}
+
+.qw {
+  width: 394px;
+}
+
+.er {
+  width: 183px;
+}
+
+.ty {
+  width: 140px;
+}
+
+.ui {
+  width: 309px;
+}
