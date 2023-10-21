@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import CustomTable from "../../components/CustomTable/CustomTable";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Distributors.module.css";
@@ -22,6 +23,7 @@ const tableColumns = [
 ];
 
 export default function Distributors() {
+  const navigate = useNavigate();
   return (
     <div className={styles.Distributors}>
       <div className="container">
