@@ -31,6 +31,13 @@ export default function Login() {
     dispatch(authActions.clearError());
   }, [login, password]);
 
+  useEffect(() => {
+    if (error === "access_denied") {
+      setLogin("");
+      setPassword("");
+    }
+  }, [error]);
+
   return (
     <div className={styles.LoginPage}>
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>

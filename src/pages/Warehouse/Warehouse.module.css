@@ -27,3 +27,23 @@
     min-width: 170px;
   }
 }
+
+
+/* Стили для inputContainer */
+.inputContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.inputContainer input[type="search"] {
+  padding-right: 25px; 
+  width: 100%; 
+}
+
+.inputContainer img.searchIkon {
+  position: absolute;
+  top: 50%;
+  right: 11px; 
+  transform: translateY(-50%);
+  cursor: pointer;
+}

@@ -49,6 +49,10 @@
   width: 100%;
 }
 
+.flex {
+  flex-grow: 1;
+}
+
 .primary {
   background-color: var(--main-color, #3ba1ff);
   color: white;
