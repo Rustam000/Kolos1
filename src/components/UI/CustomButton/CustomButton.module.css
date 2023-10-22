@@ -53,6 +53,14 @@
   flex-grow: 1;
 }
 
+.low {
+  height: 40px;
+}
+
+.auth {
+  height: 47px;
+}
+
 .primary {
   background-color: var(--main-color, #3ba1ff);
   color: white;

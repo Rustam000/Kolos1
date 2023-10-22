@@ -10,11 +10,6 @@
   align-items: center;
   gap: 27px;
 
-  & input[type="search"] {
-    min-width: 453px;
-    flex-grow: 1;
-  }
-
   & input,
   & select {
     height: 40px;
@@ -23,27 +18,29 @@
     background: #efefef;
     padding-inline: 15px;
   }
+
   & select {
     min-width: 170px;
   }
 }
 
-
 /* Стили для inputContainer */
 .inputContainer {
+  flex-grow: 1;
+  flex-basis: 453px;
   position: relative;
   display: inline-block;
 }
 
-.inputContainer input[type="search"] {
-  padding-right: 25px; 
-  width: 100%; 
+.searchInput {
+  width: 100%;
+  padding-right: 33px;
 }
 
-.inputContainer img.searchIkon {
+.searchIcon {
   position: absolute;
   top: 50%;
-  right: 11px; 
+  right: 11px;
   transform: translateY(-50%);
-  cursor: pointer;
+  /* cursor: pointer; */
 }

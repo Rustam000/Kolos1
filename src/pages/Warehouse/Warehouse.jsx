@@ -70,34 +70,42 @@ export default function Warehouse() {
   return (
     <div className={styles.Warehouse}>
       <div className="container">
-        <div className={styles.filterbar}>
+        <form className={styles.filterbar}>
           <div className={styles.inputContainer}>
-            <input type="search" placeholder="Поиск..." />
-            <img src={searchIcon} alt="icon" className={styles.searchIkon} />
+            <input
+              className={styles.searchInput}
+              type="text"
+              placeholder="Поиск..."
+            />
+            <img src={searchIcon} alt="icon" className={styles.searchIcon} />
           </div>
-          <select name="category" id="">
+          <select name="category" id="Warehouse_category">
             <option value="all">Все товары</option>
             <option value="Алкогольное">Алкогольное</option>
             <option value="Безалкогольное">Безалкогольное</option>
             <option value="Category 4">Category 4</option>
           </select>
-          <select name="condition" id="">
+          <select name="condition" id="Warehouse_condition">
             <option value="normal">Норма</option>
             <option value="defect">Брак</option>
           </select>
           <CustomButton
+            height="low"
+            type="button"
             variant="secondary"
             onClick={() => navigate("/archive")}
           >
             Архив
           </CustomButton>
           <CustomButton
+            height="low"
+            type="button"
             variant="primary"
             onClick={() => navigate("/create-product")}
           >
             Создать
           </CustomButton>
-        </div>
+        </form>
         <Table
           bordered
           dataSource={products}
