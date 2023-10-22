@@ -1,6 +1,6 @@
 .Button {
   display: inline-flex;
-  height: 45px;
+  height: 40px;
   padding-block: 8px;
   padding-inline: 12px;
   justify-content: center;
@@ -54,7 +54,7 @@
 }
 
 .low {
-  height: 40px;
+  height: 35px;
 }
 
 .auth {

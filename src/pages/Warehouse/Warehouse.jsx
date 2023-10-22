@@ -90,7 +90,6 @@ export default function Warehouse() {
             <option value="defect">Брак</option>
           </select>
           <CustomButton
-            height="low"
             type="button"
             variant="secondary"
             onClick={() => navigate("/archive")}
@@ -98,7 +97,6 @@ export default function Warehouse() {
             Архив
           </CustomButton>
           <CustomButton
-            height="low"
             type="button"
             variant="primary"
             onClick={() => navigate("/create-product")}
