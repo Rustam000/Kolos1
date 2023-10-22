@@ -1,4 +1,4 @@
-import styles from "./Modal.module.css";
+import styles from "./KolosModal.module.css";
 
 /**
  *
@@ -6,7 +6,7 @@ import styles from "./Modal.module.css";
  * Компонент принимает проп message и две кнопки через children
  * @example
  * {showModal && (
- *   <Modal message="Вы точно хотите отменить все и покинуть страницу?">
+ *   <KolosModal message="Вы точно хотите отменить все и покинуть страницу?">
  *     <CustomButton
  *       width="flex"
  *       height="low"
@@ -23,10 +23,10 @@ import styles from "./Modal.module.css";
  *     >
  *       Нет
  *     </CustomButton>
- *   </Modal>
+ *   </KolosModal>
  * )}
  */
-export default function Modal({ children, message }) {
+export default function KolosModal({ children, message }) {
   return (
     <div className={styles.ModalBackdrop}>
       <div className={styles.modalWindow}>
