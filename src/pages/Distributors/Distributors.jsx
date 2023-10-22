@@ -50,6 +50,7 @@ export default function Distributors() {
         {/* <h1 style={{ textAlign: "center" }}>Страница Перечень дистрибьюторов</h1> */}
         <div className={styles.filterbar}>
           <CustomButton
+            height="low"
             variant="primary"
             onClick={() => navigate("/create-distributor")}
           >
