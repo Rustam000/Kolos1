@@ -41,7 +41,7 @@
 }
 
 .measurementCategoryContainer .formDropdown select {
-  width: 293px;
+  width: 263px;
 }
 
 .formButtonRow {
@@ -53,17 +53,12 @@
 }
 
 .measurementCategoryContainer .formDropdown .category_dropdown_select {
-  width: 265px;
+  width: 263px;
 }
 
 .selection {
   display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.checkBoxes {
-  display: flex;
+  flex-direction: column; /* Adjust the direction */
   gap: 10px;
 }
 
@@ -72,11 +67,27 @@
   align-items: center;
   gap: 5px;
 }
-
-.radioButton {
-  width: 24px; 
+.checkbox {
+  width: 24px;
   height: 24px;
   margin: 0;
+  border-radius: 50%; /* Makes the checkbox round */
+  appearance: none; /* Removes default appearance */
+  outline: none; 
+  box-shadow: 0 0 0 2px grey; /* Custom styling, adjust as necessary */
+  background-color: white; /* Custom styling, adjust as necessary */
+}
+
+.checkBoxes {
+  display: flex;
+  flex-direction: row; /* Ensures the checkboxes are aligned horizontally */
+  align-items: center;
+  gap: 10px;
+}
+
+
+.checkbox:checked {
+  background-color: #3ba1ff; /* Adjust this to your desired checked color */
 }
 
 .formButtonRow {
@@ -161,3 +172,4 @@
 .ui {
   width: 309px;
 }
+
