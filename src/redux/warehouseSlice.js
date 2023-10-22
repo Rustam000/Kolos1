@@ -8,7 +8,6 @@ export const fetchItems = createAsyncThunk(
       const response = await axios.get(
         `https://jwt-authentication-beryl.vercel.app/api/warehouse`,
       );
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.warn(error);

@@ -8,7 +8,6 @@ export const fetchDistributors = createAsyncThunk(
       const response = await axios.get(
         `https://jwt-authentication-beryl.vercel.app/api/distributors`,
       );
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.warn(error);
