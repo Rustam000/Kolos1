@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import CustomTable from "../../components/CustomTable/CustomTable";
-import { products } from "../../assets/beer_data";
+//import CustomTable from "../../components/CustomTable/CustomTable";
+//import { products } from "../../assets/beer_data";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Warehouse.module.css";
 import searchIcon from "../../assets/icons/search.svg";
 import editIcon from "../../assets/icons/mode_edit.svg";
 import { Table } from "antd";
 import TableButton from "../../components/UI/TableButton/TableButton";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchItems } from "../../redux/warehouseSlice";
 
 const tableColumns = [
   {
@@ -66,7 +69,13 @@ const tableColumns = [
 ];
 
 export default function Warehouse() {
+  const { products } = useSelector((state) => state.warehouse);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, []);
   return (
     <div className={styles.Warehouse}>
       <div className="container">
