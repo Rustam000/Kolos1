@@ -1,47 +1,67 @@
 import { useNavigate } from "react-router-dom";
 import CustomTable from "../../components/CustomTable/CustomTable";
-import { products } from "../../components/CustomTable/beer_data";
+import { products } from "../../assets/beer_data";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Warehouse.module.css";
-import searchIkon from "../../assets/icons/search.svg" 
+import searchIcon from "../../assets/icons/search.svg";
+import editIcon from "../../assets/icons/mode_edit.svg";
+import { Table } from "antd";
+import TableButton from "../../components/UI/TableButton/TableButton";
 
 const tableColumns = [
   {
-    dataKey: "rowIndex",
-    label: "№",
-    align: "left",
+    title: "№",
+    dataIndex: "rowIndex",
+    key: "rowIndex",
+    align: "center",
+    width: 50,
+    render: (text, record, index) => index + 1, // автоматическое нумерование
   },
   {
-    dataKey: "name",
-    label: "Наименование",
+    title: "Наименование",
+    dataIndex: "name",
+    key: "name",
     align: "left",
+    width: 350,
   },
   {
-    dataKey: "num_id",
-    label: "Уникальный код",
+    title: "Уникальный код",
+    dataIndex: "num_id",
+    key: "num_id",
     align: "left",
+    width: 325,
   },
   {
-    dataKey: "unit",
-    label: "Ед. изм.",
+    title: "Ед. изменения.",
+    dataIndex: "unit",
+    key: "unit",
     align: "left",
+    width: 150,
   },
   {
-    dataKey: "quantity",
-    label: "Кол-во",
+    title: "Кол-во",
+    dataIndex: "quantity",
+    key: "quantity",
     align: "left",
+    width: 125,
   },
   {
-    dataKey: "price",
-    label: "Цена",
+    title: "Цена",
+    dataIndex: "price",
+    key: "price",
     align: "left",
+    width: 125,
   },
   {
-    dataKey: "action",
-    label: "Ред.",
-    align: "left",
-    onClick: (dataKey) => console.log(dataKey),
-    icon: "icon",
+    title: "Ред.",
+    key: "action",
+    align: "center",
+    width: 78,
+    render: (_, record) => (
+      <TableButton onClick={() => console.log(record._id)}>
+        <img src={editIcon} alt="edit icon" />
+      </TableButton>
+    ),
   },
 ];
 
@@ -50,28 +70,26 @@ export default function Warehouse() {
   return (
     <div className={styles.Warehouse}>
       <div className="container">
-        {/* <h1 style={{ textAlign: "center" }}>Страница Склад</h1> */}
         <div className={styles.filterbar}>
           <div className={styles.inputContainer}>
-          <input type="search" placeholder="Поиск..." />
-          <img src={searchIkon} alt="icon" className={styles.searchIkon} />
+            <input type="search" placeholder="Поиск..." />
+            <img src={searchIcon} alt="icon" className={styles.searchIkon} />
           </div>
-          <select name="" id="">
+          <select name="category" id="">
             <option value="all">Все товары</option>
             <option value="Алкогольное">Алкогольное</option>
             <option value="Безалкогольное">Безалкогольное</option>
             <option value="Category 4">Category 4</option>
           </select>
-          <select name="" id="">
+          <select name="condition" id="">
             <option value="normal">Норма</option>
-            <option value="overdue">Просрочка</option>
             <option value="defect">Брак</option>
           </select>
           <CustomButton
             variant="secondary"
             onClick={() => navigate("/archive")}
-            >
-              Архив
+          >
+            Архив
           </CustomButton>
           <CustomButton
             variant="primary"
@@ -80,7 +98,13 @@ export default function Warehouse() {
             Создать
           </CustomButton>
         </div>
-        <CustomTable data={products} columns={tableColumns} />
+        <Table
+          bordered
+          dataSource={products}
+          rowKey="_id"
+          columns={tableColumns}
+          pagination={false}
+        />
       </div>
     </div>
   );
