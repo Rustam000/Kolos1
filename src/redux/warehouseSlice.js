@@ -23,22 +23,7 @@ const initialState = {
 export const warehouseSlice = createSlice({
   name: "warehouse",
   initialState,
-  reducers: {
-    logUserIn: (state, action) => {
-      if (action.payload.login === "dev" && action.payload.password === "dev") {
-        state.error = null;
-        state.user = "dev";
-      } else {
-        state.user = null;
-        state.failedAttempts += 1;
-        state.error = state.failedAttempts >= 4 ? "access_denied" : "try_again";
-      }
-    },
-    clearError: (state) => {
-      if (state.error === "access_denied") return state;
-      state.error = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchItems.fulfilled, (state, action) => {
       state.products = action.payload;

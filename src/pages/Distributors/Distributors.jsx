@@ -5,6 +5,9 @@ import { distributors } from "../../assets/distributor_data";
 import { Table } from "antd";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import editIcon from "../../assets/icons/mode_edit.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchDistributors } from "../../redux/distributorsSlice";
 
 const tableColumns = [
   {
@@ -43,7 +46,13 @@ const tableColumns = [
 ];
 
 export default function Distributors() {
+  const { distributors } = useSelector((state) => state.distributors);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchDistributors());
+  }, []);
   return (
     <div className={styles.Distributors}>
       <div className="container">
