@@ -42,25 +42,25 @@ export default function Warehouse() {
       width: 325,
     },
     {
-      title: "Ед. изменения.",
+      title: "Ед. изм.",
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: 150,
+      width: "12%",
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: 125,
+      width: "12%",
     },
     {
       title: "Цена",
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: 125,
+      width: "12%",
     },
     {
       title: "Ред.",
@@ -122,6 +122,7 @@ export default function Warehouse() {
           rowKey="_id"
           columns={tableColumns}
           pagination={false}
+          scroll={{ y: "70vh", scrollToFirstRowOnChange: true }}
         />
       </div>
     </div>
