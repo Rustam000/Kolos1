@@ -1,24 +1,44 @@
 import { useNavigate } from "react-router-dom";
-import CustomTable from "../../components/CustomTable/CustomTable";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Distributors.module.css";
-import { distributors } from "./distributor_data";
+import { distributors } from "../../assets/distributor_data";
+import { Table } from "antd";
+import TableButton from "../../components/UI/TableButton/TableButton";
+import editIcon from "../../assets/icons/mode_edit.svg";
 
 const tableColumns = [
   {
-    dataKey: "rowIndex",
-    label: "№",
-    align: "left",
+    title: "№",
+    dataIndex: "rowIndex",
+    key: "rowIndex",
+    align: "center",
+    width: 50,
+    render: (text, record, index) => index + 1, // автоматическое нумерование
   },
   {
-    dataKey: "name",
-    label: "ФИО",
+    title: "ФИО",
+    dataIndex: "name",
+    key: "name",
     align: "left",
+    width: 350,
   },
   {
-    dataKey: "region",
-    label: "Регион",
+    title: "Регион",
+    dataIndex: "region",
+    key: "region",
     align: "left",
+    width: 325,
+  },
+  {
+    title: "Ред.",
+    key: "action",
+    align: "center",
+    width: 78,
+    render: (_, record) => (
+      <TableButton onClick={() => console.log(record._id)}>
+        <img src={editIcon} alt="edit icon" />
+      </TableButton>
+    ),
   },
 ];
 
@@ -37,7 +57,13 @@ export default function Distributors() {
           </CustomButton>
         </div>
 
-        <CustomTable data={distributors} columns={tableColumns} />
+        <Table
+          bordered
+          dataSource={distributors}
+          rowKey="_id"
+          columns={tableColumns}
+          pagination={false}
+        />
       </div>
     </div>
   );
