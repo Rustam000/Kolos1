@@ -1,7 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { kolosApi } from "../api/axios";
 
 export const fetchItems = createAsyncThunk(
+  "warehouse/fetchItems",
+  async (_, thunkAPI) => {
+    try {
+      const response = await kolosApi.get(`/warehouse`);
+      return response.data;
+    } catch (error) {
+      console.warn(error);
+    }
+  },
+);
+/* export const fetchItems = createAsyncThunk(
   "warehouse/fetchItems",
   async (_, thunkAPI) => {
     try {
@@ -13,7 +25,7 @@ export const fetchItems = createAsyncThunk(
       console.warn(error);
     }
   },
-);
+); */
 
 const initialState = {
   products: [],
