@@ -1,6 +1,6 @@
 import styles from "./Order.module.css";
 import { useNavigate } from "react-router-dom";
-import editIcon from "../../assets/icons/Vector.svg"
+import editIcon from "../../assets/icons/Vector.svg";
 import { Table } from "antd";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +23,6 @@ export default function Order() {
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: 50,
       render: (text, record, index) => index + 1, // автоматическое нумерование
     },
     {
@@ -31,41 +30,35 @@ export default function Order() {
       dataIndex: "name",
       key: "name",
       align: "left",
-      width: 350,
     },
     {
       title: "Уникальный код",
       dataIndex: "num_id",
       key: "num_id",
       align: "left",
-      width: 325,
     },
     {
       title: "Ед. изм.",
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: "12%",
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: "12%",
     },
     {
       title: "Цена",
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: "12%",
     },
-    { 
+    {
       title: "Дублировать",
       key: "action",
       align: "center",
-      width: 78,
       render: (_, record) => (
         <TableButton
           onClick={() =>
@@ -79,11 +72,7 @@ export default function Order() {
   ];
   return (
     <div className={styles.Order}>
-      <input
-        className={styles.search}
-        type="search"
-        placeholder="Поиск..."
-      />
+      <input className={styles.search} type="search" placeholder="Поиск..." />
       <div className={styles.box}>
         <div className={styles.dis}>
           <div className={styles.destre}>
@@ -123,7 +112,7 @@ export default function Order() {
               rowKey="_id"
               columns={tableColumns}
               pagination={false}
-              scroll={{y: "45vh", scrollToFirstRowOnChange: true}}
+              scroll={{ y: "40vh", scrollToFirstRowOnChange: true }}
             />
           </div>
           <div className={styles.result}>
