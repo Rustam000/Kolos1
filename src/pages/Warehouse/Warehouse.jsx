@@ -97,9 +97,9 @@ export default function Warehouse() {
             id="Warehouse_category"
           >
             <option value="all">Все товары</option>
-            <option value="Алкогольное">Алкогольное</option>
-            <option value="Безалкогольное">Безалкогольное</option>
-            <option value="Category 4">Category 4</option>
+            <option value="Алкогольные">Алкогольные</option>
+            <option value="Безалкогольные">Безалкогольные</option>
+            <option value="Сырье">Сырье</option>
           </select>
           <select
             className={styles.select}
