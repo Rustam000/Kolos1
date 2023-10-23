@@ -60,7 +60,6 @@ export default function Distributors() {
   return (
     <div className={styles.Distributors}>
       <div className="container">
-        {/* <h1 style={{ textAlign: "center" }}>Страница Перечень дистрибьюторов</h1> */}
         <div className={styles.filterbar}>
           <CustomButton
             variant="primary"
