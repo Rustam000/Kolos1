@@ -31,7 +31,7 @@ export default function KolosModal({ children, message }) {
     <div className={styles.ModalBackdrop}>
       <div className={styles.modalWindow}>
         <h2 className={styles.message}>{message}</h2>
-        <div className={styles.buttonGridContainer}>{children}</div>
+        <div className={styles.buttonFlexContainer}>{children}</div>
       </div>
     </div>
   );
