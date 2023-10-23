@@ -67,28 +67,44 @@
   align-items: center;
   gap: 5px;
 }
-.checkbox {
+
+
+
+.radio {
   width: 24px;
   height: 24px;
-  margin: 0;
-  border-radius: 50%; /* Makes the checkbox round */
-  appearance: none; /* Removes default appearance */
+  border-radius: 50%; 
+  appearance: none;
   outline: none; 
-  box-shadow: 0 0 0 2px grey; /* Custom styling, adjust as necessary */
-  background-color: white; /* Custom styling, adjust as necessary */
+  box-shadow: 0 0 0 2px grey; 
+  background-color: white; 
+  position: relative;
 }
 
-.checkBoxes {
+.radio:checked {
+  background-color: #3ba1ff;
+}
+
+
+.radioButtonGroup {
   display: flex;
-  flex-direction: row; /* Ensures the checkboxes are aligned horizontally */
-  align-items: center;
-  gap: 10px;
+  flex-direction: row; 
+  margin-top: 9px;
+  gap: 40px; 
 }
 
-
-.checkbox:checked {
-  background-color: #3ba1ff; /* Adjust this to your desired checked color */
+.radio:checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 50%;
 }
+
 
 .formButtonRow {
   composes: formFlexRow;
@@ -142,7 +158,7 @@
 }
 
 .measurementCategoryContainer .formDropdown .category_dropdown_select {
-  width: 265px;  /* Maintain the original width for category dropdown */
+  width: 265px;  
 }
 .saveButton {
   width: 265px;
@@ -155,21 +171,5 @@
   border-radius: 10px;
   width: 141px;
   height: 49px;
-}
-
-.qw {
-  width: 394px;
-}
-
-.er {
-  width: 183px;
-}
-
-.ty {
-  width: 140px;
-}
-
-.ui {
-  width: 309px;
 }
 
