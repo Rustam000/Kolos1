@@ -76,6 +76,7 @@ export default function Distributors() {
           rowKey="_id"
           columns={tableColumns}
           pagination={false}
+          scroll={{ y: "70vh", scrollToFirstRowOnChange: true }}
         />
       </div>
     </div>
