@@ -44,8 +44,11 @@ const privateRoutes = (
       {/* Возврат товара*/}
       <Route path="/return" element={<Return />} />
       {/* Архив*/}
-      <Route path="/archive-warehouse" element={<Archive />} />
-      <Route path="/archive-distributors" element={<Archive />} />
+      <Route path="/archive">
+        <Route index element={<Navigate to="warehouse" />} />
+        <Route path="/archive/warehouse" element={<Archive />} />
+        <Route path="/archive/distributors" element={<Archive />} />
+      </Route>
     </Route>
     {/* Логин */}
     <Route path="/login" element={<Navigate to="/warehouse" />} />
