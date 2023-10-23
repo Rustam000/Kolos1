@@ -1,5 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
-//import angleBracketLeftIcon from "../../assets/icons/fi-sr-angle-small-left.svg";
+import { useNavigate } from "react-router-dom";
 import styles from "./PageHeading.module.css";
 import KolosModal from "../KolosModal/KolosModal";
 import CustomButton from "../UI/CustomButton/CustomButton";
@@ -16,10 +15,6 @@ export default function PageHeading({
   return (
     <>
       <div className={styles.PageHeading}>
-        {/* <Link className={styles.goBack} to={-1}>
-          <img src={angleBracketLeftIcon} alt="icon" />
-          {buttonText}
-        </Link> */}
         <button
           className={styles.goBack}
           onClick={
@@ -30,7 +25,6 @@ export default function PageHeading({
               : () => navigate(-1)
           }
         >
-          {/* <img src={angleBracketLeftIcon} alt="icon" /> */}
           <span className={styles.angleBracket}></span>
           {buttonText}
         </button>
