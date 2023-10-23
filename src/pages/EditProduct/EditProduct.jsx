@@ -4,10 +4,11 @@ import styles from "./EditProduct.module.css";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
+import KolosModal from "../../components/KolosModal/KolosModal";
 
 export default function EditProduct() {
   const location = useLocation();
-  const isEdit = location.pathname === "/edit-product";
+  const isEdit = location.pathname.includes("/edit-product");
 
   const [formData, setFormData] = useState({
     name: '',
@@ -19,22 +20,28 @@ export default function EditProduct() {
     category: 'Алкогольное'
   });
 
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     let updatedData = { ...formData, [name]: value };
-
     if (name === "quantity" || name === "price") {
       const quantity = parseFloat(updatedData["quantity"]) || 0;
       const price = parseFloat(updatedData["price"]) || 0;
       updatedData["sum"] = (quantity * price).toString();
     }
-
     setFormData(updatedData);
   };
 
   const handleSave = (e) => {
     e.preventDefault();
+    setShowSaveModal(true);
+  };
+
+  const confirmSave = () => {
     console.log(formData);
+    setShowSaveModal(false);
   };
 
   const isFormValid = () => {
@@ -42,10 +49,14 @@ export default function EditProduct() {
     return requiredFields.every(field => formData[field] !== '');
   };
 
+  const handleCancel = () => {
+    setShowCancelModal(true);
+  };
+
   return (
     <div className={styles.EditProduct}>
       <div className={styles.narrowContainer}>
-        <PageHeading heading={isEdit ? "Редактировать товар" : "Создать товар"} />
+        <PageHeading heading={isEdit ? "Редактировать товар" : "Создать товар"} modalOnLeave={true} />
         <FormContainer>
           <form className={styles.form} onSubmit={handleSave}>
             <fieldset className={styles.formFlexRowTop}>
@@ -95,20 +106,20 @@ export default function EditProduct() {
               </div>
               <div className={styles.selection}>
                 <span className={styles.selectionTitle}>Состояние</span>
-                <div className={styles.checkBoxes}>
+                <div className={styles.radioButtonGroup}>
                   <label className={styles.frame}>
-                    <input type="checkbox" className={styles.checkbox} checked={!isEdit} readOnly={!isEdit} />
-                    <span className={styles.checkboxLabel}>Норма</span>
+                    <input type="radio" className={styles.radio} name="productCondition" value="norm" defaultChecked={!isEdit} readOnly={!isEdit} />
+                    <span className={styles.radioLabel}>Норма</span>
                   </label>
                   <label className={styles.frame}>
-                    <input type="checkbox" className={styles.checkbox} disabled={!isEdit} />
-                    <span className={styles.checkboxLabel}>Брак</span>
+                    <input type="radio" className={styles.radio} name="productCondition" value="defect" disabled={!isEdit} />
+                    <span className={styles.radioLabel}>Брак</span>
                   </label>
                 </div>
               </div>
             </fieldset>
             <div className={styles.formButtonRow}>
-              <CustomButton type="button" variant="secondary" disabled={!isEdit}>
+              <CustomButton type="button" variant="secondary" onClick={() => setShowCancelModal(true)} disabled={!isEdit}>
                 Удалить
               </CustomButton>
               <CustomButton type="submit" width="xwide" disabled={!isFormValid()}>
@@ -118,6 +129,28 @@ export default function EditProduct() {
           </form>
         </FormContainer>
       </div>
+
+      {showSaveModal && (
+        <KolosModal message="Вы точно хотите сохранить?">
+          <CustomButton width="flex" height="low" variant="primary" onClick={confirmSave}>
+            Да
+          </CustomButton>
+          <CustomButton width="flex" height="low" variant="secondary" onClick={() => setShowSaveModal(false)}>
+            Нет
+          </CustomButton>
+        </KolosModal>
+      )}
+
+      {showCancelModal && (
+        <KolosModal message="Вы точно хотите отменить все и покинуть страницу?">
+          <CustomButton width="flex" height="low" variant="primary" onClick={() => setShowCancelModal(false)}>
+            Да
+          </CustomButton>
+          <CustomButton width="flex" height="low" variant="secondary" onClick={() => setShowCancelModal(false)}>
+            Нет
+          </CustomButton>
+        </KolosModal>
+      )}
     </div>
   );
 }
