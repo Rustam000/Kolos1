@@ -3,6 +3,7 @@ import styles from "./EditDistributor.module.css";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
+import getApp from "../../assets/icons/get_app.svg"
 
 export default function EditDistributor() {
   const [formData, setFormData] = useState({
@@ -12,8 +13,7 @@ export default function EditDistributor() {
     inn: "",
     address: "",
     actualAddress: "",
-    passportSeries: "",
-    passportNumber: "",
+    passportSeriesAndNumber: "",
     issuedBy: "",
     issueDate: "", //date?
     expiryDate: "", //date?
@@ -52,11 +52,17 @@ export default function EditDistributor() {
                 accept="image/*"
                 onChange={handlePhotoChange}
               />
+              <div className={styles.getPhoto}>
+                <img src={getApp} alt="icon" />
+              <span>Добавить</span>
+              <span>фотографию</span>
+              </div>
             </label>
             <fieldset className={styles.formFlexRow}>
               <label className={styles.formInput}>
                 <p>ФИО</p>
                 <input
+                  className={styles.forSizeRed}
                   type="text"
                   name="fullName"
                   value={formData.fullName}
@@ -68,6 +74,7 @@ export default function EditDistributor() {
               <label className={styles.formInput}>
                 <p>Фактическое место жительства</p>
                 <input
+                  className={styles.forSizeRed}
                   type="text"
                   name="actualAddress"
                   value={formData.actualAddress}
@@ -81,6 +88,7 @@ export default function EditDistributor() {
               <label className={styles.formInput}>
                 <p>Адрес по прописке</p>
                 <input
+                  className={styles.forSizeRed}
                   type="text"
                   name="address"
                   value={formData.address}
@@ -92,6 +100,7 @@ export default function EditDistributor() {
               <label className={styles.formInput}>
                 <p>Регион</p>
                 <input
+                  className={styles.forSizeOrange}
                   type="text"
                   name="region"
                   value={formData.region}
@@ -100,9 +109,26 @@ export default function EditDistributor() {
                   required
                 />
               </label>
+              
               <label className={styles.formInput}>
+                <p>Серия и номер паспорта</p>
+                <input
+                  className={styles.forSizeOrange}
+                  type="text"
+                  name="passportSeriesAndNumber"
+                  value={formData.passportSeriesAndNumber}
+                  onChange={handleInputChange}
+                  placeholder="ID"
+                  required
+                />
+              </label>
+              
+            </fieldset>
+            <fieldset className={styles.formFlexRow}>
+            <label className={styles.formInput}>
                 <p>ИНН</p>
                 <input
+                  className={styles.forSizeBlue}
                   type="text"
                   name="inn"
                   value={formData.inn}
@@ -111,60 +137,40 @@ export default function EditDistributor() {
                   required
                 />
               </label>
-            </fieldset>
-            <fieldset className={styles.formFlexRow}>
-              <label className={styles.formInput}>
-                <p>Номер паспорта</p>
-                <input
-                  type="text"
-                  name="passportNumber"
-                  value={formData.passportNumber}
-                  onChange={handleInputChange}
-                  placeholder="000000"
-                  required
-                />
-              </label>
-              <label className={styles.formInput}>
-                <p>Серия паспорта</p>
-                <input
-                  type="text"
-                  name="passportSeries"
-                  value={formData.passportSeries}
-                  onChange={handleInputChange}
-                  placeholder="000000"
-                  required
-                />
-              </label>
+             
               <label className={styles.formInput}>
                 <p>Орган выдачи</p>
                 <input
+                  className={styles.forSizePink}
                   type="text"
                   name="issuedBy"
                   value={formData.issuedBy}
                   onChange={handleInputChange}
-                  placeholder="000000"
+                  placeholder="МКК"
                   required
                 />
               </label>
               <label className={styles.formInput}>
                 <p>Дата выдачи</p>
                 <input
+                  className={styles.forSizePink}
                   type="text"
                   name="issueDate"
                   value={formData.issueDate}
                   onChange={handleInputChange}
-                  placeholder="000000"
+                  placeholder="00.00.0000"
                   required
                 />
               </label>
               <label className={styles.formInput}>
                 <p>Срок действия</p>
                 <input
+                  className={styles.forSizePink}
                   type="text"
                   name="expiryDate"
                   value={formData.expiryDate}
                   onChange={handleInputChange}
-                  placeholder="0000000"
+                  placeholder="00.00.0000"
                   required
                 />
               </label>
@@ -173,7 +179,8 @@ export default function EditDistributor() {
               <label className={styles.formInput}>
                 <p>Контактный номер №1</p>
                 <input
-                  type="text"
+                  className={styles.forSizeBlue}
+                  type="tel"
                   name="phoneNumber1"
                   value={formData.phoneNumber1}
                   onChange={handleInputChange}
@@ -184,9 +191,10 @@ export default function EditDistributor() {
               <label className={styles.formInput}>
                 <p>Контактный номер №2</p>
                 <input
-                  type="text"
-                  name="phoneNumber2"
+                  className={styles.forSizeBlue}
+                  type="tel"
                   value={formData.phoneNumber2}
+                  name="phoneNumber2"
                   onChange={handleInputChange}
                   placeholder="+996"
                 />
