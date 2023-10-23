@@ -1,10 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+export const logUserIn = createAsyncThunk(
+  "auth/logUserIn",
+  async (_, thunkAPI) => {
+    const response = await axios.get(`https://example.com/api/`);
+    return response.data;
+  },
+);
 
 const initialState = {
   /**@type {string|null} */
   user: null,
   accessToken: null,
-  refreshToken: null,
   error: null,
   failedAttempts: 0,
 };
@@ -23,7 +30,8 @@ export const authSlice = createSlice({
         state.error = state.failedAttempts >= 4 ? "access_denied" : "try_again";
       }
     },
-    logUserOut: (state, action) => {
+    logUserOut: () => {
+      //TODO: clear localstorage
       return initialState;
     },
     clearError: (state) => {

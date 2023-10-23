@@ -6,8 +6,8 @@ import styles from "./Login.module.css";
 import { authActions } from "../../redux/authSlice";
 
 export default function Login() {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [login, setLogin] = useState("dev");
+  const [password, setPassword] = useState("dev");
   const [hidePassword, setHidePassword] = useState(true);
   const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -88,46 +88,6 @@ export default function Login() {
           {error === "try_again" && "Неправильные данные! Попробуйте еще раз!"}
         </p>
       </form>
-      {/* //////////////////////////////////////// */}
-      {/* //////////////////////////////////////// */}
-      {/* временная кнопка для быстрой аутентификации на время разработки*/}
-      <TemporaryDevNavbar />
     </div>
-  );
-}
-
-function TemporaryDevNavbar() {
-  const dispatch = useDispatch();
-  return (
-    <nav
-      className="TEMPORARY_DEV_NAVBAR"
-      style={{
-        position: "fixed",
-        bottom: 0,
-        padding: "1rem",
-        backgroundColor: "orange",
-      }}
-    >
-      <span>
-        {"Это временный элемент. Логин и пароль на данный момент: dev/dev."}
-        <br />
-        {"Кнопка позволяет быстро авторизоваться ========>>>>>>>>>     "}
-      </span>
-      <button
-        style={{
-          padding: "0.5rem",
-        }}
-        tabIndex="-1"
-        onClick={() => {
-          const formData = {
-            login: "dev",
-            password: "dev",
-          };
-          dispatch(authActions.logUserIn(formData));
-        }}
-      >
-        быстрый вход
-      </button>
-    </nav>
   );
 }
