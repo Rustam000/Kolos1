@@ -30,3 +30,8 @@ h1 {
   max-width: 1200px;
   margin-inline: auto;
 }
+
+a,
+a:visited {
+  text-decoration: none;
+}

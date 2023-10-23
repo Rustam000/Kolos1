@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import styles from "./Header.module.css";
 import CustomButton from "../UI/CustomButton/CustomButton";
@@ -10,9 +10,9 @@ export default function Header() {
     <header className={styles.Header}>
       <div className="container">
         <div className={styles.flexContainer}>
-          <span className={styles.logoWrapper}>
+          <Link className={styles.logoWrapper} to="logout">
             <Logo />
-          </span>
+          </Link>
           <CustomButton
             variant={pathname === "/warehouse" ? "primary" : "secondary"}
             width="narrow"

@@ -3,7 +3,7 @@ import eyeIconShow from "../../assets/icons/eye.svg";
 import eyeIconHide from "../../assets/icons/eyeslash.svg";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Login.module.css";
-import { authActions } from "../../redux/authSlice";
+import { authActions, logUserIn } from "../../redux/authSlice";
 
 export default function Login() {
   const [login, setLogin] = useState("dev");
@@ -20,7 +20,8 @@ export default function Login() {
       login,
       password,
     };
-    dispatch(authActions.logUserIn(formData));
+    //dispatch(authActions.logUserIn(formData));
+    dispatch(logUserIn(formData));
   }
 
   useEffect(() => {

@@ -1,18 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const logUserIn = createAsyncThunk(
-  "auth/logUserIn",
-  async (_, thunkAPI) => {
-    const response = await axios.get(`https://example.com/api/`);
-    return response.data;
-  },
-);
-
 const initialState = {
   /**@type {string|null} */
-  user: null,
+  user: localStorage.getItem("user"),
+  /**@type {string|null} */
   accessToken: null,
+  /**@type {string|null} */
   error: null,
+  /**@type {number} */
   failedAttempts: 0,
 };
 
@@ -31,8 +26,7 @@ export const authSlice = createSlice({
       }
     },
     logUserOut: () => {
-      //TODO: clear localstorage
-      return initialState;
+      return { ...initialState, user: null };
     },
     clearError: (state) => {
       if (state.error === "access_denied") return state;
@@ -46,3 +40,21 @@ export const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 export const authActions = authSlice.actions;
+
+export const logUserIn = createAsyncThunk(
+  "auth/logUserIn",
+  async (formData, thunkAPI) => {
+    thunkAPI.dispatch(authActions.logUserIn(formData));
+    if (formData.login === "dev" && formData.password === "dev") {
+      localStorage.setItem("user", "dev");
+    }
+  },
+);
+
+export const logUserOut = createAsyncThunk(
+  "auth/logUserOut",
+  async (_, thunkAPI) => {
+    localStorage.removeItem("user");
+    thunkAPI.dispatch(authActions.logUserOut());
+  },
+);

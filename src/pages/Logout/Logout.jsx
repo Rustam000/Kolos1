@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import styles from "./Logout.module.css";
 import { useDispatch } from "react-redux";
-import { authActions } from "../../redux/authSlice";
+import { authActions, logUserOut } from "../../redux/authSlice";
 
 export default function Logout() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(authActions.logUserOut());
+    //dispatch(authActions.logUserOut());
+    dispatch(logUserOut());
   }, []);
   return (
     <div className={styles.Logout}>
