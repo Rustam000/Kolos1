@@ -48,7 +48,7 @@ export default function Distributors() {
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/edit-distributor/${record._id}`, { state: record })
+            navigate(`/distributor/edit/${record._id}`, { state: record })
           }
         >
           <img src={editIcon} alt="edit icon" />
@@ -63,7 +63,7 @@ export default function Distributors() {
         <div className={styles.filterbar}>
           <CustomButton
             variant="primary"
-            onClick={() => navigate("/create-distributor")}
+            onClick={() => navigate("/distributor/create")}
           >
             Создать
           </CustomButton>

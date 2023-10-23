@@ -30,11 +30,13 @@ const privateRoutes = (
       {/* Перечень дистрибьюторов */}
       <Route path="/distributors" element={<Distributors />} />
       {/* Карточка дистрибьютора */}
-      <Route path="/distributor" element={<DistributorProfile />} />
-      {/* Создание дистрибьютора */}
-      <Route path="/create-distributor" element={<EditDistributor />} />
-      {/* Редактирование дистрибьютора */}
-      <Route path="/edit-distributor/:id" element={<EditDistributor />} />
+      <Route path="/distributor">
+        <Route index element={<DistributorProfile />} />
+        <Route path="/distributor/create" element={<EditDistributor />} />
+        <Route path="/distributor/edit/:id" element={<EditDistributor />} />
+      </Route>
+      {/* <Route path="/create-distributor" element={<EditDistributor />} />
+      <Route path="/edit-distributor/:id" element={<EditDistributor />} /> */}
       {/* Создание товара */}
       <Route path="/create-product" element={<EditProduct />} />
       {/* Редактирование товара */}

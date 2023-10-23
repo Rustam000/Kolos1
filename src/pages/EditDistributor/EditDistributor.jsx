@@ -3,9 +3,14 @@ import styles from "./EditDistributor.module.css";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import getApp from "../../assets/icons/get_app.svg"
+import getApp from "../../assets/icons/get_app.svg";
+import { useLocation } from "react-router-dom";
 
 export default function EditDistributor() {
+  const { pathname } = useLocation();
+  const isEdit = !!pathname.match("/edit");
+  console.log(isEdit);
+
   const [formData, setFormData] = useState({
     photo: null,
     fullName: "",
@@ -43,7 +48,12 @@ export default function EditDistributor() {
   return (
     <div className={styles.EditDistributor}>
       <div className={styles.narrowContainer}>
-        <PageHeading heading="Создать дистрибьютора" />
+        <PageHeading
+          heading={
+            isEdit ? "Редактировать дистрибьютора" : "Создать дистрибьютора"
+          }
+          modalOnLeave={true}
+        />
         <FormContainer>
           <form className={styles.form} onSubmit={handleSubmit}>
             <label className={styles.fileInput}>
@@ -54,8 +64,8 @@ export default function EditDistributor() {
               />
               <div className={styles.getPhoto}>
                 <img src={getApp} alt="icon" />
-              <span>Добавить</span>
-              <span>фотографию</span>
+                <span>Добавить</span>
+                <span>фотографию</span>
               </div>
             </label>
             <fieldset className={styles.formFlexRow}>
@@ -109,7 +119,7 @@ export default function EditDistributor() {
                   required
                 />
               </label>
-              
+
               <label className={styles.formInput}>
                 <p>Серия и номер паспорта</p>
                 <input
@@ -122,10 +132,9 @@ export default function EditDistributor() {
                   required
                 />
               </label>
-              
             </fieldset>
             <fieldset className={styles.formFlexRow}>
-            <label className={styles.formInput}>
+              <label className={styles.formInput}>
                 <p>ИНН</p>
                 <input
                   className={styles.forSizeBlue}
@@ -137,7 +146,7 @@ export default function EditDistributor() {
                   required
                 />
               </label>
-             
+
               <label className={styles.formInput}>
                 <p>Орган выдачи</p>
                 <input
