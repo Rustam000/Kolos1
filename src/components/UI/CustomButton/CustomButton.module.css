@@ -10,12 +10,14 @@
   border: 1px solid var(--main-color, #3ba1ff);
   transition: box-shadow;
   outline: none;
+  cursor: pointer;
 }
 
 .Button:disabled {
   background-color: #efefef;
   border: 1px solid #efefef;
   color: #666666;
+  cursor: default;
 }
 
 .Button:hover,
