@@ -11,6 +11,7 @@ import EditProduct from "./pages/EditProduct/EditProduct";
 import Order from "./pages/Order/Order";
 import Return from "./pages/Return/Return";
 import Archive from "./pages/Archive/Archive";
+import Logout from "./pages/Logout/Logout";
 
 const publicRoutes = (
   <>
@@ -33,20 +34,26 @@ const privateRoutes = (
       {/* Создание дистрибьютора */}
       <Route path="/create-distributor" element={<EditDistributor />} />
       {/* Редактирование дистрибьютора */}
-      <Route path="/edit-distributor" element={<EditDistributor />} />
+      <Route path="/edit-distributor/:id" element={<EditDistributor />} />
       {/* Создание товара */}
       <Route path="/create-product" element={<EditProduct />} />
       {/* Редактирование товара */}
-      <Route path="/edit-product" element={<EditProduct />} />
+      <Route path="/edit-product/:id" element={<EditProduct />} />
       {/* Отпуск товара*/}
       <Route path="/order" element={<Order />} />
       {/* Возврат товара*/}
       <Route path="/return" element={<Return />} />
       {/* Архив*/}
-      <Route path="/archive" element={<Archive />} />
+      <Route path="/archive">
+        <Route index element={<Navigate to="warehouse" />} />
+        <Route path="/archive/warehouse" element={<Archive />} />
+        <Route path="/archive/distributors" element={<Archive />} />
+      </Route>
     </Route>
-    {/* <Route path="*" element={<Navigate to="/warehouse" />} /> */}
+    {/* Логин */}
     <Route path="/login" element={<Navigate to="/warehouse" />} />
+    <Route path="/logout" element={<Logout />} />
+    {/* <Route path="*" element={<Navigate to="/warehouse" />} /> */}
     <Route path="*" element={<h1 style={{ textAlign: "center" }}>404</h1>} />
   </>
 );
