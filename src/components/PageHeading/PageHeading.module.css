@@ -5,6 +5,7 @@
 
 .goBack {
   /* text-decoration: none; */
+  padding-right: 5px;
   padding-block: 2px;
   border: none;
   border-radius: 3px;
@@ -19,11 +20,21 @@
   letter-spacing: 0.28px;
 }
 
+.angleBracket {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  background-image: url("../../assets/icons/fi-sr-angle-small-left.svg");
+}
+
 .goBack:hover {
-  padding-inline: 5px;
   background-color: var(--main-color, #3ba1ff);
   color: #fff;
   font-weight: 600;
+
+  & .angleBracket {
+    background-image: url("../../assets/icons/fi-sr-angle-small-left-white.svg");
+  }
 }
 
 .heading {

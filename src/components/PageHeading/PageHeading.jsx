@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import angleBracketLeftIcon from "../../assets/icons/fi-sr-angle-small-left.svg";
+//import angleBracketLeftIcon from "../../assets/icons/fi-sr-angle-small-left.svg";
 import styles from "./PageHeading.module.css";
 import KolosModal from "../KolosModal/KolosModal";
 import CustomButton from "../UI/CustomButton/CustomButton";
@@ -30,7 +30,8 @@ export default function PageHeading({
               : () => navigate(-1)
           }
         >
-          <img src={angleBracketLeftIcon} alt="icon" />
+          {/* <img src={angleBracketLeftIcon} alt="icon" /> */}
+          <span className={styles.angleBracket}></span>
           {buttonText}
         </button>
         <h1 className={styles.heading}>{heading}</h1>
