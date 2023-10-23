@@ -1,6 +1,5 @@
-.Distributors {
-  /* background: #fafafa; */
-}
+/* .Distributors {
+} */
 
 .filterbar {
   margin-top: 20px;
@@ -8,26 +7,8 @@
   display: flex;
   align-items: center;
   gap: 27px;
+}
 
-  & input[type="search"] {
-    min-width: 453px;
-    flex-grow: 1;
-    max-width: 601px;
-    margin-right: auto;
-  }
-
-  & input,
-  & select {
-    height: 40px;
-    border-radius: 12px;
-    border: 1px solid var(--stroke, #e7e8e7);
-    background: #efefef;
-    padding-inline: 15px;
-  }
-  & select {
-    min-width: 170px;
-  }
-  & button {
-    margin-left: auto;
-  }
+.filterbar button {
+  margin-left: auto;
 }
