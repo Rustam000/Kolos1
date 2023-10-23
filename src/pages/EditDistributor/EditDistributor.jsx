@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./EditDistributor.module.css";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
@@ -6,15 +6,15 @@ import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import getApp from "../../assets/icons/get_app.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import KolosModal from "../../components/KolosModal/KolosModal";
+import createPalette from "@mui/material/styles/createPalette";
 
 export default function EditDistributor() {
+  const formRef = useRef(null);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isEdit = !!pathname.match("/edit");
-  console.log(isEdit);
-
   const [formData, setFormData] = useState({
     photo: null,
     fullName: "",
@@ -29,6 +29,13 @@ export default function EditDistributor() {
     phoneNumber1: "",
     phoneNumber2: "",
   });
+
+  //временная "валидация"
+  const formIsValid =
+    formRef.current &&
+    Array.from(formRef.current)
+      .map((field) => field.validity.valid)
+      .reduce((acc, item) => !!(acc * item), true);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +63,7 @@ export default function EditDistributor() {
             modalOnLeave={true}
           />
           <FormContainer>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
               <label className={styles.fileInput}>
                 <input
                   type="file"
@@ -222,6 +229,7 @@ export default function EditDistributor() {
                 <CustomButton
                   width="xwide"
                   onClick={() => setShowSaveModal(true)}
+                  disabled={!formIsValid}
                 >
                   Сохранить
                 </CustomButton>
