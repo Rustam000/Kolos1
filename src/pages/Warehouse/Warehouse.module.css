@@ -8,19 +8,19 @@
   display: flex;
   align-items: center;
   gap: 27px;
+}
 
-  & input,
-  & select {
-    height: 40px;
-    border-radius: 12px;
-    border: 1px solid var(--stroke, #e7e8e7);
-    background: #efefef;
-    padding-inline: 15px;
-  }
+.searchInput,
+.select {
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke, #e7e8e7);
+  background: #efefef;
+  padding-inline: 15px;
+}
 
-  & select {
-    min-width: 170px;
-  }
+.select {
+  min-width: 170px;
 }
 
 /* Стили для inputContainer */

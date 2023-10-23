@@ -1,6 +1,6 @@
+import styles from "./Warehouse.module.css";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import styles from "./Warehouse.module.css";
 import searchIcon from "../../assets/icons/search.svg";
 import editIcon from "../../assets/icons/mode_edit.svg";
 import { Table } from "antd";
@@ -91,13 +91,21 @@ export default function Warehouse() {
             />
             <img src={searchIcon} alt="icon" className={styles.searchIcon} />
           </div>
-          <select name="category" id="Warehouse_category">
+          <select
+            className={styles.select}
+            name="category"
+            id="Warehouse_category"
+          >
             <option value="all">Все товары</option>
             <option value="Алкогольное">Алкогольное</option>
             <option value="Безалкогольное">Безалкогольное</option>
             <option value="Category 4">Category 4</option>
           </select>
-          <select name="condition" id="Warehouse_condition">
+          <select
+            className={styles.select}
+            name="condition"
+            id="Warehouse_condition"
+          >
             <option value="normal">Норма</option>
             <option value="defect">Брак</option>
           </select>
