@@ -17,9 +17,14 @@
    justify-content: center;
    text-align: center;
 }
-.prod h2 {
+.product {
    text-align: left;
-   margin: 10px;
+   margin: 16px;
+   font-family: Rubik;
+   font-size: 24px;
+   font-weight: 600;
+   line-height: 34px;
+   letter-spacing: 0.02em;
 }
 .destre {
    text-align: left;
@@ -87,11 +92,27 @@
    margin: 40px auto;
 }
 
+.table {
+   width: 633px;
+   height: 520px;
+   margin: 30px auto;
+}
 .result {
-   text-align: end;
    display: flex;
-   margin-top: 155px;
    justify-content: end;
-   width: 47;
-   height: 34px;
+   margin: 50px 16px 16px;
+}
+
+.result span {
+   display: flex;
+   font-family: Rubik;
+   font-size: 18px;
+   font-weight: 400;
+   line-height: 25px;
+   letter-spacing: 0.02em;
+   text-align: left;
+}
+.result h2 {
+   margin-left: 4px;
+   margin-top: -3px;
 }
