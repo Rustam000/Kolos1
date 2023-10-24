@@ -3,7 +3,8 @@ import styles from "./EditDistributor.module.css";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import getApp from "../../assets/icons/get_app.svg"
+import getApp from "../../assets/icons/get_app.svg";
+import KolosModal from "../../components/KolosModal/KolosModal";
 
 export default function EditDistributor() {
   const [formData, setFormData] = useState({
@@ -35,10 +36,16 @@ export default function EditDistributor() {
     // Здесь отправьте данные formData на сервер через API
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
   function handleSubmit(event) {
     event.preventDefault();
     console.log(formData);
   }
+
 
   return (
     <div className={styles.EditDistributor}>
@@ -54,8 +61,8 @@ export default function EditDistributor() {
               />
               <div className={styles.getPhoto}>
                 <img src={getApp} alt="icon" />
-              <span>Добавить</span>
-              <span>фотографию</span>
+                <span>Добавить</span>
+                <span>фотографию</span>
               </div>
             </label>
             <fieldset className={styles.formFlexRow}>
@@ -109,7 +116,7 @@ export default function EditDistributor() {
                   required
                 />
               </label>
-              
+
               <label className={styles.formInput}>
                 <p>Серия и номер паспорта</p>
                 <input
@@ -122,10 +129,9 @@ export default function EditDistributor() {
                   required
                 />
               </label>
-              
             </fieldset>
             <fieldset className={styles.formFlexRow}>
-            <label className={styles.formInput}>
+              <label className={styles.formInput}>
                 <p>ИНН</p>
                 <input
                   className={styles.forSizeBlue}
@@ -137,7 +143,7 @@ export default function EditDistributor() {
                   required
                 />
               </label>
-             
+
               <label className={styles.formInput}>
                 <p>Орган выдачи</p>
                 <input
@@ -178,26 +184,30 @@ export default function EditDistributor() {
             <fieldset className={styles.formFlexRow}>
               <label className={styles.formInput}>
                 <p>Контактный номер №1</p>
+                <div className={styles.inputContainer}>
+                <div className={styles.exampleNum}>+996</div>
                 <input
                   className={styles.forSizeBlue}
                   type="tel"
                   name="phoneNumber1"
                   value={formData.phoneNumber1}
                   onChange={handleInputChange}
-                  placeholder="+996 "
                   required
                 />
+                </div>
               </label>
               <label className={styles.formInput}>
                 <p>Контактный номер №2</p>
-                <input
-                  className={styles.forSizeBlue}
-                  type="tel"
-                  value={formData.phoneNumber2}
-                  name="phoneNumber2"
-                  onChange={handleInputChange}
-                  placeholder="+996"
-                />
+                <div className={styles.inputContainer}>
+                  <div className={styles.exampleNum}>+996</div>
+                  <input
+                    className={styles.forSizeBlue}
+                    type="tel"
+                    value={formData.phoneNumber2}
+                    name="phoneNumber2"
+                    onChange={handleInputChange}
+                    />
+                </div>
               </label>
             </fieldset>
             <div className={styles.formButtonRow}>
