@@ -6,7 +6,6 @@ import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import getApp from "../../assets/icons/get_app.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import KolosModal from "../../components/KolosModal/KolosModal";
-import createPalette from "@mui/material/styles/createPalette";
 
 export default function EditDistributor() {
   const formRef = useRef(null);
