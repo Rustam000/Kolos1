@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Table } from 'antd';
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Table } from "antd";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import { products } from "../../assets/beer_data";
@@ -16,8 +16,7 @@ export default function Archive() {
   const dataToShow = isWarehouse ? products : distributors;
   const navigateTo = (path) => {
     navigate(path);
-  }
-  
+  };
 
   const total = products?.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -37,51 +36,45 @@ export default function Archive() {
       title: "ФИО",
       dataIndex: "name",
       key: "name",
-      width: '280'
+      width: "280",
     },
     {
       title: "Регион",
       dataIndex: "region",
       key: "region",
-      width: '254'
+      width: "254",
     },
     {
       title: "Контактный номер (1)",
       dataIndex: "phoneNumberOne",
       key: "phoneNumberOne",
-      width: '190'
+      width: "190",
     },
     {
       title: "Контактный номер (2)",
       dataIndex: "phoneNumberTwo",
       key: "phoneNumberTwo",
-      width: '190'
+      width: "190",
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletion",
       key: "dataDeletion",
       align: "center",
-      width: '110'
+      width: "110",
     },
     {
       title: "Восстановить",
       key: "restore",
-      width: '126',
+      width: "126",
       align: "center",
       render: (_, record) => (
-        <TableButton
-        onClick={() =>
-          navigate()
-        }
-      >
-        <img src={editIcon} alt="edit icon" />
-      </TableButton>
-    ),
-  },
-];
-    
-
+        <TableButton onClick={() => navigate()}>
+          <img src={editIcon} alt="edit icon" />
+        </TableButton>
+      ),
+    },
+  ];
 
   const tableColumns = [
     {
@@ -128,24 +121,24 @@ export default function Archive() {
       width: "100",
     },
     {
-      title: 'Сумма',
-      dataIndex: 'sum',
-      key: 'sum',
-      align: 'left' ,
-      width: '100'
+      title: "Сумма",
+      dataIndex: "sum",
+      key: "sum",
+      align: "left",
+      width: "100",
     },
     {
-      title: 'Дата удаления',
-      dataIndex: 'dataDeletionOne',
-      key: 'dataDeletionOne',
-      align: 'center' ,
-      width: '100'
+      title: "Дата удаления",
+      dataIndex: "dataDeletionOne",
+      key: "dataDeletionOne",
+      align: "center",
+      width: "100",
     },
     {
-      title: 'Статус возврата',
-      dataIndex: 'returnStatus',
-      key: 'returnStatus',
-      width: 'left'
+      title: "Статус возврата",
+      dataIndex: "returnStatus",
+      key: "returnStatus",
+      width: "left",
     },
     {
       title: "Восстановить",
@@ -153,11 +146,7 @@ export default function Archive() {
       align: "center",
       width: 117,
       render: (_, record) => (
-        <TableButton
-          onClick={() =>
-            navigate()
-          }
-        >
+        <TableButton onClick={() => navigate()}>
           <img src={editIcon} alt="edit icon" />
         </TableButton>
       ),
@@ -169,22 +158,23 @@ export default function Archive() {
   return (
     <div className={styles.Archive}>
       <div className={styles.container}>
-        <PageHeading 
-         heading="Архив" buttonText="Назад" />
+        <PageHeading heading="Архив" buttonText="Назад" />
         <div className={styles.buttonDiv}>
           <div className={styles.twoButtons}>
-            <CustomButton  variant={isWarehouse ? "primary" : "secondary"} 
-    onClick={() => navigateTo("/archive/warehouse")}
-  >
+            <CustomButton
+              variant={isWarehouse ? "primary" : "secondary"}
+              onClick={() => navigateTo("/archive/warehouse")}
+            >
               Товары
-              </CustomButton>
-            <CustomButton variant={!isWarehouse ? "primary" : "secondary"} 
-    onClick={() => navigateTo("/archive/distributors")}
-  >
+            </CustomButton>
+            <CustomButton
+              variant={!isWarehouse ? "primary" : "secondary"}
+              onClick={() => navigateTo("/archive/distributors")}
+            >
               Дистрибьюторы
-              </CustomButton>
+            </CustomButton>
           </div>
-          
+
           {isWarehouse && (
             <span className={styles.total}>
               {"Итого: "}
@@ -193,14 +183,13 @@ export default function Archive() {
           )}
         </div>
 
-        
         <Table
           bordered
-          dataSource={displayData} 
-          columns={displayColumns} 
+          dataSource={displayData}
+          columns={displayColumns}
           pagination={false}
-          rowKey="_id" 
-          scroll={{ y: "60vh", scrollToFirstRowOnChange: true }}
+          rowKey="_id"
+          scroll={{ y: "50vh", scrollToFirstRowOnChange: true }}
         />
       </div>
     </div>
