@@ -29,41 +29,50 @@ export default function Archive() {
       title: "№",
       dataIndex: "rowIndex",
       key: "rowIndex",
+      align: "center",
+      width: 50,
       render: (text, record, index) => index + 1, // автоматическое нумерование
     },
     {
       title: "ФИО",
       dataIndex: "name",
       key: "name",
+      width: '280'
     },
     {
       title: "Регион",
       dataIndex: "region",
       key: "region",
+      width: '254'
     },
     {
       title: "Контактный номер (1)",
       dataIndex: "phoneNumberOne",
       key: "phoneNumberOne",
+      width: '190'
     },
     {
       title: "Контактный номер (2)",
       dataIndex: "phoneNumberTwo",
       key: "phoneNumberTwo",
+      width: '190'
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletion",
       key: "dataDeletion",
+      align: "center",
+      width: '110'
     },
     {
       title: "Восстановить",
       key: "restore",
+      width: '126',
       align: "center",
       render: (_, record) => (
         <TableButton
         onClick={() =>
-          navigate(`/edit-product/${record._id}`, { state: record })
+          navigate()
         }
       >
         <img src={editIcon} alt="edit icon" />
@@ -127,27 +136,26 @@ export default function Archive() {
     },
     {
       title: 'Дата удаления',
-      dataIndex: 'dataDeletion',
-      key: 'dataDeletion',
+      dataIndex: 'dataDeletionOne',
+      key: 'dataDeletionOne',
       align: 'center' ,
-      width: '110'
+      width: '100'
     },
     {
       title: 'Статус возврата',
       dataIndex: 'returnStatus',
       key: 'returnStatus',
-      align: 'left' ,
-      width: '100'
+      width: 'left'
     },
     {
-      title: "Ред.",
+      title: "Восстановить",
       key: "action",
       align: "center",
       width: 117,
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/edit-product/${record._id}`, { state: record })
+            navigate()
           }
         >
           <img src={editIcon} alt="edit icon" />
@@ -176,7 +184,7 @@ export default function Archive() {
               Дистрибьюторы
               </CustomButton>
           </div>
-          {/* Показываем общую стоимость только когда отображается таблица продуктов */}
+          
           {isWarehouse && (
             <span className={styles.total}>
               {"Итого: "}
@@ -185,13 +193,14 @@ export default function Archive() {
           )}
         </div>
 
-        {/* Обновляем источник данных и столбцы для таблицы */}
+        
         <Table
           bordered
-          dataSource={displayData} // данные, которые вы хотите отобразить
-          columns={displayColumns} // определение столбцов
+          dataSource={displayData} 
+          columns={displayColumns} 
           pagination={false}
-          rowKey="id" // ключевой столбец для уникальности
+          rowKey="_id" 
+          scroll={{ y: "60vh", scrollToFirstRowOnChange: true }}
         />
       </div>
     </div>

@@ -9,7 +9,7 @@ export const products = [
     quantity: 500,
     price: 3000,
     sum: 10.000,
-    dataDeletion: '8.12.2023г',
+    dataDeletionOne: '8.12.2023г',
     returnStatus: 'Норма'
 
   },
@@ -21,7 +21,7 @@ export const products = [
     quantity: 1000,
     price: 3000,
     sum: 10.000,
-    dataDeletion: '8.12.2023г',
+    dataDeletionOne: '8.12.2023г',
     returnStatus: 'Норма'
   },
   {
@@ -32,7 +32,7 @@ export const products = [
     quantity: 350,
     price: 3000,
     sum: 10.000,
-    dataDeletion: '8.12.2023г',
+    dataDeletionOne: '8.12.2023г',
     returnStatus: 'Брак'
   },
   {
@@ -43,7 +43,7 @@ export const products = [
     quantity: 50,
     price: 3000,
     sum: 10.000,
-    dataDeletion: '8.12.2023г',
+    dataDeletionOne: '8.12.2023г',
     returnStatus: 'Норма'
   },
   {
@@ -54,7 +54,7 @@ export const products = [
     quantity: 150,
     price: 3000,
     sum: 10.000,
-    dataDeletion: '8.12.2023г',
+    dataDeletionOne: '8.12.2023г',
     returnStatus: 'Норма'
   },
   {
@@ -65,7 +65,7 @@ export const products = [
     quantity: 100,
     price: 3000,
     sum: 10.000,
-    dataDeletion: '8.12.2023г',
+    dataDeletionOne: '8.12.2023г',
     returnStatus: 'Норма'
   },
   {
@@ -76,8 +76,8 @@ export const products = [
     quantity: 250,
     price: 3000,
     sum: 10.000,
-    dataDeletion: '8.12.2023г',
-    returnStatus: 'Норма'
+    dataDeletionOne: '8.12.2023г',
+    returnStatus: 'Норма',
 
   },
   {
@@ -88,8 +88,8 @@ export const products = [
     quantity: 300,
     price: 3000,
     sum: 10.000,
-    dataDeletion: '8.12.2023г',
-    returnStatus: 'Норма'
+    dataDeletionOne: '8.12.2023г',
+    returnStatus: 'Норма',
   },
   {
     _id: nanoid(),
@@ -99,8 +99,8 @@ export const products = [
     quantity: 200,
     price: 3000,
     sum: 10.000,
-    dataDeletion: '8.12.2023г',
-    returnStatus: 'Норма'
+    dataDeletionOne: '8.12.2023г',
+    returnStatus: 'Норма',
 
   },
 ];
