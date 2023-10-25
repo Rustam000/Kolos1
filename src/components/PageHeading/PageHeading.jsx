@@ -8,6 +8,7 @@ export default function PageHeading({
   heading,
   buttonText = "Отменить",
   modalOnLeave = false,
+  backLink = -1,
 }) {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function PageHeading({
               ? () => {
                   setShowModal(true);
                 }
-              : () => navigate(-1)
+              : () => navigate(backLink)
           }
         >
           <span className={styles.angleBracket}></span>
@@ -37,7 +38,7 @@ export default function PageHeading({
             variant="primary"
             onClick={() => {
               setShowModal(false);
-              navigate(-1);
+              navigate(backLink);
             }}
           >
             Да
