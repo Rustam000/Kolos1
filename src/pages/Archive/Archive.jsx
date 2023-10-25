@@ -7,7 +7,7 @@ import { products } from "../../assets/beer_data";
 import { distributors } from "../../assets/distributor_data";
 import styles from "./Archive.module.css";
 import TableButton from "../../components/UI/TableButton/TableButton";
-import editIcon from "../../assets/icons/mode_edit.svg";
+import restoreIcon from "../../assets/icons/restore.svg";
 
 export default function Archive() {
   const location = useLocation();
@@ -36,47 +36,47 @@ export default function Archive() {
       title: "ФИО",
       dataIndex: "name",
       key: "name",
-      width: "280",
+      width: 280,
     },
     {
       title: "Регион",
       dataIndex: "region",
       key: "region",
-      width: "254",
+      width: 254,
     },
     {
       title: "Контактный номер (1)",
       dataIndex: "phoneNumberOne",
       key: "phoneNumberOne",
-      width: "190",
+      width: 190,
     },
     {
       title: "Контактный номер (2)",
       dataIndex: "phoneNumberTwo",
       key: "phoneNumberTwo",
-      width: "190",
+      width: 190,
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletion",
       key: "dataDeletion",
       align: "center",
-      width: "110",
+      width: 110,
     },
     {
       title: "Восстановить",
       key: "restore",
-      width: "126",
+      width: 126,
       align: "center",
       render: (_, record) => (
         <TableButton onClick={() => navigate()}>
-          <img src={editIcon} alt="edit icon" />
+         <img src={restoreIcon} alt="restore" />
         </TableButton>
       ),
     },
   ];
 
-  const tableColumns = [
+  const productColumns = [
     {
       title: "№",
       dataIndex: "rowIndex",
@@ -104,61 +104,63 @@ export default function Archive() {
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: "100",
+      width: 100,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: "100",
+      width: 100,
     },
     {
       title: "Цена",
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: "100",
+      width: 100,
     },
     {
       title: "Сумма",
       dataIndex: "sum",
       key: "sum",
       align: "left",
-      width: "100",
+      width: 100,
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletionOne",
       key: "dataDeletionOne",
-      align: "center",
-      width: "100",
+      align: "left",
+      width: 100,
     },
     {
       title: "Статус возврата",
       dataIndex: "returnStatus",
       key: "returnStatus",
-      width: "left",
+      align: "left",
+      width: 94
+
     },
     {
       title: "Восстановить",
       key: "action",
       align: "center",
-      width: 117,
+      width: 126,
       render: (_, record) => (
         <TableButton onClick={() => navigate()}>
-          <img src={editIcon} alt="edit icon" />
+          <img src={restoreIcon} alt="restore" />
         </TableButton>
       ),
     },
   ];
-  const displayColumns = isWarehouse ? tableColumns : distributorColumns;
+  const displayColumns = isWarehouse ? productColumns : distributorColumns;
   const displayData = isWarehouse ? products : distributors;
 
   return (
     <div className={styles.Archive}>
       <div className={styles.container}>
-        <PageHeading heading="Архив" buttonText="Назад" />
+        <PageHeading heading="Архив" buttonText="Назад" backLink= '/warehouse' />
         <div className={styles.buttonDiv}>
           <div className={styles.twoButtons}>
             <CustomButton
