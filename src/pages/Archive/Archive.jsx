@@ -80,7 +80,7 @@ export default function Archive() {
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: "5%",
+      width: 55,
       render: (text, record, index) => index + 1, // автоматическое нумерование
     },
     {
