@@ -16,7 +16,6 @@ import Logout from "./pages/Logout/Logout";
 const publicRoutes = (
   <>
     <Route path="/login" element={<Login />} />
-    {/* Логин */}
     <Route path="*" element={<Navigate to="/login" />} />
   </>
 );
@@ -29,18 +28,19 @@ const privateRoutes = (
       <Route path="/warehouse" element={<Warehouse />} />
       {/* Перечень дистрибьюторов */}
       <Route path="/distributors" element={<Distributors />} />
-      {/* Карточка дистрибьютора */}
       <Route path="/distributor">
+        {/* Карточка дистрибьютора */}
         <Route index element={<DistributorProfile />} />
+        {/* Редактирование дистрибьютора */}
         <Route path="/distributor/create" element={<EditDistributor />} />
         <Route path="/distributor/edit/:id" element={<EditDistributor />} />
       </Route>
-      {/* <Route path="/create-distributor" element={<EditDistributor />} />
-      <Route path="/edit-distributor/:id" element={<EditDistributor />} /> */}
-      {/* Создание товара */}
-      <Route path="/create-product" element={<EditProduct />} />
-      {/* Редактирование товара */}
-      <Route path="/edit-product/:id" element={<EditProduct />} />
+      <Route path="/product">
+        {/* Редактирование товара */}
+        <Route index element={<Navigate to="create" replace />} />
+        <Route path="/product/create" element={<EditProduct />} />
+        <Route path="/product/edit/:id" element={<EditProduct />} />
+      </Route>
       {/* Отпуск товара*/}
       <Route path="/order" element={<Order />} />
       {/* Возврат товара*/}
@@ -55,7 +55,6 @@ const privateRoutes = (
     {/* Логин */}
     <Route path="/login" element={<Navigate to="/warehouse" />} />
     <Route path="/logout" element={<Logout />} />
-    {/* <Route path="*" element={<Navigate to="/warehouse" />} /> */}
     <Route path="*" element={<h1 style={{ textAlign: "center" }}>404</h1>} />
   </>
 );
