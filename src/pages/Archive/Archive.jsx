@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import styles from "./Archive.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Table } from "antd";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import { products } from "../../assets/beer_data";
 import { distributors } from "../../assets/distributor_data";
-import styles from "./Archive.module.css";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import restoreIcon from "../../assets/icons/restore.svg";
 import ADTable from "../../components/ADTable/ADTable";
