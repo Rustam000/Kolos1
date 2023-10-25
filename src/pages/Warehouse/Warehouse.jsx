@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import searchIcon from "../../assets/icons/search.svg";
 import editIcon from "../../assets/icons/mode_edit.svg";
-import { Table } from "antd";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchItems } from "../../redux/warehouseSlice";
+import ADTable from "../../components/ADTable/ADTable";
 
 export default function Warehouse() {
   const { products } = useSelector((state) => state.warehouse);
@@ -24,7 +24,7 @@ export default function Warehouse() {
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: 50,
+      width: 55,
       render: (text, record, index) => index + 1, // автоматическое нумерование
     },
     {
@@ -32,35 +32,33 @@ export default function Warehouse() {
       dataIndex: "name",
       key: "name",
       align: "left",
-      width: 350,
     },
     {
       title: "Уникальный код",
       dataIndex: "num_id",
       key: "num_id",
       align: "left",
-      width: 325,
     },
     {
       title: "Ед. изм.",
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: "12%",
+      width: "11%",
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: "12%",
+      width: "11%",
     },
     {
       title: "Цена",
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: "12%",
+      width: "11%",
     },
     {
       title: "Ред.",
@@ -124,13 +122,11 @@ export default function Warehouse() {
             Создать
           </CustomButton>
         </form>
-        <Table
-          bordered
+        <ADTable
           dataSource={products}
           rowKey="_id"
           columns={tableColumns}
-          pagination={false}
-          scroll={{ y: "70vh", scrollToFirstRowOnChange: true }}
+          height="70vh"
         />
       </div>
     </div>

@@ -8,6 +8,7 @@ import { distributors } from "../../assets/distributor_data";
 import styles from "./Archive.module.css";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import restoreIcon from "../../assets/icons/restore.svg";
+import ADTable from "../../components/ADTable/ADTable";
 
 export default function Archive() {
   const location = useLocation();
@@ -29,7 +30,7 @@ export default function Archive() {
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: "5%",
+      width: 55,
       render: (text, record, index) => index + 1, // автоматическое нумерование
     },
     {
@@ -175,13 +176,11 @@ export default function Archive() {
           )}
         </div>
 
-        <Table
-          bordered
+        <ADTable
           dataSource={displayData}
           columns={displayColumns}
-          pagination={false}
           rowKey="_id"
-          scroll={{ y: "45vh", scrollToFirstRowOnChange: true }}
+          height="45vh"
         />
       </div>
     </div>

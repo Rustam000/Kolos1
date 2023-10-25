@@ -2,8 +2,10 @@ import styles from "./TableButton.module.css";
 
 export default function TableButton({ children, onClick }) {
   return (
-    <button className={styles.TableButton} onClick={onClick}>
-      {children}
-    </button>
+    <div className={styles.tableButtonContainer}>
+      <button className={styles.TableButton} onClick={onClick}>
+        {children}
+      </button>
+    </div>
   );
 }
