@@ -29,48 +29,45 @@ export default function Archive() {
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: 50,
+      width: "5%",
       render: (text, record, index) => index + 1, // автоматическое нумерование
     },
     {
       title: "ФИО",
       dataIndex: "name",
       key: "name",
-      width: 280,
+      width: "15%",
     },
     {
       title: "Регион",
       dataIndex: "region",
       key: "region",
-      width: 254,
+      width: "15%",
     },
     {
       title: "Контактный номер (1)",
       dataIndex: "phoneNumberOne",
       key: "phoneNumberOne",
-      width: 190,
     },
     {
       title: "Контактный номер (2)",
       dataIndex: "phoneNumberTwo",
       key: "phoneNumberTwo",
-      width: 190,
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletion",
       key: "dataDeletion",
       align: "center",
-      width: 110,
     },
     {
       title: "Восстановить",
       key: "restore",
-      width: 126,
+      width: "8%",
       align: "center",
       render: (_, record) => (
         <TableButton onClick={() => navigate()}>
-         <img src={restoreIcon} alt="restore" />
+          <img src={restoreIcon} alt="restore" />
         </TableButton>
       ),
     },
@@ -82,7 +79,7 @@ export default function Archive() {
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: 50,
+      width: "5%",
       render: (text, record, index) => index + 1, // автоматическое нумерование
     },
     {
@@ -90,63 +87,56 @@ export default function Archive() {
       dataIndex: "name",
       key: "name",
       align: "left",
-      width: 240,
+      width: "15%",
     },
     {
       title: "Уникальный код",
       dataIndex: "num_id",
       key: "num_id",
       align: "left",
-      width: 180,
+      width: "15%",
     },
     {
       title: "Ед. изм.",
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: 100,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: 100,
     },
     {
       title: "Цена",
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: 100,
     },
     {
       title: "Сумма",
       dataIndex: "sum",
       key: "sum",
       align: "left",
-      width: 100,
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletionOne",
       key: "dataDeletionOne",
       align: "left",
-      width: 100,
     },
     {
       title: "Статус возврата",
       dataIndex: "returnStatus",
       key: "returnStatus",
       align: "left",
-      width: 94
-
     },
     {
       title: "Восстановить",
       key: "action",
       align: "center",
-      width: 126,
+      width: "8%",
       render: (_, record) => (
         <TableButton onClick={() => navigate()}>
           <img src={restoreIcon} alt="restore" />
@@ -160,7 +150,7 @@ export default function Archive() {
   return (
     <div className={styles.Archive}>
       <div className={styles.container}>
-        <PageHeading heading="Архив" buttonText="Назад" backLink= '/warehouse' />
+        <PageHeading heading="Архив" buttonText="Назад" backLink="/warehouse" />
         <div className={styles.buttonDiv}>
           <div className={styles.twoButtons}>
             <CustomButton
@@ -191,7 +181,7 @@ export default function Archive() {
           columns={displayColumns}
           pagination={false}
           rowKey="_id"
-          scroll={{ y: "50vh", scrollToFirstRowOnChange: true }}
+          scroll={{ y: "45vh", scrollToFirstRowOnChange: true }}
         />
       </div>
     </div>
