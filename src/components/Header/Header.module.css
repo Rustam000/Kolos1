@@ -1,5 +1,4 @@
 .Header {
-  padding-block: 22.5px;
   border-bottom: 1px solid #e7e7e7;
   background: var(--white-white, #fff);
 }
@@ -12,4 +11,19 @@
 
 .logoWrapper {
   margin-right: auto;
+}
+
+.navLink {
+  height: 75px;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black, #000000cc);
+}
+
+.active {
+  color: var(--main-color, #3ba1ff);
+  border-bottom: 3px solid var(--main-color, #3ba1ff);
 }

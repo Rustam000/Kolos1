@@ -1,11 +1,12 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import styles from "./Header.module.css";
-import CustomButton from "../UI/CustomButton/CustomButton";
 
 export default function Header() {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
+  function getNavlinkClasses({ isActive }) {
+    return isActive ? `${styles.navLink} ${styles.active}` : styles.navLink;
+  }
+
   return (
     <header className={styles.Header}>
       <div className="container">
@@ -13,20 +14,12 @@ export default function Header() {
           <Link className={styles.logoWrapper} to="logout">
             <Logo />
           </Link>
-          <CustomButton
-            variant={pathname === "/warehouse" ? "primary" : "secondary"}
-            width="narrow"
-            onClick={() => navigate("/warehouse")}
-          >
+          <NavLink className={getNavlinkClasses} to="/warehouse">
             Склад
-          </CustomButton>
-          <CustomButton
-            variant={pathname === "/distributors" ? "primary" : "secondary"}
-            width="narrow"
-            onClick={() => navigate("/distributors")}
-          >
+          </NavLink>
+          <NavLink className={getNavlinkClasses} to="/distributors">
             Дистрибьюторы
-          </CustomButton>
+          </NavLink>
         </div>
       </div>
     </header>
