@@ -14,20 +14,36 @@ export default function EditDistributor() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isEdit = !!pathname.match("/edit");
-  const [formData, setFormData] = useState({
-    photo: null,
-    fullName: "Баланчаев Баланча Баланчаевич",
-    region: "Чуй",
-    inn: "22703199519876",
-    address: "10 мкр, дом 6, кв №5",
-    actualAddress: "мкр Тунгуч, дом 17, кв №44",
-    passportSeriesAndNumber: "ID4395993",
-    issuedBy: "МКК 211021",
-    issueDate: "21.10.2023", //date?
-    expiryDate: "21.10.2033", //date?
-    phoneNumber1: "550456784",
-    phoneNumber2: "770456784",
-  });
+  const initialData = isEdit
+    ? {
+        photo: null,
+        fullName: "Баланчаев Баланча Баланчаевич",
+        region: "Чуй",
+        inn: "22703199519876",
+        address: "10 мкр, дом 6, кв №5",
+        actualAddress: "мкр Тунгуч, дом 17, кв №44",
+        passportSeriesAndNumber: "ID4395993",
+        issuedBy: "МКК 211021",
+        issueDate: "21.10.2023", //date?
+        expiryDate: "21.10.2033", //date?
+        phoneNumber1: "550456784",
+        phoneNumber2: "770456784",
+      }
+    : {
+        photo: null,
+        fullName: "",
+        region: "",
+        inn: "",
+        address: "",
+        actualAddress: "",
+        passportSeriesAndNumber: "",
+        issuedBy: "",
+        issueDate: "",
+        expiryDate: "",
+        phoneNumber1: "",
+        phoneNumber2: "",
+      };
+  const [formData, setFormData] = useState(initialData);
 
   //временная "валидация"
   function isFormValid() {
