@@ -54,71 +54,57 @@
 }
 
 .formInput {
-  flex-grow: 1;
-
   & p {
     margin-bottom: 10px;
   }
-
-  & input {
-    height: 44px;
-    padding-inline: 15px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    border: 1px solid var(--stroke, #e7e8e7);
-    background: rgba(241, 241, 241, 0.6);
-  }
 }
-
-.forSizeRed {
-  width: 394px;
-}
-.forSizeOrange {
-  width: 183px;
-}
-
-.forSizeBlue {
-  width: 309px;
-}
-
-.forSizePink {
-  width: 140px;
-}
-/* ------------------------------------ */
-/* .form {
-  width: 5px;
-  margin: 0 auto;
-  background-color: white;
-  width: 920px;
-  height: 840px;
-} */
-
-.saveButton {
-  width: 265px;
-  height: 49px;
-  background: #3ba1ff;
+.classInput {
+  height: 44px;
+  padding-inline: 15px;
+  display: flex;
+  align-items: center;
   border-radius: 10px;
+  border: 1px solid var(--stroke, #e7e8e7);
+  background: rgba(241, 241, 241, 0.6);
+  width: 100%; 
 }
 
-.remove {
-  border-radius: 10px;
-  width: 141px;
-  height: 49px;
-}
-
-.qw {
+.sizeForAdressInput{
   width: 394px;
 }
 
-.er {
-  width: 183px;
-}
-
-.ty {
-  width: 140px;
-}
-
-.ui {
+.sizeForInn {
   width: 309px;
+}
+
+.SizePhoneInput {
+  width: 309px;
+  padding-left: 68px;
+}
+
+.exampleNum {
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  border: 1px solid #e7e8e7;
+  width: 60px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formInput {
+  position: relative;
+  display: inline-block;
+}
+.inputContainer {
+  position: relative;
+}
+
+.formPhoneNumber {
+  display: flex;
+  justify-content: start;
 }

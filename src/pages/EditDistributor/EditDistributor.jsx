@@ -16,25 +16,37 @@ export default function EditDistributor() {
   const isEdit = !!pathname.match("/edit");
   const [formData, setFormData] = useState({
     photo: null,
-    fullName: "",
-    region: "",
-    inn: "",
-    address: "",
-    actualAddress: "",
-    passportSeriesAndNumber: "",
-    issuedBy: "",
-    issueDate: "", //date?
-    expiryDate: "", //date?
-    phoneNumber1: "",
-    phoneNumber2: "",
+    fullName: "Баланчаев Баланча Баланчаевич",
+    region: "Чуй",
+    inn: "22703199519876",
+    address: "10 мкр, дом 6, кв №5",
+    actualAddress: "мкр Тунгуч, дом 17, кв №44",
+    passportSeriesAndNumber: "ID4395993",
+    issuedBy: "МКК 211021",
+    issueDate: "21.10.2023", //date?
+    expiryDate: "21.10.2033", //date?
+    phoneNumber1: "550456784",
+    phoneNumber2: "770456784",
   });
 
   //временная "валидация"
-  const formIsValid =
-    formRef.current &&
-    Array.from(formRef.current)
-      .map((field) => field.validity.valid)
-      .reduce((acc, item) => !!(acc * item), true);
+  function isFormValid() {
+    const requiredFields = [
+      "fullName",
+      "region",
+      "inn",
+      "address",
+      "actualAddress",
+      "passportSeriesAndNumber",
+      "issuedBy",
+      "issueDate",
+      "expiryDate",
+      "phoneNumber1",
+    ];
+    return requiredFields.every((field) => formData[field] !== "");
+  }
+
+  const formIsValid = isFormValid();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -79,7 +91,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>ФИО</p>
                   <input
-                    className={styles.forSizeRed}
+                    className={`${styles.classInput} ${styles.sizeForAdressInput}`}
                     type="text"
                     name="fullName"
                     value={formData.fullName}
@@ -91,7 +103,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Фактическое место жительства</p>
                   <input
-                    className={styles.forSizeRed}
+                    className={`${styles.classInput} ${styles.sizeForAdressInput}`}
                     type="text"
                     name="actualAddress"
                     value={formData.actualAddress}
@@ -105,7 +117,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Адрес по прописке</p>
                   <input
-                    className={styles.forSizeRed}
+                    className={`${styles.classInput} ${styles.sizeForAdressInput}`}
                     type="text"
                     name="address"
                     value={formData.address}
@@ -117,7 +129,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Регион</p>
                   <input
-                    className={styles.forSizeOrange}
+                    className={styles.classInput}
                     type="text"
                     name="region"
                     value={formData.region}
@@ -130,7 +142,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Серия и номер паспорта</p>
                   <input
-                    className={styles.forSizeOrange}
+                    className={styles.classInput}
                     type="text"
                     name="passportSeriesAndNumber"
                     value={formData.passportSeriesAndNumber}
@@ -144,7 +156,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>ИНН</p>
                   <input
-                    className={styles.forSizeBlue}
+                    className={`${styles.classInput} ${styles.sizeForInn}`}
                     type="text"
                     name="inn"
                     value={formData.inn}
@@ -157,7 +169,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Орган выдачи</p>
                   <input
-                    className={styles.forSizePink}
+                    className={styles.classInput}
                     type="text"
                     name="issuedBy"
                     value={formData.issuedBy}
@@ -169,7 +181,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Дата выдачи</p>
                   <input
-                    className={styles.forSizePink}
+                    className={styles.classInput}
                     type="text"
                     name="issueDate"
                     value={formData.issueDate}
@@ -181,7 +193,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Срок действия</p>
                   <input
-                    className={styles.forSizePink}
+                    className={styles.classInput}
                     type="text"
                     name="expiryDate"
                     value={formData.expiryDate}
@@ -191,40 +203,40 @@ export default function EditDistributor() {
                   />
                 </label>
               </fieldset>
-              <fieldset className={styles.formFlexRow}>
+              <fieldset
+                className={`${styles.formFlexRow} ${styles.formPhoneNumber}`}
+              >
                 <label className={styles.formInput}>
                   <p>Контактный номер №1</p>
-                  <input
-                    className={styles.forSizeBlue}
-                    type="tel"
-                    name="phoneNumber1"
-                    value={formData.phoneNumber1}
-                    onChange={handleInputChange}
-                    placeholder="+996 "
-                    required
-                  />
+                  <div className={styles.inputContainer}>
+                    <div className={styles.exampleNum}>+996</div>
+                    <input
+                      className={`${styles.classInput} ${styles.SizePhoneInput}`}
+                      type="tel"
+                      name="phoneNumber1"
+                      value={formData.phoneNumber1}
+                      onChange={handleInputChange}
+                      placeholder=""
+                      required
+                    />
+                  </div>
                 </label>
                 <label className={styles.formInput}>
                   <p>Контактный номер №2</p>
-                  <input
-                    className={styles.forSizeBlue}
-                    type="tel"
-                    value={formData.phoneNumber2}
-                    name="phoneNumber2"
-                    onChange={handleInputChange}
-                    placeholder="+996"
-                  />
+                  <div className={styles.inputContainer}>
+                    <div className={styles.exampleNum}>+996</div>
+                    <input
+                      className={`${styles.classInput} ${styles.SizePhoneInput}`}
+                      type="tel"
+                      value={formData.phoneNumber2}
+                      name="phoneNumber2"
+                      onChange={handleInputChange}
+                      placeholder=""
+                    />
+                  </div>
                 </label>
               </fieldset>
               <div className={styles.formButtonRow}>
-                <CustomButton
-                  type="button"
-                  variant="secondary"
-                  onClick={() => setShowDeleteModal(true)}
-                  disabled={!isEdit}
-                >
-                  Удалить
-                </CustomButton>
                 <CustomButton
                   width="xwide"
                   onClick={() => setShowSaveModal(true)}
@@ -262,7 +274,7 @@ export default function EditDistributor() {
         </KolosModal>
       )}
       {showDeleteModal && (
-        <KolosModal message={"Вы точно хотите удалить всё?"}>
+        <KolosModal message={"Вы точно хотите удалить?"}>
           <CustomButton
             height="low"
             variant="primary"
