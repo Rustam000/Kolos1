@@ -1,5 +1,5 @@
 .EditProduct {
-  padding-bottom: 192px;
+  padding-bottom: 16px;
 }
 
 .narrowContainer {
@@ -20,162 +20,60 @@
   letter-spacing: 0.28px;
 }
 
-.fileInput {
-  width: 163px;
-  height: 133px;
-  border: 1px dashed var(--main-color, #3ba1ff);
-  color: var(--main-color, #3ba1ff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.formFlexRow, .formFlexRowTop, .formBottom {
+.formFlexRow {
   border: none;
   display: flex;
   gap: 29px;
 }
 
-.formInput input {
-  width: 140px; 
-}
-
-.measurementCategoryContainer .formDropdown select {
-  width: 263px;
-}
-
 .formButtonRow {
-  margin-top: 32px;
-}
-
-.formBottom {
-  border: none; 
-}
-
-.measurementCategoryContainer .formDropdown .category_dropdown_select {
-  width: 263px;
-}
-
-.selection {
-  display: flex;
-  flex-direction: column; /* Adjust the direction */
-  gap: 10px;
-}
-
-.frame {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-
-.radio {
-  width: 24px;
-  height: 24px;
-  background-color: white;  
-  position: relative;
-}
-
-.radio:checked {
-  background-color: #3ba1ff;
-}
-
-.radioButtonGroup {
-  display: flex;
-  flex-direction: row;
-  margin-top: 9px;
-  align-items: center;
-  gap: 40px;
-}
-
-.radio:checked::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  background-color: #3ba1ff;  
-  border-radius: 50%;
-}
-
-.radioLabel {
-  margin-left: 5px;
-}
-
-/* Style for making label gray */
-.grayLabel {
-  color: gray;
-}
-
-
-
-
-.formButtonRow {
-  composes: formFlexRow;
   margin-top: 32px;
 }
 
 .formInput {
   flex-grow: 1;
-
-  & p {
-    margin-bottom: 10px;
-  }
-
-  & input {
-    width: 100%;
-    height: 44px;
-    padding-inline: 15px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    border: 1px solid var(--stroke, #e7e8e7);
-    background: rgba(241, 241, 241, 0.6);
-  }
 }
 
-.measurementCategoryContainer {
+.wideFormInput {
+  flex: 0 0 263px;
+}
+
+.formInput p {
+  margin-bottom: 10px;
+}
+
+.formInput input,
+.formInput select {
+  width: 100%;
+  height: 44px;
+  padding-inline: 15px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--stroke, #e7e8e7);
+  background: rgba(241, 241, 241, 0.6);
 }
 
-.formDropdown {
-  flex: 1;
-  width: 60%;  /* Maintain the original width setting */
-  
-  & p {
-    margin-bottom: 10px;
-  }
+.radioButtonGroup {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
 
-  & select {
-    width: 100%;
-    height: 44px;
-    padding-inline: 15px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    border: 1px solid var(--stroke, #e7e8e7);
-    background: rgba(241, 241, 241, 0.6);
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:has(input:disabled) {
+    color: gray;
   }
 }
 
-.measurementCategoryContainer .formDropdown .category_dropdown_select {
-  width: 265px;  /* Maintain the original width for category dropdown */
+.radioLabel .radioButton {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  position: relative;
 }
-.saveButton {
-  width: 265px;
-  height: 49px;
-  background: #3ba1ff;
-  border-radius: 10px;
-}
-
-.remove {
-  border-radius: 10px;
-  width: 141px;
-  height: 49px;
-}
-

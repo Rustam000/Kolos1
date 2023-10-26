@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import styles from "./EditProduct.module.css";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import styles from "./EditProduct.module.css";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
@@ -9,7 +9,7 @@ import KolosModal from "../../components/KolosModal/KolosModal";
 
 export default function EditProduct() {
   const location = useLocation();
-  const isEdit = location.pathname.includes("/product/edit");
+  const isEdit = location.pathname.includes("/edit");
   const navigate = useNavigate();
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -18,8 +18,7 @@ export default function EditProduct() {
         name: "Пиво звезда",
         idNumber: "32462021-938f-4090",
         quantity: "10",
-        price: "100",
-        sum: "",
+        price: "100.55",
         unit: "шт",
         category: "Алкогольное",
         productCondition: "norm",
@@ -29,31 +28,19 @@ export default function EditProduct() {
         idNumber: "",
         quantity: "",
         price: "",
-        sum: "",
         unit: "",
         category: "",
-        productCondition: "",
+        productCondition: "norm",
       };
-
   const [formData, setFormData] = useState(initialData);
-
-  useEffect(() => {
-    const quantity = parseFloat(formData["quantity"]) || 0;
-    const price = parseFloat(formData["price"]) || 0;
-    const sum = (quantity * price).toString();
-    setFormData((prevData) => ({ ...prevData, sum }));
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     let updatedData = { ...formData, [name]: value };
-    if (name === "quantity" || name === "price") {
-      const quantity = parseFloat(updatedData["quantity"]) || 0;
-      const price = parseFloat(updatedData["price"]) || 0;
-      updatedData["sum"] = (quantity * price).toString();
-    }
     setFormData(updatedData);
   };
+
+  const sum = (formData.quantity * formData.price).toFixed(2);
 
   const handleCancel = () => {
     setShowDeleteModal(false);
@@ -85,7 +72,7 @@ export default function EditProduct() {
         />
         <FormContainer>
           <form className={styles.form} onSubmit={handleSave}>
-            <fieldset className={styles.formFlexRowTop}>
+            <fieldset className={styles.formFlexRow}>
               <label className={styles.formInput}>
                 <p>Наименование</p>
                 <input
@@ -107,22 +94,19 @@ export default function EditProduct() {
               </label>
             </fieldset>
             <fieldset className={styles.formFlexRow}>
-              <div className={styles.measurementCategoryContainer}>
-                <label className={styles.formDropdown}>
-                  <p>Ед.измерения</p>
-                  <select
-                    name="unit"
-                    value={formData.unit}
-                    onChange={handleInputChange}
-                    className={styles.dropdown_select}
-                  >
-                    <option value="шт">шт</option>
-                    <option value="кг">кг</option>
-                    <option value="л">л</option>
-                    <option value="м">м</option>
-                  </select>
-                </label>
-              </div>
+              <label className={`${styles.formInput} ${styles.wideFormInput}`}>
+                <p>Ед.измерения</p>
+                <select
+                  name="unit"
+                  value={formData.unit}
+                  onChange={handleInputChange}
+                >
+                  <option value="шт">шт</option>
+                  <option value="кг">кг</option>
+                  <option value="л">л</option>
+                  <option value="м">м</option>
+                </select>
+              </label>
               <label className={styles.formInput}>
                 <p>Количество</p>
                 <input
@@ -148,65 +132,54 @@ export default function EditProduct() {
                 <input
                   type="text"
                   name="sum"
-                  value={formData.sum}
+                  value={sum}
                   readOnly
                   placeholder="0.00"
                 />
               </label>
             </fieldset>
-            <fieldset className={styles.formBottom}>
-              <div className={styles.measurementCategoryContainer}>
-                <label className={styles.formDropdown}>
-                  <p>Категория</p>
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleInputChange}
-                    className={styles.category_dropdown_select}
-                  >
-                    <option value="Алкогольное">Алкогольное</option>
-                    <option value="Безалкогольное">Безалкогольное</option>
-                  </select>
-                </label>
-              </div>
-              <div className={styles.selection}>
-                <span className={styles.selectionTitle}>Состояние</span>
+            <fieldset className={styles.formFlexRow}>
+              <label className={`${styles.formInput} ${styles.wideFormInput}`}>
+                <p>Категория</p>
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                >
+                  <option value="Алкогольное">Алкогольное</option>
+                  <option value="Безалкогольное">Безалкогольное</option>
+                </select>
+              </label>
+              <div className={styles.formInput}>
+                <p>Состояние</p>
                 <div className={styles.radioButtonGroup}>
-                  <label className={styles.frame}>
+                  <label className={styles.radioLabel}>
                     <input
+                      className={styles.radioButton}
                       type="radio"
-                      className={styles.radio}
                       name="productCondition"
                       value="norm"
                       checked={formData.productCondition === "norm"}
                       onChange={handleInputChange}
                     />
-                    <span className={styles.radioLabel}>Норма</span>
+                    <span>Норма</span>
                   </label>
-                  <label className={styles.frame}>
+                  <label className={styles.radioLabel}>
                     <input
+                      className={styles.radioButton}
                       type="radio"
-                      className={styles.radio}
                       name="productCondition"
                       value="defect"
                       checked={formData.productCondition === "defect"}
                       onChange={handleInputChange}
                       disabled={!isEdit}
                     />
-                    <span
-                      className={
-                        isEdit
-                          ? styles.radioLabel
-                          : `${styles.radioLabel} ${styles.grayLabel}`
-                      }
-                    >
-                      Брак
-                    </span>
+                    <span>Брак</span>
                   </label>
                 </div>
               </div>
             </fieldset>
-            <div className={styles.formButtonRow}>
+            <div className={`${styles.formFlexRow} ${styles.formButtonRow}`}>
               {isEdit && (
                 <CustomButton
                   type="button"
