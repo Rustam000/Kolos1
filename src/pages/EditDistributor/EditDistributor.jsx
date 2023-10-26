@@ -30,11 +30,23 @@ export default function EditDistributor() {
   });
 
   //временная "валидация"
-  const formIsValid =
-    formRef.current &&
-    Array.from(formRef.current)
-      .map((field) => field.validity.valid)
-      .reduce((acc, item) => !!(acc * item), true);
+  function isFormValid() {
+    const requiredFields = [
+      "fullName",
+      "region",
+      "inn",
+      "address",
+      "actualAddress",
+      "passportSeriesAndNumber",
+      "issuedBy",
+      "issueDate",
+      "expiryDate",
+      "phoneNumber1",
+    ];
+    return requiredFields.every((field) => formData[field] !== "");
+  }
+
+  const formIsValid = isFormValid();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +62,6 @@ export default function EditDistributor() {
     event.preventDefault();
     console.log(formData);
   }
-
 
   return (
     <>
@@ -80,7 +91,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>ФИО</p>
                   <input
-                    className={styles.classInput}
+                    className={`${styles.classInput} ${styles.sizeForAdressInput}`}
                     type="text"
                     name="fullName"
                     value={formData.fullName}
@@ -92,7 +103,7 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Фактическое место жительства</p>
                   <input
-                    className={styles.classInput}
+                    className={`${styles.classInput} ${styles.sizeForAdressInput}`}
                     type="text"
                     name="actualAddress"
                     value={formData.actualAddress}
@@ -192,46 +203,40 @@ export default function EditDistributor() {
                   />
                 </label>
               </fieldset>
-              <fieldset className={styles.formFlexRow}>
+              <fieldset
+                className={`${styles.formFlexRow} ${styles.formPhoneNumber}`}
+              >
                 <label className={styles.formInput}>
                   <p>Контактный номер №1</p>
                   <div className={styles.inputContainer}>
-                  <div className={styles.exampleNum}>+996</div>
-                  <input
-                    className={`${styles.classInput} ${styles.SizePhoneInput}`}
-                    type="tel"
-                    name="phoneNumber1"
-                    value={formData.phoneNumber1}
-                    onChange={handleInputChange}
-                    placeholder=""
-                    required
-                  />
+                    <div className={styles.exampleNum}>+996</div>
+                    <input
+                      className={`${styles.classInput} ${styles.SizePhoneInput}`}
+                      type="tel"
+                      name="phoneNumber1"
+                      value={formData.phoneNumber1}
+                      onChange={handleInputChange}
+                      placeholder=""
+                      required
+                    />
                   </div>
                 </label>
                 <label className={styles.formInput}>
-                <p>Контактный номер №2</p>
-                <div className={styles.inputContainer}>
-                  <div className={styles.exampleNum}>+996</div>
-                  <input
-                    className={`${styles.classInput} ${styles.SizePhoneInput}`}
-                    type="tel"
-                    value={formData.phoneNumber2}
-                    name="phoneNumber2"
-                    onChange={handleInputChange}
-                    placeholder=""
-                  />
-                </div>
-              </label>
+                  <p>Контактный номер №2</p>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.exampleNum}>+996</div>
+                    <input
+                      className={`${styles.classInput} ${styles.SizePhoneInput}`}
+                      type="tel"
+                      value={formData.phoneNumber2}
+                      name="phoneNumber2"
+                      onChange={handleInputChange}
+                      placeholder=""
+                    />
+                  </div>
+                </label>
               </fieldset>
               <div className={styles.formButtonRow}>
-                <CustomButton
-                  type="button"
-                  variant="secondary"
-                  onClick={() => setShowDeleteModal(true)}
-                  disabled={!isEdit}
-                >
-                  Удалить
-                </CustomButton>
                 <CustomButton
                   width="xwide"
                   onClick={() => setShowSaveModal(true)}
