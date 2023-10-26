@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
 import styles from "./EditDistributor.module.css";
+import { useRef, useState } from "react";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
@@ -207,7 +207,7 @@ export default function EditDistributor() {
                 className={`${styles.formFlexRow} ${styles.formPhoneNumber}`}
               >
                 <label className={styles.formInput}>
-                  <p>Контактный номер №1</p>
+                  <p>Контактный номер 1</p>
                   <div className={styles.inputContainer}>
                     <div className={styles.exampleNum}>+996</div>
                     <input
@@ -222,7 +222,12 @@ export default function EditDistributor() {
                   </div>
                 </label>
                 <label className={styles.formInput}>
-                  <p>Контактный номер №2</p>
+                  <p>
+                    Контактный номер 2
+                    <span className={styles.optional}>
+                      {" (необязательно)"}
+                    </span>
+                  </p>
                   <div className={styles.inputContainer}>
                     <div className={styles.exampleNum}>+996</div>
                     <input

@@ -28,9 +28,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px; 
+  border-radius: 10px;
 }
-
 
 .fileInput input[type="file"] {
   display: none;
@@ -66,10 +65,10 @@
   border-radius: 10px;
   border: 1px solid var(--stroke, #e7e8e7);
   background: rgba(241, 241, 241, 0.6);
-  width: 100%; 
+  width: 100%;
 }
 
-.sizeForAdressInput{
+.sizeForAdressInput {
   width: 394px;
 }
 
@@ -107,4 +106,8 @@
 .formPhoneNumber {
   display: flex;
   justify-content: start;
+}
+
+.optional {
+  color: var(--848484, #848484);
 }
