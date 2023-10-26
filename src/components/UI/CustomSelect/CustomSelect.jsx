@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import styles from './selectBox.module.css';
+import styles from './CustomSelect.module.css';
 
 const CustomSelect = ({ options, label, name }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState(options[0]); 
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -22,7 +22,15 @@ const CustomSelect = ({ options, label, name }) => {
       <div className={`${styles['options-container']} ${isOpen ? styles.active : ''}`}>
         {options.map((option) => (
           <div key={option} className={styles.option} onClick={() => handleOptionClick(option)}>
-            <input type="radio" className={styles.radio} id={option} name={name} />
+            <input
+              type="radio"
+              className={styles.radio}
+              id={option}
+              name={name}
+              value={option}
+              checked={selectedOption === option}
+              onChange={() => handleOptionClick(option)}
+            />
             <label htmlFor={option}>{option}</label>
           </div>
         ))}
@@ -32,3 +40,8 @@ const CustomSelect = ({ options, label, name }) => {
 };
 
 export default CustomSelect;
+
+
+
+
+
