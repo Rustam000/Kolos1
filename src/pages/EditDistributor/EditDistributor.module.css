@@ -40,6 +40,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .formFlexRow {
   border: none;
   display: flex;
@@ -47,17 +48,23 @@
   width: 100%;
 }
 
+.phoneNumberRow {
+  justify-content: start;
+}
+
 .formButtonRow {
-  composes: formFlexRow;
   margin-top: 32px;
 }
 
 .formInput {
-  & p {
-    margin-bottom: 10px;
-  }
+  flex-grow: 1;
 }
-.classInput {
+
+.formInput p {
+  margin-bottom: 10px;
+}
+
+.formInput input {
   height: 44px;
   padding-inline: 15px;
   display: flex;
@@ -68,20 +75,27 @@
   width: 100%;
 }
 
-.sizeForAdressInput {
-  width: 394px;
+.addressInput {
+  flex: 0 0 394px;
 }
 
-.sizeForInn {
-  width: 309px;
+.innInput {
+  flex: 0 0 309px;
 }
 
-.SizePhoneInput {
-  width: 309px;
+.phoneInput {
+  flex: 0 0 309px;
+}
+
+.phoneInput input {
   padding-left: 68px;
 }
 
-.exampleNum {
+.inputContainer {
+  position: relative;
+}
+
+.countryCode {
   position: absolute;
   top: 50%;
   left: 1px;
@@ -94,18 +108,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.formInput {
-  position: relative;
-  display: inline-block;
-}
-.inputContainer {
-  position: relative;
-}
-
-.formPhoneNumber {
-  display: flex;
-  justify-content: start;
 }
 
 .optional {

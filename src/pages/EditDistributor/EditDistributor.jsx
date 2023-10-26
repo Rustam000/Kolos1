@@ -104,10 +104,9 @@ export default function EditDistributor() {
                 </div>
               </label>
               <fieldset className={styles.formFlexRow}>
-                <label className={styles.formInput}>
+                <label className={`${styles.formInput} ${styles.addressInput}`}>
                   <p>ФИО</p>
                   <input
-                    className={`${styles.classInput} ${styles.sizeForAdressInput}`}
                     type="text"
                     name="fullName"
                     value={formData.fullName}
@@ -119,7 +118,6 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Фактическое место жительства</p>
                   <input
-                    className={`${styles.classInput} ${styles.sizeForAdressInput}`}
                     type="text"
                     name="actualAddress"
                     value={formData.actualAddress}
@@ -130,10 +128,9 @@ export default function EditDistributor() {
                 </label>
               </fieldset>
               <fieldset className={styles.formFlexRow}>
-                <label className={styles.formInput}>
+                <label className={`${styles.formInput} ${styles.addressInput}`}>
                   <p>Адрес по прописке</p>
                   <input
-                    className={`${styles.classInput} ${styles.sizeForAdressInput}`}
                     type="text"
                     name="address"
                     value={formData.address}
@@ -145,7 +142,6 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Регион</p>
                   <input
-                    className={styles.classInput}
                     type="text"
                     name="region"
                     value={formData.region}
@@ -158,7 +154,6 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Серия и номер паспорта</p>
                   <input
-                    className={styles.classInput}
                     type="text"
                     name="passportSeriesAndNumber"
                     value={formData.passportSeriesAndNumber}
@@ -169,10 +164,9 @@ export default function EditDistributor() {
                 </label>
               </fieldset>
               <fieldset className={styles.formFlexRow}>
-                <label className={styles.formInput}>
+                <label className={`${styles.formInput} ${styles.innInput}`}>
                   <p>ИНН</p>
                   <input
-                    className={`${styles.classInput} ${styles.sizeForInn}`}
                     type="text"
                     name="inn"
                     value={formData.inn}
@@ -185,7 +179,6 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Орган выдачи</p>
                   <input
-                    className={styles.classInput}
                     type="text"
                     name="issuedBy"
                     value={formData.issuedBy}
@@ -197,7 +190,6 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Дата выдачи</p>
                   <input
-                    className={styles.classInput}
                     type="text"
                     name="issueDate"
                     value={formData.issueDate}
@@ -209,7 +201,6 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Срок действия</p>
                   <input
-                    className={styles.classInput}
                     type="text"
                     name="expiryDate"
                     value={formData.expiryDate}
@@ -220,14 +211,13 @@ export default function EditDistributor() {
                 </label>
               </fieldset>
               <fieldset
-                className={`${styles.formFlexRow} ${styles.formPhoneNumber}`}
+                className={`${styles.formFlexRow} ${styles.phoneNumberRow}`}
               >
-                <label className={styles.formInput}>
+                <label className={`${styles.formInput} ${styles.phoneInput}`}>
                   <p>Контактный номер 1</p>
                   <div className={styles.inputContainer}>
-                    <div className={styles.exampleNum}>+996</div>
+                    <span className={styles.countryCode}>+996</span>
                     <input
-                      className={`${styles.classInput} ${styles.SizePhoneInput}`}
                       type="tel"
                       name="phoneNumber1"
                       value={formData.phoneNumber1}
@@ -237,7 +227,7 @@ export default function EditDistributor() {
                     />
                   </div>
                 </label>
-                <label className={styles.formInput}>
+                <label className={`${styles.formInput} ${styles.phoneInput}`}>
                   <p>
                     Контактный номер 2
                     <span className={styles.optional}>
@@ -245,9 +235,8 @@ export default function EditDistributor() {
                     </span>
                   </p>
                   <div className={styles.inputContainer}>
-                    <div className={styles.exampleNum}>+996</div>
+                    <span className={styles.countryCode}>+996</span>
                     <input
-                      className={`${styles.classInput} ${styles.SizePhoneInput}`}
                       type="tel"
                       value={formData.phoneNumber2}
                       name="phoneNumber2"
@@ -257,7 +246,16 @@ export default function EditDistributor() {
                   </div>
                 </label>
               </fieldset>
-              <div className={styles.formButtonRow}>
+              <div className={`${styles.formFlexRow} ${styles.formButtonRow}`}>
+                {isEdit && (
+                  <CustomButton
+                    type="button"
+                    variant="secondary"
+                    onClick={() => setShowDeleteModal(true)}
+                  >
+                    Удалить
+                  </CustomButton>
+                )}
                 <CustomButton
                   width="xwide"
                   onClick={() => setShowSaveModal(true)}
