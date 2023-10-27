@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   /**@type {string|null} */
@@ -16,9 +17,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logUserIn: (state, action) => {
-      if (action.payload.login === "dev" && action.payload.password === "dev") {
+      if (
+        action.payload.username === "dev54321" &&
+        action.payload.password === "dev54321"
+      ) {
         state.error = null;
-        state.user = "dev";
+        state.user = "dev54321";
       } else {
         state.user = null;
         state.failedAttempts += 1;
@@ -34,20 +38,32 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    //
+    builder.addCase(logUserIn.fulfilled, (state, action) => {
+      console.log("fulfilled", action);
+    });
+    builder.addCase(logUserIn.rejected, (state, action) => {
+      console.log("rejected", action);
+    });
   },
 });
 
 export const authReducer = authSlice.reducer;
 export const authActions = authSlice.actions;
 
+////////////////////////////////////////////////////////////////
+
 export const logUserIn = createAsyncThunk(
   "auth/logUserIn",
   async (formData, thunkAPI) => {
-    thunkAPI.dispatch(authActions.logUserIn(formData));
-    if (formData.login === "dev" && formData.password === "dev") {
-      localStorage.setItem("user", "dev");
-    }
+    const response = await axios.post(
+      "http://51.20.115.221/api/v1/users/login/",
+      formData,
+    );
+    /* thunkAPI.dispatch(authActions.logUserIn(formData));
+    if (formData.username === "dev54321" && formData.password === "dev54321") {
+      localStorage.setItem("user", "dev54321");
+    } */
+    return response.data;
   },
 );
 

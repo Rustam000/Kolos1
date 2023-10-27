@@ -6,18 +6,18 @@ import styles from "./Login.module.css";
 import { authActions, logUserIn } from "../../redux/authSlice";
 
 export default function Login() {
-  const [login, setLogin] = useState("dev");
-  const [password, setPassword] = useState("dev");
+  const [username, setLogin] = useState("dev54321");
+  const [password, setPassword] = useState("dev54321");
   const [hidePassword, setHidePassword] = useState(true);
   const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const fieldsAreEmpty = !login || !password;
+  const fieldsAreEmpty = !username || !password;
 
   function handleSubmit(event) {
     event.preventDefault();
     const formData = {
-      login,
+      username,
       password,
     };
     //dispatch(authActions.logUserIn(formData));
@@ -30,7 +30,7 @@ export default function Login() {
 
   useEffect(() => {
     dispatch(authActions.clearError());
-  }, [login, password]);
+  }, [username, password]);
 
   useEffect(() => {
     if (error === "access_denied") {
@@ -50,7 +50,7 @@ export default function Login() {
             className={`${styles.input} ${error && styles.invalid}`}
             type="text"
             name="login"
-            value={login}
+            value={username}
             onChange={(event) => setLogin(event.target.value)}
             autoComplete="off"
           />

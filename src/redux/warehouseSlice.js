@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { kolosApi } from "../api/axios";
+import { kolosApi } from "../api/axios.js";
 
 /* export const fetchItems = createAsyncThunk(
   "warehouse/fetchItems",
