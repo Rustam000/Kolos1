@@ -2,7 +2,7 @@ import styles from "./CustomSelect.module.css";
 import { useState } from "react";
 import arrowUpIcon from "../../../assets/icons/arrow-up.svg";
 
-const CustomSelect = ({ options = [], label, name }) => {
+const CustomSelect = ({ options = [], name, className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
@@ -10,18 +10,15 @@ const CustomSelect = ({ options = [], label, name }) => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (value) => {
-    setSelectedOption(value);
-    setIsOpen(false);
-  };
-
   return (
     <div
-      className={`${styles.CustomSelect} ${isOpen ? styles.open : ""}`}
+      className={`${styles.CustomSelect} ${
+        isOpen ? styles.open : ""
+      } ${className}`}
       onClick={toggleDropdown}
     >
-      <div className={styles.selectedOption}>
-        {selectedOption || label}
+      <div className={styles.displayedOption}>
+        {selectedOption}
         <img
           className={styles.arrowIcon}
           src={arrowUpIcon}
@@ -34,11 +31,7 @@ const CustomSelect = ({ options = [], label, name }) => {
           className={`${styles.optionContainer} ${isOpen ? styles.open : ""}`}
         >
           {options.map((option) => (
-            <label
-              className={styles.option}
-              key={option}
-              /* onClick={() => handleOptionClick(option)} */
-            >
+            <label className={styles.option} key={option}>
               <input
                 className={styles.radio}
                 type="radio"
@@ -46,7 +39,10 @@ const CustomSelect = ({ options = [], label, name }) => {
                 name={name}
                 value={option}
                 checked={selectedOption === option}
-                onChange={() => handleOptionClick(option)}
+                onChange={() => {
+                  setSelectedOption(option);
+                  setIsOpen(false);
+                }}
               />
               <span>{option}</span>
             </label>

@@ -1,11 +1,10 @@
 .CustomSelect {
-  /* position: relative; */
+  flex-grow: 1;
+  flex-shrink: 0;
   height: 40px;
   border-radius: 10px;
-  border: 1px solid var(--E7E8E7, #e7e8e7);
   font-weight: 400;
   font-size: 13px;
-  width: 170px;
   background-color: var(--EFEFEF, #efefef);
   display: flex;
   flex-direction: column;
@@ -21,12 +20,14 @@
   transform: rotateX(180deg);
 }
 
-.selectedOption {
+.displayedOption {
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  padding-inline: 15px;
+  border-radius: 10px;
 }
 
 .dropdown {
@@ -39,7 +40,6 @@
   width: 100%;
   top: 0;
   background-color: var(--EFEFEF, #efefef);
-  border: 1px solid var(--E7E8E7, #e7e8e7);
   display: none;
 }
 
@@ -52,9 +52,12 @@
   display: flex;
   align-items: center;
   padding-inline: 15px;
+  border-top: 1px solid var(--E7E8E7, #bebebe);
+  overflow: hidden;
 }
 
-.option:hover {
+.option:hover,
+.displayedOption:hover {
   background-color: #d1d1d1;
 }
 
