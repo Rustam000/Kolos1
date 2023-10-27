@@ -93,27 +93,15 @@ export default function Warehouse() {
             <img src={searchIcon} alt="icon" className={styles.searchIcon} />
           </div>
           <CustomSelect
+            className={styles.categorySelect}
             name="category"
             options={["Все товары", "Алкогольные", "Безалкогольные", "Сырье"]}
           />
-          {/* <select
-            className={styles.select}
+          <CustomSelect
+            className={styles.conditionSelect}
             name="category"
-            id="Warehouse_category"
-          >
-            <option value="all">Все товары</option>
-            <option value="Алкогольные">Алкогольные</option>
-            <option value="Безалкогольные">Безалкогольные</option>
-            <option value="Сырье">Сырье</option>
-          </select> */}
-          <select
-            className={styles.select}
-            name="condition"
-            id="Warehouse_condition"
-          >
-            <option value="normal">Норма</option>
-            <option value="defect">Брак</option>
-          </select>
+            options={["Норма", "Брак"]}
+          />
           <CustomButton
             type="button"
             variant="secondary"
