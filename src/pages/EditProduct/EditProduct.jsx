@@ -80,7 +80,7 @@ export default function EditProduct() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  placeholder="Пиво"
+                  placeholder="Пример: Пиво"
                 />
               </label>
               <label className={styles.formInput}>
@@ -114,7 +114,7 @@ export default function EditProduct() {
                   name="quantity"
                   value={formData.quantity}
                   onChange={handleInputChange}
-                  placeholder="1000"
+                  placeholder="Пример: 1000"
                 />
               </label>
               <label className={styles.formInput}>
@@ -124,7 +124,7 @@ export default function EditProduct() {
                   name="price"
                   value={formData.price}
                   onChange={handleInputChange}
-                  placeholder="0.00"
+                  placeholder="00.00"
                 />
               </label>
               <label className={styles.formInput}>
@@ -134,7 +134,7 @@ export default function EditProduct() {
                   name="sum"
                   value={sum}
                   readOnly
-                  placeholder="0.00"
+                  placeholder="00.00"
                 />
               </label>
             </fieldset>

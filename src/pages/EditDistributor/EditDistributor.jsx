@@ -111,7 +111,7 @@ export default function EditDistributor() {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    placeholder="Иванов Иван Иванович"
+                    placeholder="Пример: Иванов Иван Иванович"
                     required
                   />
                 </label>
@@ -146,7 +146,7 @@ export default function EditDistributor() {
                     name="region"
                     value={formData.region}
                     onChange={handleInputChange}
-                    placeholder="Например: Чуй"
+                    placeholder="Пример: Чуй"
                     required
                   />
                 </label>
