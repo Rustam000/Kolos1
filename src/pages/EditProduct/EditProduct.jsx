@@ -6,6 +6,7 @@ import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import KolosModal from "../../components/KolosModal/KolosModal";
+import CustomRadioButton from "../../components/UI/CustomRadioButton/CustomRadioButton";
 
 export default function EditProduct() {
   const location = useLocation();
@@ -154,9 +155,8 @@ export default function EditProduct() {
                 <p>Состояние</p>
                 <div className={styles.radioButtonGroup}>
                   <label className={styles.radioLabel}>
-                    <input
+                    <CustomRadioButton
                       className={styles.radioButton}
-                      type="radio"
                       name="productCondition"
                       value="norm"
                       checked={formData.productCondition === "norm"}
@@ -165,9 +165,8 @@ export default function EditProduct() {
                     <span>Норма</span>
                   </label>
                   <label className={styles.radioLabel}>
-                    <input
+                    <CustomRadioButton
                       className={styles.radioButton}
-                      type="radio"
                       name="productCondition"
                       value="defect"
                       checked={formData.productCondition === "defect"}
