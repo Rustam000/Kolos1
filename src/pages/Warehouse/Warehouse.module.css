@@ -7,13 +7,14 @@
   display: flex;
   align-items: center;
   gap: 27px;
+  font-size: 13px;
 }
 
 .searchInput,
 .select {
   height: 40px;
   border-radius: 12px;
-  border: 1px solid var(--stroke, #e7e8e7);
+  border: none;
   background: #efefef;
   padding-inline: 15px;
 }
@@ -35,10 +36,22 @@
   padding-right: 33px;
 }
 
+.searchInput:hover {
+  background-color: #d1d1d1;
+}
+
 .searchIcon {
   position: absolute;
   top: 50%;
   right: 11px;
   transform: translateY(-50%);
   /* cursor: pointer; */
+}
+
+.categorySelect {
+  flex-basis: 170px;
+}
+
+.conditionSelect {
+  flex-basis: 114px;
 }

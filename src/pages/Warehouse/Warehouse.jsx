@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchItems } from "../../redux/warehouseSlice";
 import ADTable from "../../components/ADTable/ADTable";
+import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 
 export default function Warehouse() {
   const { products } = useSelector((state) => state.warehouse);
@@ -89,24 +90,16 @@ export default function Warehouse() {
             />
             <img src={searchIcon} alt="icon" className={styles.searchIcon} />
           </div>
-          <select
-            className={styles.select}
+          <CustomSelect
+            className={styles.categorySelect}
             name="category"
-            id="Warehouse_category"
-          >
-            <option value="all">Все товары</option>
-            <option value="Алкогольные">Алкогольные</option>
-            <option value="Безалкогольные">Безалкогольные</option>
-            <option value="Сырье">Сырье</option>
-          </select>
-          <select
-            className={styles.select}
-            name="condition"
-            id="Warehouse_condition"
-          >
-            <option value="normal">Норма</option>
-            <option value="defect">Брак</option>
-          </select>
+            options={["Все товары", "Алкогольные", "Безалкогольные", "Сырье"]}
+          />
+          <CustomSelect
+            className={styles.conditionSelect}
+            name="category"
+            options={["Норма", "Брак"]}
+          />
           <CustomButton
             type="button"
             variant="secondary"
