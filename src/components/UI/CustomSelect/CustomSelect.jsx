@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import styles from './CustomSelect.module.css';
 
-const CustomSelect = ({ options, label, name }) => {
+const CustomSelect = ({ options, label, name}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]); 
 
