@@ -8,6 +8,7 @@ import TableButton from "../../components/UI/TableButton/TableButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchItems } from "../../redux/warehouseSlice";
+import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 
 export default function Warehouse() {
   const { products } = useSelector((state) => state.warehouse);
@@ -91,7 +92,11 @@ export default function Warehouse() {
             />
             <img src={searchIcon} alt="icon" className={styles.searchIcon} />
           </div>
-          <select
+          <CustomSelect
+            name="category"
+            options={["Все товары", "Алкогольные", "Безалкогольные", "Сырье"]}
+          />
+          {/* <select
             className={styles.select}
             name="category"
             id="Warehouse_category"
@@ -100,7 +105,7 @@ export default function Warehouse() {
             <option value="Алкогольные">Алкогольные</option>
             <option value="Безалкогольные">Безалкогольные</option>
             <option value="Сырье">Сырье</option>
-          </select>
+          </select> */}
           <select
             className={styles.select}
             name="condition"
