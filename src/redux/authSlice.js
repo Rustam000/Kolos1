@@ -1,15 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { axiosPublic } from "../api/axiosPublic";
 
 const initialState = {
-  /**@type {string|null} */
   user: localStorage.getItem("user"),
-  /**@type {string|null} */
-  accessToken: null,
-  /**@type {string|null} */
   error: null,
-  /**@type {number} */
-  failedAttempts: 0,
 };
 
 export const authSlice = createSlice({
@@ -55,17 +50,33 @@ export const authActions = authSlice.actions;
 export const logUserIn = createAsyncThunk(
   "auth/logUserIn",
   async (formData, thunkAPI) => {
+    try {
+      const response = await axiosPublic.post("/users/login/", formData);
+      console.log({ response });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+    thunkAPI.dispatch(authActions.logUserIn(formData));
+    if (formData.username === "dev54321" && formData.password === "dev54321") {
+      localStorage.setItem("user", "dev54321");
+    }
+    return response.data;
+  },
+);
+/* export const logUserIn = createAsyncThunk(
+  "auth/logUserIn",
+  async (formData, thunkAPI) => {
     const response = await axios.post(
       "http://51.20.115.221/api/v1/users/login/",
       formData,
     );
-    /* thunkAPI.dispatch(authActions.logUserIn(formData));
+    thunkAPI.dispatch(authActions.logUserIn(formData));
     if (formData.username === "dev54321" && formData.password === "dev54321") {
       localStorage.setItem("user", "dev54321");
-    } */
+    }
     return response.data;
   },
-);
+); */
 
 export const logUserOut = createAsyncThunk(
   "auth/logUserOut",

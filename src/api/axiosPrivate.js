@@ -1,5 +1,5 @@
 import axios from "axios";
-import { memoizedRefreshToken } from "./refreshToken";
+import { memoizedRefreshToken, refreshTokenFn } from "./refreshToken";
 import { BASE_URL } from "../constants/constants";
 
 const axiosPrivate = axios.create({
@@ -8,12 +8,12 @@ const axiosPrivate = axios.create({
 
 axiosPrivate.interceptors.request.use(
   async (config) => {
-    const tokens = JSON.parse(localStorage.getItem("token"));
+    const accessToken = localStorage.getItem("access");
 
-    if (tokens?.access) {
+    if (accessToken) {
       config.headers = {
         ...config.headers,
-        authorization: `Token ${tokens?.access}`,
+        authorization: `Token ${accessToken}`,
       };
     }
 
@@ -23,19 +23,21 @@ axiosPrivate.interceptors.request.use(
 );
 
 axiosPrivate.interceptors.response.use(
+  //if response has new tokens, shouldn't we update our tokens
   (response) => response,
   async (error) => {
     const config = error?.config;
 
     if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true;
+      //should save a failed request for resending later
+      const newAccessToken = await refreshTokenFn();
+      //const result = await memoizedRefreshToken();
 
-      const result = await memoizedRefreshToken();
-
-      if (result?.access) {
+      if (newAccessToken) {
         config.headers = {
           ...config.headers,
-          authorization: `Token ${result?.access}`,
+          authorization: `Token ${newAccessToken}`,
         };
       }
 

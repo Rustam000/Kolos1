@@ -2,30 +2,29 @@ import mem from "mem";
 
 import { axiosPublic } from "./axiosPublic";
 
-async function refreshTokenFn() {
-  const oldTokens = JSON.parse(localStorage.getItem("token"));
+export async function refreshTokenFn() {
+  const oldRefreshToken = localStorage.getItem("refresh");
 
   try {
-    const response = await axiosPublic.post(
-      "/user/refresh" /* to be changed */,
-      {
-        refresh: oldTokens.refresh,
-      },
-    );
-
-    const { token } = response.data;
-    //will there be a new refresh token?
-    if (!token?.access) {
-      /* !token?. looks sus */ localStorage.removeItem("token");
+    const response = await axiosPublic.post("/user/token/refresh/", {
+      refresh: oldRefreshToken,
+    });
+    const { access: newAccessToken } = response.data;
+    console.log("refreshTokenFn new access token: ", access);
+    if (!newAccessToken) {
+      localStorage.removeItem("refresh");
+      localStorage.removeItem("access");
       localStorage.removeItem("user"); /* if any */
     }
 
-    localStorage.setItem("token", JSON.stringify(token));
+    localStorage.setItem("access", newAccessToken);
 
-    return token;
+    return newAccessToken;
   } catch (error) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    console.warn(error);
+    localStorage.removeItem("refresh");
+    localStorage.removeItem("access");
+    localStorage.removeItem("user"); /* if any */
   }
 }
 
