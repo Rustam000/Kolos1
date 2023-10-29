@@ -24,7 +24,7 @@ export default function Distributors() {
       key: "rowIndex",
       align: "center",
       width: 55,
-      render: (text, record, index) => index + 1, // автоматическое нумерование
+      render: (text, record, index) => index + 1,
     },
     {
       title: "ФИО",

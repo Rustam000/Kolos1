@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
 import "./App.css";
+import { useSelector } from "react-redux";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Layout from "./components/Layout/Layout";
@@ -9,7 +9,6 @@ import Distributors from "./pages/Distributors/Distributors";
 import EditDistributor from "./pages/EditDistributor/EditDistributor";
 import EditProduct from "./pages/EditProduct/EditProduct";
 import Order from "./pages/Order/Order";
-import Return from "./pages/Return/Return";
 import Archive from "./pages/Archive/Archive";
 import Logout from "./pages/Logout/Logout";
 

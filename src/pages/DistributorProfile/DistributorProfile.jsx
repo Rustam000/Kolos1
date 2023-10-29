@@ -4,6 +4,7 @@ import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./DistributorProfile.module.css";
 import angleBracketLeftIcon from "../../assets/icons/fi-sr-angle-small-left.svg";
 import editIcon from "../../assets/icons/edit.svg";
+import { useNavigate, useParams } from "react-router-dom";
 
 const tableColumns = [
   {
@@ -46,6 +47,8 @@ const tableColumns = [
 ];
 
 export default function DistributorProfile() {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const total = products?.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
@@ -86,8 +89,18 @@ export default function DistributorProfile() {
                 +996 550 366 001
               </p>
               <div className={styles.actions}>
-                <CustomButton variant="secondary">Возврат</CustomButton>
-                <CustomButton variant="secondary">Продать</CustomButton>
+                <CustomButton
+                  variant="secondary"
+                  onClick={() => navigate(`../return/${id}`)}
+                >
+                  Возврат
+                </CustomButton>
+                <CustomButton
+                  variant="secondary"
+                  onClick={() => navigate(`../order/${id}`)}
+                >
+                  Продать
+                </CustomButton>
                 <CustomButton variant="primary" width="narrow">
                   <img src={editIcon} alt="edit icon" />
                 </CustomButton>

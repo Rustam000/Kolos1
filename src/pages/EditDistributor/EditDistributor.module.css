@@ -2,11 +2,6 @@
   padding-bottom: 192px;
 }
 
-.narrowContainer {
-  max-width: 920px;
-  margin-inline: auto;
-}
-
 .form {
   display: flex;
   flex-direction: column;

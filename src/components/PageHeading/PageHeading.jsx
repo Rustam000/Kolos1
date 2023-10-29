@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./PageHeading.module.css";
+import { useNavigate } from "react-router-dom";
 import KolosModal from "../KolosModal/KolosModal";
 import CustomButton from "../UI/CustomButton/CustomButton";
 import { useState } from "react";
@@ -29,7 +29,7 @@ export default function PageHeading({
           <span className={styles.angleBracket}></span>
           {buttonText}
         </button>
-        <h1 className={styles.heading}>{heading}</h1>
+        <h2 className={styles.heading}>{heading}</h2>
       </div>
       {modalOnLeave && showModal && (
         <KolosModal message="Вы точно хотите отменить всё и покинуть страницу?">

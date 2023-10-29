@@ -66,7 +66,7 @@ export default function EditProduct() {
 
   return (
     <div className={styles.EditProduct}>
-      <div className={styles.narrowContainer}>
+      <div className="narrowContainer">
         <PageHeading
           heading={isEdit ? "Редактировать товар" : "Создать товар"}
           modalOnLeave={true}

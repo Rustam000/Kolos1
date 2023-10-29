@@ -1,118 +1,118 @@
 .prod {
-   border: 1px solid;
-   width: 665px;
-   height: 700px;
-   margin: 10px;
-   border-radius: 4px;
+  border: 1px solid;
+  width: 665px;
+  height: 700px;
+  margin: 10px;
+  border-radius: 4px;
 }
 .dis {
-   border: 1px solid;
-   width: 665px;
-   height: 700px;
-   margin: 10px;
-   border-radius: 4px;
+  border: 1px solid;
+  width: 665px;
+  height: 700px;
+  margin: 10px;
+  border-radius: 4px;
 }
 .box {
-   display: flex;
-   justify-content: center;
-   text-align: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 .product {
-   text-align: left;
-   margin: 16px;
-   font-family: Rubik;
-   font-size: 24px;
-   font-weight: 600;
-   line-height: 34px;
-   letter-spacing: 0.02em;
+  text-align: left;
+  margin: 16px;
+  font-family: Rubik;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 34px;
+  letter-spacing: 0.02em;
 }
 .destre {
-   text-align: left;
-   display: flex;
-   margin: 5px;
+  text-align: left;
+  display: flex;
+  margin: 5px;
 }
 .bgimg {
-   background-image: url('./img/dis.png');
-   width: 184px;
-   height: 196px;
-   background-repeat: no-repeat;
-   margin: 10px;
+  background-image: url("/temporary_distributor_image.png");
+  width: 184px;
+  height: 196px;
+  background-repeat: no-repeat;
+  margin: 10px;
 }
 .info {
-   margin-top: 5px;
+  margin-top: 5px;
 }
 .info p {
-   margin-top: 10px;
-   size: 15px;
+  margin-top: 10px;
+  size: 15px;
 }
 .search {
-   width: 600px;
-   height: 40px;
-   background-color: #EFEFEF;
-   border-radius: 6px;
-   margin: 35px;
-   border: none;
+  width: 600px;
+  height: 40px;
+  background-color: #efefef;
+  border-radius: 6px;
+  margin: 35px;
+  border: none;
 }
 .Order {
-   text-align: center;
+  text-align: center;
 }
 .back {
-   height: 55px;
-   width: 170px;
-   border-radius: 4px;
-   background-color: #fff;
+  height: 55px;
+  width: 170px;
+  border-radius: 4px;
+  background-color: #fff;
 }
 
 .infoRow {
-   margin-right: 1ch;
-   font-weight: 600;
+  margin-right: 1ch;
+  font-weight: 600;
 }
 .print {
-   width: 230px;
-   margin: 0 20px;
-   height: 55px;
-   background-color: #E2E2E2;
-   border-radius: 4px;
-   border: none;
+  width: 230px;
+  margin: 0 20px;
+  height: 55px;
+  background-color: #e2e2e2;
+  border-radius: 4px;
+  border: none;
 }
 .save {
-   width: 210px;
-   height: 55px;
-   background-color: #3BA1FF;
-   color: #fff;
-   border-radius: 4px;
-   border: none;
+  width: 210px;
+  height: 55px;
+  background-color: #3ba1ff;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
 }
 
 .btn {
-   display: flex;
-   justify-content: space-between;
-   width: 1350px;
-   height: 55px;
-   margin: 40px auto;
+  display: flex;
+  justify-content: space-between;
+  width: 1350px;
+  height: 55px;
+  margin: 40px auto;
 }
 
 .table {
-   width: 633px;
-   height: 520px;
-   margin: 30px auto;
+  width: 633px;
+  height: 520px;
+  margin: 30px auto;
 }
 .result {
-   display: flex;
-   justify-content: end;
-   margin: 50px 16px 16px;
+  display: flex;
+  justify-content: end;
+  margin: 50px 16px 16px;
 }
 
 .result span {
-   display: flex;
-   font-family: Rubik;
-   font-size: 18px;
-   font-weight: 400;
-   line-height: 25px;
-   letter-spacing: 0.02em;
-   text-align: left;
+  display: flex;
+  font-family: Rubik;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: 0.02em;
+  text-align: left;
 }
 .result h2 {
-   margin-left: 4px;
-   margin-top: -3px;
+  margin-left: 4px;
+  margin-top: -3px;
 }

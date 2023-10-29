@@ -82,7 +82,7 @@ export default function EditDistributor() {
   return (
     <>
       <div className={styles.EditDistributor}>
-        <div className={styles.narrowContainer}>
+        <div className="narrowContainer">
           <PageHeading
             heading={
               isEdit ? "Редактировать дистрибьютора" : "Создать дистрибьютора"

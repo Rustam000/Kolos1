@@ -17,17 +17,13 @@
   padding: 0;
 }
 
-/* h1 {
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 34px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%;
-  letter-spacing: 0.68px;
-} */
-
 .container {
   max-width: 1200px;
+  margin-inline: auto;
+}
+
+.narrowContainer {
+  max-width: 920px;
   margin-inline: auto;
 }
 
