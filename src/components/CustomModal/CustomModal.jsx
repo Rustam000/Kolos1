@@ -3,8 +3,6 @@ import CustomButton from "../UI/CustomButton/CustomButton";
 
 /**
  *
- * @description
- * Компонент принимает проп message и две кнопки через children
  * @example
  * {showModal && (
  *   <CustomModal
