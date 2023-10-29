@@ -28,16 +28,29 @@ export const fetchItems = createAsyncThunk(
 );
 
 const initialState = {
-  products: [],
+  search: "",
+  category: "",
+  condition: "",
+  items: [],
 };
 
 export const warehouseSlice = createSlice({
   name: "warehouse",
   initialState,
-  reducers: {},
+  reducers: {
+    setCategory: (state, action) => {
+      state.category = action.payload.category;
+    },
+    setCondition: (state, action) => {
+      state.condition = action.payload.condition;
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload.search;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchItems.fulfilled, (state, action) => {
-      state.products = action.payload;
+      state.items = action.payload;
     });
   },
 });

@@ -1,5 +1,5 @@
 import styles from "./CustomSelect.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import arrowUpIcon from "../../../assets/icons/arrow-up.svg";
 import arrowDownIcon from "../../../assets/icons/arrow-down.svg";
 
@@ -24,9 +24,12 @@ const CustomSelect = ({
 
   function handleChange(option) {
     setSelectedOption(option);
-    dispatchNewValue(option.value);
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    dispatchNewValue(selectedOption.value);
+  }, [dispatchNewValue, selectedOption]);
 
   return (
     <div

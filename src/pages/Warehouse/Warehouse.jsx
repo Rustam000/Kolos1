@@ -6,18 +6,32 @@ import editIcon from "../../assets/icons/mode_edit.svg";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchItems } from "../../redux/warehouseSlice";
+import { fetchItems, warehouseActions } from "../../redux/warehouseSlice";
 import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 
 export default function Warehouse() {
-  const { products } = useSelector((state) => state.warehouse);
+  const { items, search, category, condition } = useSelector(
+    (state) => state.warehouse,
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  function dispatchCategory(category) {
+    dispatch(warehouseActions.setCategory({ category }));
+  }
+
+  function dispatchCondition(condition) {
+    dispatch(warehouseActions.setCondition({ condition }));
+  }
+
+  function dispatchSearch(search) {
+    dispatch(warehouseActions.setSearch({ search }));
+  }
+
   useEffect(() => {
     dispatch(fetchItems());
-  }, []);
+  }, [search, category, condition]);
 
   const tableColumns = [
     {
@@ -87,12 +101,15 @@ export default function Warehouse() {
               className={styles.searchInput}
               type="text"
               placeholder="Поиск..."
+              value={search}
+              onChange={(event) => dispatchSearch(event.target.value)}
             />
             <img src={searchIcon} alt="icon" className={styles.searchIcon} />
           </div>
           <CustomSelect
             className={styles.categorySelect}
             name="category"
+            dispatchNewValue={dispatchCategory}
             options={[
               { value: "all", label: "Все товары" },
               { value: "alcohol", label: "Алкогольные" },
@@ -103,6 +120,7 @@ export default function Warehouse() {
           <CustomSelect
             className={styles.conditionSelect}
             name="category"
+            dispatchNewValue={dispatchCondition}
             options={[
               { value: "norm", label: "Норма" },
               { value: "defect", label: "Брак" },
@@ -124,7 +142,7 @@ export default function Warehouse() {
           </CustomButton>
         </form>
         <ADTable
-          dataSource={products}
+          dataSource={items}
           rowKey="_id"
           columns={tableColumns}
           height="70vh"
