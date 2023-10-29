@@ -1,6 +1,3 @@
-/* .Distributors {
-} */
-
 .filterbar {
   margin-top: 20px;
   margin-bottom: 40px;
@@ -11,4 +8,8 @@
 
 .filterbar button {
   margin-left: auto;
+}
+
+.distributorLink {
+  color: var(--black);
 }

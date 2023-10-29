@@ -11,11 +11,7 @@ import ADTable from "../../components/ADTable/ADTable";
 export default function Archive() {
   const location = useLocation();
   const navigate = useNavigate();
-  const isWarehouse = location.pathname === "/archive/warehouse";
-  const dataToShow = isWarehouse ? products : distributors;
-  const navigateTo = (path) => {
-    navigate(path);
-  };
+  const isWarehouse = location.pathname.includes("/warehouse");
 
   const total = products?.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -29,7 +25,7 @@ export default function Archive() {
       key: "rowIndex",
       align: "center",
       width: 55,
-      render: (text, record, index) => index + 1, // автоматическое нумерование
+      render: (text, record, index) => index + 1,
     },
     {
       title: "ФИО",
@@ -65,7 +61,7 @@ export default function Archive() {
       width: "8%",
       align: "center",
       render: (_, record) => (
-        <TableButton onClick={() => navigate()}>
+        <TableButton onClick={() => null}>
           <img src={restoreIcon} alt="restore" />
         </TableButton>
       ),
@@ -79,7 +75,7 @@ export default function Archive() {
       key: "rowIndex",
       align: "center",
       width: 55,
-      render: (text, record, index) => index + 1, // автоматическое нумерование
+      render: (text, record, index) => index + 1,
     },
     {
       title: "Наименование",
@@ -137,7 +133,7 @@ export default function Archive() {
       align: "center",
       width: "8%",
       render: (_, record) => (
-        <TableButton onClick={() => navigate()}>
+        <TableButton onClick={() => null}>
           <img src={restoreIcon} alt="restore" />
         </TableButton>
       ),
@@ -154,13 +150,13 @@ export default function Archive() {
           <div className={styles.twoButtons}>
             <CustomButton
               variant={isWarehouse ? "primary" : "secondary"}
-              onClick={() => navigateTo("/archive/warehouse")}
+              onClick={() => navigate("/warehouse/archive")}
             >
               Товары
             </CustomButton>
             <CustomButton
               variant={!isWarehouse ? "primary" : "secondary"}
-              onClick={() => navigateTo("/archive/distributors")}
+              onClick={() => navigate("/distributors/archive")}
             >
               Дистрибьюторы
             </CustomButton>

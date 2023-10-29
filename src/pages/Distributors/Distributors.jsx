@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Distributors.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import editIcon from "../../assets/icons/mode_edit.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +31,14 @@ export default function Distributors() {
       dataIndex: "name",
       key: "name",
       align: "left",
+      render: (_, record) => (
+        <Link
+          className={styles.distributorLink}
+          to={`/distributors/distributor/profile/${record._id}`}
+        >
+          {record.name + " (cсылка на профиль)"}
+        </Link>
+      ),
     },
     {
       title: "Регион",
@@ -46,7 +54,9 @@ export default function Distributors() {
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/distributor/edit/${record._id}`, { state: record })
+            navigate(`/distributors/distributor/edit/${record._id}`, {
+              state: record,
+            })
           }
         >
           <img src={editIcon} alt="edit icon" />
@@ -61,7 +71,7 @@ export default function Distributors() {
         <div className={styles.filterbar}>
           <CustomButton
             variant="primary"
-            onClick={() => navigate("/distributor/create")}
+            onClick={() => navigate("/distributors/distributor/create")}
           >
             Создать
           </CustomButton>
