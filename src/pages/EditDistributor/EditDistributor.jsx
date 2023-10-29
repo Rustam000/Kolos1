@@ -5,7 +5,7 @@ import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import getApp from "../../assets/icons/get_app.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import KolosModal from "../../components/KolosModal/KolosModal";
+import CustomModal from "../../components/CustomModal/CustomModal";
 
 export default function EditDistributor() {
   const formRef = useRef(null);
@@ -76,7 +76,7 @@ export default function EditDistributor() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(formData);
+    setShowSaveModal(true);
   }
 
   return (
@@ -256,11 +256,7 @@ export default function EditDistributor() {
                     Удалить
                   </CustomButton>
                 )}
-                <CustomButton
-                  width="xwide"
-                  onClick={() => setShowSaveModal(true)}
-                  disabled={!formIsValid}
-                >
+                <CustomButton width="xwide" disabled={!formIsValid}>
                   Сохранить
                 </CustomButton>
               </div>
@@ -270,50 +266,29 @@ export default function EditDistributor() {
       </div>
       {/* ------------------------------------------modals */}
       {showSaveModal && (
-        <KolosModal message={"Вы точно хотите сохранить?"}>
-          <CustomButton
-            height="low"
-            variant="primary"
-            onClick={() => {
-              setShowSaveModal(false);
-              navigate("/distributors");
-            }}
-          >
-            Да
-          </CustomButton>
-          <CustomButton
-            height="low"
-            variant="secondary"
-            onClick={() => {
-              setShowSaveModal(false);
-            }}
-          >
-            Нет
-          </CustomButton>
-        </KolosModal>
+        <CustomModal
+          message="Вы точно хотите сохранить?"
+          primaryAction={() => {
+            console.log(formData);
+            setShowSaveModal(false);
+            navigate("/distributors");
+          }}
+          secondaryAction={() => {
+            setShowSaveModal(false);
+          }}
+        />
       )}
       {showDeleteModal && (
-        <KolosModal message={"Вы точно хотите удалить?"}>
-          <CustomButton
-            height="low"
-            variant="primary"
-            onClick={() => {
-              setShowDeleteModal(false);
-              navigate("/distributors");
-            }}
-          >
-            Да
-          </CustomButton>
-          <CustomButton
-            height="low"
-            variant="secondary"
-            onClick={() => {
-              setShowDeleteModal(false);
-            }}
-          >
-            Нет
-          </CustomButton>
-        </KolosModal>
+        <CustomModal
+          message="Вы точно хотите удалить?"
+          primaryAction={() => {
+            setShowDeleteModal(false);
+            navigate("/distributors");
+          }}
+          secondaryAction={() => {
+            setShowDeleteModal(false);
+          }}
+        />
       )}
     </>
   );

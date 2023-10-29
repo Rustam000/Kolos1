@@ -1,6 +1,24 @@
 import KolosModal from "../KolosModal/KolosModal";
 import CustomButton from "../UI/CustomButton/CustomButton";
 
+/**
+ *
+ * @description
+ * Компонент принимает проп message и две кнопки через children
+ * @example
+ * {showModal && (
+ *   <CustomModal
+ *         message="Вы точно хотите отменить всё и покинуть страницу?"
+ *         primaryAction={() => {
+ *           setShowModal(false);
+ *           navigate(backLink);
+ *         }}
+ *         secondaryAction={() => {
+ *           setShowModal(false);
+ *         }}
+ *       />
+ * )}
+ */
 export default function CustomModal({
   message = "I'm a default message. Change me!",
   primaryLabel = "Да",

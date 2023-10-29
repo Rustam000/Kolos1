@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import KolosModal from "../../components/KolosModal/KolosModal";
 import CustomRadioButton from "../../components/UI/CustomRadioButton/CustomRadioButton";
+import CustomModal from "../../components/CustomModal/CustomModal";
 
 export default function EditProduct() {
   const location = useLocation();
@@ -43,12 +43,12 @@ export default function EditProduct() {
 
   const sum = (formData.quantity * formData.price).toFixed(2);
 
-  const handleCancel = () => {
+  const confirmDelete = () => {
     setShowDeleteModal(false);
     navigate("/warehouse");
   };
 
-  const handleSave = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setShowSaveModal(true);
   };
@@ -72,7 +72,7 @@ export default function EditProduct() {
           modalOnLeave={true}
         />
         <FormContainer>
-          <form className={styles.form} onSubmit={handleSave}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <fieldset className={styles.formFlexRow}>
               <label className={styles.formInput}>
                 <p>Наименование</p>
@@ -199,47 +199,24 @@ export default function EditProduct() {
           </form>
         </FormContainer>
       </div>
-
+      {/* ------------------------------------------modals */}
       {showSaveModal && (
-        <KolosModal message="Вы точно хотите сохранить?">
-          <CustomButton
-            width="flex"
-            height="low"
-            variant="primary"
-            onClick={confirmSave}
-          >
-            Да
-          </CustomButton>
-          <CustomButton
-            width="flex"
-            height="low"
-            variant="secondary"
-            onClick={() => setShowSaveModal(false)}
-          >
-            Нет
-          </CustomButton>
-        </KolosModal>
+        <CustomModal
+          message="Вы точно хотите сохранить?"
+          primaryAction={confirmSave}
+          secondaryAction={() => {
+            setShowSaveModal(false);
+          }}
+        />
       )}
-
       {showDeleteModal && (
-        <KolosModal message="Вы точно хотите удалить?">
-          <CustomButton
-            width="flex"
-            height="low"
-            variant="primary"
-            onClick={handleCancel}
-          >
-            Да
-          </CustomButton>
-          <CustomButton
-            width="flex"
-            height="low"
-            variant="secondary"
-            onClick={() => setShowDeleteModal(false)}
-          >
-            Нет
-          </CustomButton>
-        </KolosModal>
+        <CustomModal
+          message="Вы точно хотите удалить?"
+          primaryAction={confirmDelete}
+          secondaryAction={() => {
+            setShowDeleteModal(false);
+          }}
+        />
       )}
     </div>
   );
