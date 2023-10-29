@@ -26,10 +26,10 @@ export default function CustomModal({
 }) {
   return (
     <KolosModal message={message}>
-      <CustomButton variant="primary" onClick={primaryAction}>
+      <CustomButton variant="primary" height="low" onClick={primaryAction}>
         {primaryLabel}
       </CustomButton>
-      <CustomButton variant="secondary" onClick={secondaryAction}>
+      <CustomButton variant="secondary" height="low" onClick={secondaryAction}>
         {secondaryLabel}
       </CustomButton>
     </KolosModal>
