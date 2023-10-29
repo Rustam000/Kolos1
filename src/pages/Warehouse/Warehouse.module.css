@@ -20,12 +20,12 @@
   min-width: 170px;
 }
 
-/* Стили для inputContainer */
-.inputContainer {
+.searchInputContainer {
   flex-grow: 1;
   flex-basis: 453px;
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
 .searchInput {
@@ -33,16 +33,14 @@
   padding-right: 37px;
 }
 
-.searchInput:hover {
+.searchInputContainer:hover .searchInput {
   background-color: #d1d1d1;
 }
 
 .searchIcon {
   position: absolute;
-  top: 50%;
   right: 15px;
-  transform: translateY(-50%);
-  /* cursor: pointer; */
+  cursor: pointer;
 }
 
 .categorySelect {

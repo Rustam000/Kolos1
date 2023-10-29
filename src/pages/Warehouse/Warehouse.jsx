@@ -82,7 +82,7 @@ export default function Warehouse() {
     <div className={styles.Warehouse}>
       <div className="container">
         <form className={styles.filterbar}>
-          <div className={styles.inputContainer}>
+          <div className={styles.searchInputContainer}>
             <input
               className={styles.searchInput}
               type="text"
