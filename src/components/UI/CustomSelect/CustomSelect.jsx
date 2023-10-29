@@ -1,6 +1,7 @@
 import styles from "./CustomSelect.module.css";
 import { useState } from "react";
 import arrowUpIcon from "../../../assets/icons/arrow-up.svg";
+import arrowDownIcon from "../../../assets/icons/arrow-down.svg";
 
 const CustomSelect = ({ options = [], name, className }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,11 +30,15 @@ const CustomSelect = ({ options = [], name, className }) => {
           type="text"
           name={name}
           id={`CustomSelect-${name}`}
-          value={selectedOption}
+          value={selectedOption.label}
           readOnly
           onBlur={handleBlur}
         />
-        <img className={styles.arrowIcon} src={arrowUpIcon} alt="arrow icon" />
+        <img
+          className={styles.arrowIcon}
+          src={isOpen ? arrowUpIcon : arrowDownIcon}
+          alt="arrow icon"
+        />
       </div>
       <div className={styles.dropdown}>
         <ul
@@ -42,13 +47,13 @@ const CustomSelect = ({ options = [], name, className }) => {
           {options.map((option) => (
             <li
               className={styles.option}
-              key={option}
+              key={option.value}
               onClick={() => {
                 setSelectedOption(option);
                 setIsOpen(false);
               }}
             >
-              {option}
+              {option.label}
             </li>
           ))}
         </ul>

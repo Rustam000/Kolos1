@@ -6,17 +6,18 @@
   font-size: 13px;
   display: flex;
   flex-direction: column;
-  z-index: 10;
+  /* z-index: 10; */
+  /* isolation: isolate; */
+}
+
+.CustomSelect.open {
+  z-index: 20;
 }
 
 .arrowIcon {
   position: absolute;
   right: 15px;
-  transform: rotateX(180deg);
-}
-
-.CustomSelect.open .arrowIcon {
-  transform: rotateX(0);
+  pointer-events: none;
 }
 
 .displayedOption {
@@ -28,7 +29,7 @@
 }
 
 .input {
-  background-color: var(--EFEFEF, #efefef);
+  background-color: var(--input-gray);
   padding-inline: 15px;
   border-radius: 10px;
   border: none;
@@ -52,7 +53,7 @@
   position: absolute;
   width: 100%;
   top: 0;
-  background-color: var(--EFEFEF, #efefef);
+  background-color: var(--input-gray);
   display: none;
   list-style: none;
 }

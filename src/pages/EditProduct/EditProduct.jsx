@@ -7,6 +7,7 @@ import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import CustomRadioButton from "../../components/UI/CustomRadioButton/CustomRadioButton";
 import CustomModal from "../../components/CustomModal/CustomModal";
+import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 
 export default function EditProduct() {
   const location = useLocation();
@@ -97,16 +98,16 @@ export default function EditProduct() {
             <fieldset className={styles.formFlexRow}>
               <label className={`${styles.formInput} ${styles.wideFormInput}`}>
                 <p>Ед.измерения</p>
-                <select
+                <CustomSelect
+                  className={styles.unitSelect}
                   name="unit"
-                  value={formData.unit}
-                  onChange={handleInputChange}
-                >
-                  <option value="шт">шт</option>
-                  <option value="кг">кг</option>
-                  <option value="л">л</option>
-                  <option value="м">м</option>
-                </select>
+                  options={[
+                    { value: "piece", label: "ШТ" },
+                    { value: "kilogram", label: "КГ" },
+                    { value: "liter", label: "Л" },
+                    { value: "meter", label: "М" },
+                  ]}
+                />
               </label>
               <label className={styles.formInput}>
                 <p>Количество</p>
@@ -142,14 +143,17 @@ export default function EditProduct() {
             <fieldset className={styles.formFlexRow}>
               <label className={`${styles.formInput} ${styles.wideFormInput}`}>
                 <p>Категория</p>
-                <select
+
+                <CustomSelect
+                  className={styles.categorySelect}
                   name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                >
-                  <option value="Алкогольное">Алкогольное</option>
-                  <option value="Безалкогольное">Безалкогольное</option>
-                </select>
+                  options={[
+                    { value: "all", label: "Все товары" },
+                    { value: "alcohol", label: "Алкогольные" },
+                    { value: "nonalcohol", label: "Безалкогольные" },
+                    { value: "raw", label: "Сырье" },
+                  ]}
+                />
               </label>
               <div className={styles.formInput}>
                 <p>Состояние</p>

@@ -93,12 +93,20 @@ export default function Warehouse() {
           <CustomSelect
             className={styles.categorySelect}
             name="category"
-            options={["Все товары", "Алкогольные", "Безалкогольные", "Сырье"]}
+            options={[
+              { value: "all", label: "Все товары" },
+              { value: "alcohol", label: "Алкогольные" },
+              { value: "nonalcohol", label: "Безалкогольные" },
+              { value: "raw", label: "Сырье" },
+            ]}
           />
           <CustomSelect
             className={styles.conditionSelect}
             name="category"
-            options={["Норма", "Брак"]}
+            options={[
+              { value: "norm", label: "Норма" },
+              { value: "defect", label: "Брак" },
+            ]}
           />
           <CustomButton
             type="button"

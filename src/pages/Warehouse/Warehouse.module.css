@@ -5,6 +5,7 @@
   align-items: center;
   gap: 27px;
   font-size: 14px;
+  z-index: 10;
 }
 
 .searchInput,
@@ -14,10 +15,6 @@
   border: none;
   background: #efefef;
   padding-inline: 15px;
-}
-
-.select {
-  min-width: 170px;
 }
 
 .searchInputContainer {

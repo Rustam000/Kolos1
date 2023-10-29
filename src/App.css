@@ -8,6 +8,8 @@
   --neutral-10: #e7e8e7;
   --white-white: #fff;
   --black-100: #000;
+  --input-gray: #f6f6f6;
+  --input-hover-gray: #d1d1d1;
 }
 * {
   box-sizing: border-box;
