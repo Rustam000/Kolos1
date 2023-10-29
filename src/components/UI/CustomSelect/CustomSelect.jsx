@@ -10,6 +10,12 @@ const CustomSelect = ({ options = [], name, className }) => {
     setIsOpen(!isOpen);
   };
 
+  function handleBlur() {
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 300);
+  }
+
   return (
     <div
       className={`${styles.CustomSelect} ${
@@ -18,36 +24,34 @@ const CustomSelect = ({ options = [], name, className }) => {
       onClick={toggleDropdown}
     >
       <div className={styles.displayedOption}>
-        {selectedOption}
-        <img
-          className={styles.arrowIcon}
-          src={arrowUpIcon}
-          alt="arrow icon"
-          width="9"
+        <input
+          className={styles.input}
+          type="text"
+          name={name}
+          id={`CustomSelect-${name}`}
+          value={selectedOption}
+          readOnly
+          onBlur={handleBlur}
         />
+        <img className={styles.arrowIcon} src={arrowUpIcon} alt="arrow icon" />
       </div>
       <div className={styles.dropdown}>
-        <div
+        <ul
           className={`${styles.optionContainer} ${isOpen ? styles.open : ""}`}
         >
           {options.map((option) => (
-            <label className={styles.option} key={option}>
-              <input
-                className={styles.radio}
-                type="radio"
-                id={name + option}
-                name={name}
-                value={option}
-                checked={selectedOption === option}
-                onChange={() => {
-                  setSelectedOption(option);
-                  setIsOpen(false);
-                }}
-              />
-              <span>{option}</span>
-            </label>
+            <li
+              className={styles.option}
+              key={option}
+              onClick={() => {
+                setSelectedOption(option);
+                setIsOpen(false);
+              }}
+            >
+              {option}
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );
