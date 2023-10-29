@@ -3,7 +3,12 @@ import { useState } from "react";
 import arrowUpIcon from "../../../assets/icons/arrow-up.svg";
 import arrowDownIcon from "../../../assets/icons/arrow-down.svg";
 
-const CustomSelect = ({ options = [], name, className }) => {
+const CustomSelect = ({
+  options = [],
+  name,
+  className,
+  dispatchNewValue = (value) => console.log(value),
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
@@ -15,6 +20,12 @@ const CustomSelect = ({ options = [], name, className }) => {
     setTimeout(() => {
       setIsOpen(false);
     }, 300);
+  }
+
+  function handleChange(option) {
+    setSelectedOption(option);
+    dispatchNewValue(option.value);
+    setIsOpen(false);
   }
 
   return (
@@ -48,10 +59,7 @@ const CustomSelect = ({ options = [], name, className }) => {
             <li
               className={styles.option}
               key={option.value}
-              onClick={() => {
-                setSelectedOption(option);
-                setIsOpen(false);
-              }}
+              onClick={() => handleChange(option)}
             >
               {option.label}
             </li>
