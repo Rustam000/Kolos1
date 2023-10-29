@@ -1,8 +1,7 @@
 import styles from "./PageHeading.module.css";
 import { useNavigate } from "react-router-dom";
-import KolosModal from "../KolosModal/KolosModal";
-import CustomButton from "../UI/CustomButton/CustomButton";
 import { useState } from "react";
+import CustomModal from "../CustomModal/CustomModal";
 
 export default function PageHeading({
   heading,
@@ -32,27 +31,16 @@ export default function PageHeading({
         <h2 className={styles.heading}>{heading}</h2>
       </div>
       {modalOnLeave && showModal && (
-        <KolosModal message="Вы точно хотите отменить всё и покинуть страницу?">
-          <CustomButton
-            height="low"
-            variant="primary"
-            onClick={() => {
-              setShowModal(false);
-              navigate(backLink);
-            }}
-          >
-            Да
-          </CustomButton>
-          <CustomButton
-            height="low"
-            variant="secondary"
-            onClick={() => {
-              setShowModal(false);
-            }}
-          >
-            Нет
-          </CustomButton>
-        </KolosModal>
+        <CustomModal
+          message="Вы точно хотите отменить всё и покинуть страницу?"
+          primaryAction={() => {
+            setShowModal(false);
+            navigate(backLink);
+          }}
+          secondaryAction={() => {
+            setShowModal(false);
+          }}
+        />
       )}
     </>
   );
