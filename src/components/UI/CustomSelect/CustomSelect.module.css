@@ -1,7 +1,7 @@
 .CustomSelect {
   flex-grow: 1;
   flex-shrink: 0;
-  height: 40px;
+  height: 44px;
   border-radius: 10px;
   font-weight: 400;
   font-size: 13px;
@@ -21,7 +21,7 @@
 }
 
 .displayedOption {
-  height: 40px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
