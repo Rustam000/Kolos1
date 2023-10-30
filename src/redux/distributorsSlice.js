@@ -6,7 +6,7 @@ export const fetchDistributors = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://51.20.115.221/api/v1/distributor/`,
+        `http://51.20.115.221/api/v1/distributor/?limit=9999`,
       );
       return response.data.results;
     } catch (error) {
@@ -14,20 +14,6 @@ export const fetchDistributors = createAsyncThunk(
     }
   },
 );
-/* 
-export const fetchDistributors = createAsyncThunk(
-  "distributors/fetchDistributors",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get(
-        `https://jwt-authentication-beryl.vercel.app/api/distributors`,
-      );
-      return response.data;
-    } catch (error) {
-      console.warn(error);
-    }
-  },
-); */
 
 const initialState = {
   distributors: [],
