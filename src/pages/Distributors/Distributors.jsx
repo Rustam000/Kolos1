@@ -9,7 +9,9 @@ import { fetchDistributors } from "../../redux/distributorsSlice";
 import ADTable from "../../components/ADTable/ADTable";
 
 export default function Distributors() {
-  const { distributors } = useSelector((state) => state.distributors);
+  const { distributors, isLoading, error } = useSelector(
+    (state) => state.distributors,
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -78,8 +80,9 @@ export default function Distributors() {
         </div>
 
         <ADTable
+          loading={isLoading}
           dataSource={distributors}
-          rowKey="_id"
+          rowKey="id"
           columns={tableColumns}
           height="70vh"
         />
