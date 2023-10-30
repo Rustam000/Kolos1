@@ -7,10 +7,12 @@ const CustomSelect = ({
   options = [],
   name,
   className,
-  dispatchNewValue = (value) => console.log(value),
+  dispatchNewValue = undefined,
 }) => {
+  const firstOption = options[0] || { value: "", label: "---" };
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+  const [selectedOption, setSelectedOption] = useState(firstOption);
+  const selectedOptionValue = selectedOption.value;
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -28,12 +30,14 @@ const CustomSelect = ({
   }
 
   useEffect(() => {
-    setSelectedOption(options[0]);
-  }, [options]);
+    setSelectedOption(firstOption);
+  }, [firstOption]);
 
   useEffect(() => {
-    dispatchNewValue(selectedOption.value);
-  }, [dispatchNewValue, selectedOption]);
+    if (dispatchNewValue) {
+      dispatchNewValue(selectedOptionValue);
+    }
+  }, [dispatchNewValue, selectedOptionValue]);
 
   return (
     <div

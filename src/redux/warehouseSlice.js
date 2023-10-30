@@ -1,34 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchItems = createAsyncThunk(
-  "warehouse/fetchItems",
+export const fetchWarehouseItems = createAsyncThunk(
+  "warehouse/fetchWarehouseItems",
   async (queryParams, thunkAPI) => {
     try {
-      const response = await axios.get(`http://51.20.115.221/api/v1/product/`, {
-        params: queryParams,
-      });
+      const response = await axios.get(
+        `http://51.20.115.221/api/v1/product/?limit=9999`,
+        {
+          params: queryParams,
+        },
+      );
       return response.data.results;
     } catch (error) {
       console.warn(error);
     }
   },
 );
-/* export const fetchItems = createAsyncThunk(
-  "warehouse/fetchItems",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get(
-        `https://jwt-authentication-beryl.vercel.app/api/warehouse`,
-      );
-      return response.data;
-    } catch (error) {
-      console.warn(error);
-    }
-  },
-); */
-export const fetchOptions = createAsyncThunk(
-  "warehouse/fetchOptions",
+
+export const fetchWarehouseOptions = createAsyncThunk(
+  "warehouse/fetchWarehouseOptions",
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(
@@ -43,13 +34,15 @@ export const fetchOptions = createAsyncThunk(
 
 const initialState = {
   search: "",
-  category: "",
-  condition: "",
+  category: "all",
+  condition: "norm",
   items: [],
   options: {
-    category: [{ value: "", label: "---" }],
-    condition: [{ value: "", label: "---" }],
+    category: [{ value: "all", label: "---" }],
+    condition: [{ value: "norm", label: "---" }],
   },
+  isLoading: false,
+  error: null,
 };
 
 export const warehouseSlice = createSlice({
@@ -67,10 +60,21 @@ export const warehouseSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchItems.fulfilled, (state, action) => {
+    builder.addCase(fetchWarehouseItems.pending, (state, action) => {
+      state.error = null;
+      state.isLoading = true;
+    });
+    builder.addCase(fetchWarehouseItems.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
       state.items = action.payload;
     });
-    builder.addCase(fetchOptions.fulfilled, (state, action) => {
+    builder.addCase(fetchWarehouseItems.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    ///////////////////////////////////////////////////////////
+    builder.addCase(fetchWarehouseOptions.fulfilled, (state, action) => {
       state.options = action.payload;
     });
   },

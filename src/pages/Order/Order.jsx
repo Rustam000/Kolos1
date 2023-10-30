@@ -5,7 +5,7 @@ import { Table } from "antd";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchItems } from "../../redux/warehouseSlice";
+import { fetchWarehouseItems } from "../../redux/warehouseSlice";
 import searchIcon from "../../assets/icons/search.svg";
 
 export default function Order() {
@@ -14,7 +14,7 @@ export default function Order() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchItems());
+    dispatch(fetchWarehouseItems());
   }, []);
 
   const tableColumns = [

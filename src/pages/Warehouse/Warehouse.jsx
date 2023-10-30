@@ -7,17 +7,16 @@ import TableButton from "../../components/UI/TableButton/TableButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
-  fetchItems,
-  fetchOptions,
+  fetchWarehouseItems,
+  fetchWarehouseOptions,
   warehouseActions,
 } from "../../redux/warehouseSlice";
 import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 
 export default function Warehouse() {
-  const { items, options, search, category, condition } = useSelector(
-    (state) => state.warehouse,
-  );
+  const { items, isLoading, error, options, search, category, condition } =
+    useSelector((state) => state.warehouse);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,11 +33,11 @@ export default function Warehouse() {
   }
 
   useEffect(() => {
-    dispatch(fetchItems({ search, category, condition }));
+    dispatch(fetchWarehouseItems({ search, category, condition }));
   }, [search, category, condition]);
 
   useEffect(() => {
-    dispatch(fetchOptions());
+    dispatch(fetchWarehouseOptions());
   }, []);
 
   const tableColumns = [
@@ -91,7 +90,7 @@ export default function Warehouse() {
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/warehouse/product/edit/${record._id}`, { state: record })
+            navigate(`/warehouse/product/edit/${record.id}`, { state: record })
           }
         >
           <img src={editIcon} alt="edit icon" />
@@ -119,22 +118,12 @@ export default function Warehouse() {
             name="category"
             dispatchNewValue={dispatchCategory}
             options={options.category}
-            /* options={[
-              { value: "all", label: "Все товары" },
-              { value: "alcohol", label: "Алкогольные" },
-              { value: "nonalcohol", label: "Безалкогольные" },
-              { value: "raw", label: "Сырье" },
-            ]} */
           />
           <CustomSelect
             className={styles.conditionSelect}
             name="condition"
             dispatchNewValue={dispatchCondition}
             options={options.condition}
-            /* options={[
-              { value: "norm", label: "Норма" },
-              { value: "defect", label: "Брак" },
-            ]} */
           />
           <CustomButton
             type="button"
@@ -152,6 +141,7 @@ export default function Warehouse() {
           </CustomButton>
         </form>
         <ADTable
+          loading={isLoading}
           dataSource={items}
           rowKey="id"
           columns={tableColumns}

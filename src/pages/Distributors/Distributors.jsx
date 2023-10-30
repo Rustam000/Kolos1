@@ -36,7 +36,7 @@ export default function Distributors() {
       render: (_, record) => (
         <Link
           className={styles.distributorLink}
-          to={`/distributors/distributor/profile/${record._id}`}
+          to={`/distributors/distributor/profile/${record.id}`}
         >
           {record.name + " (cсылка на профиль)"}
         </Link>
@@ -56,7 +56,7 @@ export default function Distributors() {
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/distributors/distributor/edit/${record._id}`, {
+            navigate(`/distributors/distributor/edit/${record.id}`, {
               state: record,
             })
           }
