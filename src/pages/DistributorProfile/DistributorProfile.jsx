@@ -62,53 +62,60 @@ export default function DistributorProfile() {
         </p>
         <h1 className={styles.heading}>Карточка дистрибьютора</h1>
         <main className={styles.mainSection}>
-          <div className={styles.infoBlock}>
-            <img
-              className={styles.photo}
-              src="/temporary_distributor_image.png"
-              alt="фото дистрибьютора"
-              width={196}
-            />
-            <div className={styles.infoRows}>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>ФИО:</span>Баланчаев
-                Баланча баланчаевич
-              </p>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>Регион:</span>Чуй
-              </p>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>ИНН:</span>22708198700000
-              </p>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>Контактный номер:</span>
-                +996 550 366 000
-              </p>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>Контактный номер:</span>
-                +996 550 366 001
-              </p>
-              <div className={styles.actions}>
-                <CustomButton
-                  variant="secondary"
-                  onClick={() => navigate(`../return/${id}`)}
-                >
-                  Возврат
-                </CustomButton>
-                <CustomButton
-                  variant="secondary"
-                  onClick={() => navigate(`../order/${id}`)}
-                >
-                  Продать
-                </CustomButton>
-                <CustomButton variant="primary" width="narrow">
-                  <img src={editIcon} alt="edit icon" />
-                </CustomButton>
-              </div>
-            </div>
-          </div>
+  <div className={styles.infoBlock}>
+    <img
+      className={styles.photo}
+      src="/temporary_distributor_image.png"
+      alt="фото дистрибьютора"
+      width={196}
+    />
+    <div className={styles.infoRows}>
+      <div className={styles.info1}>
+        <p className="infoRow">
+          <span className={styles.infoRowLabel}>ФИО:</span>Баланчаев Баланча баланчаевич
+        </p>
+        <p className="infoRow">
+          <span className={styles.infoRowLabel}>Регион:</span>Чуй
+        </p>
+        <p className="infoRow">
+          <span className={styles.infoRowLabel}>ИНН:</span>22708198700000
+        </p>
+      </div>
+      <div className={styles.info2}>
+        <p className="infoRow">
+          <span className={styles.infoRowLabel}>Контактный номер:</span>
+          +996 550 366 000
+        </p>
+        <div className={styles.namberTwo}>
+        <p className="infoRow">
+          <span className={styles.infoRowLabel}>Контактный номер:</span>
+          +996 550 366 001
+        </p>
+        </div>
+      </div>
+      <div className={styles.actions}>
+        <div className={styles.button}>
+          <CustomButton
+            variant="secondary"
+            onClick={() => navigate(`../return/${id}`)}
+          >
+            Возврат
+          </CustomButton>
+          <CustomButton
+            variant="secondary"
+            onClick={() => navigate(`../order/${id}`)}
+          >
+            Продать
+          </CustomButton>
+        </div>
+      </div>
+    </div>
+  </div>
           <form className={styles.filterbar}>
-            <input type="search" placeholder="Поиск..." />
+            
+            <select name="" id="">
+              <option value="all">Все товары</option>
+            </select>
             <select name="" id="">
               <option value="all">Все товары</option>
             </select>
@@ -116,17 +123,14 @@ export default function DistributorProfile() {
               <span>Дата</span>
               <input type="date" />
             </label>
+            <label className={styles.filterbarDate}>
+              
+              <input type="date" />
+            </label>
           </form>
           <CustomTable data={products} columns={tableColumns} />
           <div className={styles.nav}>
-            <CustomButton variant="primary">Список история продаж</CustomButton>
-            <CustomButton variant="secondary">
-              Список история возврата
-            </CustomButton>
-            <span className={styles.total}>
-              {"Итого: "}
-              {total}
-            </span>
+            
           </div>
         </main>
       </div>

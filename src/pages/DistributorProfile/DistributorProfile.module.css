@@ -1,18 +1,10 @@
 .DistributorProfile {
-  padding-bottom: 180px;
+  margin-bottom: 180px
 }
 
 .undo {
   margin-top: 74px;
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  color: var(--main-color, #3ba1ff);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0.28px;
+  
 }
 
 .heading {
@@ -20,12 +12,46 @@
 }
 
 .mainSection {
-  margin-top: 41px;
-  padding: 66px 48px 110px;
-  border-radius: 10px;
-  border: 1px solid var(--neutral-10, #e7e8e7);
-  background: var(--white-white, #fff);
-  box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.05);
+  margin-top: 41px; 
+}
+
+
+
+.infoRows {
+  
+  display: flex;
+  flex-direction: row; /* Изменено с column на row */
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: 0.3px;
+  
+}
+
+.info1 {
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+ 
+}
+
+.info2 {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  margin-left: 40px; 
+  margin-right: 35px;
+  
+}
+
+
+
+.button{
+  display: flex;
+  margin-top: -25px;
+  gap: 21px;
+  
 }
 
 .infoBlock {
@@ -34,17 +60,7 @@
   gap: 13px;
 }
 
-.infoRows {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%;
-  letter-spacing: 0.3px;
-}
+
 
 .infoRowLabel {
   margin-right: 1ch;
@@ -57,11 +73,16 @@
   gap: 20px;
 }
 
+.photo{
+  margin-bottom: 40px;
+}
+
 .filterbar {
   margin-block: 29px;
   display: flex;
   align-items: center;
   gap: 32px;
+  margin-top: 30px;
 
   & input[type="search"] {
     min-width: 453px;
@@ -89,11 +110,15 @@
   font-weight: 400;
 }
 
+
+
+.filterbar{
+  margin-bottom: 30px;
+}
+
 .nav {
   margin-top: 73px;
-  display: flex;
-  align-items: stretch;
-  gap: 32px;
+  
 
   & span {
     margin-left: auto;
