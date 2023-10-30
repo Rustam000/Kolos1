@@ -6,12 +6,16 @@ import editIcon from "../../assets/icons/mode_edit.svg";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchItems, warehouseActions } from "../../redux/warehouseSlice";
+import {
+  fetchItems,
+  fetchOptions,
+  warehouseActions,
+} from "../../redux/warehouseSlice";
 import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 
 export default function Warehouse() {
-  const { items, search, category, condition } = useSelector(
+  const { items, options, search, category, condition } = useSelector(
     (state) => state.warehouse,
   );
   const navigate = useNavigate();
@@ -30,8 +34,12 @@ export default function Warehouse() {
   }
 
   useEffect(() => {
-    dispatch(fetchItems());
+    dispatch(fetchItems({ search, category, condition }));
   }, [search, category, condition]);
+
+  useEffect(() => {
+    dispatch(fetchOptions());
+  }, []);
 
   const tableColumns = [
     {
@@ -50,8 +58,8 @@ export default function Warehouse() {
     },
     {
       title: "Уникальный код",
-      dataIndex: "num_id",
-      key: "num_id",
+      dataIndex: "identification_number",
+      key: "identification_number",
       align: "left",
     },
     {
@@ -96,7 +104,7 @@ export default function Warehouse() {
     <div className={styles.Warehouse}>
       <div className="container">
         <form className={styles.filterbar}>
-          <div className={styles.searchInputContainer}>
+          <span className={styles.searchInputContainer}>
             <input
               className={styles.searchInput}
               type="text"
@@ -105,26 +113,28 @@ export default function Warehouse() {
               onChange={(event) => dispatchSearch(event.target.value)}
             />
             <img src={searchIcon} alt="icon" className={styles.searchIcon} />
-          </div>
+          </span>
           <CustomSelect
             className={styles.categorySelect}
             name="category"
             dispatchNewValue={dispatchCategory}
-            options={[
+            options={options.category}
+            /* options={[
               { value: "all", label: "Все товары" },
               { value: "alcohol", label: "Алкогольные" },
               { value: "nonalcohol", label: "Безалкогольные" },
               { value: "raw", label: "Сырье" },
-            ]}
+            ]} */
           />
           <CustomSelect
             className={styles.conditionSelect}
-            name="category"
+            name="condition"
             dispatchNewValue={dispatchCondition}
-            options={[
+            options={options.condition}
+            /* options={[
               { value: "norm", label: "Норма" },
               { value: "defect", label: "Брак" },
-            ]}
+            ]} */
           />
           <CustomButton
             type="button"
@@ -143,7 +153,7 @@ export default function Warehouse() {
         </form>
         <ADTable
           dataSource={items}
-          rowKey="_id"
+          rowKey="id"
           columns={tableColumns}
           height="70vh"
         />

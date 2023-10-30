@@ -1,24 +1,38 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { kolosApi } from "../api/axios";
 
+export const fetchItems = createAsyncThunk(
+  "warehouse/fetchItems",
+  async (queryParams, thunkAPI) => {
+    try {
+      const response = await axios.get(`http://51.20.115.221/api/v1/product/`, {
+        params: queryParams,
+      });
+      return response.data.results;
+    } catch (error) {
+      console.warn(error);
+    }
+  },
+);
 /* export const fetchItems = createAsyncThunk(
   "warehouse/fetchItems",
   async (_, thunkAPI) => {
     try {
-      const response = await kolosApi.get(`/warehouse`);
+      const response = await axios.get(
+        `https://jwt-authentication-beryl.vercel.app/api/warehouse`,
+      );
       return response.data;
     } catch (error) {
       console.warn(error);
     }
   },
 ); */
-export const fetchItems = createAsyncThunk(
-  "warehouse/fetchItems",
+export const fetchOptions = createAsyncThunk(
+  "warehouse/fetchOptions",
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(
-        `https://jwt-authentication-beryl.vercel.app/api/warehouse`,
+        `https://jwt-authentication-beryl.vercel.app/api/warehouse/options`,
       );
       return response.data;
     } catch (error) {
@@ -32,6 +46,10 @@ const initialState = {
   category: "",
   condition: "",
   items: [],
+  options: {
+    category: [{ value: "", label: "---" }],
+    condition: [{ value: "", label: "---" }],
+  },
 };
 
 export const warehouseSlice = createSlice({
@@ -51,6 +69,9 @@ export const warehouseSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchItems.fulfilled, (state, action) => {
       state.items = action.payload;
+    });
+    builder.addCase(fetchOptions.fulfilled, (state, action) => {
+      state.options = action.payload;
     });
   },
 });

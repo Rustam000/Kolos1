@@ -28,6 +28,10 @@ const CustomSelect = ({
   }
 
   useEffect(() => {
+    setSelectedOption(options[0]);
+  }, [options]);
+
+  useEffect(() => {
     dispatchNewValue(selectedOption.value);
   }, [dispatchNewValue, selectedOption]);
 
