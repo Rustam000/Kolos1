@@ -4,6 +4,7 @@ import { useState } from "react";
 import CustomModal from "../CustomModal/CustomModal";
 
 export default function PageHeading({
+  children,
   heading,
   buttonText = "Отменить",
   modalOnLeave = false,
@@ -15,20 +16,23 @@ export default function PageHeading({
   return (
     <>
       <div className={styles.PageHeading}>
-        <button
-          className={styles.goBack}
-          onClick={
-            modalOnLeave
-              ? () => {
-                  setShowModal(true);
-                }
-              : () => navigate(backLink)
-          }
-        >
-          <span className={styles.angleBracket}></span>
-          {buttonText}
-        </button>
-        <h2 className={styles.heading}>{heading}</h2>
+        <div className={styles.headingPrimarySection}>
+          <button
+            className={styles.goBack}
+            onClick={
+              modalOnLeave
+                ? () => {
+                    setShowModal(true);
+                  }
+                : () => navigate(backLink)
+            }
+          >
+            <span className={styles.angleBracket}></span>
+            {buttonText}
+          </button>
+          <h2 className={styles.heading}>{heading}</h2>
+        </div>
+        <div className={styles.headingSecondarySection}>{children}</div>
       </div>
       {modalOnLeave && showModal && (
         <CustomModal
