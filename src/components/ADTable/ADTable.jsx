@@ -6,6 +6,7 @@ export default function ADTable({
   height = undefined,
   rowKey,
   headerBg = "#f0f0f0",
+  loading = false,
 }) {
   return (
     <ConfigProvider
@@ -24,6 +25,7 @@ export default function ADTable({
       }}
     >
       <Table
+        loading={loading}
         bordered
         dataSource={dataSource}
         rowKey={rowKey}

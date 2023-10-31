@@ -31,34 +31,35 @@ export default function Archive() {
       title: "ФИО",
       dataIndex: "name",
       key: "name",
-      width: "15%",
     },
     {
       title: "Регион",
       dataIndex: "region",
       key: "region",
-      width: "15%",
     },
     {
       title: "Контактный номер (1)",
       dataIndex: "phoneNumberOne",
       key: "phoneNumberOne",
+      width: 190,
     },
     {
       title: "Контактный номер (2)",
       dataIndex: "phoneNumberTwo",
       key: "phoneNumberTwo",
+      width: 190,
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletion",
       key: "dataDeletion",
-      align: "center",
+      align: "left",
+      width: 110,
     },
     {
       title: "Восстановить",
       key: "restore",
-      width: "8%",
+      width: 145,
       align: "center",
       render: (_, record) => (
         <TableButton onClick={() => null}>
@@ -114,24 +115,28 @@ export default function Archive() {
       dataIndex: "sum",
       key: "sum",
       align: "left",
+      width: 100,
+      render: (_, record) => record.price * record.quantity,
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletionOne",
       key: "dataDeletionOne",
       align: "left",
+      width: 115,
     },
     {
       title: "Статус возврата",
       dataIndex: "returnStatus",
       key: "returnStatus",
       align: "left",
+      width: 100,
     },
     {
       title: "Восстановить",
       key: "action",
       align: "center",
-      width: "8%",
+      width: 145,
       render: (_, record) => (
         <TableButton onClick={() => null}>
           <img src={restoreIcon} alt="restore" />
@@ -144,37 +149,36 @@ export default function Archive() {
 
   return (
     <div className={styles.Archive}>
-      <div className={styles.container}>
-        <PageHeading heading="Архив" buttonText="Назад" backLink="/warehouse" />
-        <div className={styles.buttonDiv}>
-          <div className={styles.twoButtons}>
-            <CustomButton
-              variant={isWarehouse ? "primary" : "secondary"}
-              onClick={() => navigate("/warehouse/archive")}
-            >
-              Товары
-            </CustomButton>
-            <CustomButton
-              variant={!isWarehouse ? "primary" : "secondary"}
-              onClick={() => navigate("/distributors/archive")}
-            >
-              Дистрибьюторы
-            </CustomButton>
+      <div className="container">
+        <PageHeading heading="Архив" buttonText="Назад" backLink="/warehouse">
+          <div className={styles.controlContainer}>
+            <div className={styles.controlContainer}>
+              {isWarehouse && (
+                <span className={styles.total}>
+                  {"Итого: "}
+                  {total}
+                </span>
+              )}
+              <CustomButton
+                variant={isWarehouse ? "primary" : "secondary"}
+                onClick={() => navigate("/warehouse/archive")}
+              >
+                Товары
+              </CustomButton>
+              <CustomButton
+                variant={!isWarehouse ? "primary" : "secondary"}
+                onClick={() => navigate("/distributors/archive")}
+              >
+                Дистрибьюторы
+              </CustomButton>
+            </div>
           </div>
-
-          {isWarehouse && (
-            <span className={styles.total}>
-              {"Итого: "}
-              {total}
-            </span>
-          )}
-        </div>
-
+        </PageHeading>
         <ADTable
           dataSource={displayData}
           columns={displayColumns}
           rowKey="_id"
-          height="45vh"
+          height="65vh"
         />
       </div>
     </div>

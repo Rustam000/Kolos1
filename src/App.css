@@ -1,15 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@100;300;400;500;600;700&display=swap");
 :root {
   font-family: "Rubik", sans-serif;
-  --purple: #5050ff;
   --main-color: #3ba1ff;
+  --black-80: #333333;
   --black: #000000cc;
   --red: #b3261e;
   --neutral-10: #e7e8e7;
   --white-white: #fff;
   --black-100: #000;
   --input-gray: #f6f6f6;
-  --input-hover-gray: #d1d1d1;
+  --input-hover-gray: #e4e4e4;
+  --input-height: 44px;
+  --input-border-radius: 12px;
+  --container-padding: 16px;
+  --table-red: #ffc2c2;
 }
 * {
   box-sizing: border-box;
@@ -21,12 +25,14 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: calc(1200px - (2 * var(--container-padding)));
+  padding-inline: var(--container-padding);
   margin-inline: auto;
 }
 
 .narrowContainer {
-  max-width: 920px;
+  max-width: calc(920px - (2 * var(--container-padding)));
+  padding-inline: var(--container-padding);
   margin-inline: auto;
 }
 

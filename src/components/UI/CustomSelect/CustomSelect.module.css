@@ -6,12 +6,10 @@
   font-size: 13px;
   display: flex;
   flex-direction: column;
-  /* z-index: 10; */
-  /* isolation: isolate; */
 }
 
 .CustomSelect.open {
-  z-index: 20;
+  z-index: 1;
 }
 
 .arrowIcon {

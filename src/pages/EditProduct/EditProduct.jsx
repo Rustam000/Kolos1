@@ -96,7 +96,9 @@ export default function EditProduct() {
               </label>
             </fieldset>
             <fieldset className={styles.formFlexRow}>
-              <label className={`${styles.formInput} ${styles.wideFormInput}`}>
+              <label
+                className={`${styles.formInput} ${styles.wideFormInput} ${styles.unitSelectInput}`}
+              >
                 <p>Ед.измерения</p>
                 <CustomSelect
                   className={styles.unitSelect}
@@ -141,7 +143,9 @@ export default function EditProduct() {
               </label>
             </fieldset>
             <fieldset className={styles.formFlexRow}>
-              <label className={`${styles.formInput} ${styles.wideFormInput}`}>
+              <label
+                className={`${styles.formInput} ${styles.wideFormInput} ${styles.categorySelectInput}`}
+              >
                 <p>Категория</p>
 
                 <CustomSelect
