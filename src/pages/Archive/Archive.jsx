@@ -150,36 +150,35 @@ export default function Archive() {
   return (
     <div className={styles.Archive}>
       <div className="container">
-        <PageHeading heading="Архив" buttonText="Назад" backLink="/warehouse" />
-        <div className={styles.buttonDiv}>
-          <div className={styles.twoButtons}>
-            <CustomButton
-              variant={isWarehouse ? "primary" : "secondary"}
-              onClick={() => navigate("/warehouse/archive")}
-            >
-              Товары
-            </CustomButton>
-            <CustomButton
-              variant={!isWarehouse ? "primary" : "secondary"}
-              onClick={() => navigate("/distributors/archive")}
-            >
-              Дистрибьюторы
-            </CustomButton>
+        <PageHeading heading="Архив" buttonText="Назад" backLink="/warehouse">
+          <div className={styles.controlContainer}>
+            <div className={styles.controlContainer}>
+              {isWarehouse && (
+                <span className={styles.total}>
+                  {"Итого: "}
+                  {total}
+                </span>
+              )}
+              <CustomButton
+                variant={isWarehouse ? "primary" : "secondary"}
+                onClick={() => navigate("/warehouse/archive")}
+              >
+                Товары
+              </CustomButton>
+              <CustomButton
+                variant={!isWarehouse ? "primary" : "secondary"}
+                onClick={() => navigate("/distributors/archive")}
+              >
+                Дистрибьюторы
+              </CustomButton>
+            </div>
           </div>
-
-          {isWarehouse && (
-            <span className={styles.total}>
-              {"Итого: "}
-              {total}
-            </span>
-          )}
-        </div>
-
+        </PageHeading>
         <ADTable
           dataSource={displayData}
           columns={displayColumns}
           rowKey="_id"
-          height="45vh"
+          height="65vh"
         />
       </div>
     </div>
