@@ -13,6 +13,7 @@ import {
 } from "../../redux/warehouseSlice";
 import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
+import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 
 export default function Warehouse() {
   const { items, isLoading, error, options, search, category, condition } =
@@ -28,7 +29,7 @@ export default function Warehouse() {
     dispatch(warehouseActions.setCondition({ condition }));
   }
 
-  function dispatchSearch(search) {
+  function dispatchSetSearch(search) {
     dispatch(warehouseActions.setSearch({ search }));
   }
 
@@ -103,7 +104,7 @@ export default function Warehouse() {
     <div className={styles.Warehouse}>
       <div className="container">
         <form className={styles.filterbar}>
-          <span className={styles.searchInputContainer}>
+          {/* <span className={styles.searchInputContainer}>
             <input
               className={styles.searchInput}
               type="text"
@@ -112,7 +113,13 @@ export default function Warehouse() {
               onChange={(event) => dispatchSearch(event.target.value)}
             />
             <img src={searchIcon} alt="icon" className={styles.searchIcon} />
-          </span>
+          </span> */}
+          <CustomSearch
+            options={options.search}
+            value={search}
+            onChange={(event) => dispatchSetSearch(event.target.value)}
+            onSearch={console.log}
+          />
           <CustomSelect
             className={styles.categorySelect}
             name="category"

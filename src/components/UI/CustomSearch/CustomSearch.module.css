@@ -1,0 +1,78 @@
+.CustomSearch {
+  flex-grow: 1;
+  flex-basis: 453px;
+}
+
+.CustomSearch.hasOptions {
+  z-index: 1;
+}
+
+.searchInput {
+  height: var(--input-height, 44px);
+  border-radius: var(--input-border-radius, 12px);
+  border: none;
+  background-color: var(--input-gray);
+  padding-inline: 15px;
+  width: 100%;
+  padding-right: 37px;
+}
+
+.inputIconContainer:hover .searchInput {
+  background-color: var(--input-hover-gray);
+}
+
+.inputIconContainer {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+/*  */
+.CustomSearch.hasOptions .searchInput {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  outline: none;
+}
+
+.dropdownContainer {
+  width: 100%;
+  position: relative;
+}
+
+.dropdown {
+  height: 0;
+  position: relative;
+}
+
+.optionContainer {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background-color: var(--input-gray);
+  display: none;
+  list-style: none;
+}
+
+.optionContainer.hasOptions {
+  display: block;
+}
+
+.option {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-inline: 15px;
+  border-top: 1px solid var(--E7E8E7, #bebebe);
+  overflow: hidden;
+}
+
+.option:hover,
+.displayedOption:hover {
+  background-color: #d1d1d1;
+}

@@ -38,6 +38,7 @@ const initialState = {
   condition: "norm",
   items: [],
   options: {
+    search: [],
     category: [{ value: "all", label: "---" }],
     condition: [{ value: "norm", label: "---" }],
   },

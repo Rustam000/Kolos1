@@ -8,8 +8,9 @@
   --white-white: #fff;
   --black-100: #000;
   --input-gray: #f6f6f6;
-  --input-hover-gray: #d1d1d1;
+  --input-hover-gray: #e4e4e4;
   --input-height: 44px;
+  --input-border-radius: 12px;
   --container-padding: 16px;
 }
 * {
