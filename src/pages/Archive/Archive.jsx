@@ -144,7 +144,7 @@ export default function Archive() {
 
   return (
     <div className={styles.Archive}>
-      <div className={styles.container}>
+      <div className="container">
         <PageHeading heading="Архив" buttonText="Назад" backLink="/warehouse" />
         <div className={styles.buttonDiv}>
           <div className={styles.twoButtons}>
