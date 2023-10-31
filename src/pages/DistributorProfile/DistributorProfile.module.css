@@ -1,5 +1,8 @@
+
+
 .DistributorProfile {
   margin-bottom: 180px
+  
 }
 
 .undo {
@@ -58,6 +61,12 @@
   display: flex;
   justify-content: start;
   gap: 13px;
+  border-bottom: 1px solid #E7E8E7;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+
+
+  
 }
 
 
@@ -73,16 +82,16 @@
   gap: 20px;
 }
 
-.photo{
-  margin-bottom: 40px;
-}
+
 
 .filterbar {
   margin-block: 29px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 32px;
-  margin-top: 30px;
+  
+  
 
   & input[type="search"] {
     min-width: 453px;
@@ -95,6 +104,7 @@
     border: 1px solid var(--stroke, #e7e8e7);
     background: #efefef;
     padding-inline: 15px;
+    
   }
   & select {
     min-width: 170px;
@@ -102,7 +112,7 @@
 }
 
 .filterbarDate {
-  margin-left: auto;
+
   display: flex;
   align-items: center;
   gap: 1ch;
@@ -110,10 +120,21 @@
   font-weight: 400;
 }
 
+.dateContainer {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
 
+.selectDate{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
 
 .filterbar{
   margin-bottom: 30px;
+  display: flex;
 }
 
 .nav {

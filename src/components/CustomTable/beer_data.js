@@ -8,6 +8,8 @@ export const products = [
     unit: "шт",
     quantity: 1,
     price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
   },
   {
     _id: nanoid(),
@@ -16,6 +18,8 @@ export const products = [
     unit: "шт",
     quantity: 1,
     price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
   },
   {
     _id: nanoid(),
@@ -24,6 +28,8 @@ export const products = [
     unit: "шт",
     quantity: 1,
     price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
   },
   {
     _id: nanoid(),
@@ -32,6 +38,8 @@ export const products = [
     unit: "шт",
     quantity: 1,
     price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
   },
   {
     _id: nanoid(),
@@ -40,6 +48,8 @@ export const products = [
     unit: "шт",
     quantity: 1,
     price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
   },
   {
     _id: nanoid(),
@@ -48,6 +58,8 @@ export const products = [
     unit: "шт",
     quantity: 1,
     price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
   },
   {
     _id: nanoid(),
@@ -56,6 +68,8 @@ export const products = [
     unit: "шт",
     quantity: 1,
     price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
   },
   {
     _id: nanoid(),
@@ -64,5 +78,26 @@ export const products = [
     unit: "шт",
     quantity: 1,
     price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
   },
+  {
+    _id: nanoid(),
+    name: "Кега 30 литров",
+    num_id: 30000001,
+    unit: "шт",
+    quantity: 1,
+    price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
+  },{
+    _id: nanoid(),
+    name: "Кега 30 литров",
+    num_id: 30000001,
+    unit: "шт",
+    quantity: 1,
+    price: 3000,
+    sum: 10.000,
+    dataDeletionOne: '8.12.2023г'
+  }
 ];
