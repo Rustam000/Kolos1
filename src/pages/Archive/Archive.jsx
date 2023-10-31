@@ -31,34 +31,35 @@ export default function Archive() {
       title: "ФИО",
       dataIndex: "name",
       key: "name",
-      width: "15%",
     },
     {
       title: "Регион",
       dataIndex: "region",
       key: "region",
-      width: "15%",
     },
     {
       title: "Контактный номер (1)",
       dataIndex: "phoneNumberOne",
       key: "phoneNumberOne",
+      width: 190,
     },
     {
       title: "Контактный номер (2)",
       dataIndex: "phoneNumberTwo",
       key: "phoneNumberTwo",
+      width: 190,
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletion",
       key: "dataDeletion",
-      align: "center",
+      align: "left",
+      width: 110,
     },
     {
       title: "Восстановить",
       key: "restore",
-      width: "8%",
+      width: 145,
       align: "center",
       render: (_, record) => (
         <TableButton onClick={() => null}>
@@ -114,24 +115,28 @@ export default function Archive() {
       dataIndex: "sum",
       key: "sum",
       align: "left",
+      width: 100,
+      render: (_, record) => record.price * record.quantity,
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletionOne",
       key: "dataDeletionOne",
       align: "left",
+      width: 115,
     },
     {
       title: "Статус возврата",
       dataIndex: "returnStatus",
       key: "returnStatus",
       align: "left",
+      width: 100,
     },
     {
       title: "Восстановить",
       key: "action",
       align: "center",
-      width: "8%",
+      width: 145,
       render: (_, record) => (
         <TableButton onClick={() => null}>
           <img src={restoreIcon} alt="restore" />

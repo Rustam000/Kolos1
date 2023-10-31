@@ -12,7 +12,7 @@
 .total {
   margin-left: auto;
   padding-inline: 39px;
-  height: 40px;
+  height: var(--input-height, 40px);
   display: inline-flex;
   justify-content: center;
   align-items: center;
