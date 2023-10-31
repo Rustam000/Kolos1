@@ -20,14 +20,14 @@ export default function CustomSearch({
   }
 
   //temporary!!!
-  const tempOptions = inputRef.current
+  /* const tempOptions = inputRef.current
     ? inputRef.current.value.split("").map((char) => ({ label: char }))
-    : [];
+    : []; */
   //temporary!!!
 
   return (
     <span className={`${styles.CustomSearch} ${className}`}>
-      <Dropdown options={tempOptions}>
+      <Dropdown options={options}>
         <div className={styles.inputIconContainer}>
           <input
             className={styles.searchInput}

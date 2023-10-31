@@ -1,7 +1,6 @@
 import styles from "./Warehouse.module.css";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import searchIcon from "../../assets/icons/search.svg";
 import editIcon from "../../assets/icons/mode_edit.svg";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -104,16 +103,6 @@ export default function Warehouse() {
     <div className={styles.Warehouse}>
       <div className="container">
         <form className={styles.filterbar}>
-          {/* <span className={styles.searchInputContainer}>
-            <input
-              className={styles.searchInput}
-              type="text"
-              placeholder="Поиск..."
-              value={search}
-              onChange={(event) => dispatchSearch(event.target.value)}
-            />
-            <img src={searchIcon} alt="icon" className={styles.searchIcon} />
-          </span> */}
           <CustomSearch
             options={options.search}
             value={search}
