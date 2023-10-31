@@ -32,7 +32,7 @@ export default function PageHeading({
           </button>
           <h2 className={styles.heading}>{heading}</h2>
         </div>
-        <div className={styles.headingSecondarySection}>{children}</div>
+        {children}
       </div>
       {modalOnLeave && showModal && (
         <CustomModal
