@@ -1,0 +1,38 @@
+.Dropdown {
+  width: 100%;
+  position: relative;
+  background-color: var(--input-gray);
+  border-radius: var(--input-border-radius, 12px);
+}
+
+.Dropdown.hasOptions {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.relativeContainer {
+  height: 0;
+  position: relative;
+}
+
+.optionsContainer {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background-color: var(--input-gray);
+  list-style: none;
+  z-index: 1;
+}
+
+.option {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-inline: 15px;
+  border-top: 1px solid var(--E7E8E7, #bebebe);
+  overflow: hidden;
+}
+
+.option:hover {
+  background-color: #d1d1d1;
+}

@@ -1,6 +1,7 @@
 import styles from "./CustomSearch.module.css";
 import searchIcon from "../../../assets/icons/search.svg";
 import { useRef } from "react";
+import Dropdown from "../Dropdown/Dropdown";
 
 export default function CustomSearch({
   className,
@@ -11,7 +12,6 @@ export default function CustomSearch({
   onSearch = () => undefined,
 }) {
   const inputRef = useRef(null);
-  const hasOptions = options.length > 0;
 
   function handleKeyDown(event) {
     if (event.key === "Enter") {
@@ -19,13 +19,15 @@ export default function CustomSearch({
     }
   }
 
+  //temporary!!!
+  const tempOptions = inputRef.current
+    ? inputRef.current.value.split("").map((char) => ({ label: char }))
+    : [];
+  //temporary!!!
+
   return (
-    <span
-      className={`${styles.CustomSearch} ${
-        hasOptions ? styles.hasOptions : ""
-      } ${className}`}
-    >
-      <div className={styles.dropdownContainer}>
+    <span className={`${styles.CustomSearch} ${className}`}>
+      <Dropdown options={tempOptions}>
         <div className={styles.inputIconContainer}>
           <input
             className={styles.searchInput}
@@ -43,24 +45,7 @@ export default function CustomSearch({
             onClick={() => onSearch(inputRef.current.value)}
           />
         </div>
-        <div className={styles.dropdown}>
-          <ul
-            className={`${styles.optionContainer} ${
-              hasOptions ? styles.hasOptions : ""
-            }`}
-          >
-            {options.map((option) => (
-              <li
-                className={styles.option}
-                key={option}
-                onClick={() => console.log(option)}
-              >
-                {option}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      </Dropdown>
     </span>
   );
 }
