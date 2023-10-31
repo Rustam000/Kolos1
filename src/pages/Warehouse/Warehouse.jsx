@@ -137,6 +137,7 @@ export default function Warehouse() {
           </CustomButton>
         </form>
         <ADTable
+          headerBg={condition === "defect" ? "#ffc2c2" : undefined}
           loading={isLoading}
           dataSource={items}
           rowKey="id"

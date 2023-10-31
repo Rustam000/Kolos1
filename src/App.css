@@ -13,6 +13,7 @@
   --input-height: 44px;
   --input-border-radius: 12px;
   --container-padding: 16px;
+  --table-red: #ffc2c2;
 }
 * {
   box-sizing: border-box;
