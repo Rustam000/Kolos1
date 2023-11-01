@@ -134,7 +134,7 @@ export default function DistributorProfile() {
     </div>
   
           <form className={styles.filterbar}>
-            <div className={styles.selectDate}>
+            <div className={styles.dateContainer}>
             <select name="" id="">
               <option value="all">Все товары</option>
             </select>
@@ -142,15 +142,15 @@ export default function DistributorProfile() {
               <option value="all">История продаж</option>
             </select>
             </div>
-            <div className={styles.dateContainer}>
               <label className={styles.filterbarDate}>
+                <div className={styles.devSpam}>
                 <span>От</span>
+                </div>
                 <input type="date" />
               </label>
               <label className={styles.filterbarDate}>
                 <input type="date" />
               </label>
-            </div>
             
           </form>
           <ADTable dataSource={products} 
