@@ -26,22 +26,16 @@ const privateRoutes = (
       <Route path="warehouse" element={<Outlet />}>
         <Route index element={<Warehouse />} />
         <Route path="archive" element={<Archive />} />
-        <Route path="product" element={<Outlet />}>
-          <Route index element={<Navigate to="create" replace />} />
-          <Route path="create" element={<EditProduct />} />
-          <Route path="edit/:id" element={<EditProduct />} />
-        </Route>
+        <Route path="create" element={<EditProduct />} />
+        <Route path="edit/:id" element={<EditProduct />} />
       </Route>
       <Route path="distributors" element={<Outlet />}>
         <Route index element={<Distributors />} />
-        <Route path="distributor" element={<Outlet />}>
-          <Route index element={<Navigate to="/distributors" replace />} />
-          <Route path="profile/:id" element={<DistributorProfile />} />
-          <Route path="edit/:id" element={<EditDistributor />} />
-          <Route path="order/:id" element={<Order />} />
-          <Route path="return/:id" element={<Order />} />
-          <Route path="create" element={<EditDistributor />} />
-        </Route>
+        <Route path="profile/:id" element={<DistributorProfile />} />
+        <Route path="edit/:id" element={<EditDistributor />} />
+        <Route path="order/:id" element={<Order />} />
+        <Route path="return/:id" element={<Order />} />
+        <Route path="create" element={<EditDistributor />} />
         <Route path="archive" element={<Archive />} />
       </Route>
     </Route>

@@ -36,7 +36,7 @@ export default function Distributors() {
       render: (_, record) => (
         <Link
           className={styles.distributorLink}
-          to={`/distributors/distributor/profile/${record.id}`}
+          to={`/distributors/profile/${record.id}`}
         >
           {record.name + " (cсылка на профиль)"}
         </Link>
@@ -56,7 +56,7 @@ export default function Distributors() {
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/distributors/distributor/edit/${record.id}`, {
+            navigate(`/distributors/edit/${record.id}`, {
               state: record,
             })
           }
@@ -73,7 +73,7 @@ export default function Distributors() {
         <div className={styles.filterbar}>
           <CustomButton
             variant="primary"
-            onClick={() => navigate("/distributors/distributor/create")}
+            onClick={() => navigate("/distributors/create")}
           >
             Создать
           </CustomButton>

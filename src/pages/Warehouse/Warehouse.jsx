@@ -90,7 +90,7 @@ export default function Warehouse() {
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/warehouse/product/edit/${record.id}`, { state: record })
+            navigate(`/warehouse/edit/${record.id}`, { state: record })
           }
         >
           <img src={editIcon} alt="edit icon" />
@@ -131,7 +131,7 @@ export default function Warehouse() {
           <CustomButton
             type="button"
             variant="primary"
-            onClick={() => navigate("/warehouse/product/create")}
+            onClick={() => navigate("/warehouse/create")}
           >
             Создать
           </CustomButton>
