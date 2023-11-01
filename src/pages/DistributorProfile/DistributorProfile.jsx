@@ -23,49 +23,49 @@ const tableColumns = [
       dataIndex: "name",
       key: "name",
       align: "left",
-      width: 230,
+      width: 215,
     },
     {
       title: "Уникальный код",
       dataIndex: "num_id",
       key: "num_id",
       align: "left",
-      width: 203,
+      width: 190,
     },
     {
       title: "Ед. изм.",
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: 140,
+      width: 130,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: 140,
+      width: 130,
     },
     {
       title: "Цена",
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: 140,
+      width: 130,
     },
     {
       title: "Сумма",
       dataIndex: "sum",
       key: "sum",
       align: "left",
-      width: 148,
+      width: 135,
     },
     {
       title: "Дата",
       dataIndex: "dataDeletionOne",
       key: "dataDeletionOne",
       align: "left",
-      width: 148,
+      width: 135,
     }
 ];
 
@@ -79,21 +79,21 @@ export default function DistributorProfile() {
   return (
     <div className={styles.DistributorProfile}>
       <div className='container'>
-      <PageHeading heading="Карточка дистрибьютер" buttonText="Назад" backLink="/distributors" />
+      <PageHeading heading="Карточка дистрибьютора" buttonText="Назад" backLink="/distributors" />
         
         
         <main className={styles.mainSection}>
   <div className={styles.infoBlock}>
     <img
       className={styles.photo}
-      src="/temporary_distributor_image.png"
+      src="/distributor.png"
       alt="фото дистрибьютора"
       width={150}
     />
     <div className={styles.infoRows}>
       <div className={styles.info1}>
         <p className="infoRow">
-          <span className={styles.infoRowLabel}>ФИО:</span>Баланчаев Баланча баланчаевич
+          <span className={styles.infoRowLabel}>ФИО:</span>Калытбекова Айжана Амирова
         </p>
         <p className="infoRow">
           <span className={styles.infoRowLabel}>Регион:</span>Чуй
@@ -136,10 +136,10 @@ export default function DistributorProfile() {
           <form className={styles.filterbar}>
             <div className={styles.selectDate}>
             <select name="" id="">
-              <option value="all">Все </option>
+              <option value="all">Все товары</option>
             </select>
             <select name="" id="">
-              <option value="all">Все товары</option>
+              <option value="all">История продаж</option>
             </select>
             </div>
             <div className={styles.dateContainer}>
@@ -156,7 +156,7 @@ export default function DistributorProfile() {
           <ADTable dataSource={products} 
           rowKey="_id"
           columns={tableColumns} 
-          height="70vh"/>  
+          height="55vh"/>  
           <div className={styles.nav}>
             
           </div>
