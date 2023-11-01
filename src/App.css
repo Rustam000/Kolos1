@@ -25,13 +25,13 @@
 }
 
 .container {
-  max-width: calc(1200px - (2 * var(--container-padding)));
+  max-width: calc(1200px + (2 * var(--container-padding)));
   padding-inline: var(--container-padding);
   margin-inline: auto;
 }
 
 .narrowContainer {
-  max-width: calc(920px - (2 * var(--container-padding)));
+  max-width: calc(920px + (2 * var(--container-padding)));
   padding-inline: var(--container-padding);
   margin-inline: auto;
 }
