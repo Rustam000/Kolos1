@@ -30,7 +30,7 @@ export default function DistributorInfo({ info, variant = "large" }) {
 function InfoRow({ label = "no label", value = "" }) {
   return (
     <div className={styles.InfoRow}>
-      <span className={styles.infoLabel}>{label + ": "}</span>
+      <span className={styles.infoLabel}>{label + ":"}</span>
       <span className={styles.infoContent}>{value}</span>
     </div>
   );
