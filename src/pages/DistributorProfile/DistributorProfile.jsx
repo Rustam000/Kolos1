@@ -1,9 +1,7 @@
-import ADTable from "../../components/ADTable/ADTable"; // Импорт ADTable вместо CustomTable
+import ADTable from "../../components/ADTable/ADTable";
+import styles from "./DistributorProfile.module.css";
 import { products } from "../../components/CustomTable/beer_data";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import styles from "./DistributorProfile.module.css";
-import angleBracketLeftIcon from "../../assets/icons/fi-sr-angle-small-left.svg";
-import editIcon from "../../assets/icons/edit.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeading from "../../components/PageHeading/PageHeading";
 
@@ -14,7 +12,7 @@ const tableColumns = [
     key: "rowIndex",
     align: "center",
     width: 50,
-    render: (text, record, index) => <span key={index}>{index + 1}</span>, // Добавьте ключ здесь
+    render: (text, record, index) => <span key={index}>{index + 1}</span>,
   },
   {
     title: "Наименование",
@@ -82,7 +80,6 @@ export default function DistributorProfile() {
           buttonText="Назад"
           backLink="/distributors"
         />
-
         <main className={styles.mainSection}>
           <div className={styles.infoBlock}>
             <img
@@ -121,41 +118,39 @@ export default function DistributorProfile() {
               </div>
             </div>
             <div className={styles.actions}>
-              <div className={styles.button}>
-                <CustomButton
-                  variant="secondary"
-                  onClick={() => navigate(`../return/${id}`)}
-                >
-                  Возврат
-                </CustomButton>
-                <CustomButton
-                  variant="secondary"
-                  onClick={() => navigate(`../order/${id}`)}
-                >
-                  Продать
-                </CustomButton>
-              </div>
+              <CustomButton
+                variant="secondary"
+                onClick={() => navigate(`../return/${id}`)}
+              >
+                Возврат
+              </CustomButton>
+              <CustomButton
+                variant="secondary"
+                onClick={() => navigate(`../order/${id}`)}
+              >
+                Продать
+              </CustomButton>
             </div>
           </div>
 
           <form className={styles.filterbar}>
-            <div className={styles.dateContainer}>
-              <select name="" id="">
-                <option value="all">Все товары</option>
-              </select>
-              <select name="" id="">
-                <option value="all">История продаж</option>
-              </select>
-            </div>
-            <label className={styles.filterbarDate}>
-              <div className={styles.devSpam}>
-                <span>От</span>
-              </div>
-              <input type="date" />
+            <select name="" id="">
+              <option value="all">Все товары</option>
+            </select>
+            <select name="" id="">
+              <option value="all">История продаж</option>
+            </select>
+            <label
+              className={`${styles.dateLabel} ${styles.startDateLabel}`}
+              htmlFor="startDate"
+            >
+              От
             </label>
-            <label className={styles.filterbarDate}>
-              <input type="date" />
+            <input type="date" id="startDate" />
+            <label className={styles.dateLabel} htmlFor="endDate">
+              До
             </label>
+            <input type="date" id="endDate" />
           </form>
           <ADTable
             dataSource={products}
@@ -163,7 +158,6 @@ export default function DistributorProfile() {
             columns={tableColumns}
             height="55vh"
           />
-          <div className={styles.nav}></div>
         </main>
       </div>
     </div>

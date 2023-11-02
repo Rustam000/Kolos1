@@ -2,25 +2,12 @@
   margin-bottom: 180px;
 }
 
-.undo {
-  margin-top: 74px;
-}
-
-.heading {
-  margin-top: 24px;
-}
-
-.mainSection {
-  margin-top: 41px;
-}
-
 .photo {
   margin-right: 30px;
 }
 
 .infoRows {
   display: flex;
-  flex-direction: row; /* Изменено с column на row */
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
@@ -42,16 +29,9 @@
   margin-right: 35px;
 }
 
-.button {
-  display: flex;
-  margin-top: -15px;
-  gap: 21px;
-}
-
 .infoBlock {
   display: flex;
   justify-content: start;
-  margin-bottom: 50px;
 }
 
 .infoRowLabel {
@@ -60,18 +40,15 @@
 }
 
 .actions {
-  margin-top: 16px;
   display: flex;
   gap: 20px;
 }
 
 .filterbar {
-  margin-right: 30px;
+  margin-block: 30px;
+  display: flex;
   align-items: center;
-
-  & input[type="search"] {
-    min-width: 453px;
-  }
+  gap: 20px;
 
   & input,
   & select {
@@ -86,53 +63,11 @@
   }
 }
 
-.filterbarDate {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px;
-  margin-left: auto;
-  align-items: center;
-  gap: 1ch;
+.dateLabel {
   font-size: 15px;
   font-weight: 400;
 }
 
-.filterbarDate + label {
-  margin-left: 0;
-}
-
-.devSpam {
+.startDateLabel {
   margin-left: auto;
-}
-
-.dateContainer {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.selectDate {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.filterbar {
-  margin-bottom: 30px;
-  display: flex;
-}
-
-.nav {
-  margin-top: 73px;
-
-  & span {
-    margin-left: auto;
-    padding-inline: 39px;
-    height: 49px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background: #efefef;
-  }
 }
