@@ -4,7 +4,7 @@ import { products } from "../../components/CustomTable/beer_data";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeading from "../../components/PageHeading/PageHeading";
-import { fetchDistributorInfo } from "../../redux/distributorProfileSlice";
+import { getDistributorById } from "../../redux/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
@@ -72,14 +72,14 @@ const tableColumns = [
 
 export default function DistributorProfile() {
   const { distributorInfo, isLoading, error } = useSelector(
-    (state) => state.distributor,
+    (state) => state.profile,
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(fetchDistributorInfo(id));
+    dispatch(getDistributorById(id));
   }, []);
 
   return (

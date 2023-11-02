@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchDistributorInfo = createAsyncThunk(
-  "distributor/fetchDistributorInfo",
+export const getDistributorById = createAsyncThunk(
+  "profile/getDistributorById",
   async (distributorId, thunkAPI) => {
     try {
       const response = await axios.get(
@@ -28,21 +28,21 @@ const initialState = {
   error: null,
 };
 
-export const distributorSlice = createSlice({
-  name: "distributor",
+export const profileSlice = createSlice({
+  name: "profile",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchDistributorInfo.pending, (state) => {
+      .addCase(getDistributorById.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchDistributorInfo.fulfilled, (state, action) => {
+      .addCase(getDistributorById.fulfilled, (state, action) => {
         state.isLoading = false;
         state.distributorInfo = action.payload;
       })
-      .addCase(fetchDistributorInfo.rejected, (state, action) => {
+      .addCase(getDistributorById.rejected, (state, action) => {
         state.isLoading = false;
         state.error =
           action.payload || "Не удалось загрузить данные о дистрибьюторе";
@@ -50,5 +50,5 @@ export const distributorSlice = createSlice({
   },
 });
 
-export default distributorSlice.reducer;
-export const distributorActions = distributorSlice.actions;
+export const profileReducer = profileSlice.reducer;
+export const profileActions = profileSlice.actions;
