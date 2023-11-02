@@ -42,6 +42,7 @@ const privateRoutes = (
     <Route path="/login" element={<Navigate to="/warehouse" />} />
     <Route path="/logout" element={<Logout />} />
     <Route path="*" element={<h2 style={{ textAlign: "center" }}>404</h2>} />
+    <Route path="/404" element={<h2 style={{ textAlign: "center" }}>404</h2>} />
   </>
 );
 

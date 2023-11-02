@@ -1,5 +1,5 @@
 .container {
-  padding-inline: 20px;
+  padding-inline: 30px;
 }
 
 .searchInput {
@@ -8,14 +8,20 @@
 
 .main {
   display: flex;
+  /* grid-template-columns: 1fr 1fr; */
   gap: 20px;
 }
 
 .section {
-  width: 100%;
+  max-width: 50vw;
+  min-height: 70vh;
+  /* width: 100%; */
   border: 2px solid var(--black-80);
   border-radius: 4px;
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .sectionHeading {
@@ -24,5 +30,23 @@
   font-weight: 500;
   line-height: 140%; /* 33.6px */
   letter-spacing: 0.48px;
-  margin-bottom: 30px;
+}
+
+.distributorSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.controls {
+  margin-top: auto;
+  display: flex;
+  gap: 16px;
+}
+
+.total {
+  margin-right: auto;
+}
+
+.orderButton {
+  flex: 0 1 200px;
 }

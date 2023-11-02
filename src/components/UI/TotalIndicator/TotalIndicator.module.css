@@ -1,0 +1,10 @@
+.TotalIndicator {
+  padding-inline: 25px;
+  height: var(--input-height, 40px);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--input-border-radius, 12px);
+  background-color: var(--input-gray, #f6f6f6);
+  font-size: 13px;
+}

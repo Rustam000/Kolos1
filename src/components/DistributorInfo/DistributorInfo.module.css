@@ -1,0 +1,32 @@
+.DistributorInfo {
+  display: flex;
+  gap: 20px;
+}
+
+.avatar {
+  height: 113px;
+}
+
+.infoFlexContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: flex-start;
+}
+
+.InfoRow {
+  color: var(--black-80);
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.24px;
+}
+
+.infoLabel {
+  font-weight: 600;
+  line-height: 140%;
+}
+
+.infoContent {
+  font-weight: 400;
+  line-height: 130%;
+}

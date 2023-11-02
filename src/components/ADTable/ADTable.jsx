@@ -1,6 +1,7 @@
 import { ConfigProvider, Table } from "antd";
 
 export default function ADTable({
+  size = "large", //large|middle|small
   dataSource,
   columns,
   height = undefined,
@@ -25,6 +26,7 @@ export default function ADTable({
       }}
     >
       <Table
+        size={size}
         loading={loading}
         bordered
         dataSource={dataSource}

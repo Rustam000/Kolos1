@@ -7,6 +7,7 @@ import { distributors } from "../../assets/distributor_data";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import restoreIcon from "../../assets/icons/restore.svg";
 import ADTable from "../../components/ADTable/ADTable";
+import TotalIndicator from "../../components/UI/TotalIndicator/TotalIndicator";
 
 export default function Archive() {
   const location = useLocation();
@@ -154,10 +155,7 @@ export default function Archive() {
           <div className={styles.controlContainer}>
             <div className={styles.controlContainer}>
               {isWarehouse && (
-                <span className={styles.total}>
-                  {"Итого: "}
-                  {total}
-                </span>
+                <TotalIndicator className={styles.total} value={total} />
               )}
               <CustomButton
                 variant={isWarehouse ? "primary" : "secondary"}
