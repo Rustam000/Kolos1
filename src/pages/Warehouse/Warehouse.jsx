@@ -112,14 +112,19 @@ export default function Warehouse() {
           <CustomSelect
             className={styles.categorySelect}
             name="category"
-            dispatchNewValue={dispatchCategory}
+            value={category}
+            onChange={dispatchCategory}
             options={options.category}
           />
           <CustomSelect
             className={styles.conditionSelect}
             name="condition"
-            dispatchNewValue={dispatchCondition}
-            options={options.condition}
+            value={condition}
+            onChange={dispatchCondition}
+            options={[
+              { value: "norm", label: "Норма" },
+              { value: "defect", label: "Брак" },
+            ]}
           />
           <CustomButton
             type="button"

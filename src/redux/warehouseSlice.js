@@ -40,7 +40,6 @@ const initialState = {
   options: {
     search: [],
     category: [{ value: "all", label: "---" }],
-    condition: [{ value: "norm", label: "---" }],
   },
   isLoading: false,
   error: null,

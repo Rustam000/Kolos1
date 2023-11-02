@@ -4,10 +4,11 @@ import arrowUpIcon from "../../../assets/icons/arrow-up.svg";
 import arrowDownIcon from "../../../assets/icons/arrow-down.svg";
 
 const CustomSelect = ({
-  options = [[{ label: "---", value: "" }]],
+  options = [{ label: "---", value: "" }],
+  value,
   name,
   className,
-  dispatchNewValue = undefined,
+  onChange = undefined,
 }) => {
   const firstOption = options[0] || { value: "", label: "---" };
   const [isOpen, setIsOpen] = useState(false);
@@ -30,14 +31,21 @@ const CustomSelect = ({
   }
 
   useEffect(() => {
-    setSelectedOption(firstOption);
-  }, [firstOption]);
+    const receivedOption = options.find((opt) => opt.value === value);
+    if (receivedOption) {
+      setSelectedOption(receivedOption);
+    }
+  }, [value]);
 
   useEffect(() => {
-    if (dispatchNewValue) {
-      dispatchNewValue(selectedOptionValue);
+    setSelectedOption(firstOption);
+  }, [options.length]);
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(selectedOptionValue);
     }
-  }, [dispatchNewValue, selectedOptionValue]);
+  }, [onChange, selectedOptionValue]);
 
   return (
     <div
