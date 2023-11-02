@@ -6,23 +6,24 @@ export const fetchDistributorInfo = createAsyncThunk(
   async (distributorId, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://51.20.115.221/api/v1/distributor/${distributorId}`
+        `http://51.20.115.221/api/v1/distributor/${distributorId}`,
       );
 
-      
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 const initialState = {
-    name: "",
-    region: "",
-    contact1: null,
-    contact2: null,
-   distributorInfo: {},
+  distributorInfo: {
+    name: "...",
+    inn: "...",
+    region: "...",
+    contact1: "...",
+    contact2: "...",
+  },
   isLoading: false,
   error: null,
 };
@@ -43,7 +44,8 @@ export const distributorSlice = createSlice({
       })
       .addCase(fetchDistributorInfo.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload || "Не удалось загрузить данные о дистрибьюторе";
+        state.error =
+          action.payload || "Не удалось загрузить данные о дистрибьюторе";
       });
   },
 });

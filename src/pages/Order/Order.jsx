@@ -91,7 +91,7 @@ export default function Order() {
       </PageHeading>
       <main className={styles.main}>
         <section className={`${styles.section} ${styles.distributorSection}`}>
-          <DistributorInfo info={distributor} />
+          <DistributorInfo info={distributor} variant="small" />
           <ADTable
             size="small"
             dataSource={products}

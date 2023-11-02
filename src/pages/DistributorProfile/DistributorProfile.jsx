@@ -1,13 +1,13 @@
-import ADTable from "../../components/ADTable/ADTable";
 import styles from "./DistributorProfile.module.css";
+import ADTable from "../../components/ADTable/ADTable";
 import { products } from "../../components/CustomTable/beer_data";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import { fetchDistributorInfo } from "../../redux/distributorProfileSlice";
-import {useDispatch, useSelector } from 'react-redux' 
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-  
+import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
 
 const tableColumns = [
   {
@@ -70,28 +70,17 @@ const tableColumns = [
 ];
 
 export default function DistributorProfile() {
-  const dispatch = useDispatch()
-
-  const distributor = useSelector((state) => state.distributor.distributorInfo)
- 
+  const { distributorInfo, isLoading, error } = useSelector(
+    (state) => state.distributor,
+  );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const total = products?.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
-  );
-
- const fetchDistributor = () => {
-   const result = fetchDistributorInfo(2)
-   return result
- }
 
   useEffect(() => {
-    dispatch(fetchDistributor(2));
+    dispatch(fetchDistributorInfo(id));
   }, []);
 
-
-console.log(distributor.distributorInfo)
   return (
     <div className={styles.DistributorProfile}>
       <div className="container">
@@ -102,40 +91,7 @@ console.log(distributor.distributorInfo)
         />
         <main className={styles.mainSection}>
           <div className={styles.infoBlock}>
-            <img
-              className={styles.photo}
-              src="/distributor.png"
-              alt="фото дистрибьютора"
-              width={150}
-            />
-            <div className={styles.infoRows}>
-              <div className={styles.info1}>
-                <p className="infoRow">
-                  <span className={styles.infoRowLabel}>ФИО:</span>{distributor?.name}
-                </p>
-                <p className="infoRow">
-                  <span className={styles.infoRowLabel}>Регион:</span>{distributor?.region}
-                </p>
-                <p className="infoRow">
-                  <span className={styles.infoRowLabel}>ИНН:</span>
-                  22708198700000
-                </p>
-              </div>
-              <div className={styles.info2}>
-                <p className="infoRow">
-                  <span className={styles.infoRowLabel}>Контактный номер:</span>
-                  {distributor?.contact1}
-                </p>
-                <div className={styles.namberTwo}>
-                  <p className="infoRow">
-                    <span className={styles.infoRowLabel}>
-                      Контактный номер:
-                    </span>
-                    {distributor?.contact2}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <DistributorInfo info={distributorInfo} />
             <div className={styles.actions}>
               <CustomButton
                 variant="secondary"

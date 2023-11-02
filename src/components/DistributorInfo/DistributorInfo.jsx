@@ -1,12 +1,16 @@
 import styles from "./DistributorInfo.module.css";
 
-export default function DistributorInfo({ info }) {
+export default function DistributorInfo({ info, variant = "large" }) {
   if (!info) return "No info";
 
   const { name, inn, region, contact1, contact2 } = info;
 
   return (
-    <div className={styles.DistributorInfo}>
+    <div
+      className={`${styles.DistributorInfo} ${
+        variant === "small" && styles.small
+      }`}
+    >
       <img
         className={styles.avatar}
         src="/temporary_distributor_image.png"
