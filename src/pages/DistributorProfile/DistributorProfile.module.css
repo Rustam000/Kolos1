@@ -1,11 +1,9 @@
 .DistributorProfile {
-  margin-bottom: 180px
-  
+  margin-bottom: 180px;
 }
 
 .undo {
   margin-top: 74px;
-  
 }
 
 .heading {
@@ -13,23 +11,20 @@
 }
 
 .mainSection {
-  margin-top: 41px; 
+  margin-top: 41px;
 }
 
-.photo{
+.photo {
   margin-right: 30px;
 }
 
 .infoRows {
-  
   display: flex;
   flex-direction: row; /* Изменено с column на row */
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
   line-height: 140%;
-  
-  
 }
 
 .info1 {
@@ -37,35 +32,27 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
- 
 }
 
 .info2 {
   display: flex;
   flex-direction: column;
   gap: 35px;
-  margin-left: 40px; 
+  margin-left: 40px;
   margin-right: 35px;
-  
 }
 
-
-
-.button{
+.button {
   display: flex;
   margin-top: -15px;
   gap: 21px;
-  
 }
 
 .infoBlock {
   display: flex;
   justify-content: start;
   margin-bottom: 50px;
-  
 }
-
-
 
 .infoRowLabel {
   margin-right: 1ch;
@@ -78,12 +65,9 @@
   gap: 20px;
 }
 
-
-
 .filterbar {
   margin-right: 30px;
   align-items: center;
-  
 
   & input[type="search"] {
     min-width: 453px;
@@ -96,7 +80,6 @@
     border: 1px solid var(--stroke, #e7e8e7);
     background: #efefef;
     padding-inline: 15px;
-    
   }
   & select {
     min-width: 170px;
@@ -104,7 +87,6 @@
 }
 
 .filterbarDate {
-
   display: flex;
   justify-content: space-between;
   margin: 20px;
@@ -119,7 +101,7 @@
   margin-left: 0;
 }
 
-.devSpam{
+.devSpam {
   margin-left: auto;
 }
 
@@ -129,20 +111,19 @@
   gap: 20px;
 }
 
-.selectDate{
+.selectDate {
   display: flex;
   justify-content: space-between;
   gap: 20px;
 }
 
-.filterbar{
+.filterbar {
   margin-bottom: 30px;
   display: flex;
 }
 
 .nav {
   margin-top: 73px;
-  
 
   & span {
     margin-left: auto;
