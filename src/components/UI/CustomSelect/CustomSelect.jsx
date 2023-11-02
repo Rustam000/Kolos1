@@ -4,7 +4,7 @@ import arrowUpIcon from "../../../assets/icons/arrow-up.svg";
 import arrowDownIcon from "../../../assets/icons/arrow-down.svg";
 
 const CustomSelect = ({
-  options = [],
+  options = [[{ label: "---", value: "" }]],
   name,
   className,
   dispatchNewValue = undefined,

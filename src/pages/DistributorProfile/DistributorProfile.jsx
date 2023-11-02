@@ -8,6 +8,7 @@ import { fetchDistributorInfo } from "../../redux/distributorProfileSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
+import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 
 const tableColumns = [
   {
@@ -109,12 +110,17 @@ export default function DistributorProfile() {
           </div>
 
           <form className={styles.filterbar}>
-            <select name="" id="">
-              <option value="all">Все товары</option>
-            </select>
-            <select name="" id="">
-              <option value="all">История продаж</option>
-            </select>
+            <CustomSelect
+              options={[{ label: "---", value: "---" }]}
+              className={styles.select}
+            />
+            <CustomSelect
+              options={[
+                { label: "История продаж", value: "order" },
+                { label: "История возврата", value: "return" },
+              ]}
+              className={styles.select}
+            />
             <label
               className={`${styles.dateLabel} ${styles.startDateLabel}`}
               htmlFor="startDate"
