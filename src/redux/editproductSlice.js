@@ -5,7 +5,7 @@ const defaultData = {
   idNumber: "",
   quantity: "",
   price: "",
-  unit: "piece",
+  unit: "liter",
   category: "alcohol",
   productCondition: "norm",
 };

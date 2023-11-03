@@ -17,7 +17,7 @@ export default function EditProduct() {
   const navigate = useNavigate();
 
   const formData = useSelector((state) => state.product.data);
-  const { setData } = productSliceActions;
+  const { setData, clearData } = productSliceActions;
   //const initialData = useSelector((state) => state.product.data);
   //const [formData, setFormData] = useState(initialData);
   const [showSaveModal, setShowSaveModal] = useState(false);
@@ -73,7 +73,6 @@ export default function EditProduct() {
     }
     setFormData((prev) => ({ ...prev, [name]: value }));
   }; */
-  /* 
 
   const confirmDelete = () => {
     setShowDeleteModal(false);
@@ -92,7 +91,6 @@ export default function EditProduct() {
     dispatch(clearData());
     navigate("/warehouse");
   };
-  */
 
   const isFormValid = () => {
     const requiredFields = ["name", "idNumber", "quantity", "price"];
@@ -121,7 +119,7 @@ export default function EditProduct() {
           modalOnLeave={true}
         />
         <FormContainer>
-          <form className={styles.form} onSubmit={() => {}}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <fieldset className={styles.formFlexRow}>
               <label className={styles.formInput}>
                 <p>Наименование</p>
@@ -148,7 +146,7 @@ export default function EditProduct() {
                 className={`${styles.formInput} ${styles.wideFormInput} ${styles.unitSelectInput}`}
               >
                 <p>Ед.измерения</p>
-                {/* <CustomSelect
+                <CustomSelect
                   className={styles.unitSelect}
                   name="unit"
                   value={formData.unit}
@@ -158,10 +156,8 @@ export default function EditProduct() {
                     { value: "liter", label: "Л" },
                     { value: "meter", label: "М" },
                   ]}
-                  onChange={(value) => {
-                    dispatch(setData({ unit: value }));
-                  }}
-                /> */}
+                  onChange={(value) => dispatch(setData({ unit: value }))}
+                />
               </label>
               <label className={styles.formInput}>
                 <p>Количество</p>
@@ -199,19 +195,18 @@ export default function EditProduct() {
                 className={`${styles.formInput} ${styles.wideFormInput} ${styles.categorySelectInput}`}
               >
                 <p>Категория</p>
-                {/* <CustomSelect
+                <CustomSelect
                   className={styles.categorySelect}
                   name="category"
+                  value={formData.category}
                   options={[
                     { value: "all", label: "Все товары" },
                     { value: "alcohol", label: "Алкогольные" },
                     { value: "nonalcohol", label: "Безалкогольные" },
                     { value: "raw", label: "Сырье" },
                   ]}
-                  onChange={(value) => {
-                    dispatch(setData({ category: value }));
-                  }}
-                /> */}
+                  onChange={(value) => dispatch(setData({ category: value }))}
+                />
               </label>
               <div className={styles.formInput}>
                 <p>Состояние</p>
