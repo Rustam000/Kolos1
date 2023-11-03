@@ -2,15 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./authSlice";
 import { warehouseReducer } from "./warehouseSlice";
 import { distributorsReducer } from "./distributorsSlice";
-import { orderReducer } from "./orderSlice";
-import { profileReducer } from "./profileSlice";
+import productReducer from './editproductSlice'; // Adjusted the path
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     warehouse: warehouseReducer,
     distributors: distributorsReducer,
-    profile: profileReducer,
-    order: orderReducer,
+    product: productReducer, // Added this line
   },
 });
