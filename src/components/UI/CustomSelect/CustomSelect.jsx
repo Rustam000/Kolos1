@@ -45,7 +45,7 @@ const CustomSelect = ({
     if (onChange) {
       onChange(selectedOptionValue);
     }
-  }, [onChange, selectedOptionValue]);
+  }, [selectedOptionValue]);
 
   return (
     <div
