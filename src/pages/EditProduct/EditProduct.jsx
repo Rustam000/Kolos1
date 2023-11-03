@@ -1,6 +1,6 @@
 import styles from "./EditProduct.module.css";
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
@@ -8,76 +8,36 @@ import CustomRadioButton from "../../components/UI/CustomRadioButton/CustomRadio
 import CustomModal from "../../components/CustomModal/CustomModal";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { postProduct, productSliceActions } from "../../redux/editproductSlice";
+import {
+  archiveProductById,
+  getProductById,
+  postProduct,
+  productSliceActions,
+  updateProductById,
+} from "../../redux/editproductSlice";
 
 export default function EditProduct() {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const isEdit = location.pathname.includes("/edit");
-  const navigate = useNavigate();
-
-  const formData = useSelector((state) => state.product.data);
-  const { setData, clearData } = productSliceActions;
-  //const initialData = useSelector((state) => state.product.data);
-  //const [formData, setFormData] = useState(initialData);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const formData = useSelector((state) => state.product.data);
+  const { setData, clearData } = productSliceActions;
+  const { id } = useParams();
+  const isEdit = id !== undefined;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  /* const dispatchName = (name) => {
-    dispatch(setData({ ...formData, name }));
-  };
-
-  const dispatchIdNumber = (idNumber) => {
-    dispatch(setData({ ...formData, idNumber }));
-  };
-
-  const dispatchQuantity = (quantity) => {
-    dispatch(setData({ ...formData, quantity }));
-  };
-
-  const dispatchPrice = (price) => {
-    dispatch(setData({ ...formData, price }));
-  };
-
-  const dispatchUnit = (unit) => {
-    dispatch(setData({ ...formData, unit }));
-  };
-
-  const dispatchCategory = (category) => {
-    dispatch(setData({ ...formData, category }));
-  };
-
-  const dispatchProductCondition = (productCondition) => {
-    dispatch(setData({ ...formData, productCondition }));
-  };
-
-  
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    switch (name) {
-      case "name":
-        dispatchName(value);
-        break;
-      case "idNumber":
-        dispatchIdNumber(value);
-        break;
-      case "quantity":
-        dispatchQuantity(value);
-        break;
-      case "price":
-        dispatchPrice(value);
-        break;
-      default:
-        break;
+  useEffect(() => {
+    if (isEdit) {
+      dispatch(getProductById(id));
     }
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }; */
+  }, [id]);
 
   const confirmDelete = () => {
     setShowDeleteModal(false);
-    dispatch(clearData());
-    navigate("/warehouse");
+    dispatch(archiveProductById(id)).then(() => {
+      dispatch(clearData());
+      navigate("/warehouse");
+    });
   };
 
   const handleSubmit = (e) => {
@@ -86,10 +46,15 @@ export default function EditProduct() {
   };
 
   const confirmSave = () => {
-    console.log(formData);
     setShowSaveModal(false);
+    if (isEdit) {
+      dispatch(updateProductById(id)).then(() => {
+        dispatch(clearData());
+        navigate("/warehouse");
+      });
+      return;
+    }
     dispatch(postProduct()).then(() => {
-      console.log("success!");
       dispatch(clearData());
       navigate("/warehouse");
     });

@@ -15,6 +15,56 @@ export const postProduct = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.warn(error);
+    }
+  },
+);
+
+export const updateProductById = createAsyncThunk(
+  "product/updateProductById",
+  async (id, thunkAPI) => {
+    try {
+      const wholeState = thunkAPI.getState();
+      const productState = wholeState.product;
+      const formData = productState.data;
+      const response = await axios.put(
+        `http://51.20.115.221/api/v1/product/${id}/`,
+        formData,
+      );
+      return response.data;
+    } catch (error) {
+      console.warn(error);
+    }
+  },
+);
+
+export const archiveProductById = createAsyncThunk(
+  "product/updateProductById",
+  async (id, thunkAPI) => {
+    try {
+      const wholeState = thunkAPI.getState();
+      const productState = wholeState.product;
+      const formData = productState.data;
+      const response = await axios.put(
+        `http://51.20.115.221/api/v1/product/${id}/`,
+        { ...formData, is_archived: true },
+      );
+      return response.data;
+    } catch (error) {
+      console.warn(error);
+    }
+  },
+);
+
+export const getProductById = createAsyncThunk(
+  "product/getProductById",
+  async (id, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `http://51.20.115.221/api/v1/product/${id}/`,
+      );
+      return response.data;
+    } catch (error) {
+      console.warn(error);
       console.warn({ errorData: error.response.data });
     }
   },
@@ -46,8 +96,8 @@ const productSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(postProduct.fulfilled, (state, action) => {
-      console.log(action.payload);
+    builder.addCase(getProductById.fulfilled, (state, action) => {
+      state.data = action.payload;
     });
   },
 });
