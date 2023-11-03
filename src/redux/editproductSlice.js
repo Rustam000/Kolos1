@@ -5,8 +5,8 @@ const defaultData = {
   idNumber: "",
   quantity: "",
   price: "",
-  unit: "шт",
-  category: "Алкогльное",
+  unit: "piece",
+  category: "alcohol",
   productCondition: "norm",
 };
 
@@ -27,5 +27,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { setData, clearData } = productSlice.actions;
+export const productSliceActions = productSlice.actions;
 export default productSlice.reducer;

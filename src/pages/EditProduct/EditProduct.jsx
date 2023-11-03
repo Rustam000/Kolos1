@@ -8,7 +8,7 @@ import CustomRadioButton from "../../components/UI/CustomRadioButton/CustomRadio
 import CustomModal from "../../components/CustomModal/CustomModal";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { setData, clearData } from "../../redux/editproductSlice";
+import { productSliceActions } from "../../redux/editproductSlice";
 
 export default function EditProduct() {
   const dispatch = useDispatch();
@@ -16,12 +16,14 @@ export default function EditProduct() {
   const isEdit = location.pathname.includes("/edit");
   const navigate = useNavigate();
 
-  const initialData = useSelector(state => state.product.data);
-  const [formData, setFormData] = useState(initialData);
+  const formData = useSelector((state) => state.product.data);
+  const { setData } = productSliceActions;
+  //const initialData = useSelector((state) => state.product.data);
+  //const [formData, setFormData] = useState(initialData);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const dispatchName = (name) => {
+  /* const dispatchName = (name) => {
     dispatch(setData({ ...formData, name }));
   };
 
@@ -40,43 +42,38 @@ export default function EditProduct() {
   const dispatchUnit = (unit) => {
     dispatch(setData({ ...formData, unit }));
   };
-  
+
   const dispatchCategory = (category) => {
     dispatch(setData({ ...formData, category }));
   };
-  
+
   const dispatchProductCondition = (productCondition) => {
     dispatch(setData({ ...formData, productCondition }));
   };
+
   
-  const handleNumericInputChange = (e) => {
-    const { value } = e.target;
-    if (!isNaN(value) && !value.includes("e")) {
-      handleInputChange(e);
-    }
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case 'name':
+      case "name":
         dispatchName(value);
         break;
-      case 'idNumber':
+      case "idNumber":
         dispatchIdNumber(value);
         break;
-      case 'quantity':
+      case "quantity":
         dispatchQuantity(value);
         break;
-      case 'price':
+      case "price":
         dispatchPrice(value);
         break;
       default:
         break;
     }
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-  const sum = (formData.quantity * formData.price).toFixed(2);
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }; */
+  /* 
 
   const confirmDelete = () => {
     setShowDeleteModal(false);
@@ -95,10 +92,25 @@ export default function EditProduct() {
     dispatch(clearData());
     navigate("/warehouse");
   };
+  */
 
   const isFormValid = () => {
     const requiredFields = ["name", "idNumber", "quantity", "price"];
     return requiredFields.every((field) => formData[field] !== "");
+  };
+
+  const sum = (formData.quantity * formData.price).toFixed(2);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(setData({ [name]: value }));
+  };
+
+  const handleNumericInputChange = (e) => {
+    const { value } = e.target;
+    if (!isNaN(value) && !value.includes("e")) {
+      handleInputChange(e);
+    }
   };
 
   return (
@@ -109,7 +121,7 @@ export default function EditProduct() {
           modalOnLeave={true}
         />
         <FormContainer>
-          <form className={styles.form} onSubmit={handleSubmit}>
+          <form className={styles.form} onSubmit={() => {}}>
             <fieldset className={styles.formFlexRow}>
               <label className={styles.formInput}>
                 <p>Наименование</p>
@@ -136,21 +148,20 @@ export default function EditProduct() {
                 className={`${styles.formInput} ${styles.wideFormInput} ${styles.unitSelectInput}`}
               >
                 <p>Ед.измерения</p>
-                <CustomSelect
-                className={styles.unitSelect}
-                name="unit"
-                options={[
-                { value: "piece", label: "ШТ" },
-                { value: "kilogram", label: "КГ" },
-                { value: "liter", label: "Л" },
-                { value: "meter", label: "М" },
-                ]}
-                onChange={(e) => {
-                const { value } = e.target;
-                dispatchUnit(value);
-                setFormData(prev => ({ ...prev, unit: value }));
-                 }}
-                />
+                {/* <CustomSelect
+                  className={styles.unitSelect}
+                  name="unit"
+                  value={formData.unit}
+                  options={[
+                    { value: "piece", label: "ШТ" },
+                    { value: "kilogram", label: "КГ" },
+                    { value: "liter", label: "Л" },
+                    { value: "meter", label: "М" },
+                  ]}
+                  onChange={(value) => {
+                    dispatch(setData({ unit: value }));
+                  }}
+                /> */}
               </label>
               <label className={styles.formInput}>
                 <p>Количество</p>
@@ -183,50 +194,52 @@ export default function EditProduct() {
                 />
               </label>
             </fieldset>
-      <fieldset className={styles.formFlexRow}>
-        <label
-          className={`${styles.formInput} ${styles.wideFormInput} ${styles.categorySelectInput}`}
-        >
-          <p>Категория</p>
-          <CustomSelect
-            className={styles.categorySelect}
-            name="category"
-            options={[
-              { value: "all", label: "Все товары" },
-              { value: "alcohol", label: "Алкогольные" },
-              { value: "nonalcohol", label: "Безалкогольные" },
-              { value: "raw", label: "Сырье" },
-            ]}
-            onChange={handleInputChange}
-          />
-        </label>
-        <div className={styles.formInput}>
-          <p>Состояние</p>
-          <div className={styles.radioButtonGroup}>
-            <label className={styles.radioLabel}>
-              <CustomRadioButton
-                className={styles.radioButton}
-                name="productCondition"
-                value="norm"
-                checked={formData.productCondition === "norm"}
-                onChange={handleInputChange}
-              />
-              <span>Норма</span>
-            </label>
-            <label className={styles.radioLabel}>
-              <CustomRadioButton
-                className={styles.radioButton}
-                name="productCondition"
-                value="defect"
-                checked={formData.productCondition === "defect"}
-                onChange={handleInputChange}
-                disabled={!isEdit}
-              />
-              <span>Брак</span>
-            </label>
-          </div>
-        </div>
-      </fieldset>
+            <fieldset className={styles.formFlexRow}>
+              <label
+                className={`${styles.formInput} ${styles.wideFormInput} ${styles.categorySelectInput}`}
+              >
+                <p>Категория</p>
+                {/* <CustomSelect
+                  className={styles.categorySelect}
+                  name="category"
+                  options={[
+                    { value: "all", label: "Все товары" },
+                    { value: "alcohol", label: "Алкогольные" },
+                    { value: "nonalcohol", label: "Безалкогольные" },
+                    { value: "raw", label: "Сырье" },
+                  ]}
+                  onChange={(value) => {
+                    dispatch(setData({ category: value }));
+                  }}
+                /> */}
+              </label>
+              <div className={styles.formInput}>
+                <p>Состояние</p>
+                <div className={styles.radioButtonGroup}>
+                  <label className={styles.radioLabel}>
+                    <CustomRadioButton
+                      className={styles.radioButton}
+                      name="productCondition"
+                      value="norm"
+                      checked={formData.productCondition === "norm"}
+                      onChange={handleInputChange}
+                    />
+                    <span>Норма</span>
+                  </label>
+                  <label className={styles.radioLabel}>
+                    <CustomRadioButton
+                      className={styles.radioButton}
+                      name="productCondition"
+                      value="defect"
+                      checked={formData.productCondition === "defect"}
+                      onChange={handleInputChange}
+                      disabled={!isEdit}
+                    />
+                    <span>Брак</span>
+                  </label>
+                </div>
+              </div>
+            </fieldset>
             <div className={`${styles.formFlexRow} ${styles.formButtonRow}`}>
               {isEdit && (
                 <CustomButton
