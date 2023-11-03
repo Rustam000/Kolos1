@@ -50,13 +50,13 @@ export const warehouseSlice = createSlice({
   initialState,
   reducers: {
     setCategory: (state, action) => {
-      state.category = action.payload.category;
+      state.category = action.payload;
     },
     setCondition: (state, action) => {
-      state.condition = action.payload.condition;
+      state.condition = action.payload;
     },
     setSearch: (state, action) => {
-      state.search = action.payload.search;
+      state.search = action.payload;
     },
   },
   extraReducers: (builder) => {
