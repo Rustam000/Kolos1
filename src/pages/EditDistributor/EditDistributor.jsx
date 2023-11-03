@@ -4,69 +4,40 @@ import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import getApp from "../../assets/icons/get_app.svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CustomModal from "../../components/CustomModal/CustomModal";
-import { useDispatch, useSelector } from "react-redux";
-import { editDistributorActions, editDistributorSlice, fetchEditDistributorSlice} from "../../redux/editDistributorSlice";
-
-
+import { useDispatch } from "react-redux";
+import { getDistributorById } from "../../redux/editDistributorSlice";
 
 export default function EditDistributor() {
-
-  
-  const { fullName } = useSelector((state) => state.editDistributor);
-  const { inn } = useSelector((state) => state.editDistributor);
-  const { address } = useSelector((state) => state.editDistributor);
-  const { actualAddress } = useSelector((state) => state.editDistributor);
-  const { passportSeriesAndNumber } = useSelector((state) => state.editDistributor);
-  const { issuedBy } = useSelector((state) => state.editDistributor);
-  const { issueDate } = useSelector((state) => state.editDistributor);
-  const { expiryDate } = useSelector((state) => state.editDistributor);
-  const { phoneNumber1 } = useSelector((state) => state.editDistributor);
-  const { phoneNumber2 } = useSelector((state) => state.editDistributor);
-
+  const [formData, setFormData] = useState({
+    photo: null,
+    fullName: "",
+    region: "",
+    inn: "",
+    address: "",
+    actualAddress: "",
+    passport: "",
+    issuedBy: "",
+    issueDate: "",
+    expiryDate: "",
+    phoneNumber1: "",
+    phoneNumber2: "",
+  });
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchEditDistributorSlice());
-  }, [dispatch]);
-  
-
+  const navigate = useNavigate();
+  const { id } = useParams();
   const formRef = useRef(null);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const navigate = useNavigate();
   const { pathname } = useLocation();
-  const isEdit = !!pathname.match("/edit");
-  const initialData = isEdit
-    ? {
-        photo: null,
-        fullName: "Баланчаев Баланча Баланчаевич",
-        region: "Чуй",
-        inn: "22703199519876",
-        address: "10 мкр, дом 6, кв №5",
-        actualAddress: "мкр Тунгуч, дом 17, кв №44",
-        passportSeriesAndNumber: "ID4395993",
-        issuedBy: "МКК 211021",
-        issueDate: "21.10.2023", //date?
-        expiryDate: "21.10.2033", //date?
-        phoneNumber1: "550456784",
-        phoneNumber2: "770456784",
-      }
-    : {
-        photo: null,
-        fullName: "",
-        region: "",
-        inn: "",
-        address: "",
-        actualAddress: "",
-        passportSeriesAndNumber: "",
-        issuedBy: "",
-        issueDate: "",
-        expiryDate: "",
-        phoneNumber1: "",
-        phoneNumber2: "",
-      };
-  const [formData, setFormData] = useState(initialData);
+  const isEdit = id !== undefined;
+
+  useEffect(() => {
+    if (isEdit) {
+      dispatch(getDistributorById(id)).then((data) => setFormData(data));
+    }
+  }, [id]);
 
   //временная "валидация"
   function isFormValid() {
@@ -76,7 +47,7 @@ export default function EditDistributor() {
       "inn",
       "address",
       "actualAddress",
-      "passportSeriesAndNumber",
+      "passport",
       "issuedBy",
       "issueDate",
       "expiryDate",
@@ -101,9 +72,6 @@ export default function EditDistributor() {
     event.preventDefault();
     setShowSaveModal(true);
   }
-
-  
-  
 
   return (
     <>
@@ -135,11 +103,8 @@ export default function EditDistributor() {
                   <input
                     type="text"
                     name="fullName"
-                    // value={formData.fullName}
-                    onChange={(event) => 
-                    dispatch(
-                      editDistributorActions.setFullName(event.target.value)
-                    )}
+                    value={formData.fullName}
+                    onChange={handleInputChange}
                     placeholder="Пример: Иванов Иван Иванович"
                     required
                   />
@@ -149,11 +114,8 @@ export default function EditDistributor() {
                   <input
                     type="text"
                     name="actualAddress"
-                    // value={formData.actualAddress}
-                    onChange={(event) => 
-                      dispatch(
-                        editDistributorActions.setActualAddress(event.target.value)
-                      )}
+                    value={formData.actualAddress}
+                    onChange={handleInputChange}
                     placeholder="Пример: обл. Чуй, рай. Сокулук, с. Село, "
                     required
                   />
@@ -165,11 +127,8 @@ export default function EditDistributor() {
                   <input
                     type="text"
                     name="address"
-                    // value={formData.address}
-                    onChange={(event) => 
-                      dispatch(
-                        editDistributorActions.setAddress(event.target.value)
-                      )}
+                    value={formData.address}
+                    onChange={handleInputChange}
                     placeholder="Пример: обл. Чуй, рай. Сокулук, с. Село, "
                     required
                   />
@@ -179,11 +138,8 @@ export default function EditDistributor() {
                   <input
                     type="text"
                     name="region"
-                    // value={formData.region}
-                    onChange={(event) => 
-                      dispatch(
-                        editDistributorActions.setRegion(event.target.value)
-                      )}
+                    value={formData.region}
+                    onChange={handleInputChange}
                     placeholder="Пример: Чуй"
                     required
                   />
@@ -193,12 +149,9 @@ export default function EditDistributor() {
                   <p>Серия и номер паспорта</p>
                   <input
                     type="text"
-                    name="passportSeriesAndNumber"
-                    // value={formData.passportSeriesAndNumber}
-                    onChange={(event) => 
-                      dispatch(
-                        editDistributorActions.setPassportSeriesAndNumber(event.target.value)
-                      )}
+                    name="passport"
+                    value={formData.passport}
+                    onChange={handleInputChange}
                     placeholder="ID"
                     required
                   />
@@ -210,11 +163,8 @@ export default function EditDistributor() {
                   <input
                     type="text"
                     name="inn"
-                    // value={formData.inn}
-                    onChange={(event) => 
-                      dispatch(
-                        editDistributorActions.setInn(event.target.value)
-                      )}
+                    value={formData.inn}
+                    onChange={handleInputChange}
                     placeholder="0000000000"
                     required
                   />
@@ -225,11 +175,8 @@ export default function EditDistributor() {
                   <input
                     type="text"
                     name="issuedBy"
-                    // value={formData.issuedBy}
-                    onChange={(event) => 
-                      dispatch(
-                        editDistributorActions.setIssuedBy(event.target.value)
-                      )}
+                    value={formData.issuedBy}
+                    onChange={handleInputChange}
                     placeholder="МКК"
                     required
                   />
@@ -239,11 +186,8 @@ export default function EditDistributor() {
                   <input
                     type="text"
                     name="issueDate"
-                    // value={formData.issueDate}
-                    onChange={(event) => 
-                      dispatch(
-                        editDistributorActions.setIssueDate(event.target.value)
-                      )}
+                    value={formData.issueDate}
+                    onChange={handleInputChange}
                     placeholder="00.00.0000"
                     required
                   />
@@ -253,11 +197,8 @@ export default function EditDistributor() {
                   <input
                     type="text"
                     name="expiryDate"
-                    // value={formData.expiryDate}
-                    onChange={(event) => 
-                      dispatch(
-                        editDistributorActions.setExpiryDate(event.target.value)
-                      )}
+                    value={formData.expiryDate}
+                    onChange={handleInputChange}
                     placeholder="00.00.0000"
                     required
                   />
@@ -273,11 +214,8 @@ export default function EditDistributor() {
                     <input
                       type="tel"
                       name="phoneNumber1"
-                      // value={formData.phoneNumber1}
-                      onChange={(event) => 
-                        dispatch(
-                          editDistributorActions.setPhoneNumber1(event.target.value)
-                        )}
+                      value={formData.phoneNumber1}
+                      onChange={handleInputChange}
                       placeholder=""
                       required
                     />
@@ -294,12 +232,9 @@ export default function EditDistributor() {
                     <span className={styles.countryCode}>+996</span>
                     <input
                       type="tel"
-                      // value={formData.phoneNumber2}
                       name="phoneNumber2"
-                      onChange={(event) => 
-                        dispatch(
-                          editDistributorActions.setPhoneNumber2(event.target.value)
-                        )}
+                      value={formData.phoneNumber2}
+                      onChange={handleInputChange}
                       placeholder=""
                     />
                   </div>
