@@ -8,7 +8,7 @@ import CustomRadioButton from "../../components/UI/CustomRadioButton/CustomRadio
 import CustomModal from "../../components/CustomModal/CustomModal";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { productSliceActions } from "../../redux/editproductSlice";
+import { postProduct, productSliceActions } from "../../redux/editproductSlice";
 
 export default function EditProduct() {
   const dispatch = useDispatch();
@@ -88,8 +88,11 @@ export default function EditProduct() {
   const confirmSave = () => {
     console.log(formData);
     setShowSaveModal(false);
-    dispatch(clearData());
-    navigate("/warehouse");
+    dispatch(postProduct()).then(() => {
+      console.log("success!");
+      dispatch(clearData());
+      navigate("/warehouse");
+    });
   };
 
   const isFormValid = () => {
@@ -135,8 +138,8 @@ export default function EditProduct() {
                 <p>Идентификационный номер</p>
                 <input
                   type="text"
-                  name="idNumber"
-                  value={formData.idNumber}
+                  name="identification_number"
+                  value={formData.identification_number}
                   onChange={handleInputChange}
                 />
               </label>
@@ -151,10 +154,10 @@ export default function EditProduct() {
                   name="unit"
                   value={formData.unit}
                   options={[
-                    { value: "piece", label: "ШТ" },
+                    { value: "item", label: "ШТ" },
                     { value: "kilogram", label: "КГ" },
                     { value: "liter", label: "Л" },
-                    { value: "meter", label: "М" },
+                    { value: "m", label: "М" },
                   ]}
                   onChange={(value) => dispatch(setData({ unit: value }))}
                 />
@@ -200,10 +203,8 @@ export default function EditProduct() {
                   name="category"
                   value={formData.category}
                   options={[
-                    { value: "all", label: "Все товары" },
-                    { value: "alcohol", label: "Алкогольные" },
-                    { value: "nonalcohol", label: "Безалкогольные" },
-                    { value: "raw", label: "Сырье" },
+                    { value: "alcohol", label: "Алкогольный" },
+                    { value: "Безалкогольный", label: "Безалкогольный" },
                   ]}
                   onChange={(value) => dispatch(setData({ category: value }))}
                 />
@@ -214,9 +215,9 @@ export default function EditProduct() {
                   <label className={styles.radioLabel}>
                     <CustomRadioButton
                       className={styles.radioButton}
-                      name="productCondition"
-                      value="norm"
-                      checked={formData.productCondition === "norm"}
+                      name="state"
+                      value="Normal"
+                      checked={formData.state === "Normal"}
                       onChange={handleInputChange}
                     />
                     <span>Норма</span>
@@ -224,9 +225,9 @@ export default function EditProduct() {
                   <label className={styles.radioLabel}>
                     <CustomRadioButton
                       className={styles.radioButton}
-                      name="productCondition"
-                      value="defect"
-                      checked={formData.productCondition === "defect"}
+                      name="state"
+                      value="Invalid"
+                      checked={formData.state === "Invalid"}
                       onChange={handleInputChange}
                       disabled={!isEdit}
                     />

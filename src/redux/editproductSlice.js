@@ -1,13 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const postProduct = createAsyncThunk(
+  "product/postProduct",
+  async (_, thunkAPI) => {
+    try {
+      const wholeState = thunkAPI.getState();
+      const productState = wholeState.product;
+      const formData = productState.data;
+      const response = await axios.post(
+        `http://51.20.115.221/api/v1/product/`,
+        formData,
+      );
+      return response.data;
+    } catch (error) {
+      console.warn(error);
+      console.warn({ errorData: error.response.data });
+    }
+  },
+);
 
 const defaultData = {
   name: "",
-  idNumber: "",
+  identification_number: "",
   quantity: "",
   price: "",
   unit: "liter",
   category: "alcohol",
-  productCondition: "norm",
+  state: "Normal",
 };
 
 const initialState = {
@@ -24,6 +44,11 @@ const productSlice = createSlice({
     clearData: (state) => {
       state.data = defaultData;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(postProduct.fulfilled, (state, action) => {
+      console.log(action.payload);
+    });
   },
 });
 
