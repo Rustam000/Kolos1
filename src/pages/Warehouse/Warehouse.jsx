@@ -15,22 +15,11 @@ import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 
 export default function Warehouse() {
+  const { setCategory, setCondition, setSearch } = warehouseActions;
   const { items, isLoading, error, options, search, category, condition } =
     useSelector((state) => state.warehouse);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  function dispatchCategory(category) {
-    dispatch(warehouseActions.setCategory({ category }));
-  }
-
-  function dispatchCondition(condition) {
-    dispatch(warehouseActions.setCondition({ condition }));
-  }
-
-  function dispatchSetSearch(search) {
-    dispatch(warehouseActions.setSearch({ search }));
-  }
 
   useEffect(() => {
     dispatch(fetchWarehouseItems({ search, category, condition }));
@@ -106,21 +95,21 @@ export default function Warehouse() {
           <CustomSearch
             options={options.search}
             value={search}
-            onChange={(event) => dispatchSetSearch(event.target.value)}
+            onChange={(event) => dispatch(setSearch(event.target.value))}
             onSearch={console.log}
           />
           <CustomSelect
             className={styles.categorySelect}
             name="category"
             value={category}
-            onChange={dispatchCategory}
+            onChange={(value) => dispatch(setCategory(value))}
             options={options.category}
           />
           <CustomSelect
             className={styles.conditionSelect}
             name="condition"
             value={condition}
-            onChange={dispatchCondition}
+            onChange={(value) => dispatch(setCondition(value))}
             options={[
               { value: "norm", label: "Норма" },
               { value: "defect", label: "Брак" },
