@@ -2,6 +2,10 @@
 :root {
   font-family: "Rubik", sans-serif;
   --main-color: #3ba1ff;
+  --blue-hover: #67bae5;
+  --blue-click: #0085ff;
+  --button-inactive-gray: #efefef;
+  --button-inactive-text-gray: #848484;
   --black-80: #333333;
   --black: #000000cc;
   --red: #b3261e;
