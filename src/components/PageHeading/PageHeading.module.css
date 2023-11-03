@@ -1,6 +1,9 @@
 .PageHeading {
-  margin-top: 74px;
-  margin-bottom: 51px;
+  margin-top: 50px;
+  margin-bottom: 34px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .goBack {

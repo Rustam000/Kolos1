@@ -9,7 +9,9 @@ import { fetchDistributors } from "../../redux/distributorsSlice";
 import ADTable from "../../components/ADTable/ADTable";
 
 export default function Distributors() {
-  const { distributors } = useSelector((state) => state.distributors);
+  const { distributors, isLoading, error } = useSelector(
+    (state) => state.distributors,
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,7 +36,7 @@ export default function Distributors() {
       render: (_, record) => (
         <Link
           className={styles.distributorLink}
-          to={`/distributors/distributor/profile/${record._id}`}
+          to={`/distributors/profile/${record.id}`}
         >
           {record.name + " (cсылка на профиль)"}
         </Link>
@@ -54,7 +56,7 @@ export default function Distributors() {
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/distributors/distributor/edit/${record._id}`, {
+            navigate(`/distributors/edit/${record.id}`, {
               state: record,
             })
           }
@@ -71,15 +73,16 @@ export default function Distributors() {
         <div className={styles.filterbar}>
           <CustomButton
             variant="primary"
-            onClick={() => navigate("/distributors/distributor/create")}
+            onClick={() => navigate("/distributors/create")}
           >
             Создать
           </CustomButton>
         </div>
 
         <ADTable
+          loading={isLoading}
           dataSource={distributors}
-          rowKey="_id"
+          rowKey="id"
           columns={tableColumns}
           height="70vh"
         />

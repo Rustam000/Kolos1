@@ -1,52 +1,43 @@
 import styles from "./EditProduct.module.css";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import CustomRadioButton from "../../components/UI/CustomRadioButton/CustomRadioButton";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  archiveProductById,
+  getProductById,
+  postProduct,
+  productSliceActions,
+  updateProductById,
+} from "../../redux/editproductSlice";
 
 export default function EditProduct() {
-  const location = useLocation();
-  const isEdit = location.pathname.includes("/edit");
-  const navigate = useNavigate();
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const initialData = isEdit
-    ? {
-        name: "Пиво звезда",
-        idNumber: "32462021-938f-4090",
-        quantity: "10",
-        price: "100.55",
-        unit: "шт",
-        category: "Алкогольное",
-        productCondition: "norm",
-      }
-    : {
-        name: "",
-        idNumber: "",
-        quantity: "",
-        price: "",
-        unit: "",
-        category: "",
-        productCondition: "norm",
-      };
-  const [formData, setFormData] = useState(initialData);
+  const formData = useSelector((state) => state.product.data);
+  const { setData, clearData } = productSliceActions;
+  const { id } = useParams();
+  const isEdit = id !== undefined;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    let updatedData = { ...formData, [name]: value };
-    setFormData(updatedData);
-  };
-
-  const sum = (formData.quantity * formData.price).toFixed(2);
+  useEffect(() => {
+    if (isEdit) {
+      dispatch(getProductById(id));
+    }
+  }, [id]);
 
   const confirmDelete = () => {
     setShowDeleteModal(false);
-    navigate("/warehouse");
+    dispatch(archiveProductById(id)).then(() => {
+      dispatch(clearData());
+      navigate("/warehouse");
+    });
   };
 
   const handleSubmit = (e) => {
@@ -55,14 +46,37 @@ export default function EditProduct() {
   };
 
   const confirmSave = () => {
-    console.log(formData);
     setShowSaveModal(false);
-    navigate("/warehouse");
+    if (isEdit) {
+      dispatch(updateProductById(id)).then(() => {
+        dispatch(clearData());
+        navigate("/warehouse");
+      });
+      return;
+    }
+    dispatch(postProduct()).then(() => {
+      dispatch(clearData());
+      navigate("/warehouse");
+    });
   };
 
   const isFormValid = () => {
     const requiredFields = ["name", "idNumber", "quantity", "price"];
     return requiredFields.every((field) => formData[field] !== "");
+  };
+
+  const sum = (formData.quantity * formData.price).toFixed(2);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(setData({ [name]: value }));
+  };
+
+  const handleNumericInputChange = (e) => {
+    const { value } = e.target;
+    if (!isNaN(value) && !value.includes("e")) {
+      handleInputChange(e);
+    }
   };
 
   return (
@@ -89,24 +103,28 @@ export default function EditProduct() {
                 <p>Идентификационный номер</p>
                 <input
                   type="text"
-                  name="idNumber"
-                  value={formData.idNumber}
+                  name="identification_number"
+                  value={formData.identification_number}
                   onChange={handleInputChange}
                 />
               </label>
             </fieldset>
             <fieldset className={styles.formFlexRow}>
-              <label className={`${styles.formInput} ${styles.wideFormInput}`}>
+              <label
+                className={`${styles.formInput} ${styles.wideFormInput} ${styles.unitSelectInput}`}
+              >
                 <p>Ед.измерения</p>
                 <CustomSelect
                   className={styles.unitSelect}
                   name="unit"
+                  value={formData.unit}
                   options={[
-                    { value: "piece", label: "ШТ" },
+                    { value: "item", label: "ШТ" },
                     { value: "kilogram", label: "КГ" },
                     { value: "liter", label: "Л" },
-                    { value: "meter", label: "М" },
+                    { value: "m", label: "М" },
                   ]}
+                  onChange={(value) => dispatch(setData({ unit: value }))}
                 />
               </label>
               <label className={styles.formInput}>
@@ -115,7 +133,7 @@ export default function EditProduct() {
                   type="text"
                   name="quantity"
                   value={formData.quantity}
-                  onChange={handleInputChange}
+                  onChange={handleNumericInputChange}
                   placeholder="Пример: 1000"
                 />
               </label>
@@ -125,7 +143,7 @@ export default function EditProduct() {
                   type="text"
                   name="price"
                   value={formData.price}
-                  onChange={handleInputChange}
+                  onChange={handleNumericInputChange}
                   placeholder="00.00"
                 />
               </label>
@@ -141,18 +159,19 @@ export default function EditProduct() {
               </label>
             </fieldset>
             <fieldset className={styles.formFlexRow}>
-              <label className={`${styles.formInput} ${styles.wideFormInput}`}>
+              <label
+                className={`${styles.formInput} ${styles.wideFormInput} ${styles.categorySelectInput}`}
+              >
                 <p>Категория</p>
-
                 <CustomSelect
                   className={styles.categorySelect}
                   name="category"
+                  value={formData.category}
                   options={[
-                    { value: "all", label: "Все товары" },
-                    { value: "alcohol", label: "Алкогольные" },
-                    { value: "nonalcohol", label: "Безалкогольные" },
-                    { value: "raw", label: "Сырье" },
+                    { value: "alcohol", label: "Алкогольный" },
+                    { value: "Безалкогольный", label: "Безалкогольный" },
                   ]}
+                  onChange={(value) => dispatch(setData({ category: value }))}
                 />
               </label>
               <div className={styles.formInput}>
@@ -161,9 +180,9 @@ export default function EditProduct() {
                   <label className={styles.radioLabel}>
                     <CustomRadioButton
                       className={styles.radioButton}
-                      name="productCondition"
-                      value="norm"
-                      checked={formData.productCondition === "norm"}
+                      name="state"
+                      value="Normal"
+                      checked={formData.state === "Normal"}
                       onChange={handleInputChange}
                     />
                     <span>Норма</span>
@@ -171,9 +190,9 @@ export default function EditProduct() {
                   <label className={styles.radioLabel}>
                     <CustomRadioButton
                       className={styles.radioButton}
-                      name="productCondition"
-                      value="defect"
-                      checked={formData.productCondition === "defect"}
+                      name="state"
+                      value="Invalid"
+                      checked={formData.state === "Invalid"}
                       onChange={handleInputChange}
                       disabled={!isEdit}
                     />
@@ -203,7 +222,6 @@ export default function EditProduct() {
           </form>
         </FormContainer>
       </div>
-      {/* ------------------------------------------modals */}
       {showSaveModal && (
         <CustomModal
           message="Вы точно хотите сохранить?"

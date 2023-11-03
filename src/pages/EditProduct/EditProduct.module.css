@@ -73,3 +73,11 @@
   background-color: white;
   position: relative;
 }
+
+.unitSelectInput {
+  z-index: 2;
+}
+
+.categorySelectInput {
+  z-index: 1;
+}

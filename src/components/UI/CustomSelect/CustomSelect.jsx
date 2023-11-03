@@ -1,16 +1,19 @@
 import styles from "./CustomSelect.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import arrowUpIcon from "../../../assets/icons/arrow-up.svg";
 import arrowDownIcon from "../../../assets/icons/arrow-down.svg";
 
 const CustomSelect = ({
-  options = [],
+  options = [{ label: "---", value: "" }],
+  value,
   name,
   className,
-  dispatchNewValue = (value) => console.log(value),
+  onChange = undefined,
 }) => {
+  const firstOption = options[0] || { value: "", label: "---" };
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+  const [selectedOption, setSelectedOption] = useState(firstOption);
+  const selectedOptionValue = selectedOption.value;
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -24,9 +27,25 @@ const CustomSelect = ({
 
   function handleChange(option) {
     setSelectedOption(option);
-    dispatchNewValue(option.value);
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    const receivedOption = options.find((opt) => opt.value === value);
+    if (receivedOption) {
+      setSelectedOption(receivedOption);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    setSelectedOption(firstOption);
+  }, [options.length]);
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(selectedOptionValue);
+    }
+  }, [selectedOptionValue]);
 
   return (
     <div

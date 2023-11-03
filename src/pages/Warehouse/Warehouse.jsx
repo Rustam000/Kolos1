@@ -1,22 +1,32 @@
 import styles from "./Warehouse.module.css";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import searchIcon from "../../assets/icons/search.svg";
 import editIcon from "../../assets/icons/mode_edit.svg";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchItems } from "../../redux/warehouseSlice";
+import {
+  fetchWarehouseItems,
+  fetchWarehouseOptions,
+  warehouseActions,
+} from "../../redux/warehouseSlice";
 import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
+import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 
 export default function Warehouse() {
-  const { products } = useSelector((state) => state.warehouse);
+  const { setCategory, setCondition, setSearch } = warehouseActions;
+  const { items, isLoading, error, options, search, category, condition } =
+    useSelector((state) => state.warehouse);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchItems());
+    dispatch(fetchWarehouseItems({ search, category, condition }));
+  }, [search, category, condition]);
+
+  useEffect(() => {
+    dispatch(fetchWarehouseOptions());
   }, []);
 
   const tableColumns = [
@@ -36,8 +46,8 @@ export default function Warehouse() {
     },
     {
       title: "Уникальный код",
-      dataIndex: "num_id",
-      key: "num_id",
+      dataIndex: "identification_number",
+      key: "identification_number",
       align: "left",
     },
     {
@@ -69,7 +79,7 @@ export default function Warehouse() {
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/warehouse/product/edit/${record._id}`, { state: record })
+            navigate(`/warehouse/edit/${record.id}`, { state: record })
           }
         >
           <img src={editIcon} alt="edit icon" />
@@ -82,27 +92,24 @@ export default function Warehouse() {
     <div className={styles.Warehouse}>
       <div className="container">
         <form className={styles.filterbar}>
-          <div className={styles.searchInputContainer}>
-            <input
-              className={styles.searchInput}
-              type="text"
-              placeholder="Поиск..."
-            />
-            <img src={searchIcon} alt="icon" className={styles.searchIcon} />
-          </div>
+          <CustomSearch
+            options={options.search}
+            value={search}
+            onChange={(event) => dispatch(setSearch(event.target.value))}
+            onSearch={console.log}
+          />
           <CustomSelect
             className={styles.categorySelect}
             name="category"
-            options={[
-              { value: "all", label: "Все товары" },
-              { value: "alcohol", label: "Алкогольные" },
-              { value: "nonalcohol", label: "Безалкогольные" },
-              { value: "raw", label: "Сырье" },
-            ]}
+            value={category}
+            onChange={(value) => dispatch(setCategory(value))}
+            options={options.category}
           />
           <CustomSelect
             className={styles.conditionSelect}
-            name="category"
+            name="condition"
+            value={condition}
+            onChange={(value) => dispatch(setCondition(value))}
             options={[
               { value: "norm", label: "Норма" },
               { value: "defect", label: "Брак" },
@@ -118,14 +125,16 @@ export default function Warehouse() {
           <CustomButton
             type="button"
             variant="primary"
-            onClick={() => navigate("/warehouse/product/create")}
+            onClick={() => navigate("/warehouse/create")}
           >
             Создать
           </CustomButton>
         </form>
         <ADTable
-          dataSource={products}
-          rowKey="_id"
+          headerBg={condition === "defect" ? "#ffc2c2" : undefined}
+          loading={isLoading}
+          dataSource={items}
+          rowKey="id"
           columns={tableColumns}
           height="70vh"
         />
