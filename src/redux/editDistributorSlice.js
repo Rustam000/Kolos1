@@ -6,7 +6,23 @@ export const getDistributorById = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://51.20.115.221/api/v1/distributor/${id}`,
+        `http://51.20.115.221/api/v1/distributors/${id}/`,
+      );
+      return response.data;
+    } catch (error) {
+      console.warn(error);
+      return error;
+    }
+  },
+);
+
+export const editDistributorById = createAsyncThunk(
+  "distributor/editDistributorById",
+  async ({ id, formData }, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        `http://51.20.115.221/api/v1/distributors/${id}/`,
+        formData,
       );
       return response.data;
     } catch (error) {
