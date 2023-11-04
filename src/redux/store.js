@@ -5,6 +5,7 @@ import { archiveReducer } from "./archiveSlice";
 import { distributorReducer } from "./editDistributorSlice";
 import { distributorsReducer } from "./distributorsSlice";
 import { productReducer } from "./editproductSlice";
+import { profileReducer } from "./profileSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     distributors: distributorsReducer,
     product: productReducer,
     archive: archiveReducer,
+    profile: profileReducer,
   },
 });
