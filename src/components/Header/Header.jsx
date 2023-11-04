@@ -12,9 +12,9 @@ export default function Header() {
     <header className={styles.Header}>
       <div className="container">
         <div className={styles.flexContainer}>
-          <Link className={styles.logoWrapper} to="logout">
+          <span className={styles.logoWrapper}>
             <Logo />
-          </Link>
+          </span>
           <NavLink className={getNavlinkClasses} to="/warehouse">
             Склад
           </NavLink>
