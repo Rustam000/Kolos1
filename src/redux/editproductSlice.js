@@ -41,12 +41,8 @@ export const archiveProductById = createAsyncThunk(
   "product/archiveProductById",
   async (id, thunkAPI) => {
     try {
-      const wholeState = thunkAPI.getState();
-      const productState = wholeState.product;
-      const formData = productState.data;
-      const response = await axios.put(
-        `http://51.20.115.221/api/v1/products/archive/${id}/`,
-        formData,
+      const response = await axios.delete(
+        `http://51.20.115.221/api/v1/products/${id}/`,
       );
       return response.data;
     } catch (error) {
