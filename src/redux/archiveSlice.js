@@ -6,7 +6,7 @@ export const fetchArchiveItems = createAsyncThunk(
   async (target, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://51.20.115.221/api/v1/${target}/archive/?limit=9999`,
+        `http://51.20.115.221/api/v1/${target}/archive/?limit=10000`,
       );
       return response.data.results;
     } catch (error) {

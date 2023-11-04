@@ -6,7 +6,7 @@ export const fetchDistributors = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://51.20.115.221/api/v1/distributor/?limit=9999`,
+        `http://51.20.115.221/api/v1/distributors/?limit=10000`,
       );
       return response.data.results;
     } catch (error) {

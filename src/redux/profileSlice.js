@@ -6,7 +6,7 @@ export const getDistributorById = createAsyncThunk(
   async (distributorId, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://51.20.115.221/api/v1/distributor/${distributorId}`,
+        `http://51.20.115.221/api/v1/distributors/${distributorId}`,
       );
 
       return response.data;

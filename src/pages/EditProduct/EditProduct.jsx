@@ -12,7 +12,7 @@ import {
   archiveProductById,
   getProductById,
   postProduct,
-  productSliceActions,
+  productActions,
   updateProductById,
 } from "../../redux/editproductSlice";
 
@@ -20,7 +20,7 @@ export default function EditProduct() {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const formData = useSelector((state) => state.product.data);
-  const { setData, clearData } = productSliceActions;
+  const { setData, clearData } = productActions;
   const { id } = useParams();
   const isEdit = id !== undefined;
   const dispatch = useDispatch();
@@ -119,8 +119,8 @@ export default function EditProduct() {
                   name="unit"
                   value={formData.unit}
                   options={[
-                    { value: "item", label: "ШТ" },
-                    { value: "kilogram", label: "КГ" },
+                    { value: "item", label: "Шт" },
+                    { value: "kilogram", label: "Кг" },
                     { value: "liter", label: "Л" },
                     { value: "m", label: "М" },
                   ]}
@@ -169,7 +169,7 @@ export default function EditProduct() {
                   value={formData.category}
                   options={[
                     { value: "alcohol", label: "Алкогольный" },
-                    { value: "Безалкогольный", label: "Безалкогольный" },
+                    { value: "notAlcohol", label: "Безалкогольный" },
                   ]}
                   onChange={(value) => dispatch(setData({ category: value }))}
                 />

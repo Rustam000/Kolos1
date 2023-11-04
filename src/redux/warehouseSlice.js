@@ -6,7 +6,7 @@ export const fetchWarehouseItems = createAsyncThunk(
   async (queryParams, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://51.20.115.221/api/v1/product/?limit=9999`,
+        `http://51.20.115.221/api/v1/products/?limit=10000`,
         {
           params: queryParams,
         },

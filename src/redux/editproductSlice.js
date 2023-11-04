@@ -9,7 +9,7 @@ export const postProduct = createAsyncThunk(
       const productState = wholeState.product;
       const formData = productState.data;
       const response = await axios.post(
-        `http://51.20.115.221/api/v1/product/`,
+        `http://51.20.115.221/api/v1/products/`,
         formData,
       );
       return response.data;
@@ -27,7 +27,7 @@ export const updateProductById = createAsyncThunk(
       const productState = wholeState.product;
       const formData = productState.data;
       const response = await axios.put(
-        `http://51.20.115.221/api/v1/product/${id}/`,
+        `http://51.20.115.221/api/v1/products/${id}/`,
         formData,
       );
       return response.data;
@@ -38,15 +38,15 @@ export const updateProductById = createAsyncThunk(
 );
 
 export const archiveProductById = createAsyncThunk(
-  "product/updateProductById",
+  "product/archiveProductById",
   async (id, thunkAPI) => {
     try {
       const wholeState = thunkAPI.getState();
       const productState = wholeState.product;
       const formData = productState.data;
       const response = await axios.put(
-        `http://51.20.115.221/api/v1/product/${id}/`,
-        { ...formData, is_archived: true },
+        `http://51.20.115.221/api/v1/products/archive/${id}/`,
+        formData,
       );
       return response.data;
     } catch (error) {
@@ -60,7 +60,7 @@ export const getProductById = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://51.20.115.221/api/v1/product/${id}/`,
+        `http://51.20.115.221/api/v1/products/${id}/`,
       );
       return response.data;
     } catch (error) {
@@ -102,5 +102,5 @@ const productSlice = createSlice({
   },
 });
 
-export const productSliceActions = productSlice.actions;
-export default productSlice.reducer;
+export const productActions = productSlice.actions;
+export const productReducer = productSlice.reducer;

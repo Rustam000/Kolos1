@@ -5,7 +5,7 @@ export const fetchDistributorCredentials = createAsyncThunk(
   "order/fetchDistributorCredentials",
   async (id, thunkAPI) => {
     const response = await axios.get(
-      `http://51.20.115.221/api/v1/distributor/${id}`,
+      `http://51.20.115.221/api/v1/distributors/${id}`,
     );
     return response.data;
   },

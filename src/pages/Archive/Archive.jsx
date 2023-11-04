@@ -155,7 +155,7 @@ export default function Archive() {
   const displayData = isWarehouse ? products : distributors;
 
   useEffect(() => {
-    const target = isWarehouse ? "warehouse" : "distributor";
+    const target = isWarehouse ? "products" : "distributors";
     dispatch(fetchArchiveItems(target));
     return () => dispatch(archiveActions.clearData());
   }, [isWarehouse]);
@@ -185,11 +185,9 @@ export default function Archive() {
           </div>
         </PageHeading>
         <ADTable
-          /* switch displayData to items when backend cathes up */
-          dataSource={displayData}
+          dataSource={items}
           columns={displayColumns}
-          /* switch rowKey to 'id' */
-          rowKey="_id"
+          rowKey="id"
           height="65vh"
         />
       </div>
