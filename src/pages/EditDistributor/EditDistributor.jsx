@@ -8,6 +8,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import { useDispatch } from "react-redux";
 import {
+  archiveDistributorById,
+  createDistributor,
   editDistributorById,
   getDistributorById,
 } from "../../redux/editDistributorSlice";
@@ -99,8 +101,22 @@ export default function EditDistributor() {
   }
 
   function handleConfirmSave() {
-    dispatch(editDistributorById({ id, formData })).then((action) => {
+    if (isEdit) {
+      dispatch(editDistributorById({ id, formData })).then((action) => {
+        setShowSaveModal(false);
+        navigate("/distributors");
+      });
+      return;
+    }
+    dispatch(createDistributor(formData)).then((action) => {
       setShowSaveModal(false);
+      navigate("/distributors");
+    });
+  }
+
+  function handleConfirmDelete() {
+    dispatch(archiveDistributorById({ id, formData })).then((action) => {
+      setShowDeleteModal(false);
       navigate("/distributors");
     });
   }
@@ -303,10 +319,7 @@ export default function EditDistributor() {
       {showDeleteModal && (
         <CustomModal
           message="Вы точно хотите удалить?"
-          primaryAction={() => {
-            setShowDeleteModal(false);
-            navigate("/distributors");
-          }}
+          primaryAction={handleConfirmDelete}
           secondaryAction={() => {
             setShowDeleteModal(false);
           }}

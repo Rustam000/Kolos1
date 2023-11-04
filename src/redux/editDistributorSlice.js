@@ -16,6 +16,22 @@ export const getDistributorById = createAsyncThunk(
   },
 );
 
+export const createDistributor = createAsyncThunk(
+  "distributor/createDistributor",
+  async (formData, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        `http://51.20.115.221/api/v1/distributors/`,
+        formData,
+      );
+      return response.data;
+    } catch (error) {
+      console.warn(error);
+      return error;
+    }
+  },
+);
+
 export const editDistributorById = createAsyncThunk(
   "distributor/editDistributorById",
   async ({ id, formData }, thunkAPI) => {
@@ -23,6 +39,22 @@ export const editDistributorById = createAsyncThunk(
       const response = await axios.put(
         `http://51.20.115.221/api/v1/distributors/${id}/`,
         formData,
+      );
+      return response.data;
+    } catch (error) {
+      console.warn(error);
+      return error;
+    }
+  },
+);
+
+export const archiveDistributorById = createAsyncThunk(
+  "distributor/archiveDistributorById",
+  async ({ id, formData }, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        `http://51.20.115.221/api/v1/distributors/${id}/`,
+        { ...formData, is_archived: true },
       );
       return response.data;
     } catch (error) {
