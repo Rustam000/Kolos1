@@ -1,63 +1,66 @@
 import styles from "./EditDistributor.module.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import getApp from "../../assets/icons/get_app.svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CustomModal from "../../components/CustomModal/CustomModal";
+import { useDispatch } from "react-redux";
+import {
+  editDistributorById,
+  getDistributorById,
+} from "../../redux/editDistributorSlice";
 
 export default function EditDistributor() {
+  const [formData, setFormData] = useState({
+    photo: null,
+    name: "",
+    region: "",
+    inn: "",
+    address: "",
+    actual_place_of_residence: "",
+    passport_series: "",
+    passport_id: "",
+    issued_by: "",
+    issue_date: "",
+    validity: "",
+    contact1: "",
+    contact2: "",
+  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
   const formRef = useRef(null);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const navigate = useNavigate();
   const { pathname } = useLocation();
-  const isEdit = !!pathname.match("/edit");
-  const initialData = isEdit
-    ? {
-        photo: null,
-        fullName: "Баланчаев Баланча Баланчаевич",
-        region: "Чуй",
-        inn: "22703199519876",
-        address: "10 мкр, дом 6, кв №5",
-        actualAddress: "мкр Тунгуч, дом 17, кв №44",
-        passportSeriesAndNumber: "ID4395993",
-        issuedBy: "МКК 211021",
-        issueDate: "21.10.2023", //date?
-        expiryDate: "21.10.2033", //date?
-        phoneNumber1: "550456784",
-        phoneNumber2: "770456784",
-      }
-    : {
-        photo: null,
-        fullName: "",
-        region: "",
-        inn: "",
-        address: "",
-        actualAddress: "",
-        passportSeriesAndNumber: "",
-        issuedBy: "",
-        issueDate: "",
-        expiryDate: "",
-        phoneNumber1: "",
-        phoneNumber2: "",
-      };
-  const [formData, setFormData] = useState(initialData);
+  const isEdit = id !== undefined;
+  //TODO: if pathname includes 'edit', must have an id
+  const passport =
+    formData.passport_series.toString() + formData.passport_id.toString();
+  useEffect(() => {
+    if (isEdit) {
+      dispatch(getDistributorById(id)).then((action) => {
+        console.log(action);
+        setFormData(action.payload);
+      });
+    }
+  }, [id]);
 
   //временная "валидация"
   function isFormValid() {
     const requiredFields = [
-      "fullName",
+      "name",
       "region",
       "inn",
       "address",
-      "actualAddress",
-      "passportSeriesAndNumber",
-      "issuedBy",
-      "issueDate",
-      "expiryDate",
-      "phoneNumber1",
+      "actual_place_of_residence",
+      "passport",
+      "issued_by",
+      "issue_date",
+      "validity",
+      "contact1",
     ];
     return requiredFields.every((field) => formData[field] !== "");
   }
@@ -69,6 +72,22 @@ export default function EditDistributor() {
     setFormData({ ...formData, [name]: value });
   };
 
+  function handlePassportChange(event) {
+    const valueArray = event.target.value.split("");
+    const passportSeriesArray = [];
+    const passportNumberArray = [];
+    valueArray.forEach((char, index) => {
+      if (index <= 1) {
+        passportSeriesArray.push(char);
+        return;
+      }
+      passportNumberArray.push(char);
+    });
+    const passport_series = passportSeriesArray.join("");
+    const passport_id = passportNumberArray.join("");
+    setFormData({ ...formData, passport_series, passport_id });
+  }
+
   const handlePhotoChange = (e) => {
     const photo = e.target.files[0];
     setFormData({ ...formData, photo });
@@ -77,6 +96,13 @@ export default function EditDistributor() {
   function handleSubmit(event) {
     event.preventDefault();
     setShowSaveModal(true);
+  }
+
+  function handleConfirmSave() {
+    dispatch(editDistributorById({ id, formData })).then((action) => {
+      setShowSaveModal(false);
+      navigate("/distributors");
+    });
   }
 
   return (
@@ -108,8 +134,8 @@ export default function EditDistributor() {
                   <p>ФИО</p>
                   <input
                     type="text"
-                    name="fullName"
-                    value={formData.fullName}
+                    name="name"
+                    value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Пример: Иванов Иван Иванович"
                     required
@@ -119,8 +145,8 @@ export default function EditDistributor() {
                   <p>Фактическое место жительства</p>
                   <input
                     type="text"
-                    name="actualAddress"
-                    value={formData.actualAddress}
+                    name="actual_place_of_residence"
+                    value={formData.actual_place_of_residence}
                     onChange={handleInputChange}
                     placeholder="Пример: обл. Чуй, рай. Сокулук, с. Село, "
                     required
@@ -155,9 +181,9 @@ export default function EditDistributor() {
                   <p>Серия и номер паспорта</p>
                   <input
                     type="text"
-                    name="passportSeriesAndNumber"
-                    value={formData.passportSeriesAndNumber}
-                    onChange={handleInputChange}
+                    name="passport"
+                    value={passport}
+                    onChange={handlePassportChange}
                     placeholder="ID"
                     required
                   />
@@ -180,8 +206,8 @@ export default function EditDistributor() {
                   <p>Орган выдачи</p>
                   <input
                     type="text"
-                    name="issuedBy"
-                    value={formData.issuedBy}
+                    name="issued_by"
+                    value={formData.issued_by}
                     onChange={handleInputChange}
                     placeholder="МКК"
                     required
@@ -191,8 +217,8 @@ export default function EditDistributor() {
                   <p>Дата выдачи</p>
                   <input
                     type="text"
-                    name="issueDate"
-                    value={formData.issueDate}
+                    name="issue_date"
+                    value={formData.issue_date}
                     onChange={handleInputChange}
                     placeholder="00.00.0000"
                     required
@@ -202,8 +228,8 @@ export default function EditDistributor() {
                   <p>Срок действия</p>
                   <input
                     type="text"
-                    name="expiryDate"
-                    value={formData.expiryDate}
+                    name="validity"
+                    value={formData.validity}
                     onChange={handleInputChange}
                     placeholder="00.00.0000"
                     required
@@ -219,8 +245,8 @@ export default function EditDistributor() {
                     <span className={styles.countryCode}>+996</span>
                     <input
                       type="tel"
-                      name="phoneNumber1"
-                      value={formData.phoneNumber1}
+                      name="contact1"
+                      value={formData.contact1 || ""}
                       onChange={handleInputChange}
                       placeholder=""
                       required
@@ -238,8 +264,8 @@ export default function EditDistributor() {
                     <span className={styles.countryCode}>+996</span>
                     <input
                       type="tel"
-                      value={formData.phoneNumber2}
-                      name="phoneNumber2"
+                      name="contact2"
+                      value={formData.contact2 || ""}
                       onChange={handleInputChange}
                       placeholder=""
                     />
@@ -268,11 +294,7 @@ export default function EditDistributor() {
       {showSaveModal && (
         <CustomModal
           message="Вы точно хотите сохранить?"
-          primaryAction={() => {
-            console.log(formData);
-            setShowSaveModal(false);
-            navigate("/distributors");
-          }}
+          primaryAction={handleConfirmSave}
           secondaryAction={() => {
             setShowSaveModal(false);
           }}
