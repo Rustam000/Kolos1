@@ -3,12 +3,27 @@ import axios from "axios";
 
 export const fetchArchiveItems = createAsyncThunk(
   "archive/fetchArchiveItems",
-  async (target, thunkAPI) => {
+  async (entity, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://51.20.115.221/api/v1/${target}/archive/?limit=10000`,
+        `http://51.20.115.221/api/v1/${entity}/archive/?limit=10000`,
       );
+      console.log(response.data.results);
       return response.data.results;
+    } catch (error) {
+      console.warn(error);
+    }
+  },
+);
+
+export const restoreItemById = createAsyncThunk(
+  "archive/restoreItemById",
+  async ({ entity, id }, thunkAPI) => {
+    try {
+      const response = await axios.delete(
+        `http://51.20.115.221/api/v1/${entity}/archive/${id}/`,
+      );
+      return response.data;
     } catch (error) {
       console.warn(error);
     }

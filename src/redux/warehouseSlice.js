@@ -58,6 +58,9 @@ export const warehouseSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    clearData: (state, action) => {
+      state.items = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchWarehouseItems.pending, (state, action) => {

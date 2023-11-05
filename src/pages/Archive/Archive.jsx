@@ -9,135 +9,12 @@ import restoreIcon from "../../assets/icons/restore.svg";
 import ADTable from "../../components/ADTable/ADTable";
 import TotalIndicator from "../../components/UI/TotalIndicator/TotalIndicator";
 import { useDispatch, useSelector } from "react-redux";
-import { archiveActions, fetchArchiveItems } from "../../redux/archiveSlice";
+import {
+  archiveActions,
+  fetchArchiveItems,
+  restoreItemById,
+} from "../../redux/archiveSlice";
 import { useEffect } from "react";
-
-const distributorColumns = [
-  {
-    title: "№",
-    dataIndex: "rowIndex",
-    key: "rowIndex",
-    align: "center",
-    width: 55,
-    render: (text, record, index) => index + 1,
-  },
-  {
-    title: "ФИО",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Регион",
-    dataIndex: "region",
-    key: "region",
-  },
-  {
-    title: "Контактный номер (1)",
-    dataIndex: "phoneNumberOne",
-    key: "phoneNumberOne",
-    width: 190,
-  },
-  {
-    title: "Контактный номер (2)",
-    dataIndex: "phoneNumberTwo",
-    key: "phoneNumberTwo",
-    width: 190,
-  },
-  {
-    title: "Дата удаления",
-    dataIndex: "dataDeletion",
-    key: "dataDeletion",
-    align: "left",
-    width: 110,
-  },
-  {
-    title: "Восстановить",
-    key: "restore",
-    width: 145,
-    align: "center",
-    render: (_, record) => (
-      <TableButton onClick={() => null}>
-        <img src={restoreIcon} alt="restore" />
-      </TableButton>
-    ),
-  },
-];
-
-const productColumns = [
-  {
-    title: "№",
-    dataIndex: "rowIndex",
-    key: "rowIndex",
-    align: "center",
-    width: 55,
-    render: (text, record, index) => index + 1,
-  },
-  {
-    title: "Наименование",
-    dataIndex: "name",
-    key: "name",
-    align: "left",
-    width: "15%",
-  },
-  {
-    title: "Уникальный код",
-    dataIndex: "num_id",
-    key: "num_id",
-    align: "left",
-    width: "15%",
-  },
-  {
-    title: "Ед. изм.",
-    dataIndex: "unit",
-    key: "unit",
-    align: "left",
-  },
-  {
-    title: "Кол-во",
-    dataIndex: "quantity",
-    key: "quantity",
-    align: "left",
-  },
-  {
-    title: "Цена",
-    dataIndex: "price",
-    key: "price",
-    align: "left",
-  },
-  {
-    title: "Сумма",
-    dataIndex: "sum",
-    key: "sum",
-    align: "left",
-    width: 100,
-    render: (_, record) => record.price * record.quantity,
-  },
-  {
-    title: "Дата удаления",
-    dataIndex: "dataDeletionOne",
-    key: "dataDeletionOne",
-    align: "left",
-    width: 115,
-  },
-  {
-    title: "Статус возврата",
-    dataIndex: "returnStatus",
-    key: "returnStatus",
-    align: "left",
-    width: 100,
-  },
-  {
-    title: "Восстановить",
-    key: "action",
-    align: "center",
-    width: 145,
-    render: (_, record) => (
-      <TableButton onClick={() => null}>
-        <img src={restoreIcon} alt="restore" />
-      </TableButton>
-    ),
-  },
-];
 
 export default function Archive() {
   const dispatch = useDispatch();
@@ -151,14 +28,162 @@ export default function Archive() {
     0,
   );
 
-  const displayColumns = isWarehouse ? productColumns : distributorColumns;
-  const displayData = isWarehouse ? products : distributors;
-
   useEffect(() => {
-    const target = isWarehouse ? "products" : "distributors";
-    dispatch(fetchArchiveItems(target));
+    const entity = isWarehouse ? "products" : "distributors";
+    dispatch(fetchArchiveItems(entity));
     return () => dispatch(archiveActions.clearData());
   }, [isWarehouse]);
+
+  function restoreFromArchive(entity, id, destination) {
+    dispatch(
+      restoreItemById({
+        entity,
+        id,
+      }),
+    ).then(navigate(destination || "../"));
+  }
+
+  ///////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////
+
+  const distributorColumns = [
+    {
+      title: "№",
+      dataIndex: "rowIndex",
+      key: "rowIndex",
+      align: "center",
+      width: 55,
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: "ФИО",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Регион",
+      dataIndex: "region",
+      key: "region",
+    },
+    {
+      title: "Контактный номер (1)",
+      dataIndex: "phoneNumberOne",
+      key: "phoneNumberOne",
+      width: 190,
+    },
+    {
+      title: "Контактный номер (2)",
+      dataIndex: "phoneNumberTwo",
+      key: "phoneNumberTwo",
+      width: 190,
+    },
+    {
+      title: "Дата удаления",
+      dataIndex: "dataDeletion",
+      key: "dataDeletion",
+      align: "left",
+      width: 110,
+    },
+    {
+      title: "Восстановить",
+      key: "restore",
+      width: 145,
+      align: "center",
+      render: (_, record) => (
+        <TableButton
+          onClick={() => restoreFromArchive("distributors", record.id)}
+        >
+          <img src={restoreIcon} alt="restore" />
+        </TableButton>
+      ),
+    },
+  ];
+
+  const productColumns = [
+    {
+      title: "№",
+      dataIndex: "rowIndex",
+      key: "rowIndex",
+      align: "center",
+      width: 55,
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: "Наименование",
+      dataIndex: "name",
+      key: "name",
+      align: "left",
+      width: "15%",
+    },
+    {
+      title: "Уникальный код",
+      dataIndex: "identification_number",
+      key: "identification_number",
+      align: "left",
+      width: "15%",
+    },
+    {
+      title: "Ед. изм.",
+      dataIndex: "unit",
+      key: "unit",
+      align: "left",
+    },
+    {
+      title: "Кол-во",
+      dataIndex: "quantity",
+      key: "quantity",
+      align: "left",
+    },
+    {
+      title: "Цена",
+      dataIndex: "price",
+      key: "price",
+      align: "left",
+    },
+    {
+      title: "Сумма",
+      dataIndex: "sum",
+      key: "sum",
+      align: "left",
+      width: 100,
+      render: (_, record) =>
+        (record.price * record.quantity).toLocaleString("de-CH"),
+    },
+    {
+      title: "Дата удаления",
+      dataIndex: "updated_at",
+      key: "updated_at",
+      align: "left",
+      width: 115,
+      render: (_, record) =>
+        new Date(record.updated_at).toLocaleDateString("ru"),
+    },
+    {
+      title: "Статус возврата",
+      dataIndex: "state",
+      key: "state",
+      align: "left",
+      width: 100,
+    },
+    {
+      title: "Восстановить",
+      key: "action",
+      align: "center",
+      width: 145,
+      render: (_, record) => (
+        <TableButton onClick={() => restoreFromArchive("products", record.id)}>
+          <img src={restoreIcon} alt="restore" />
+        </TableButton>
+      ),
+    },
+  ];
+
+  ///////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////
+
+  const displayColumns = isWarehouse ? productColumns : distributorColumns;
 
   return (
     <div className={styles.Archive}>

@@ -26,6 +26,10 @@ export default function Warehouse() {
   }, [search, category, state]);
 
   useEffect(() => {
+    return () => dispatch(warehouseActions.clearData());
+  }, []);
+
+  useEffect(() => {
     dispatch(fetchWarehouseOptions());
   }, []);
 
