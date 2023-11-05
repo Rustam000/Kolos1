@@ -13,7 +13,6 @@ import {
 import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
-import { useDebuoncedDispatch } from "../../hooks/useDebuoncedDispatch";
 
 export default function Warehouse() {
   const { setCategory, setCondition, setSearch } = warehouseActions;
@@ -21,9 +20,6 @@ export default function Warehouse() {
     useSelector((state) => state.warehouse);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [searchValue, dispatchSearch] = useDebuoncedDispatch((value) => {
-    dispatch(setSearch(value));
-  }, 1000);
 
   useEffect(() => {
     dispatch(fetchWarehouseItems({ search, category, state }));
@@ -97,9 +93,9 @@ export default function Warehouse() {
       <div className="container">
         <form className={styles.filterbar}>
           <CustomSearch
+            delay={1000}
             options={options.search}
-            value={searchValue}
-            onChange={(e) => dispatchSearch(e.target.value)}
+            onChange={(value) => dispatch(setSearch(value))}
             onSearch={console.log}
           />
           <CustomSelect
