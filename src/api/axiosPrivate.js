@@ -1,48 +1,57 @@
 import axios from "axios";
-import { memoizedRefreshToken, refreshTokenFn } from "./refreshToken";
-import { BASE_URL } from "../constants/constants";
+import {
+  memoizedRefreshAccessToken,
+  refreshAccessToken,
+} from "./refreshAccessToken";
+import { BASE_URL } from "../common/constants";
+import { axiosPublic } from "./axiosPublic";
 
 const axiosPrivate = axios.create({
   baseURL: BASE_URL,
 });
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 axiosPrivate.interceptors.request.use(
   async (config) => {
     const accessToken = localStorage.getItem("access");
 
     if (accessToken) {
-      config.headers = {
-        ...config.headers,
-        authorization: `Token ${accessToken}`,
-      };
+      config.headers.authorization = `Token ${accessToken}`;
+      return config;
     }
-
-    return config;
+    return Promise.reject("No access token found");
   },
   (error) => Promise.reject(error),
 );
 
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
 axiosPrivate.interceptors.response.use(
-  //if response has new tokens, shouldn't we update our tokens
+  //onStatus 2xx
   (response) => response,
+  //onStatus not-2xx
   async (error) => {
     const config = error?.config;
 
     if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true;
       //should save a failed request for resending later
-      const newAccessToken = await refreshTokenFn();
+      const newAccessToken = await refreshAccessToken();
       //const result = await memoizedRefreshToken();
 
       if (newAccessToken) {
-        config.headers = {
-          ...config.headers,
-          authorization: `Token ${newAccessToken}`,
-        };
+        config.headers.authorization = `Token ${newAccessToken}`;
+        return axiosPublic(config);
       }
 
-      return axios(config);
-      //shouldn't we resend a request with new access token?
+      return Promise.reject(error);
     }
     return Promise.reject(error);
   },

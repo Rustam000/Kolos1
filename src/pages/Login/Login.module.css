@@ -69,41 +69,8 @@
 }
 
 .submitButton {
-  width: 100%;
   margin-top: 46px;
-  height: 50px;
-  border-radius: 10px;
-  border: none;
   font-size: 14px;
-  font-weight: 400;
-  background-color: var(--main-color, #3ba1ff);
-  color: white;
-  outline-offset: 3px;
-  outline-width: 1px;
-  outline-color: var(--main-color, #3ba1ff);
-  transition: box-shadow;
-  cursor: pointer;
-}
-
-.submitButton:hover,
-.submitButton:focus-visible,
-.submitButton:focus {
-  /* font-weight: 500; */
-  box-shadow: 0px 0px 12px 4px #d6d6d6;
-}
-
-.submitButton:active {
-  box-shadow: 0px 0px 12px 4px #d6d6d6 inset;
-}
-
-.submitButton:disabled {
-  box-shadow: none;
-}
-
-.submitButton:disabled {
-  background: var(--Grey-6, #efefef);
-  border: 1px solid var(--Grey-6, #efefef);
-  color: #666666;
 }
 
 .error {

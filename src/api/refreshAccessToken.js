@@ -1,8 +1,7 @@
 import mem from "mem";
-
 import { axiosPublic } from "./axiosPublic";
 
-export async function refreshTokenFn() {
+export async function refreshAccessToken() {
   const oldRefreshToken = localStorage.getItem("refresh");
 
   try {
@@ -12,9 +11,7 @@ export async function refreshTokenFn() {
     const { access: newAccessToken } = response.data;
     console.log("refreshTokenFn new access token: ", access);
     if (!newAccessToken) {
-      localStorage.removeItem("refresh");
-      localStorage.removeItem("access");
-      localStorage.removeItem("user"); /* if any */
+      localStorage.clear();
     }
 
     localStorage.setItem("access", newAccessToken);
@@ -22,12 +19,10 @@ export async function refreshTokenFn() {
     return newAccessToken;
   } catch (error) {
     console.warn(error);
-    localStorage.removeItem("refresh");
-    localStorage.removeItem("access");
-    localStorage.removeItem("user"); /* if any */
+    localStorage.clear();
   }
 }
 
-export const memoizedRefreshToken = mem(refreshTokenFn, {
+/* export const memoizedRefreshAccessToken = mem(refreshAccessToken, {
   maxAge: 5000,
-});
+}); */
