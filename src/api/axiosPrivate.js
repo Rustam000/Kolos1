@@ -40,16 +40,17 @@ axiosPrivate.interceptors.response.use(
   async (error) => {
     const config = error?.config;
 
-    if (error?.response?.status === 401 && !config?.sent) {
-      config.sent = true;
-
-      const newAccessToken = await refreshAccessToken();
-
+    if (error?.response?.status === 401 && !config?.refreshRequestSent) {
+      config.refreshRequestSent = true;
+      const refreshToken = localStorage.getItem("refresh");
+      const newAccessToken = await refreshAccessToken(refreshToken);
       if (newAccessToken) {
+        localStorage.setItem("access", newAccessToken);
         config.headers.authorization = `Token ${newAccessToken}`;
         return axiosPublic(config);
       }
-
+      localStorage.clear();
+      //TODO: log user out
       return Promise.reject(error);
     }
     return Promise.reject(error);
