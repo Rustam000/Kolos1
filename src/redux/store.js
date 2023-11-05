@@ -6,6 +6,7 @@ import { distributorReducer } from "./editDistributorSlice";
 import { distributorsReducer } from "./distributorsSlice";
 import { productReducer } from "./editproductSlice";
 import { profileReducer } from "./profileSlice";
+import { orderReducer } from "./orderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     product: productReducer,
     archive: archiveReducer,
     profile: profileReducer,
+    order: orderReducer,
   },
 });
