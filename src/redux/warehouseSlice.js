@@ -35,7 +35,7 @@ export const fetchWarehouseOptions = createAsyncThunk(
 const initialState = {
   search: "",
   category: "all",
-  condition: "norm",
+  state: "Valid",
   items: [],
   options: {
     search: [],
@@ -53,7 +53,7 @@ export const warehouseSlice = createSlice({
       state.category = action.payload;
     },
     setCondition: (state, action) => {
-      state.condition = action.payload;
+      state.state = action.payload;
     },
     setSearch: (state, action) => {
       state.search = action.payload;

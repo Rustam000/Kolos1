@@ -16,14 +16,14 @@ import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 
 export default function Warehouse() {
   const { setCategory, setCondition, setSearch } = warehouseActions;
-  const { items, isLoading, error, options, search, category, condition } =
+  const { items, isLoading, error, options, search, category, state } =
     useSelector((state) => state.warehouse);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchWarehouseItems({ search, category, condition }));
-  }, [search, category, condition]);
+    dispatch(fetchWarehouseItems({ search, category, state }));
+  }, [search, category, state]);
 
   useEffect(() => {
     dispatch(fetchWarehouseOptions());
@@ -107,12 +107,12 @@ export default function Warehouse() {
           />
           <CustomSelect
             className={styles.conditionSelect}
-            name="condition"
-            value={condition}
+            name="state"
+            value={state}
             onChange={(value) => dispatch(setCondition(value))}
             options={[
-              { value: "norm", label: "Норма" },
-              { value: "defect", label: "Брак" },
+              { value: "Valid", label: "Норма" },
+              { value: "Invalid", label: "Брак" },
             ]}
           />
           <CustomButton
@@ -131,7 +131,7 @@ export default function Warehouse() {
           </CustomButton>
         </form>
         <ADTable
-          headerBg={condition === "defect" ? "#ffc2c2" : undefined}
+          headerBg={state === "Invalid" ? "#ffc2c2" : undefined}
           loading={isLoading}
           dataSource={items}
           rowKey="id"
