@@ -11,6 +11,7 @@ import EditProduct from "./pages/EditProduct/EditProduct";
 import Order from "./pages/Order/Order";
 import Archive from "./pages/Archive/Archive";
 import Logout from "./pages/Logout/Logout";
+import NotFound from "./pages/NotFound/NotFound";
 
 const publicRoutes = (
   <>
@@ -41,8 +42,8 @@ const privateRoutes = (
     </Route>
     <Route path="/login" element={<Navigate to="/warehouse" />} />
     <Route path="/logout" element={<Logout />} />
-    <Route path="*" element={<h2 style={{ textAlign: "center" }}>404</h2>} />
-    <Route path="/404" element={<h2 style={{ textAlign: "center" }}>404</h2>} />
+    <Route path="*" element={<NotFound />} />
+    <Route path="/404" element={<NotFound />} />
   </>
 );
 
