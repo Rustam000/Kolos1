@@ -1,62 +1,63 @@
 import styles from "./EditProduct.module.css";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import KolosModal from "../../components/KolosModal/KolosModal";
 import CustomRadioButton from "../../components/UI/CustomRadioButton/CustomRadioButton";
+import CustomModal from "../../components/CustomModal/CustomModal";
+import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  archiveProductById,
+  getProductById,
+  postProduct,
+  productActions,
+  updateProductById,
+} from "../../redux/editproductSlice";
 
 export default function EditProduct() {
-  const location = useLocation();
-  const isEdit = location.pathname.includes("/edit");
-  const navigate = useNavigate();
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const initialData = isEdit
-    ? {
-        name: "Пиво звезда",
-        idNumber: "32462021-938f-4090",
-        quantity: "10",
-        price: "100.55",
-        unit: "шт",
-        category: "Алкогольное",
-        productCondition: "norm",
-      }
-    : {
-        name: "",
-        idNumber: "",
-        quantity: "",
-        price: "",
-        unit: "",
-        category: "",
-        productCondition: "norm",
-      };
-  const [formData, setFormData] = useState(initialData);
+  const formData = useSelector((state) => state.product.data);
+  const { setData, clearData } = productActions;
+  const { id } = useParams();
+  const isEdit = id !== undefined;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    let updatedData = { ...formData, [name]: value };
-    setFormData(updatedData);
-  };
+  useEffect(() => {
+    if (isEdit) {
+      dispatch(getProductById(id));
+    }
+  }, [id]);
 
-  const sum = (formData.quantity * formData.price).toFixed(2);
-
-  const handleCancel = () => {
+  const confirmDelete = () => {
     setShowDeleteModal(false);
-    navigate("/warehouse");
+    dispatch(archiveProductById(id)).then(() => {
+      dispatch(clearData());
+      navigate("/warehouse");
+    });
   };
 
-  const handleSave = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setShowSaveModal(true);
   };
 
   const confirmSave = () => {
-    console.log(formData);
     setShowSaveModal(false);
-    navigate("/warehouse");
+    if (isEdit) {
+      dispatch(updateProductById(id)).then(() => {
+        dispatch(clearData());
+        navigate("/warehouse");
+      });
+      return;
+    }
+    dispatch(postProduct()).then(() => {
+      dispatch(clearData());
+      navigate("/warehouse");
+    });
   };
 
   const isFormValid = () => {
@@ -64,15 +65,29 @@ export default function EditProduct() {
     return requiredFields.every((field) => formData[field] !== "");
   };
 
+  const sum = (formData.quantity * formData.price).toFixed(2);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(setData({ [name]: value }));
+  };
+
+  const handleNumericInputChange = (e) => {
+    const { value } = e.target;
+    if (!isNaN(value) && !value.includes("e")) {
+      handleInputChange(e);
+    }
+  };
+
   return (
     <div className={styles.EditProduct}>
-      <div className={styles.narrowContainer}>
+      <div className="narrowContainer">
         <PageHeading
           heading={isEdit ? "Редактировать товар" : "Создать товар"}
           modalOnLeave={true}
         />
         <FormContainer>
-          <form className={styles.form} onSubmit={handleSave}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <fieldset className={styles.formFlexRow}>
               <label className={styles.formInput}>
                 <p>Наименование</p>
@@ -88,25 +103,29 @@ export default function EditProduct() {
                 <p>Идентификационный номер</p>
                 <input
                   type="text"
-                  name="idNumber"
-                  value={formData.idNumber}
+                  name="identification_number"
+                  value={formData.identification_number}
                   onChange={handleInputChange}
                 />
               </label>
             </fieldset>
             <fieldset className={styles.formFlexRow}>
-              <label className={`${styles.formInput} ${styles.wideFormInput}`}>
+              <label
+                className={`${styles.formInput} ${styles.wideFormInput} ${styles.unitSelectInput}`}
+              >
                 <p>Ед.измерения</p>
-                <select
+                <CustomSelect
+                  className={styles.unitSelect}
                   name="unit"
                   value={formData.unit}
-                  onChange={handleInputChange}
-                >
-                  <option value="шт">шт</option>
-                  <option value="кг">кг</option>
-                  <option value="л">л</option>
-                  <option value="м">м</option>
-                </select>
+                  options={[
+                    { value: "item", label: "Шт" },
+                    { value: "kilogram", label: "Кг" },
+                    { value: "liter", label: "Л" },
+                    { value: "m", label: "М" },
+                  ]}
+                  onChange={(value) => dispatch(setData({ unit: value }))}
+                />
               </label>
               <label className={styles.formInput}>
                 <p>Количество</p>
@@ -114,7 +133,7 @@ export default function EditProduct() {
                   type="text"
                   name="quantity"
                   value={formData.quantity}
-                  onChange={handleInputChange}
+                  onChange={handleNumericInputChange}
                   placeholder="Пример: 1000"
                 />
               </label>
@@ -124,7 +143,7 @@ export default function EditProduct() {
                   type="text"
                   name="price"
                   value={formData.price}
-                  onChange={handleInputChange}
+                  onChange={handleNumericInputChange}
                   placeholder="00.00"
                 />
               </label>
@@ -140,16 +159,20 @@ export default function EditProduct() {
               </label>
             </fieldset>
             <fieldset className={styles.formFlexRow}>
-              <label className={`${styles.formInput} ${styles.wideFormInput}`}>
+              <label
+                className={`${styles.formInput} ${styles.wideFormInput} ${styles.categorySelectInput}`}
+              >
                 <p>Категория</p>
-                <select
+                <CustomSelect
+                  className={styles.categorySelect}
                   name="category"
                   value={formData.category}
-                  onChange={handleInputChange}
-                >
-                  <option value="Алкогольное">Алкогольное</option>
-                  <option value="Безалкогольное">Безалкогольное</option>
-                </select>
+                  options={[
+                    { value: "alcohol", label: "Алкогольный" },
+                    { value: "notAlcohol", label: "Безалкогольный" },
+                  ]}
+                  onChange={(value) => dispatch(setData({ category: value }))}
+                />
               </label>
               <div className={styles.formInput}>
                 <p>Состояние</p>
@@ -157,9 +180,9 @@ export default function EditProduct() {
                   <label className={styles.radioLabel}>
                     <CustomRadioButton
                       className={styles.radioButton}
-                      name="productCondition"
-                      value="norm"
-                      checked={formData.productCondition === "norm"}
+                      name="state"
+                      value="Normal"
+                      checked={formData.state === "Normal"}
                       onChange={handleInputChange}
                     />
                     <span>Норма</span>
@@ -167,9 +190,9 @@ export default function EditProduct() {
                   <label className={styles.radioLabel}>
                     <CustomRadioButton
                       className={styles.radioButton}
-                      name="productCondition"
-                      value="defect"
-                      checked={formData.productCondition === "defect"}
+                      name="state"
+                      value="Invalid"
+                      checked={formData.state === "Invalid"}
                       onChange={handleInputChange}
                       disabled={!isEdit}
                     />
@@ -199,47 +222,23 @@ export default function EditProduct() {
           </form>
         </FormContainer>
       </div>
-
       {showSaveModal && (
-        <KolosModal message="Вы точно хотите сохранить?">
-          <CustomButton
-            width="flex"
-            height="low"
-            variant="primary"
-            onClick={confirmSave}
-          >
-            Да
-          </CustomButton>
-          <CustomButton
-            width="flex"
-            height="low"
-            variant="secondary"
-            onClick={() => setShowSaveModal(false)}
-          >
-            Нет
-          </CustomButton>
-        </KolosModal>
+        <CustomModal
+          message="Вы точно хотите сохранить?"
+          primaryAction={confirmSave}
+          secondaryAction={() => {
+            setShowSaveModal(false);
+          }}
+        />
       )}
-
       {showDeleteModal && (
-        <KolosModal message="Вы точно хотите удалить?">
-          <CustomButton
-            width="flex"
-            height="low"
-            variant="primary"
-            onClick={handleCancel}
-          >
-            Да
-          </CustomButton>
-          <CustomButton
-            width="flex"
-            height="low"
-            variant="secondary"
-            onClick={() => setShowDeleteModal(false)}
-          >
-            Нет
-          </CustomButton>
-        </KolosModal>
+        <CustomModal
+          message="Вы точно хотите удалить?"
+          primaryAction={confirmDelete}
+          secondaryAction={() => {
+            setShowDeleteModal(false);
+          }}
+        />
       )}
     </div>
   );

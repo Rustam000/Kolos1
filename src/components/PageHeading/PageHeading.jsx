@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./PageHeading.module.css";
-import KolosModal from "../KolosModal/KolosModal";
-import CustomButton from "../UI/CustomButton/CustomButton";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import CustomModal from "../CustomModal/CustomModal";
 
 export default function PageHeading({
+  children,
   heading,
   buttonText = "Отменить",
   modalOnLeave = false,
@@ -16,43 +16,35 @@ export default function PageHeading({
   return (
     <>
       <div className={styles.PageHeading}>
-        <button
-          className={styles.goBack}
-          onClick={
-            modalOnLeave
-              ? () => {
-                  setShowModal(true);
-                }
-              : () => navigate(backLink)
-          }
-        >
-          <span className={styles.angleBracket}></span>
-          {buttonText}
-        </button>
-        <h1 className={styles.heading}>{heading}</h1>
+        <div className={styles.headingPrimarySection}>
+          <button
+            className={styles.goBack}
+            onClick={
+              modalOnLeave
+                ? () => {
+                    setShowModal(true);
+                  }
+                : () => navigate(backLink)
+            }
+          >
+            <span className={styles.angleBracket}></span>
+            {buttonText}
+          </button>
+          <h2 className={styles.heading}>{heading}</h2>
+        </div>
+        {children}
       </div>
       {modalOnLeave && showModal && (
-        <KolosModal message="Вы точно хотите отменить всё и покинуть страницу?">
-          <CustomButton
-            height="low"
-            variant="primary"
-            onClick={() => {
-              setShowModal(false);
-              navigate(backLink);
-            }}
-          >
-            Да
-          </CustomButton>
-          <CustomButton
-            height="low"
-            variant="secondary"
-            onClick={() => {
-              setShowModal(false);
-            }}
-          >
-            Нет
-          </CustomButton>
-        </KolosModal>
+        <CustomModal
+          message="Вы точно хотите отменить всё и покинуть страницу?"
+          primaryAction={() => {
+            setShowModal(false);
+            navigate(backLink);
+          }}
+          secondaryAction={() => {
+            setShowModal(false);
+          }}
+        />
       )}
     </>
   );

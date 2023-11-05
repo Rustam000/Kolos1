@@ -1,120 +1,144 @@
-import CustomTable from "../../components/CustomTable/CustomTable";
+import styles from "./DistributorProfile.module.css";
+import ADTable from "../../components/ADTable/ADTable";
 import { products } from "../../components/CustomTable/beer_data";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import styles from "./DistributorProfile.module.css";
-import angleBracketLeftIcon from "../../assets/icons/fi-sr-angle-small-left.svg";
-import editIcon from "../../assets/icons/edit.svg";
+import { useNavigate, useParams } from "react-router-dom";
+import PageHeading from "../../components/PageHeading/PageHeading";
+import { getDistributorById } from "../../redux/profileSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
+import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 
 const tableColumns = [
   {
-    dataKey: "rowIndex",
-    label: "№",
-    align: "left",
+    title: "№",
+    dataIndex: "rowIndex",
+    key: "rowIndex",
+    align: "center",
+    width: 50,
+    render: (text, record, index) => <span key={index}>{index + 1}</span>,
   },
   {
-    dataKey: "name",
-    label: "Наименование",
+    title: "Наименование",
+    dataIndex: "name",
+    key: "name",
     align: "left",
+    width: 215,
   },
   {
-    dataKey: "num_id",
-    label: "Уникальный код",
+    title: "Уникальный код",
+    dataIndex: "num_id",
+    key: "num_id",
     align: "left",
+    width: 190,
   },
   {
-    dataKey: "unit",
-    label: "Ед. изм.",
+    title: "Ед. изм.",
+    dataIndex: "unit",
+    key: "unit",
     align: "left",
+    width: 130,
   },
   {
-    dataKey: "quantity",
-    label: "Кол-во",
+    title: "Кол-во",
+    dataIndex: "quantity",
+    key: "quantity",
     align: "left",
+    width: 130,
   },
   {
-    dataKey: "price",
-    label: "Цена",
+    title: "Цена",
+    dataIndex: "price",
+    key: "price",
     align: "left",
+    width: 130,
   },
   {
-    dataKey: "action",
-    label: "Ред.",
+    title: "Сумма",
+    dataIndex: "sum",
+    key: "sum",
     align: "left",
-    onClick: (dataKey) => console.log(dataKey),
-    icon: "icon",
+    width: 135,
+  },
+  {
+    title: "Дата",
+    dataIndex: "dataDeletionOne",
+    key: "dataDeletionOne",
+    align: "left",
+    width: 135,
   },
 ];
 
 export default function DistributorProfile() {
-  const total = products?.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
+  const { distributorInfo, isLoading, error } = useSelector(
+    (state) => state.profile,
   );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getDistributorById(id));
+  }, []);
+
   return (
     <div className={styles.DistributorProfile}>
       <div className="container">
-        <p className={styles.undo}>
-          <img src={angleBracketLeftIcon} alt="icon" />
-          Отменить
-        </p>
-        <h1 className={styles.heading}>Карточка дистрибьютора</h1>
+        <PageHeading
+          heading="Карточка дистрибьютора"
+          buttonText="Назад"
+          backLink="/distributors"
+        />
         <main className={styles.mainSection}>
           <div className={styles.infoBlock}>
-            <img
-              className={styles.photo}
-              src="/temporary_distributor_image.png"
-              alt="фото дистрибьютора"
-              width={196}
-            />
-            <div className={styles.infoRows}>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>ФИО:</span>Баланчаев
-                Баланча баланчаевич
-              </p>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>Регион:</span>Чуй
-              </p>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>ИНН:</span>22708198700000
-              </p>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>Контактный номер:</span>
-                +996 550 366 000
-              </p>
-              <p className="infoRow">
-                <span className={styles.infoRowLabel}>Контактный номер:</span>
-                +996 550 366 001
-              </p>
-              <div className={styles.actions}>
-                <CustomButton variant="secondary">Возврат</CustomButton>
-                <CustomButton variant="secondary">Продать</CustomButton>
-                <CustomButton variant="primary" width="narrow">
-                  <img src={editIcon} alt="edit icon" />
-                </CustomButton>
-              </div>
+            <DistributorInfo info={distributorInfo} />
+            <div className={styles.actions}>
+              <CustomButton
+                variant="secondary"
+                onClick={() => navigate(`../return/${id}`)}
+              >
+                Возврат
+              </CustomButton>
+              <CustomButton
+                variant="secondary"
+                onClick={() => navigate(`../order/${id}`)}
+              >
+                Продать
+              </CustomButton>
             </div>
           </div>
+
           <form className={styles.filterbar}>
-            <input type="search" placeholder="Поиск..." />
-            <select name="" id="">
-              <option value="all">Все товары</option>
-            </select>
-            <label className={styles.filterbarDate}>
-              <span>Дата</span>
-              <input type="date" />
+            <CustomSelect
+              options={[{ label: "---", value: "---" }]}
+              className={styles.select}
+            />
+            <CustomSelect
+              options={[
+                { label: "История продаж", value: "order" },
+                { label: "История возврата", value: "return" },
+              ]}
+              className={styles.select}
+            />
+            <label
+              className={`${styles.dateLabel} ${styles.startDateLabel}`}
+              htmlFor="startDate"
+            >
+              От
             </label>
+            <input type="date" id="startDate" />
+            <label className={styles.dateLabel} htmlFor="endDate">
+              До
+            </label>
+            <input type="date" id="endDate" />
           </form>
-          <CustomTable data={products} columns={tableColumns} />
-          <div className={styles.nav}>
-            <CustomButton variant="primary">Список история продаж</CustomButton>
-            <CustomButton variant="secondary">
-              Список история возврата
-            </CustomButton>
-            <span className={styles.total}>
-              {"Итого: "}
-              {total}
-            </span>
-          </div>
+          <ADTable
+            dataSource={products}
+            rowKey="_id"
+            columns={tableColumns}
+            height="55vh"
+          />
         </main>
       </div>
     </div>

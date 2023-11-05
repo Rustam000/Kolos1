@@ -1,10 +1,6 @@
 .EditProduct {
   padding-bottom: 16px;
-}
-
-.narrowContainer {
-  max-width: 920px;
-  margin-inline: auto;
+  isolation: isolate;
 }
 
 .form {
@@ -51,7 +47,7 @@
   align-items: center;
   border-radius: 10px;
   border: 1px solid var(--stroke, #e7e8e7);
-  background-color: rgba(241, 241, 241, 0.6);
+  background-color: var(--input-gray, #f6f6f6);
 }
 
 .radioButtonGroup {
@@ -76,4 +72,12 @@
   height: 20px;
   background-color: white;
   position: relative;
+}
+
+.unitSelectInput {
+  z-index: 2;
+}
+
+.categorySelectInput {
+  z-index: 1;
 }

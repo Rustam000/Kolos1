@@ -1,11 +1,13 @@
 import { ConfigProvider, Table } from "antd";
 
 export default function ADTable({
+  size = "large", //large|middle|small
   dataSource,
   columns,
   height = undefined,
   rowKey,
   headerBg = "#f0f0f0",
+  loading = false,
 }) {
   return (
     <ConfigProvider
@@ -24,6 +26,8 @@ export default function ADTable({
       }}
     >
       <Table
+        size={size}
+        loading={loading}
         bordered
         dataSource={dataSource}
         rowKey={rowKey}

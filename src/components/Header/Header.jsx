@@ -1,6 +1,7 @@
+import styles from "./Header.module.css";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../Logo/Logo";
-import styles from "./Header.module.css";
+import CustomButton from "../UI/CustomButton/CustomButton";
 
 export default function Header() {
   function getNavlinkClasses({ isActive }) {
@@ -11,15 +12,20 @@ export default function Header() {
     <header className={styles.Header}>
       <div className="container">
         <div className={styles.flexContainer}>
-          <Link className={styles.logoWrapper} to="logout">
+          <span className={styles.logoWrapper}>
             <Logo />
-          </Link>
+          </span>
           <NavLink className={getNavlinkClasses} to="/warehouse">
             Склад
           </NavLink>
           <NavLink className={getNavlinkClasses} to="/distributors">
             Дистрибьюторы
           </NavLink>
+          <Link to="/logout">
+            <CustomButton variant="secondary" height="low" width="narrow">
+              Выйти
+            </CustomButton>
+          </Link>
         </div>
       </div>
     </header>

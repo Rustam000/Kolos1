@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import styles from "./Distributors.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import editIcon from "../../assets/icons/mode_edit.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,9 @@ import { fetchDistributors } from "../../redux/distributorsSlice";
 import ADTable from "../../components/ADTable/ADTable";
 
 export default function Distributors() {
-  const { distributors } = useSelector((state) => state.distributors);
+  const { distributors, isLoading, error } = useSelector(
+    (state) => state.distributors,
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,13 +26,21 @@ export default function Distributors() {
       key: "rowIndex",
       align: "center",
       width: 55,
-      render: (text, record, index) => index + 1, // автоматическое нумерование
+      render: (text, record, index) => index + 1,
     },
     {
       title: "ФИО",
       dataIndex: "name",
       key: "name",
       align: "left",
+      render: (_, record) => (
+        <Link
+          className={styles.distributorLink}
+          to={`/distributors/profile/${record.id}`}
+        >
+          {record.name + " (cсылка на профиль)"}
+        </Link>
+      ),
     },
     {
       title: "Регион",
@@ -46,7 +56,9 @@ export default function Distributors() {
       render: (_, record) => (
         <TableButton
           onClick={() =>
-            navigate(`/distributor/edit/${record._id}`, { state: record })
+            navigate(`/distributors/edit/${record.id}`, {
+              state: record,
+            })
           }
         >
           <img src={editIcon} alt="edit icon" />
@@ -61,15 +73,16 @@ export default function Distributors() {
         <div className={styles.filterbar}>
           <CustomButton
             variant="primary"
-            onClick={() => navigate("/distributor/create")}
+            onClick={() => navigate("/distributors/create")}
           >
             Создать
           </CustomButton>
         </div>
 
         <ADTable
+          loading={isLoading}
           dataSource={distributors}
-          rowKey="_id"
+          rowKey="id"
           columns={tableColumns}
           height="70vh"
         />

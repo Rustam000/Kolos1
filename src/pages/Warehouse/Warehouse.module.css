@@ -1,44 +1,49 @@
-/* .Warehouse {
-}
- */
 .filterbar {
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
   align-items: center;
   gap: 27px;
+  font-size: 14px;
+  z-index: 10;
 }
 
 .searchInput,
 .select {
-  height: 40px;
+  height: 44px;
   border-radius: 12px;
-  border: 1px solid var(--stroke, #e7e8e7);
+  border: none;
   background: #efefef;
   padding-inline: 15px;
 }
 
-.select {
-  min-width: 170px;
-}
-
-/* Стили для inputContainer */
-.inputContainer {
+.searchInputContainer {
   flex-grow: 1;
   flex-basis: 453px;
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
 .searchInput {
   width: 100%;
-  padding-right: 33px;
+  padding-right: 37px;
+}
+
+.searchInputContainer:hover .searchInput {
+  background-color: #d1d1d1;
 }
 
 .searchIcon {
   position: absolute;
-  top: 50%;
-  right: 11px;
-  transform: translateY(-50%);
-  /* cursor: pointer; */
+  right: 15px;
+  cursor: pointer;
+}
+
+.categorySelect {
+  flex-basis: 170px;
+}
+
+.conditionSelect {
+  flex-basis: 114px;
 }
