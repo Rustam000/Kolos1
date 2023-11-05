@@ -93,7 +93,6 @@ export default function Warehouse() {
       <div className="container">
         <form className={styles.filterbar}>
           <CustomSearch
-            delay={1000}
             options={options.search}
             onChange={(value) => dispatch(setSearch(value))}
             onSearch={console.log}

@@ -3,13 +3,13 @@ import searchIcon from "../../../assets/icons/search.svg";
 import { useRef } from "react";
 import Dropdown from "../Dropdown/Dropdown";
 import { useDebuoncedDispatch } from "../../../hooks/useDebuoncedDispatch";
+import { SEARCH_DEBOUNCE_DELAY } from "../../../common/constants";
 
 export default function CustomSearch({
   className,
   placeholder = "Поиск...",
-  value = "",
   options = [],
-  delay = 1000,
+  delay = SEARCH_DEBOUNCE_DELAY || 700,
   onChange = () => undefined,
   onSearch = () => undefined,
 }) {

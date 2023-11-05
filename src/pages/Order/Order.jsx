@@ -85,8 +85,7 @@ export default function Order() {
       <PageHeading buttonText="Назад" heading="Оформление заявки">
         <CustomSearch
           className={styles.searchInput}
-          value={search}
-          onChange={(e) => dispatch(orderActions.setSearch(e.target.value))}
+          onChange={(value) => dispatch(orderActions.setSearch(value))}
         />
       </PageHeading>
       <main className={styles.main}>
