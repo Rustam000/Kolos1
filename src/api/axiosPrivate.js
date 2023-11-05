@@ -1,8 +1,5 @@
 import axios from "axios";
-import {
-  memoizedRefreshAccessToken,
-  refreshAccessToken,
-} from "./refreshAccessToken";
+import { refreshAccessToken } from "./refreshAccessToken";
 import { BASE_URL } from "../common/constants";
 import { axiosPublic } from "./axiosPublic";
 
@@ -23,7 +20,9 @@ axiosPrivate.interceptors.request.use(
       config.headers.authorization = `Token ${accessToken}`;
       return config;
     }
-    return Promise.reject("No access token found");
+    return Promise.reject(
+      "axiosPrivate request interceptor says: No access token found",
+    );
   },
   (error) => Promise.reject(error),
 );
@@ -36,15 +35,15 @@ axiosPrivate.interceptors.request.use(
 axiosPrivate.interceptors.response.use(
   //onStatus 2xx
   (response) => response,
+
   //onStatus not-2xx
   async (error) => {
     const config = error?.config;
 
     if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true;
-      //should save a failed request for resending later
+
       const newAccessToken = await refreshAccessToken();
-      //const result = await memoizedRefreshToken();
 
       if (newAccessToken) {
         config.headers.authorization = `Token ${newAccessToken}`;
