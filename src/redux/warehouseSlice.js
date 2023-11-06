@@ -20,7 +20,7 @@ export const fetchWarehouseItems = createAsyncThunk(
 
 const initialState = {
   search: "",
-  category: "all",
+  category: "",
   state: "Valid",
   items: [],
   options: {
