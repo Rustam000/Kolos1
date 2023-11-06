@@ -9,10 +9,9 @@ export const logUserIn = createAsyncThunk(
     try {
       const response = await axiosPublic.post("/users/login/", formData);
       const data = response.data;
-      console.log({ response });
       localStorage.setItem("user", "admin");
-      localStorage.setItem("access", data.token.access);
-      localStorage.setItem("refresh", data.token.refresh);
+      localStorage.setItem("access", data?.token?.access);
+      localStorage.setItem("refresh", data?.token?.refresh);
       return data;
     } catch (error) {
       localStorage.clear();
