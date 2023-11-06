@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { axiosPublic } from "../api/axiosPublic";
 import { ACCESS_DENIED_ERROR } from "../common/constants";
+import { axiosPrivate } from "../api/axiosPrivate";
 
 export const logUserIn = createAsyncThunk(
   "auth/logUserIn",
@@ -17,6 +18,20 @@ export const logUserIn = createAsyncThunk(
       localStorage.clear();
       console.warn(error); /*  */
       return Promise.reject(error);
+    }
+  },
+);
+
+export const pingTestEndpoint = createAsyncThunk(
+  "auth/pingTestEndpoint",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosPrivate.get("/users/test/");
+      const data = response.data;
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.warn(error);
     }
   },
 );
