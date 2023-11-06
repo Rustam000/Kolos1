@@ -121,6 +121,72 @@ export default function EditDistributor() {
     });
   }
 
+
+  function handleConfirmSave() {
+    const passportFormat = /^(AN|ID)\d{7}$/;
+    const innFormat = /^[1-2]\d{13}$/;
+
+    if (!passportFormat.test(formData.passport_series + formData.passport_id)) {
+        alert("Неверный формат паспорта. Пожалуйста, введите данные в формате ANxxxxxxx или IDxxxxxxx");
+        return;
+    }
+
+    if (!innFormat.test(formData.inn)) {
+        alert("Неверный формат ИНН. Пожалуйста, введите данные в формате 1xxxxxxxxxxxxx или 2xxxxxxxxxxxxx");
+        return;
+    }
+
+    var day = parseInt(formData.inn.substr(1, 2), 10);
+    var month = parseInt(formData.inn.substr(3, 2), 10);
+    var year = parseInt(formData.inn.substr(5, 4), 10);
+    var date = new Date(year, month - 1, day);
+    if (!(date && date.getMonth() + 1 === month && date.getDate() === day && date.getFullYear() === year)) {
+        alert('ИНН невалиден: некорректная дата');
+        return;
+    }
+
+    var issueDate = new Date(formData.issue_date.split('.').reverse().join('-'));
+    if (isNaN(issueDate)) {
+        alert('Неверная дата выдачи');
+        return;
+    }
+
+    var validityDate = new Date(formData.validity.split('.').reverse().join('-'));
+    if (isNaN(validityDate)) {
+        alert('Неверная дата окончания срока действия');
+        return;
+    }
+    if (!/^(\d{3} \d{3} \d{3})?$/.test(formData.contact1)) {
+      alert('Неверный формат контактного номера 1');
+      return;
+  }
+
+  if (!/^(\d{3} \d{3} \d{3})?$/.test(formData.contact2)) {
+      alert('Неверный формат контактного номера 2');
+      return;
+  }
+
+    
+}
+
+function handleDateInput(e) {
+  var value = e.target.value;
+  value = value.replace(/\D/g, "").replace(/(\d{2})(\d)/, "$1.$2").replace(/(\d{2}\.\d{2})(\d)/, "$1.$2");
+  e.target.value = value;
+}
+
+function handlePhoneInput(e) {
+  var value = e.target.value;
+  value = value.replace(/\D/g, "")
+               .replace(/^(\d{1,3})/, "$1 ")
+               .replace(/^(\d{1,3}) (\d{1,3})/, "$1 $2 ")
+               .replace(/^(\d{1,3}) (\d{1,3}) (\d{1,3})/, "$1 $2 $3")
+               .trim();
+  e.target.value = value.slice(0, 11);
+}
+
+
+
   return (
     <>
       <div className={styles.EditDistributor}>
@@ -200,7 +266,8 @@ export default function EditDistributor() {
                     name="passport"
                     value={passport}
                     onChange={handlePassportChange}
-                    placeholder="ID"
+                    placeholder="ID/AN"
+                    maxLength={9}
                     required
                   />
                 </label>
@@ -214,6 +281,7 @@ export default function EditDistributor() {
                     value={formData.inn}
                     onChange={handleInputChange}
                     placeholder="0000000000"
+                    maxLength={14}
                     required
                   />
                 </label>
@@ -236,7 +304,9 @@ export default function EditDistributor() {
                     name="issue_date"
                     value={formData.issue_date}
                     onChange={handleInputChange}
+                    onInput={handleDateInput}
                     placeholder="00.00.0000"
+                    maxLength={10}
                     required
                   />
                 </label>
@@ -247,7 +317,9 @@ export default function EditDistributor() {
                     name="validity"
                     value={formData.validity}
                     onChange={handleInputChange}
+                    onInput={handleDateInput}
                     placeholder="00.00.0000"
+                    maxLength={10}
                     required
                   />
                 </label>
@@ -264,6 +336,7 @@ export default function EditDistributor() {
                       name="contact1"
                       value={formData.contact1 || ""}
                       onChange={handleInputChange}
+                      onInput={handlePhoneInput}
                       placeholder=""
                       required
                     />
@@ -283,6 +356,7 @@ export default function EditDistributor() {
                       name="contact2"
                       value={formData.contact2 || ""}
                       onChange={handleInputChange}
+                      onInput={handlePhoneInput}
                       placeholder=""
                     />
                   </div>
@@ -298,7 +372,7 @@ export default function EditDistributor() {
                     Удалить
                   </CustomButton>
                 )}
-                <CustomButton width="xwide" disabled={!formIsValid}>
+                <CustomButton width="xwide" disabled={!formIsValid} onClick={handleConfirmSave}>
                   Сохранить
                 </CustomButton>
               </div>
