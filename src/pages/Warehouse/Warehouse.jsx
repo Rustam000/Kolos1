@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   fetchWarehouseItems,
-  fetchWarehouseOptions,
   warehouseActions,
 } from "../../redux/warehouseSlice";
 import ADTable from "../../components/ADTable/ADTable";
@@ -16,8 +15,10 @@ import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 
 export default function Warehouse() {
   const { setCategory, setCondition, setSearch } = warehouseActions;
-  const { items, isLoading, error, options, search, category, state } =
-    useSelector((state) => state.warehouse);
+  const { options } = useSelector((state) => state.options);
+  const { items, isLoading, error, search, category, state } = useSelector(
+    (state) => state.warehouse,
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,10 +28,6 @@ export default function Warehouse() {
 
   useEffect(() => {
     return () => dispatch(warehouseActions.clearData());
-  }, []);
-
-  useEffect(() => {
-    dispatch(fetchWarehouseOptions());
   }, []);
 
   const tableColumns = [

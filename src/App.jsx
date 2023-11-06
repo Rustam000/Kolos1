@@ -1,6 +1,8 @@
 import "./App.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { fetchOptions } from "./redux/optionsSlice";
 import Login from "./pages/Login/Login";
 import Layout from "./components/Layout/Layout";
 import Warehouse from "./pages/Warehouse/Warehouse";
@@ -48,7 +50,15 @@ const privateRoutes = (
 );
 
 export default function App() {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchOptions());
+    }
+  }, [user, dispatch]);
+
   return (
     <>
       <Routes>{user ? privateRoutes : publicRoutes}</Routes>
