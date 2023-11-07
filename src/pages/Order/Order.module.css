@@ -12,29 +12,12 @@
   gap: 20px;
 }
 
-.section {
-  max-width: 50vw;
-  min-height: 70vh;
-  /* width: 100%; */
-  border: 2px solid var(--black-80);
-  border-radius: 4px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
 .sectionHeading {
   color: var(--black-80);
   font-size: 24px;
   font-weight: 500;
   line-height: 140%; /* 33.6px */
   letter-spacing: 0.48px;
-}
-
-.distributorSection {
-  display: flex;
-  flex-direction: column;
 }
 
 .controls {
