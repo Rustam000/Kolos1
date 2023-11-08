@@ -11,8 +11,23 @@ export const fetchDistributorCredentials = createAsyncThunk(
   },
 );
 
+export const getWarehouseItems = createAsyncThunk(
+  "order/getWarehouseItems",
+  async (queryParams, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `https://jwt-authentication-beryl.vercel.app/api/warehouse/`,
+      );
+      return response.data;
+    } catch (error) {
+      console.warn(error);
+    }
+  },
+);
+
 const initialState = {
   search: "",
+  items: [],
   distributor: {
     name: "...",
     inn: "...",
@@ -38,6 +53,9 @@ export const orderSlice = createSlice({
       .addCase(fetchDistributorCredentials.rejected, (state, action) => {
         console.log("fail");
         console.log(action);
+      })
+      .addCase(getWarehouseItems.fulfilled, (state, action) => {
+        state.items = action.payload;
       });
   },
 });

@@ -8,6 +8,7 @@ import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchDistributorCredentials,
+  getWarehouseItems,
   orderActions,
 } from "../../redux/orderSlice";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
@@ -74,12 +75,16 @@ const warehouseTableColumns = [
 
 export default function Order() {
   const { id } = useParams();
-  const { distributor, search } = useSelector((state) => state.order);
+  const { distributor, search, items } = useSelector((state) => state.order);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchDistributorCredentials(id));
   }, [id, dispatch]);
+
+  useEffect(() => {
+    dispatch(getWarehouseItems());
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>
@@ -94,7 +99,7 @@ export default function Order() {
           <DistributorInfo info={distributor} variant="small" />
           <ADTable
             size="small"
-            dataSource={products}
+            dataSource={[]}
             rowKey="_id"
             columns={warehouseTableColumns}
             height="70vh"
@@ -121,8 +126,8 @@ export default function Order() {
           <h3 className={styles.sectionHeading}>Товар со склада</h3>
           <ADTable
             size="small"
-            dataSource={products}
-            rowKey="_id"
+            dataSource={items}
+            rowKey="id"
             columns={warehouseTableColumns}
             height="70vh"
           />
