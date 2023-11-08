@@ -68,11 +68,63 @@ export default function EditDistributor() {
   }
 
   const formIsValid = isFormValid();
+  const [error, setError] = useState({
+  inn: '',
+  issue_date: '',
+  validity: '',
+  contact1: '',
+  contact2: ''
+   });
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    let newValue = value;
+  
+    switch (name) {
+      case 'name':
+        newValue = value.replace(/[^А-Яа-яЁё\s]/g, '');
+        break;
+      case 'inn':
+        if (value.length === 1 && !['1', '2'].includes(value)) {
+          setError({...error, [name]: 'Первый символ должен быть 1 или 2'});
+        } else if (value.length === 3 && parseInt(value.slice(1, 3)) > 31) {
+          setError({...error, [name]: 'День не может быть больше 31'});
+        } else if (value.length === 5 && parseInt(value.slice(3, 5)) > 12) {
+          setError({...error, [name]: 'Месяц не может быть больше 12'});
+        } else if (value.length > 8 && value.length <= 14) {
+          newValue = value.slice(0, 14);
+        } else {
+          setError({...error, [name]: ''});
+        }
+        break;
+      case 'issue_date':
+      case 'validity':
+        if (value.length === 2 && parseInt(value.slice(0, 2)) > 31) {
+          setError({...error, [name]: 'День не может быть больше 31'});
+        } else if (value.length === 5 && parseInt(value.slice(3, 5)) > 12) {
+          setError({...error, [name]: 'Месяц не может быть больше 12'});
+        } else if (value.length > 5 && value.length <= 10) {
+          newValue = value.slice(0, 10);
+        } else {
+          setError({...error, [name]: ''});
+        }
+        break;
+      case 'contact1':
+      case 'contact2':
+        if (value.length < 11) {
+          setError({...error, [name]: 'Неверный формат номера'});
+        } else {
+          setError({...error, [name]: ''});
+        }
+        break;
+      default:
+        break;
+    }
+      
+    setFormData({ ...formData, [name]: newValue });
+};
+
 
   function handlePassportChange(event) {
     const valueArray = event.target.value.split("");
@@ -80,15 +132,21 @@ export default function EditDistributor() {
     const passportNumberArray = [];
     valueArray.forEach((char, index) => {
       if (index <= 1) {
-        passportSeriesArray.push(char);
-        return;
+        const upperCaseChar = char.toUpperCase();
+        if (upperCaseChar.match(/[A-Z]/)) {
+          passportSeriesArray.push(upperCaseChar);
+        }
+      } else {
+        if (char.match(/[0-9]/)) {
+          passportNumberArray.push(char);
+        }
       }
-      passportNumberArray.push(char);
     });
     const passport_series = passportSeriesArray.join("");
     const passport_id = passportNumberArray.join("");
     setFormData({ ...formData, passport_series, passport_id });
-  }
+}
+
 
   const handlePhotoChange = (e) => {
     const photo = e.target.files[0];
@@ -100,7 +158,7 @@ export default function EditDistributor() {
     setShowSaveModal(true);
   }
 
-  function handleConfirmSave() {
+ function handleConfirmSave() {
     if (isEdit) {
       dispatch(editDistributorById({ id, formData })).then((action) => {
         setShowSaveModal(false);
@@ -113,61 +171,6 @@ export default function EditDistributor() {
       navigate("/distributors");
     });
   }
-
-  function handleConfirmDelete() {
-    dispatch(archiveDistributorById({ id, formData })).then((action) => {
-      setShowDeleteModal(false);
-      navigate("/distributors");
-    });
-  }
-
-
-  function handleConfirmSave() {
-    const passportFormat = /^(AN|ID)\d{7}$/;
-    const innFormat = /^[1-2]\d{13}$/;
-
-    if (!passportFormat.test(formData.passport_series + formData.passport_id)) {
-        alert("Неверный формат паспорта. Пожалуйста, введите данные в формате ANxxxxxxx или IDxxxxxxx");
-        return;
-    }
-
-    if (!innFormat.test(formData.inn)) {
-        alert("Неверный формат ИНН. Пожалуйста, введите данные в формате 1xxxxxxxxxxxxx или 2xxxxxxxxxxxxx");
-        return;
-    }
-
-    var day = parseInt(formData.inn.substr(1, 2), 10);
-    var month = parseInt(formData.inn.substr(3, 2), 10);
-    var year = parseInt(formData.inn.substr(5, 4), 10);
-    var date = new Date(year, month - 1, day);
-    if (!(date && date.getMonth() + 1 === month && date.getDate() === day && date.getFullYear() === year)) {
-        alert('ИНН невалиден: некорректная дата');
-        return;
-    }
-
-    var issueDate = new Date(formData.issue_date.split('.').reverse().join('-'));
-    if (isNaN(issueDate)) {
-        alert('Неверная дата выдачи');
-        return;
-    }
-
-    var validityDate = new Date(formData.validity.split('.').reverse().join('-'));
-    if (isNaN(validityDate)) {
-        alert('Неверная дата окончания срока действия');
-        return;
-    }
-    if (!/^(\d{3} \d{3} \d{3})?$/.test(formData.contact1)) {
-      alert('Неверный формат контактного номера 1');
-      return;
-  }
-
-  if (!/^(\d{3} \d{3} \d{3})?$/.test(formData.contact2)) {
-      alert('Неверный формат контактного номера 2');
-      return;
-  }
-
-    
-}
 
 function handleDateInput(e) {
   var value = e.target.value;
@@ -184,6 +187,7 @@ function handlePhoneInput(e) {
                .trim();
   e.target.value = value.slice(0, 11);
 }
+
 
 
 
@@ -284,6 +288,7 @@ function handlePhoneInput(e) {
                     maxLength={14}
                     required
                   />
+                   {error.inn && <p>{error.inn}</p>}
                 </label>
 
                 <label className={styles.formInput}>
@@ -309,6 +314,7 @@ function handlePhoneInput(e) {
                     maxLength={10}
                     required
                   />
+                  {error.issue_date && <p>{error.issue_date}</p>}
                 </label>
                 <label className={styles.formInput}>
                   <p>Срок действия</p>
@@ -322,6 +328,7 @@ function handlePhoneInput(e) {
                     maxLength={10}
                     required
                   />
+                  {error.validity && <p>{error.validity}</p>}
                 </label>
               </fieldset>
               <fieldset
@@ -341,6 +348,7 @@ function handlePhoneInput(e) {
                       required
                     />
                   </div>
+                  {error.contact1 && <p>{error.contact1}</p>}
                 </label>
                 <label className={`${styles.formInput} ${styles.phoneInput}`}>
                   <p>
@@ -360,6 +368,7 @@ function handlePhoneInput(e) {
                       placeholder=""
                     />
                   </div>
+                  {error.contact2 && <p>{error.contact2}</p>}
                 </label>
               </fieldset>
               <div className={`${styles.formFlexRow} ${styles.formButtonRow}`}>
@@ -372,7 +381,7 @@ function handlePhoneInput(e) {
                     Удалить
                   </CustomButton>
                 )}
-                <CustomButton width="xwide" disabled={!formIsValid} onClick={handleConfirmSave}>
+                <CustomButton width="xwide" disabled={!formIsValid}>
                   Сохранить
                 </CustomButton>
               </div>
