@@ -1,6 +1,7 @@
 .CustomSearch {
   flex-grow: 1;
   flex-basis: 453px;
+  max-width: 600px;
   z-index: 1;
 }
 

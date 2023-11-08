@@ -8,6 +8,7 @@ import { productReducer } from "./editproductSlice";
 import { profileReducer } from "./profileSlice";
 import { orderReducer } from "./orderSlice";
 import { optionsReducer } from "./optionsSlice";
+import { returnReducer } from "./returnSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     archive: archiveReducer,
     profile: profileReducer,
     order: orderReducer,
+    return: returnReducer,
     options: optionsReducer,
   },
 });

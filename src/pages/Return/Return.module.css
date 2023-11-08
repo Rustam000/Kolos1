@@ -1,0 +1,13 @@
+.controls {
+  margin-top: auto;
+  display: flex;
+  gap: 16px;
+}
+
+.total {
+  margin-left: auto;
+}
+
+.returnButton {
+  flex: 0 1 200px;
+}
