@@ -1,16 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosPrivate } from "../api/axiosPrivate";
 
 export const fetchWarehouseItems = createAsyncThunk(
   "warehouse/fetchWarehouseItems",
-  async (queryParams, thunkAPI) => {
+  async (queryParams) => {
     try {
-      const response = await axios.get(
-        `http://51.20.115.221/api/v1/products/?limit=10000`,
-        {
-          params: queryParams,
-        },
-      );
+      const response = await axiosPrivate.get(`/products/?limit=10000`, {
+        params: queryParams,
+      });
       return response.data.results;
     } catch (error) {
       console.warn(error);
