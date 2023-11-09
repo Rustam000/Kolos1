@@ -14,6 +14,7 @@ import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import TotalIndicator from "../../components/UI/TotalIndicator/TotalIndicator";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import OrderSection from "../../components/OrderSection/OrderSection";
 
 const warehouseTableColumns = [
   {
@@ -85,12 +86,11 @@ export default function Order() {
       <PageHeading buttonText="Назад" heading="Оформление заявки">
         <CustomSearch
           className={styles.searchInput}
-          value={search}
-          onChange={(e) => dispatch(orderActions.setSearch(e.target.value))}
+          onChange={(value) => dispatch(orderActions.setSearch(value))}
         />
       </PageHeading>
       <main className={styles.main}>
-        <section className={`${styles.section} ${styles.distributorSection}`}>
+        <OrderSection>
           <DistributorInfo info={distributor} variant="small" />
           <ADTable
             size="small"
@@ -116,8 +116,8 @@ export default function Order() {
               Сохранить
             </CustomButton>
           </div>
-        </section>
-        <section className={`${styles.section} ${styles.warehouseSection}`}>
+        </OrderSection>
+        <OrderSection>
           <h3 className={styles.sectionHeading}>Товар со склада</h3>
           <ADTable
             size="small"
@@ -126,7 +126,7 @@ export default function Order() {
             columns={warehouseTableColumns}
             height="70vh"
           />
-        </section>
+        </OrderSection>
       </main>
     </div>
   );

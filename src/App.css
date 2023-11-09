@@ -40,6 +40,10 @@
   margin-inline: auto;
 }
 
+.fullWidthContainer {
+  padding-inline: var(--container-padding);
+}
+
 a,
 a:visited {
   text-decoration: none;

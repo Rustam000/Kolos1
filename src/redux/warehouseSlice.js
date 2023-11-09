@@ -18,28 +18,13 @@ export const fetchWarehouseItems = createAsyncThunk(
   },
 );
 
-export const fetchWarehouseOptions = createAsyncThunk(
-  "warehouse/fetchWarehouseOptions",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get(
-        `https://jwt-authentication-beryl.vercel.app/api/warehouse/options`,
-      );
-      return response.data;
-    } catch (error) {
-      console.warn(error);
-    }
-  },
-);
-
 const initialState = {
   search: "",
-  category: "all",
+  category: "",
   state: "Valid",
   items: [],
   options: {
     search: [],
-    category: [{ value: "all", label: "---" }],
   },
   isLoading: false,
   error: null,
@@ -58,6 +43,9 @@ export const warehouseSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    clearData: (state, action) => {
+      state.items = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchWarehouseItems.pending, (state, action) => {
@@ -72,10 +60,6 @@ export const warehouseSlice = createSlice({
     builder.addCase(fetchWarehouseItems.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
-    });
-    ///////////////////////////////////////////////////////////
-    builder.addCase(fetchWarehouseOptions.fulfilled, (state, action) => {
-      state.options = action.payload;
     });
   },
 });

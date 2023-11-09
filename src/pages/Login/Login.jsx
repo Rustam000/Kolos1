@@ -1,26 +1,27 @@
-import { useDispatch, useSelector } from "react-redux";
+import styles from "./Login.module.css";
 import eyeIconShow from "../../assets/icons/eye.svg";
 import eyeIconHide from "../../assets/icons/eyeslash.svg";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
-import styles from "./Login.module.css";
 import { authActions, logUserIn } from "../../redux/authSlice";
+import { ACCESS_DENIED_ERROR, TRY_AGAIN_ERROR } from "../../common/constants";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
 
 export default function Login() {
-  const [login, setLogin] = useState("dev");
-  const [password, setPassword] = useState("dev");
+  const [username, setLogin] = useState("dev54321");
+  const [password, setPassword] = useState("dev54321");
   const [hidePassword, setHidePassword] = useState(true);
-  const { error } = useSelector((state) => state.auth);
+  const { error, isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const fieldsAreEmpty = !login || !password;
+  const fieldsAreEmpty = !username || !password;
 
   function handleSubmit(event) {
     event.preventDefault();
     const formData = {
-      login,
+      username,
       password,
     };
-    //dispatch(authActions.logUserIn(formData));
     dispatch(logUserIn(formData));
   }
 
@@ -30,10 +31,10 @@ export default function Login() {
 
   useEffect(() => {
     dispatch(authActions.clearError());
-  }, [login, password]);
+  }, [username, password]);
 
   useEffect(() => {
-    if (error === "access_denied") {
+    if (error === ACCESS_DENIED_ERROR) {
       setLogin("");
       setPassword("");
     }
@@ -50,9 +51,10 @@ export default function Login() {
             className={`${styles.input} ${error && styles.invalid}`}
             type="text"
             name="login"
-            value={login}
+            value={username}
             onChange={(event) => setLogin(event.target.value)}
             autoComplete="off"
+            disabled={error === ACCESS_DENIED_ERROR}
           />
         </label>
         {/*  */}
@@ -66,6 +68,7 @@ export default function Login() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               autoComplete="off"
+              disabled={error === ACCESS_DENIED_ERROR}
             />
             <img
               className={styles.passwordIcon}
@@ -77,16 +80,20 @@ export default function Login() {
           </div>
         </label>
         {/*  */}
-        <button
+        <CustomButton
           className={styles.submitButton}
-          disabled={fieldsAreEmpty || error === "access_denied"}
+          width="full"
+          height="auth"
+          disabled={fieldsAreEmpty || error === ACCESS_DENIED_ERROR}
+          type={isLoading ? "button" : "submit"}
         >
-          Войти
-        </button>
+          {isLoading ? "Загрузка..." : "Войти"}
+        </CustomButton>
         <p className={styles.error}>
-          {error === "access_denied" &&
+          {error === ACCESS_DENIED_ERROR &&
             "Программа временно не работает. Обратитесь к администратору!"}
-          {error === "try_again" && "Неправильные данные! Попробуйте еще раз!"}
+          {error === TRY_AGAIN_ERROR &&
+            "Неправильные данные! Попробуйте еще раз!"}
         </p>
       </form>
     </div>

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   fetchWarehouseItems,
-  fetchWarehouseOptions,
   warehouseActions,
 } from "../../redux/warehouseSlice";
 import ADTable from "../../components/ADTable/ADTable";
@@ -16,8 +15,10 @@ import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 
 export default function Warehouse() {
   const { setCategory, setCondition, setSearch } = warehouseActions;
-  const { items, isLoading, error, options, search, category, state } =
-    useSelector((state) => state.warehouse);
+  const { options } = useSelector((state) => state.options);
+  const { items, isLoading, error, search, category, state } = useSelector(
+    (state) => state.warehouse,
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -26,7 +27,7 @@ export default function Warehouse() {
   }, [search, category, state]);
 
   useEffect(() => {
-    dispatch(fetchWarehouseOptions());
+    return () => dispatch(warehouseActions.clearData());
   }, []);
 
   const tableColumns = [
@@ -94,8 +95,7 @@ export default function Warehouse() {
         <form className={styles.filterbar}>
           <CustomSearch
             options={options.search}
-            value={search}
-            onChange={(event) => dispatch(setSearch(event.target.value))}
+            onChange={(value) => dispatch(setSearch(value))}
             onSearch={console.log}
           />
           <CustomSelect

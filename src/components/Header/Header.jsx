@@ -2,8 +2,12 @@ import styles from "./Header.module.css";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import CustomButton from "../UI/CustomButton/CustomButton";
+import { useDispatch } from "react-redux";
+import { pingTestEndpoint } from "../../redux/authSlice";
 
 export default function Header() {
+  const dispatch = useDispatch();
+
   function getNavlinkClasses({ isActive }) {
     return isActive ? `${styles.navLink} ${styles.active}` : styles.navLink;
   }
@@ -12,7 +16,10 @@ export default function Header() {
     <header className={styles.Header}>
       <div className="container">
         <div className={styles.flexContainer}>
-          <span className={styles.logoWrapper}>
+          <span
+            className={styles.logoWrapper}
+            onClick={() => dispatch(pingTestEndpoint())}
+          >
             <Logo />
           </span>
           <NavLink className={getNavlinkClasses} to="/warehouse">

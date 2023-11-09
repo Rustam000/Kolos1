@@ -2,15 +2,25 @@ import styles from "./CustomSearch.module.css";
 import searchIcon from "../../../assets/icons/search.svg";
 import { useRef } from "react";
 import Dropdown from "../Dropdown/Dropdown";
+import { useDebuoncedDispatch } from "../../../hooks/useDebuoncedDispatch";
+import { SEARCH_DEBOUNCE_DELAY } from "../../../common/constants";
 
 export default function CustomSearch({
   className,
   placeholder = "Поиск...",
-  value = "",
   options = [],
+  delay = SEARCH_DEBOUNCE_DELAY || 700,
   onChange = () => undefined,
   onSearch = () => undefined,
 }) {
+  const [search, setSearch] = useDebuoncedDispatch(
+    "",
+    (value) => {
+      onChange(value);
+    },
+    delay,
+  );
+
   const inputRef = useRef(null);
 
   function handleKeyDown(event) {
@@ -34,8 +44,8 @@ export default function CustomSearch({
             ref={inputRef}
             type="text"
             placeholder={placeholder}
-            value={value}
-            onChange={onChange}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             onKeyDown={handleKeyDown}
           />
           <img

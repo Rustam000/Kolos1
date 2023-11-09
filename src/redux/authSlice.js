@@ -1,52 +1,36 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-const initialState = {
-  /**@type {string|null} */
-  user: localStorage.getItem("user"),
-  /**@type {string|null} */
-  accessToken: null,
-  /**@type {string|null} */
-  error: null,
-  /**@type {number} */
-  failedAttempts: 0,
-};
-
-export const authSlice = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {
-    logUserIn: (state, action) => {
-      if (action.payload.login === "dev" && action.payload.password === "dev") {
-        state.error = null;
-        state.user = "dev";
-      } else {
-        state.user = null;
-        state.failedAttempts += 1;
-        state.error = state.failedAttempts >= 4 ? "access_denied" : "try_again";
-      }
-    },
-    logUserOut: () => {
-      return { ...initialState, user: null };
-    },
-    clearError: (state) => {
-      if (state.error === "access_denied") return state;
-      state.error = null;
-    },
-  },
-  extraReducers: (builder) => {
-    //
-  },
-});
-
-export const authReducer = authSlice.reducer;
-export const authActions = authSlice.actions;
+import { ACCESS_DENIED_ERROR, ENDPOINTS } from "../common/constants";
+import { axiosPublic } from "../api/axiosPublic";
+import { axiosPrivate } from "../api/axiosPrivate";
 
 export const logUserIn = createAsyncThunk(
   "auth/logUserIn",
   async (formData, thunkAPI) => {
-    thunkAPI.dispatch(authActions.logUserIn(formData));
-    if (formData.login === "dev" && formData.password === "dev") {
-      localStorage.setItem("user", "dev");
+    try {
+      const response = await axiosPublic.post(ENDPOINTS.login, formData);
+      const data = response.data;
+      localStorage.setItem("user", data?.role?.username);
+      localStorage.setItem("access", data?.access);
+      localStorage.setItem("refresh", data?.refresh);
+      return data;
+    } catch (error) {
+      localStorage.clear();
+      console.warn(error); /*  */
+      return Promise.reject(error);
+    }
+  },
+);
+
+export const pingTestEndpoint = createAsyncThunk(
+  "auth/pingTestEndpoint",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosPrivate.get("/users/test/");
+      const data = response.data;
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.warn(error);
     }
   },
 );
@@ -54,7 +38,45 @@ export const logUserIn = createAsyncThunk(
 export const logUserOut = createAsyncThunk(
   "auth/logUserOut",
   async (_, thunkAPI) => {
-    localStorage.removeItem("user");
-    thunkAPI.dispatch(authActions.logUserOut());
+    localStorage.clear();
   },
 );
+
+const initialState = {
+  user: localStorage.getItem("user"),
+  isLoading: false,
+  error: null,
+};
+
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    clearError: (state) => {
+      if (state.error === ACCESS_DENIED_ERROR) return state;
+      state.error = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(logUserIn.pending, (state, action) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(logUserIn.fulfilled, (state, action) => {
+      state.user = action.payload.role?.username;
+      state.isLoading = false;
+    });
+    builder.addCase(logUserIn.rejected, (state, action) => {
+      state.isLoading = false;
+      state.user = null;
+      state.error = "try_again";
+    });
+    builder.addCase(logUserOut.fulfilled, (state, action) => {
+      state.user = null;
+      state.isLoading = false;
+    });
+  },
+});
+
+export const authReducer = authSlice.reducer;
+export const authActions = authSlice.actions;
