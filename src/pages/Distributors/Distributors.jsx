@@ -1,11 +1,11 @@
 import styles from "./Distributors.module.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { fetchDistributors } from "../../redux/distributorsSlice";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import editIcon from "../../assets/icons/mode_edit.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchDistributors } from "../../redux/distributorsSlice";
 import ADTable from "../../components/ADTable/ADTable";
 
 export default function Distributors() {
