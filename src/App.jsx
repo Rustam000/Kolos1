@@ -52,8 +52,7 @@ const privateRoutes = (
 
 export default function App() {
   const dispatch = useDispatch();
-  //const { user } = useSelector((state) => state.auth);
-  const user = true;
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (user) {

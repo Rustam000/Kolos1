@@ -1,18 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { ACCESS_DENIED_ERROR, ENDPOINTS } from "../common/constants";
 import { axiosPublic } from "../api/axiosPublic";
-import { ACCESS_DENIED_ERROR } from "../common/constants";
 import { axiosPrivate } from "../api/axiosPrivate";
 
 export const logUserIn = createAsyncThunk(
   "auth/logUserIn",
   async (formData, thunkAPI) => {
     try {
-      const response = await axiosPublic.post("/users/login/", formData);
+      const response = await axiosPublic.post(ENDPOINTS.login, formData);
       const data = response.data;
-      localStorage.setItem("user", "admin");
-      localStorage.setItem("access", data?.token?.access);
-      localStorage.setItem("refresh", data?.token?.refresh);
+      localStorage.setItem("user", data?.role?.username);
+      localStorage.setItem("access", data?.access);
+      localStorage.setItem("refresh", data?.refresh);
       return data;
     } catch (error) {
       localStorage.clear();
@@ -64,7 +63,7 @@ export const authSlice = createSlice({
       state.error = null;
     });
     builder.addCase(logUserIn.fulfilled, (state, action) => {
-      state.user = "admin";
+      state.user = action.payload.role?.username;
       state.isLoading = false;
     });
     builder.addCase(logUserIn.rejected, (state, action) => {
