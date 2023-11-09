@@ -1,17 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosPrivate } from "../api/axiosPrivate";
 
 export const postProduct = createAsyncThunk(
   "product/postProduct",
   async (_, thunkAPI) => {
     try {
-      const wholeState = thunkAPI.getState();
-      const productState = wholeState.product;
-      const formData = productState.data;
-      const response = await axios.post(
-        `http://51.20.115.221/api/v1/products/`,
-        formData,
-      );
+      const formData = thunkAPI.getState().product.data;
+      const response = await axiosPrivate.post(`/products/`, formData);
       return response.data;
     } catch (error) {
       console.warn(error);
@@ -23,13 +18,8 @@ export const updateProductById = createAsyncThunk(
   "product/updateProductById",
   async (id, thunkAPI) => {
     try {
-      const wholeState = thunkAPI.getState();
-      const productState = wholeState.product;
-      const formData = productState.data;
-      const response = await axios.put(
-        `http://51.20.115.221/api/v1/products/${id}/`,
-        formData,
-      );
+      const formData = thunkAPI.getState().product.data;
+      const response = await axiosPrivate.put(`/products/${id}/`, formData);
       return response.data;
     } catch (error) {
       console.warn(error);
@@ -39,11 +29,9 @@ export const updateProductById = createAsyncThunk(
 
 export const archiveProductById = createAsyncThunk(
   "product/archiveProductById",
-  async (id, thunkAPI) => {
+  async (id) => {
     try {
-      const response = await axios.delete(
-        `http://51.20.115.221/api/v1/products/${id}/`,
-      );
+      const response = await axiosPrivate.delete(`/products/${id}/`);
       return response.data;
     } catch (error) {
       console.warn(error);
@@ -53,11 +41,9 @@ export const archiveProductById = createAsyncThunk(
 
 export const getProductById = createAsyncThunk(
   "product/getProductById",
-  async (id, thunkAPI) => {
+  async (id) => {
     try {
-      const response = await axios.get(
-        `http://51.20.115.221/api/v1/products/${id}/`,
-      );
+      const response = await axiosPrivate.get(`/products/${id}/`);
       return response.data;
     } catch (error) {
       console.warn(error);
