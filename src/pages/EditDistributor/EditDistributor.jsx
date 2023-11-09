@@ -69,62 +69,60 @@ export default function EditDistributor() {
 
   const formIsValid = isFormValid();
   const [error, setError] = useState({
-  inn: '',
-  issue_date: '',
-  validity: '',
-  contact1: '',
-  contact2: ''
-   });
-
+    inn: "",
+    issue_date: "",
+    validity: "",
+    contact1: "",
+    contact2: "",
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     let newValue = value;
-  
+
     switch (name) {
-      case 'name':
-        newValue = value.replace(/[^А-Яа-яЁё\s]/g, '');
+      case "name":
+        newValue = value.replace(/[^А-Яа-яЁё\s]/g, "");
         break;
-      case 'inn':
-        if (value.length === 1 && !['1', '2'].includes(value)) {
-          setError({...error, [name]: 'Первый символ должен быть 1 или 2'});
+      case "inn":
+        if (value.length === 1 && !["1", "2"].includes(value)) {
+          setError({ ...error, [name]: "Первый символ должен быть 1 или 2" });
         } else if (value.length === 3 && parseInt(value.slice(1, 3)) > 31) {
-          setError({...error, [name]: 'День не может быть больше 31'});
+          setError({ ...error, [name]: "День не может быть больше 31" });
         } else if (value.length === 5 && parseInt(value.slice(3, 5)) > 12) {
-          setError({...error, [name]: 'Месяц не может быть больше 12'});
+          setError({ ...error, [name]: "Месяц не может быть больше 12" });
         } else if (value.length > 8 && value.length <= 14) {
           newValue = value.slice(0, 14);
         } else {
-          setError({...error, [name]: ''});
+          setError({ ...error, [name]: "" });
         }
         break;
-      case 'issue_date':
-      case 'validity':
+      case "issue_date":
+      case "validity":
         if (value.length === 2 && parseInt(value.slice(0, 2)) > 31) {
-          setError({...error, [name]: 'День не может быть больше 31'});
+          setError({ ...error, [name]: "День не может быть больше 31" });
         } else if (value.length === 5 && parseInt(value.slice(3, 5)) > 12) {
-          setError({...error, [name]: 'Месяц не может быть больше 12'});
+          setError({ ...error, [name]: "Месяц не может быть больше 12" });
         } else if (value.length > 5 && value.length <= 10) {
           newValue = value.slice(0, 10);
         } else {
-          setError({...error, [name]: ''});
+          setError({ ...error, [name]: "" });
         }
         break;
-      case 'contact1':
-      case 'contact2':
+      case "contact1":
+      case "contact2":
         if (value.length < 11) {
-          setError({...error, [name]: 'Неверный формат номера'});
+          setError({ ...error, [name]: "Неверный формат номера" });
         } else {
-          setError({...error, [name]: ''});
+          setError({ ...error, [name]: "" });
         }
         break;
       default:
         break;
     }
-      
-    setFormData({ ...formData, [name]: newValue });
-};
 
+    setFormData({ ...formData, [name]: newValue });
+  };
 
   function handlePassportChange(event) {
     const valueArray = event.target.value.split("");
@@ -145,8 +143,7 @@ export default function EditDistributor() {
     const passport_series = passportSeriesArray.join("");
     const passport_id = passportNumberArray.join("");
     setFormData({ ...formData, passport_series, passport_id });
-}
-
+  }
 
   const handlePhotoChange = (e) => {
     const photo = e.target.files[0];
@@ -158,7 +155,7 @@ export default function EditDistributor() {
     setShowSaveModal(true);
   }
 
- function handleConfirmSave() {
+  function handleConfirmSave() {
     if (isEdit) {
       dispatch(editDistributorById({ id, formData })).then((action) => {
         setShowSaveModal(false);
@@ -172,24 +169,32 @@ export default function EditDistributor() {
     });
   }
 
-function handleDateInput(e) {
-  var value = e.target.value;
-  value = value.replace(/\D/g, "").replace(/(\d{2})(\d)/, "$1.$2").replace(/(\d{2}\.\d{2})(\d)/, "$1.$2");
-  e.target.value = value;
-}
+  function handleConfirmDelete() {
+    dispatch(archiveDistributorById(id)).then((action) => {
+      setShowDeleteModal(false);
+      navigate("/distributors");
+    });
+  }
 
-function handlePhoneInput(e) {
-  var value = e.target.value;
-  value = value.replace(/\D/g, "")
-               .replace(/^(\d{1,3})/, "$1 ")
-               .replace(/^(\d{1,3}) (\d{1,3})/, "$1 $2 ")
-               .replace(/^(\d{1,3}) (\d{1,3}) (\d{1,3})/, "$1 $2 $3")
-               .trim();
-  e.target.value = value.slice(0, 11);
-}
+  function handleDateInput(e) {
+    var value = e.target.value;
+    value = value
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "$1.$2")
+      .replace(/(\d{2}\.\d{2})(\d)/, "$1.$2");
+    e.target.value = value;
+  }
 
-
-
+  function handlePhoneInput(e) {
+    var value = e.target.value;
+    value = value
+      .replace(/\D/g, "")
+      .replace(/^(\d{1,3})/, "$1 ")
+      .replace(/^(\d{1,3}) (\d{1,3})/, "$1 $2 ")
+      .replace(/^(\d{1,3}) (\d{1,3}) (\d{1,3})/, "$1 $2 $3")
+      .trim();
+    e.target.value = value.slice(0, 11);
+  }
 
   return (
     <>
@@ -288,7 +293,7 @@ function handlePhoneInput(e) {
                     maxLength={14}
                     required
                   />
-                   {error.inn && <p>{error.inn}</p>}
+                  {error.inn && <p>{error.inn}</p>}
                 </label>
 
                 <label className={styles.formInput}>
