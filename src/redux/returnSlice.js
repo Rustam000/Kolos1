@@ -39,6 +39,8 @@ const initialState = {
     contact1: "...",
     contact2: "...",
   },
+  orderHistory: [],
+  returnDraft: [],
 };
 
 export const returnSlice = createSlice({
@@ -47,6 +49,15 @@ export const returnSlice = createSlice({
   reducers: {
     setSearch: (state, action) => {
       state.search = action.payload;
+    },
+    updateOrderHistory: (state, action) => {},
+    addItemToDraft: (state, action) => {
+      const record = action.payload;
+      state.returnDraft.unshift({
+        ...record,
+        maxQuantity: record.quantity,
+        quantity: 1,
+      });
     },
   },
   extraReducers: (builder) => {
@@ -57,6 +68,9 @@ export const returnSlice = createSlice({
       .addCase(getDistributorById.rejected, (state, action) => {
         console.log("getDistributorById failed");
         console.log(action);
+      })
+      .addCase(getOrderById.fulfilled, (state, action) => {
+        state.orderHistory = action.payload;
       });
   },
 });

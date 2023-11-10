@@ -25,21 +25,30 @@ import {
 ///////////////////////////////////////////////////////////////////////////////
 
 export default function Return() {
-  const [orderHistory, setOrderHistory] = useState([]);
-  const [returnDraft, setReturnDraft] = useState([]);
+  // const [orderHistory, setOrderHistory] = useState([]);
+  // const [returnDraft, setReturnDraft] = useState([]);
   const { id } = useParams();
-  const { distributor, search } = useSelector((state) => state.return);
+  const { distributor, search, orderHistory, returnDraft } = useSelector(
+    (state) => state.return,
+  );
+  const { setOrderHistory, addItemToDraft } = returnActions;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getDistributorById(id));
-    dispatch(getOrderById({ id, search })).then((action) =>
-      setOrderHistory(action.payload),
-    );
+    dispatch(getOrderById({ id, search }));
   }, [id, dispatch, setOrderHistory]);
 
   console.log({ orderHistory });
   console.log({ returnDraft });
+
+  function handleAdd(record) {
+    console.log(record);
+    dispatch(addItemToDraft(record));
+  }
+  function handleRemove(record) {
+    //
+  }
 
   ///////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////
@@ -93,13 +102,24 @@ export default function Return() {
       align: "center",
       width: 30,
       render: (_, record) => (
+        //-------------------add to return draft
         <button
           onClick={() => {
-            console.log(record);
-            setReturnDraft((prev) => [
-              { ...record, maxQuantity: record.quantity, quantity: 1 },
-              ...prev,
-            ]);
+            handleAdd(record);
+            /* setReturnDraft((prev) => {
+              if (prev.includes((item) => item.id === record.id)) {
+                return prev.map((item) =>
+                  item.id === record.id
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item,
+                );
+              } else {
+                return [
+                  { ...record, maxQuantity: record.quantity, quantity: 1 },
+                  ...prev,
+                ];
+              }
+            }); */
           }}
         >
           <img src={addIcon} alt="edit icon" />
@@ -107,6 +127,7 @@ export default function Return() {
       ),
     },
   ];
+  //////////////////////////////////////////////////////////////////////
   const returnDraftColumns = [
     {
       title: "№",
@@ -156,11 +177,13 @@ export default function Return() {
       align: "center",
       width: 30,
       render: (_, record) => (
+        //-------------------remove from return draft
         <button
           onClick={() => {
-            setReturnDraft((prev) =>
+            handleRemove(record);
+            /* setReturnDraft((prev) =>
               prev.filter((item) => item.id !== record.id),
-            );
+            ); */
           }}
         >
           <img src={deleteIcon} alt="edit icon" />
