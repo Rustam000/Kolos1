@@ -82,7 +82,7 @@ export default function DistributorProfile() {
     dispatch(getDistributorById(id));
   }, []);
 
-  const [year, setYear] = useState('');
+  const [year, setYear] = useState("");
 
   const handleYearChange = (e) => {
     const yearInput = e.target.value;
@@ -105,12 +105,14 @@ export default function DistributorProfile() {
             <div className={styles.actions}>
               <CustomButton
                 variant="secondary"
+                width="width140"
                 onClick={() => navigate(`../order/${id}`)}
               >
-                Отпускать 
+                Отпускать
               </CustomButton>
               <CustomButton
                 variant="secondary"
+                width="width140"
                 onClick={() => navigate(`../return/${id}`)}
               >
                 Возврат
@@ -136,10 +138,14 @@ export default function DistributorProfile() {
             >
               От
             </label>
-            <input type="date" id="startDate" value={year}
-          onChange={handleYearChange}
-          placeholder="Год"
-          maxLength={4} />
+            <input
+              type="date"
+              id="startDate"
+              value={year}
+              onChange={handleYearChange}
+              placeholder="Год"
+              maxLength={4}
+            />
             <label className={styles.dateLabel} htmlFor="endDate">
               До
             </label>
