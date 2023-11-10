@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import addIcon from "../../assets/icons/add.svg";
 import deleteIcon from "../../assets/icons/delete.svg";
-import upIcon from "../../assets/icons/bxs_up-arrow.svg";
-import downIcon from "../../assets/icons/bxs_down-arrow.svg";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 import ADTable from "../../components/ADTable/ADTable";
@@ -19,6 +17,7 @@ import {
   getOrderById,
   returnActions,
 } from "../../redux/returnSlice";
+import QuantityController from "../../components/UI/QuantityController/QuantityController";
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -31,8 +30,12 @@ export default function Return() {
   const { distributor, search, orderHistory, returnDraft } = useSelector(
     (state) => state.return,
   );
-  const { updateOrderHistory, addItemToDraft, removeItemFromDraft } =
-    returnActions;
+  const {
+    updateOrderHistory,
+    addItemToDraft,
+    removeItemFromDraft,
+    setQuantity,
+  } = returnActions;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -156,6 +159,13 @@ export default function Return() {
       key: "quantity",
       align: "left",
       width: "11%",
+      render: (_, record) => (
+        <QuantityController
+          value={record.quantity}
+          maxValue={record.maxQuantity}
+          onChange={(value) => dispatch(setQuantity({ id: record.id, value }))}
+        />
+      ),
     },
     {
       title: "Цена",

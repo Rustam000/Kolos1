@@ -1,0 +1,34 @@
+.QuantityController {
+  display: flex;
+  align-items: center;
+}
+
+.inputWrapper {
+  flex: 1 1 40px;
+}
+
+.input {
+  background-color: transparent;
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--button-inactive-text-gray);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  margin-block: -10px;
+  margin-right: -5px;
+}
+
+.arrowButton {
+  background-color: transparent;
+  padding-inline: 5px;
+  border: none;
+  border-radius: 3px;
+}
+
+.arrowButton:hover {
+  background-color: var(--input-hover-gray);
+}

@@ -71,6 +71,33 @@ export const returnSlice = createSlice({
         (item) => item.id !== record.id,
       );
     },
+    setQuantity: (state, action) => {
+      const { id, value } = action.payload;
+      const item = state.returnDraft.find((item) => item.id === id);
+      if (value <= item.maxQuantity) {
+        item.quantity = value;
+      } else {
+        item.quantity = item.maxQuantity;
+      }
+    },
+    /* incrementQuantity: (state, action) => {
+      const id = action.payload;
+      const item = state.returnDraft.find((item) => item.id === id);
+      if (item.quantity < item.maxQuantity) {
+        item.quantity++;
+      } else {
+        return state;
+      }
+    },
+    decrementQuantity: (state, action) => {
+      const id = action.payload;
+      const item = state.returnDraft.find((item) => item.id === id);
+      if (item.quantity > 1) {
+        item.quantity--;
+      } else {
+        return state;
+      }
+    }, */
   },
   extraReducers: (builder) => {
     builder
