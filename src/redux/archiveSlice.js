@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosPrivate } from "../api/axiosPrivate";
 
 export const fetchArchiveItems = createAsyncThunk(
   "archive/fetchArchiveItems",
-  async (entity, thunkAPI) => {
+  async (entity) => {
     try {
-      const response = await axios.get(
-        `http://51.20.115.221/api/v1/${entity}/archive/?limit=10000`,
+      const response = await axiosPrivate.get(
+        `/${entity}/archive/?limit=10000`,
       );
       return response.data.results;
     } catch (error) {
@@ -17,11 +17,9 @@ export const fetchArchiveItems = createAsyncThunk(
 
 export const restoreItemById = createAsyncThunk(
   "archive/restoreItemById",
-  async ({ entity, id }, thunkAPI) => {
+  async ({ entity, id }) => {
     try {
-      const response = await axios.delete(
-        `http://51.20.115.221/api/v1/${entity}/archive/${id}/`,
-      );
+      const response = await axiosPrivate.delete(`/${entity}/archive/${id}/`);
       return response.data;
     } catch (error) {
       console.warn(error);

@@ -1,20 +1,18 @@
 import styles from "./Archive.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import { products } from "../../assets/beer_data";
-import { distributors } from "../../assets/distributor_data";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import restoreIcon from "../../assets/icons/restore.svg";
 import ADTable from "../../components/ADTable/ADTable";
 import TotalIndicator from "../../components/UI/TotalIndicator/TotalIndicator";
-import { useDispatch, useSelector } from "react-redux";
 import {
   archiveActions,
   fetchArchiveItems,
   restoreItemById,
 } from "../../redux/archiveSlice";
-import { useEffect } from "react";
 
 export default function Archive() {
   const dispatch = useDispatch();
@@ -23,16 +21,15 @@ export default function Archive() {
   const isWarehouse = location.pathname.includes("warehouse");
   const { items, isLoading, error } = useSelector((state) => state.archive);
 
-  const total = products?.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
-  );
+  const total =
+    isWarehouse &&
+    items?.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   useEffect(() => {
     const entity = isWarehouse ? "products" : "distributors";
     dispatch(fetchArchiveItems(entity));
     return () => dispatch(archiveActions.clearData());
-  }, [isWarehouse]);
+  }, [isWarehouse, dispatch]);
 
   function restoreFromArchive(entity, id, destination) {
     dispatch(
@@ -68,14 +65,14 @@ export default function Archive() {
     },
     {
       title: "Контактный номер (1)",
-      dataIndex: "phoneNumberOne",
-      key: "phoneNumberOne",
+      dataIndex: "contact1",
+      key: "contact1",
       width: 190,
     },
     {
       title: "Контактный номер (2)",
-      dataIndex: "phoneNumberTwo",
-      key: "phoneNumberTwo",
+      dataIndex: "contact2",
+      key: "contact2",
       width: 190,
     },
     {

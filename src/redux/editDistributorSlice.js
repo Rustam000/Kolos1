@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosPrivate } from "../api/axiosPrivate";
 
 export const getDistributorById = createAsyncThunk(
   "distributor/getDistributorById",
-  async (id, thunkAPI) => {
+  async (id) => {
     try {
-      const response = await axios.get(
-        `http://51.20.115.221/api/v1/distributors/${id}/`,
-      );
+      const response = await axiosPrivate.get(`/distributors/${id}/`);
       return response.data;
     } catch (error) {
       console.warn(error);
@@ -18,12 +16,9 @@ export const getDistributorById = createAsyncThunk(
 
 export const createDistributor = createAsyncThunk(
   "distributor/createDistributor",
-  async (formData, thunkAPI) => {
+  async (formData) => {
     try {
-      const response = await axios.post(
-        `http://51.20.115.221/api/v1/distributors/`,
-        formData,
-      );
+      const response = await axiosPrivate.post(`/distributors/`, formData);
       return response.data;
     } catch (error) {
       console.warn(error);
@@ -34,12 +29,9 @@ export const createDistributor = createAsyncThunk(
 
 export const editDistributorById = createAsyncThunk(
   "distributor/editDistributorById",
-  async ({ id, formData }, thunkAPI) => {
+  async ({ id, formData }) => {
     try {
-      const response = await axios.put(
-        `http://51.20.115.221/api/v1/distributors/${id}/`,
-        formData,
-      );
+      const response = await axiosPrivate.put(`/distributors/${id}/`, formData);
       return response.data;
     } catch (error) {
       console.warn(error);
@@ -50,12 +42,9 @@ export const editDistributorById = createAsyncThunk(
 
 export const archiveDistributorById = createAsyncThunk(
   "distributor/archiveDistributorById",
-  async ({ id, formData }, thunkAPI) => {
+  async (id) => {
     try {
-      const response = await axios.put(
-        `http://51.20.115.221/api/v1/distributors/${id}/`,
-        { ...formData, is_archived: true },
-      );
+      const response = await axiosPrivate.delete(`/distributors/${id}/`);
       return response.data;
     } catch (error) {
       console.warn(error);

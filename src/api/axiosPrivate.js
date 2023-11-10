@@ -54,8 +54,7 @@ axiosPrivate.interceptors.response.use(
         return axiosPublic(originalRequest);
       }
       localStorage.clear();
-      //TODO: log user out
-      //store.dispatch(logUserOut());
+      document.location.href = "/logout";
       return Promise.reject(error);
     }
     return Promise.reject(error);

@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosPrivate } from "../api/axiosPrivate";
 
 export const getDistributorById = createAsyncThunk(
   "profile/getDistributorById",
   async (distributorId, thunkAPI) => {
     try {
-      const response = await axios.get(
-        `http://51.20.115.221/api/v1/distributors/${distributorId}`,
-      );
+      const response = await axiosPrivate.get(`/distributors/${distributorId}`);
 
       return response.data;
     } catch (error) {

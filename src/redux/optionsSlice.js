@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosDummy } from "../api/axiosDummy";
 
 export const fetchOptions = createAsyncThunk(
   "options/fetchOptions",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(
-        `https://jwt-authentication-beryl.vercel.app/api/options`,
-      );
+      const response = await axiosDummy.get(`/options`);
       return response.data;
     } catch (error) {
       console.warn(error);
