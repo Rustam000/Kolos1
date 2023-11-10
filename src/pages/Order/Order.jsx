@@ -12,6 +12,8 @@ import TotalIndicator from "../../components/UI/TotalIndicator/TotalIndicator";
 import OrderSection from "../../components/OrderSection/OrderSection";
 import OrderButton from "../../components/UI/OrderButton/OrderButton";
 import QuantityControl from "../../components/UI/QuantityControl/QuantityControl";
+import { axiosPrivate } from "../../api/axiosPrivate";
+import { axiosDummy } from "../../api/axiosDummy";
 
 export default function Order() {
   const { id } = useParams();
@@ -23,9 +25,7 @@ export default function Order() {
 
   useEffect(() => {
     async function fetchCredentials() {
-      const response = await axios.get(
-        `http://51.20.115.221/api/v1/distributors/${id}`,
-      );
+      const response = await axiosPrivate.get(`/distributors/${id}`);
       setDistributor(response.data);
     }
     fetchCredentials();
@@ -33,9 +33,7 @@ export default function Order() {
 
   useEffect(() => {
     async function fetchItems() {
-      const response = await axios.get(
-        `https://jwt-authentication-beryl.vercel.app/api/warehouse/`,
-      );
+      const response = await axiosDummy.get(`/warehouse/`);
       setItems(response.data.results);
     }
     fetchItems();
@@ -201,8 +199,8 @@ export default function Order() {
       <PageHeading buttonText="Назад" heading="Оформление заявки" />
       <main className={styles.main}>
         <OrderSection>
-          <DistributorInfo info={distributor} variant="small" />
-          <div className={styles.topRightInput}>
+          <div className={styles.infoWrapper}>
+            <DistributorInfo info={distributor} variant="small" />
             <label className={styles.formInput}>
               <input
                 type="text"
