@@ -1,11 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../api/axiosPrivate";
+import { axiosDummy } from "../api/axiosDummy";
+import { createPath } from "react-router-dom";
 
 export const getDistributorById = createAsyncThunk(
   "return/getDistributorById",
   async (id) => {
     try {
-      const response = await axiosPrivate.get(`/distributors/${id}`);
+      const response = await axiosPrivate.get(`/distributors/${id}/`);
+      return response.data;
+    } catch (error) {
+      console.warn(error);
+      return Promise.reject(error);
+    }
+  },
+);
+
+export const getOrderById = createAsyncThunk(
+  "return/getOrderById",
+  async ({ id, search }) => {
+    try {
+      const response = await axiosDummy.get(`/distributor/orders/${id}/`, {
+        params: { search },
+      });
       return response.data;
     } catch (error) {
       console.warn(error);
@@ -23,6 +40,8 @@ const initialState = {
     contact1: "...",
     contact2: "...",
   },
+  orderHistory: [],
+  returnDraft: [],
 };
 
 export const returnSlice = createSlice({
@@ -32,6 +51,60 @@ export const returnSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    updateOrderHistory: (state, action) => {},
+    addItemToDraft: (state, action) => {
+      const record = action.payload;
+      const draft = state.returnDraft;
+      const existingRecord = draft.find((item) => item.id === record.id);
+      console.log(existingRecord);
+      console.log(existingRecord?.quantity);
+      if (!existingRecord) {
+        draft.unshift({
+          ...record,
+          maxQuantity: record.quantity,
+          quantity: 1,
+        });
+      } else {
+        if (existingRecord.quantity < existingRecord.maxQuantity) {
+          existingRecord.quantity++;
+        } else {
+          return state;
+        }
+      }
+    },
+    removeItemFromDraft: (state, action) => {
+      const record = action.payload;
+      state.returnDraft = state.returnDraft.filter(
+        (item) => item.id !== record.id,
+      );
+    },
+    setQuantity: (state, action) => {
+      const { id, value } = action.payload;
+      const item = state.returnDraft.find((item) => item.id === id);
+      if (value <= item.maxQuantity) {
+        item.quantity = value;
+      } else {
+        item.quantity = item.maxQuantity;
+      }
+    },
+    /* incrementQuantity: (state, action) => {
+      const id = action.payload;
+      const item = state.returnDraft.find((item) => item.id === id);
+      if (item.quantity < item.maxQuantity) {
+        item.quantity++;
+      } else {
+        return state;
+      }
+    },
+    decrementQuantity: (state, action) => {
+      const id = action.payload;
+      const item = state.returnDraft.find((item) => item.id === id);
+      if (item.quantity > 1) {
+        item.quantity--;
+      } else {
+        return state;
+      }
+    }, */
   },
   extraReducers: (builder) => {
     builder
@@ -41,6 +114,9 @@ export const returnSlice = createSlice({
       .addCase(getDistributorById.rejected, (state, action) => {
         console.log("getDistributorById failed");
         console.log(action);
+      })
+      .addCase(getOrderById.fulfilled, (state, action) => {
+        state.orderHistory = action.payload;
       });
   },
 });

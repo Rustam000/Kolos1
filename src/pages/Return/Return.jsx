@@ -1,106 +1,220 @@
 import styles from "./Return.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import editIcon from "../../assets/icons/Vector.svg";
+import addIcon from "../../assets/icons/add.svg";
+import deleteIcon from "../../assets/icons/delete.svg";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
-import { products } from "../../assets/beer_data";
 import ADTable from "../../components/ADTable/ADTable";
 import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import TotalIndicator from "../../components/UI/TotalIndicator/TotalIndicator";
 import OrderSection from "../../components/OrderSection/OrderSection";
 import OrderContainer from "../../components/OrderContainer/OrderContainer";
-import { getDistributorById, returnActions } from "../../redux/returnSlice";
+import {
+  getDistributorById,
+  getOrderById,
+  returnActions,
+} from "../../redux/returnSlice";
+import QuantityController from "../../components/UI/QuantityController/QuantityController";
 
-const warehouseTableColumns = [
-  {
-    title: "№",
-    dataIndex: "rowIndex",
-    key: "rowIndex",
-    align: "center",
-    width: 55,
-    render: (text, record, index) => index + 1,
-  },
-  {
-    title: "Наименование",
-    dataIndex: "name",
-    key: "name",
-    align: "left",
-  },
-  {
-    title: "Уникальный код",
-    dataIndex: "identification_number",
-    key: "identification_number",
-    align: "left",
-    width: 150,
-  },
-  {
-    title: "Ед. изм.",
-    dataIndex: "unit",
-    key: "unit",
-    align: "left",
-    width: "11%",
-  },
-  {
-    title: "Кол-во",
-    dataIndex: "quantity",
-    key: "quantity",
-    align: "left",
-    width: "11%",
-  },
-  {
-    title: "Цена",
-    dataIndex: "price",
-    key: "price",
-    align: "left",
-    width: "11%",
-  },
-  {
-    title: "+",
-    key: "action",
-    align: "center",
-    width: 30,
-    render: (_, record) => (
-      <button onClick={() => console.log(record)}>
-        <img src={editIcon} alt="edit icon" />
-      </button>
-    ),
-  },
-];
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
 export default function Return() {
+  // const [orderHistory, setOrderHistory] = useState([]);
+  // const [returnDraft, setReturnDraft] = useState([]);
   const { id } = useParams();
-  const { distributor, search } = useSelector((state) => state.return);
+  const { distributor, search, orderHistory, returnDraft } = useSelector(
+    (state) => state.return,
+  );
+  const {
+    updateOrderHistory,
+    addItemToDraft,
+    removeItemFromDraft,
+    setQuantity,
+  } = returnActions;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getDistributorById(id));
   }, [id, dispatch]);
 
+  useEffect(() => {
+    dispatch(getOrderById({ id, search }));
+  }, [id, search, dispatch]);
+
+  ///////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
+  const orderHistoryColumns = [
+    {
+      title: "№",
+      dataIndex: "rowIndex",
+      key: "rowIndex",
+      align: "center",
+      width: 55,
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: "Наименование",
+      dataIndex: "name",
+      key: "name",
+      align: "left",
+    },
+    {
+      title: "Уникальный код",
+      dataIndex: "identification_number",
+      key: "identification_number",
+      align: "left",
+      width: 150,
+    },
+    {
+      title: "Ед. изм.",
+      dataIndex: "unit",
+      key: "unit",
+      align: "left",
+      width: "11%",
+    },
+    {
+      title: "Кол-во",
+      dataIndex: "quantity",
+      key: "quantity",
+      align: "left",
+      width: "11%",
+    },
+    {
+      title: "Цена",
+      dataIndex: "price",
+      key: "price",
+      align: "left",
+      width: "11%",
+    },
+    {
+      title: "+",
+      key: "action",
+      align: "center",
+      width: 30,
+      render: (_, record) => (
+        //-------------------add to return draft
+        <button
+          onClick={() => {
+            dispatch(addItemToDraft(record));
+            /* setReturnDraft((prev) => {
+              if (prev.includes((item) => item.id === record.id)) {
+                return prev.map((item) =>
+                  item.id === record.id
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item,
+                );
+              } else {
+                return [
+                  { ...record, maxQuantity: record.quantity, quantity: 1 },
+                  ...prev,
+                ];
+              }
+            }); */
+          }}
+        >
+          <img src={addIcon} alt="add" />
+        </button>
+      ),
+    },
+  ];
+  //////////////////////////////////////////////////////////////////////
+  const returnDraftColumns = [
+    {
+      title: "№",
+      dataIndex: "rowIndex",
+      key: "rowIndex",
+      align: "center",
+      width: 55,
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: "Наименование",
+      dataIndex: "name",
+      key: "name",
+      align: "left",
+    },
+    {
+      title: "Уникальный код",
+      dataIndex: "identification_number",
+      key: "identification_number",
+      align: "left",
+      width: 150,
+    },
+    {
+      title: "Ед. изм.",
+      dataIndex: "unit",
+      key: "unit",
+      align: "left",
+      width: "11%",
+    },
+    {
+      title: "Кол-во",
+      dataIndex: "quantity",
+      key: "quantity",
+      align: "left",
+      width: "11%",
+      render: (_, record) => (
+        <QuantityController
+          value={record.quantity}
+          maxValue={record.maxQuantity}
+          onChange={(value) => dispatch(setQuantity({ id: record.id, value }))}
+        />
+      ),
+    },
+    {
+      title: "Цена",
+      dataIndex: "price",
+      key: "price",
+      align: "left",
+      width: "11%",
+    },
+    {
+      title: "+",
+      key: "action",
+      align: "center",
+      width: 30,
+      render: (_, record) => (
+        //-------------------remove from return draft
+        <button
+          onClick={() => {
+            dispatch(removeItemFromDraft(record));
+            /* setReturnDraft((prev) =>
+              prev.filter((item) => item.id !== record.id),
+            ); */
+          }}
+        >
+          <img src={deleteIcon} alt="edit icon" />
+        </button>
+      ),
+    },
+  ];
+  ///////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
+
   return (
     <div className="fullWidthContainer">
-      <PageHeading buttonText="Назад" heading="Оформление возврата">
+      <PageHeading buttonText="Назад" heading="Возврат товара">
         <CustomSearch
           className={styles.searchInput}
           onChange={(value) => dispatch(returnActions.setSearch(value))}
         />
       </PageHeading>
-      {/* ///////////////////////////////////////////////////////// */}
+      {/* ///////////////////////----RETURN----//////////////////////// */}
       <OrderContainer>
         <OrderSection>
           <ADTable
             size="small"
-            dataSource={products}
-            rowKey="_id"
-            columns={warehouseTableColumns}
-            height="70vh"
+            dataSource={returnDraft}
+            rowKey="id"
+            columns={returnDraftColumns}
+            height="50vh"
           />
           <div className={styles.controls}>
             <CustomButton
@@ -119,15 +233,15 @@ export default function Return() {
             </CustomButton>
           </div>
         </OrderSection>
-        {/* /////////////////////////////////////////////////////// */}
+        {/* ///////////////////////-----HISTORY-----//////////////////// */}
         <OrderSection>
           <DistributorInfo info={distributor} variant="small" />
           <ADTable
             size="small"
-            dataSource={products}
-            rowKey="_id"
-            columns={warehouseTableColumns}
-            height="70vh"
+            dataSource={orderHistory}
+            rowKey="id"
+            columns={orderHistoryColumns}
+            height="50vh"
           />
           <div className={styles.controls}>
             <TotalIndicator className={styles.total} value={99999} />
