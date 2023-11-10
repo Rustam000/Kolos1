@@ -53,11 +53,23 @@ export const returnSlice = createSlice({
     updateOrderHistory: (state, action) => {},
     addItemToDraft: (state, action) => {
       const record = action.payload;
-      state.returnDraft.unshift({
-        ...record,
-        maxQuantity: record.quantity,
-        quantity: 1,
-      });
+      const draft = state.returnDraft;
+      const existingRecord = draft.find((item) => item.id === record.id);
+      if (existingRecord) {
+        existingRecord.quantity++;
+      } else {
+        draft.unshift({
+          ...record,
+          maxQuantity: record.quantity,
+          quantity: 1,
+        });
+      }
+    },
+    removeItemFromDraft: (state, action) => {
+      const record = action.payload;
+      state.returnDraft = state.returnDraft.filter(
+        (item) => item.id !== record.id,
+      );
     },
   },
   extraReducers: (builder) => {

@@ -31,24 +31,17 @@ export default function Return() {
   const { distributor, search, orderHistory, returnDraft } = useSelector(
     (state) => state.return,
   );
-  const { setOrderHistory, addItemToDraft } = returnActions;
+  const { updateOrderHistory, addItemToDraft, removeItemFromDraft } =
+    returnActions;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getDistributorById(id));
+  }, [id, dispatch]);
+
+  useEffect(() => {
     dispatch(getOrderById({ id, search }));
-  }, [id, dispatch, setOrderHistory]);
-
-  console.log({ orderHistory });
-  console.log({ returnDraft });
-
-  function handleAdd(record) {
-    console.log(record);
-    dispatch(addItemToDraft(record));
-  }
-  function handleRemove(record) {
-    //
-  }
+  }, [id, search, dispatch]);
 
   ///////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////
@@ -105,7 +98,7 @@ export default function Return() {
         //-------------------add to return draft
         <button
           onClick={() => {
-            handleAdd(record);
+            dispatch(addItemToDraft(record));
             /* setReturnDraft((prev) => {
               if (prev.includes((item) => item.id === record.id)) {
                 return prev.map((item) =>
@@ -180,7 +173,7 @@ export default function Return() {
         //-------------------remove from return draft
         <button
           onClick={() => {
-            handleRemove(record);
+            dispatch(removeItemFromDraft(record));
             /* setReturnDraft((prev) =>
               prev.filter((item) => item.id !== record.id),
             ); */
