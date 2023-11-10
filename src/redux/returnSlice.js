@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../api/axiosPrivate";
 import { axiosDummy } from "../api/axiosDummy";
+import { createPath } from "react-router-dom";
 
 export const getDistributorById = createAsyncThunk(
   "return/getDistributorById",
@@ -55,14 +56,20 @@ export const returnSlice = createSlice({
       const record = action.payload;
       const draft = state.returnDraft;
       const existingRecord = draft.find((item) => item.id === record.id);
-      if (existingRecord) {
-        existingRecord.quantity++;
-      } else {
+      console.log(existingRecord);
+      console.log(existingRecord?.quantity);
+      if (!existingRecord) {
         draft.unshift({
           ...record,
           maxQuantity: record.quantity,
           quantity: 1,
         });
+      } else {
+        if (existingRecord.quantity < existingRecord.maxQuantity) {
+          existingRecord.quantity++;
+        } else {
+          return state;
+        }
       }
     },
     removeItemFromDraft: (state, action) => {

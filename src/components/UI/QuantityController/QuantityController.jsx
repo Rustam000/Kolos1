@@ -10,7 +10,7 @@ export default function QuantityController({ value, maxValue, onChange }) {
     if (inputValue !== "") {
       onChange(inputValue);
     }
-  }, [inputValue, onChange]);
+  }, [inputValue]);
 
   useEffect(() => {
     setInputValue(value);
@@ -28,7 +28,6 @@ export default function QuantityController({ value, maxValue, onChange }) {
   }
 
   function handleChangeValue(newValue) {
-    console.log(newValue);
     if (newValue < 1) {
       setInputValue(1);
       return;
@@ -45,7 +44,6 @@ export default function QuantityController({ value, maxValue, onChange }) {
       setInputValue(1);
     }
   }
-  console.log("inputValue: ", inputValue);
   return (
     <div className={styles.QuantityController}>
       <span className={styles.inputWrapper}>

@@ -118,7 +118,7 @@ export default function Return() {
             }); */
           }}
         >
-          <img src={addIcon} alt="edit icon" />
+          <img src={addIcon} alt="add" />
         </button>
       ),
     },
