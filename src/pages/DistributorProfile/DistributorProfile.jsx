@@ -82,14 +82,14 @@ export default function DistributorProfile() {
     dispatch(getDistributorById(id));
   }, []);
 
-  const [year, setYear] = useState("");
+  const [endDate, setEndDate] = useState("");
 
-  const handleYearChange = (e) => {
-    const yearInput = e.target.value;
-    if (yearInput.length <= 4) {
-      setYear(yearInput);
-    }
-  };
+  function handleBlur(event) {
+    const [year, month, day] = event.target.value.split("-");
+    const fourDigitYear = year.slice(0, 4);
+    const correctDate = [fourDigitYear, month, day].join("-");
+    setEndDate(correctDate);
+  }
 
   return (
     <div className={styles.DistributorProfile}>
@@ -138,18 +138,18 @@ export default function DistributorProfile() {
             >
               От
             </label>
-            <input
-              type="date"
-              id="startDate"
-              value={year}
-              onChange={handleYearChange}
-              placeholder="Год"
-              maxLength={4}
-            />
+            <input type="date" id="startDate" />
             <label className={styles.dateLabel} htmlFor="endDate">
               До
             </label>
-            <input type="date" id="endDate" />
+            <input
+              type="date"
+              id="endDate"
+              name="endDate"
+              value={endDate}
+              onBlur={(event) => handleBlur(event)}
+              onChange={(event) => setEndDate(event.target.value)}
+            />
           </form>
           <ADTable
             dataSource={products}
