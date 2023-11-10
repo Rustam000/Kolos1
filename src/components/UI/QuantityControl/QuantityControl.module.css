@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .arrowButtonContainer {
+    display: flex;
+    flex-direction: column;
+    height: 30px; 
+  }
+  
+  .arrowButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .quantityInput {
+    width: 4em;
+    padding: 5px;
+    text-align: center;
+    margin-right: 5px; 
+    border: 1px solid #ddd;
+
+  }
+  
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
