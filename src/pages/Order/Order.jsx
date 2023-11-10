@@ -10,9 +10,8 @@ import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import TotalIndicator from "../../components/UI/TotalIndicator/TotalIndicator";
 import OrderSection from "../../components/OrderSection/OrderSection";
-import OrderButton from '../../components/UI/OrderButton/OrderButton';
-import QuantityControl from '../../components/UI/Quantitycontrol/QuantityControl';
-
+import OrderButton from "../../components/UI/OrderButton/OrderButton";
+import QuantityControl from "../../components/UI/QuantityControl/QuantityControl";
 
 export default function Order() {
   const { id } = useParams();
@@ -20,11 +19,13 @@ export default function Order() {
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
   const [orderItems, setOrderItems] = useState([]);
-  const [formData, setFormData] = useState({ nackladnoy_number: '' });
+  const [formData, setFormData] = useState({ nackladnoy_number: "" });
 
   useEffect(() => {
     async function fetchCredentials() {
-      const response = await axios.get(`http://51.20.115.221/api/v1/distributors/${id}`);
+      const response = await axios.get(
+        `http://51.20.115.221/api/v1/distributors/${id}`,
+      );
       setDistributor(response.data);
     }
     fetchCredentials();
@@ -32,7 +33,9 @@ export default function Order() {
 
   useEffect(() => {
     async function fetchItems() {
-      const response = await axios.get(`https://jwt-authentication-beryl.vercel.app/api/warehouse/`);
+      const response = await axios.get(
+        `https://jwt-authentication-beryl.vercel.app/api/warehouse/`,
+      );
       setItems(response.data.results);
     }
     fetchItems();
@@ -43,10 +46,14 @@ export default function Order() {
   };
   const addToOrder = (item) => {
     setOrderItems((prevItems) => {
-      const existingItem = prevItems.find((i) => i.identification_number === item.identification_number);
+      const existingItem = prevItems.find(
+        (i) => i.identification_number === item.identification_number,
+      );
       if (existingItem) {
         return prevItems.map((i) =>
-          i.identification_number === item.identification_number ? { ...i, quantity: i.quantity + 1 } : i
+          i.identification_number === item.identification_number
+            ? { ...i, quantity: i.quantity + 1 }
+            : i,
         );
       }
       return [...prevItems, { ...item, quantity: 1 }];
@@ -54,10 +61,13 @@ export default function Order() {
   };
 
   const removeFromOrder = (identification_number) => {
-    setOrderItems((prevItems) => prevItems.filter((i) => i.identification_number !== identification_number));
+    setOrderItems((prevItems) =>
+      prevItems.filter(
+        (i) => i.identification_number !== identification_number,
+      ),
+    );
   };
 
-  
   const [orderTableColumns] = useState([
     {
       title: "№",
@@ -72,7 +82,7 @@ export default function Order() {
       dataIndex: "name",
       key: "name",
       align: "left",
-      width: "15%"
+      width: "15%",
     },
     {
       title: "Уникальный код",
@@ -123,10 +133,10 @@ export default function Order() {
       width: 100,
       render: (_, record) => (
         <OrderButton variant="remove" onClick={() => cancelOrder(record)} />
-        
-    )},
+      ),
+    },
   ]);
-  
+
   const [warehouseTableColumns] = useState([
     {
       title: "№",
@@ -183,43 +193,57 @@ export default function Order() {
     },
   ]);
 
-    // console.log ({items})
-    // console.log ({orderItems})
+  // console.log ({items})
+  // console.log ({orderItems})
 
-    return (
-      <div className={styles.container}>
-        <PageHeading buttonText="Назад" heading="Оформление заявки" />
-        <main className={styles.main}>
-          <OrderSection>
-            <DistributorInfo info={distributor} variant="small" />
-            <div className={styles.topRightInput}>
-              <label className={styles.formInput}>
-                <input
-                  type="text"
-                  name="nackladnoy_number"
-                  value={formData.nackladnoy_number}
-                  onChange={handleInputChange}
-                  placeholder="Номер накладного"
-                />
-              </label>
-            </div>
-            <ADTable
-              size="small"
-              dataSource={orderItems}
-              rowKey="identification_number"
-              columns={orderTableColumns}
-              height="70vh"
+  return (
+    <div className={styles.container}>
+      <PageHeading buttonText="Назад" heading="Оформление заявки" />
+      <main className={styles.main}>
+        <OrderSection>
+          <DistributorInfo info={distributor} variant="small" />
+          <div className={styles.topRightInput}>
+            <label className={styles.formInput}>
+              <input
+                type="text"
+                name="nackladnoy_number"
+                value={formData.nackladnoy_number}
+                onChange={handleInputChange}
+                placeholder="Номер накладного"
+              />
+            </label>
+          </div>
+          <ADTable
+            size="small"
+            dataSource={orderItems}
+            rowKey="identification_number"
+            columns={orderTableColumns}
+            height="70vh"
+          />
+          <div className={styles.controls}>
+            <TotalIndicator
+              className={styles.total}
+              value={orderItems.reduce(
+                (acc, item) => acc + item.quantity * item.price,
+                0,
+              )}
             />
-            <div className={styles.controls}>
-              <TotalIndicator className={styles.total} value={orderItems.reduce((acc, item) => acc + item.quantity * item.price, 0)} />
-              <CustomButton className={styles.orderButton} width="narrow" variant="secondary">
-                Распечатать
-              </CustomButton>
-              <CustomButton className={styles.orderButton} width="narrow" variant="primary">
-                Сохранить
-              </CustomButton>
-            </div>
-          </OrderSection>
+            <CustomButton
+              className={styles.orderButton}
+              width="narrow"
+              variant="secondary"
+            >
+              Распечатать
+            </CustomButton>
+            <CustomButton
+              className={styles.orderButton}
+              width="narrow"
+              variant="primary"
+            >
+              Сохранить
+            </CustomButton>
+          </div>
+        </OrderSection>
         <OrderSection>
           <h3 className={styles.sectionHeading}>Товар со склада</h3>
           <ADTable
