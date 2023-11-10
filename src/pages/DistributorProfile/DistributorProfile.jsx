@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import { getDistributorById } from "../../redux/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 
@@ -82,6 +82,15 @@ export default function DistributorProfile() {
     dispatch(getDistributorById(id));
   }, []);
 
+  const [year, setYear] = useState('');
+
+  const handleYearChange = (e) => {
+    const yearInput = e.target.value;
+    if (yearInput.length <= 4) {
+      setYear(yearInput);
+    }
+  };
+
   return (
     <div className={styles.DistributorProfile}>
       <div className="container">
@@ -96,15 +105,15 @@ export default function DistributorProfile() {
             <div className={styles.actions}>
               <CustomButton
                 variant="secondary"
-                onClick={() => navigate(`../return/${id}`)}
+                onClick={() => navigate(`../order/${id}`)}
               >
-                Возврат
+                Отпускать 
               </CustomButton>
               <CustomButton
                 variant="secondary"
-                onClick={() => navigate(`../order/${id}`)}
+                onClick={() => navigate(`../return/${id}`)}
               >
-                Продать
+                Возврат
               </CustomButton>
             </div>
           </div>
@@ -127,7 +136,10 @@ export default function DistributorProfile() {
             >
               От
             </label>
-            <input type="date" id="startDate" />
+            <input type="date" id="startDate" value={year}
+          onChange={handleYearChange}
+          placeholder="Год"
+          maxLength={4} />
             <label className={styles.dateLabel} htmlFor="endDate">
               До
             </label>
