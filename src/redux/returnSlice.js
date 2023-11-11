@@ -56,8 +56,6 @@ export const returnSlice = createSlice({
       const record = action.payload;
       const draft = state.returnDraft;
       const existingRecord = draft.find((item) => item.id === record.id);
-      console.log(existingRecord);
-      console.log(existingRecord?.quantity);
       if (!existingRecord) {
         draft.unshift({
           ...record,
