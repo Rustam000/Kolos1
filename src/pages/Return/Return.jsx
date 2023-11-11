@@ -26,18 +26,19 @@ import { targetColumns } from "./targetColumns";
 
 export default function Return() {
   const { id } = useParams();
-  const { distributor, search, orderHistory, returnDraft, targetHoverRowId } =
-    useSelector((state) => state.return);
+  const { distributor, search, source, target, hoverRowId } = useSelector(
+    (state) => state.return,
+  );
   const {
-    updateOrderHistory,
-    addItemToDraft,
-    removeItemFromDraft,
+    updateSource,
+    addItemToTarget,
+    removeItemFromTarget,
     setQuantity,
-    setTargetHoverRowId,
+    setHoverRowId,
   } = returnActions;
   const dispatch = useDispatch();
 
-  const returnDraftTotalQuantity = returnDraft.reduce(
+  const targetTotalQuantity = target.reduce(
     (acc, item) => acc + item.quantity,
     0,
   );
@@ -45,8 +46,8 @@ export default function Return() {
   const sourceTotal = 0;
 
   useEffect(() => {
-    dispatch(updateOrderHistory());
-  }, [returnDraftTotalQuantity]);
+    dispatch(updateSource());
+  }, [targetTotalQuantity]);
 
   useEffect(() => {
     dispatch(getDistributorById(id));
@@ -63,7 +64,7 @@ export default function Return() {
     <OrderButton
       variant="add"
       onClick={() => {
-        dispatch(addItemToDraft(record));
+        dispatch(addItemToTarget(record));
       }}
     />
   ));
@@ -76,7 +77,7 @@ export default function Return() {
       <OrderButton
         variant="remove"
         onClick={() => {
-          dispatch(removeItemFromDraft(record));
+          dispatch(removeItemFromTarget(record));
         }}
       />
     ),
@@ -108,23 +109,23 @@ export default function Return() {
           onChange={(value) => dispatch(returnActions.setSearch(value))}
         />
       </PageHeading>
-      {/* ///////////////////////----RETURN----//////////////////////// */}
+      {/* ///////////////////////----TARGET----//////////////////////// */}
       <OrderContainer>
         <OrderSection>
           <ADTable
             size="small"
-            dataSource={returnDraft}
+            dataSource={target}
             rowKey="id"
             columns={targetCols}
             height="50vh"
-            onRow={(record, rowIndex) => {
+            onRow={(record) => {
               return {
-                onMouseEnter: (event) => {
-                  dispatch(setTargetHoverRowId(record.id));
-                }, // mouse enter row
-                onMouseLeave: (event) => {
-                  dispatch(setTargetHoverRowId(""));
-                }, // mouse leave row
+                onMouseEnter: () => {
+                  dispatch(setHoverRowId(record.id));
+                },
+                onMouseLeave: () => {
+                  dispatch(setHoverRowId(""));
+                },
               };
             }}
           />
@@ -145,17 +146,17 @@ export default function Return() {
             </CustomButton>
           </div>
         </OrderSection>
-        {/* ///////////////////////-----HISTORY-----//////////////////// */}
+        {/* ///////////////////////-----SOURCE-----//////////////////// */}
         <OrderSection>
           <DistributorInfo info={distributor} variant="small" />
           <ADTable
             size="small"
-            dataSource={orderHistory}
+            dataSource={source}
             rowKey="id"
             columns={sourceCols}
             height="50vh"
             rowClassName={(record) =>
-              record.id === targetHoverRowId ? styles.highlightedRow : ""
+              record.id === hoverRowId ? styles.highlightedRow : ""
             }
           />
           <div className={styles.controls}>

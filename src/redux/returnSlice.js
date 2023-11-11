@@ -40,9 +40,9 @@ const initialState = {
     contact1: "...",
     contact2: "...",
   },
-  orderHistory: [],
-  returnDraft: [],
-  targetHoverRowId: "",
+  source: [],
+  target: [],
+  hoverRowId: "",
 };
 
 export const returnSlice = createSlice({
@@ -52,21 +52,28 @@ export const returnSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
-    updateOrderHistory: (state, action) => {
-      const target = state.returnDraft;
-      const source = state.orderHistory;
+    updateSource: (state, action) => {
+      const target = state.target;
+      const source = state.source;
+      let anyMatches = false;
       target.forEach((item) => {
         const id = item.id;
-        source.find((record) => record.id === id).quantity =
-          item.maxQuantity - item.quantity;
+        const sourceRecord = source.find((record) => record.id === id);
+        if (sourceRecord) {
+          anyMatches = true;
+          sourceRecord.quantity = item.maxQuantity - item.quantity;
+        }
       });
+      if (!anyMatches) {
+        return state;
+      }
     },
-    addItemToDraft: (state, action) => {
+    addItemToTarget: (state, action) => {
       const record = action.payload;
-      const draft = state.returnDraft;
-      const existingRecord = draft.find((item) => item.id === record.id);
+      const target = state.target;
+      const existingRecord = target.find((item) => item.id === record.id);
       if (!existingRecord) {
-        draft.push({
+        target.push({
           ...record,
           maxQuantity: record.quantity,
           quantity: 1,
@@ -79,23 +86,21 @@ export const returnSlice = createSlice({
         }
       }
     },
-    removeItemFromDraft: (state, action) => {
+    removeItemFromTarget: (state, action) => {
       const record = action.payload;
-      state.returnDraft = state.returnDraft.filter(
-        (item) => item.id !== record.id,
-      );
+      state.target = state.target.filter((item) => item.id !== record.id);
     },
     setQuantity: (state, action) => {
       const { id, value } = action.payload;
-      const item = state.returnDraft.find((item) => item.id === id);
+      const item = state.target.find((item) => item.id === id);
       if (value <= item.maxQuantity) {
         item.quantity = value;
       } else {
         item.quantity = item.maxQuantity;
       }
     },
-    setTargetHoverRowId: (state, action) => {
-      state.targetHoverRowId = action.payload;
+    setHoverRowId: (state, action) => {
+      state.hoverRowId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -108,7 +113,7 @@ export const returnSlice = createSlice({
         console.log(action);
       })
       .addCase(getOrderById.fulfilled, (state, action) => {
-        state.orderHistory = action.payload;
+        state.source = action.payload;
       });
   },
 });
