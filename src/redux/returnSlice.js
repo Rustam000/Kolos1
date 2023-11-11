@@ -42,6 +42,7 @@ const initialState = {
   },
   orderHistory: [],
   returnDraft: [],
+  targetHoverRowId: "",
 };
 
 export const returnSlice = createSlice({
@@ -92,6 +93,9 @@ export const returnSlice = createSlice({
       } else {
         item.quantity = item.maxQuantity;
       }
+    },
+    setTargetHoverRowId: (state, action) => {
+      state.targetHoverRowId = action.payload;
     },
   },
   extraReducers: (builder) => {

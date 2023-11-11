@@ -11,3 +11,7 @@
 .returnButton {
   flex: 0 1 200px;
 }
+
+.highlightedRow {
+  background-color: var(--blue-light);
+}

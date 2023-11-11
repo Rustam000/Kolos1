@@ -32,14 +32,14 @@ import {
 
 export default function Return() {
   const { id } = useParams();
-  const { distributor, search, orderHistory, returnDraft } = useSelector(
-    (state) => state.return,
-  );
+  const { distributor, search, orderHistory, returnDraft, targetHoverRowId } =
+    useSelector((state) => state.return);
   const {
     updateOrderHistory,
     addItemToDraft,
     removeItemFromDraft,
     setQuantity,
+    setTargetHoverRowId,
   } = returnActions;
   const dispatch = useDispatch();
 
@@ -121,6 +121,16 @@ export default function Return() {
             rowKey="id"
             columns={returnDraftCols}
             height="50vh"
+            onRow={(record, rowIndex) => {
+              return {
+                onMouseEnter: (event) => {
+                  dispatch(setTargetHoverRowId(record.id));
+                }, // mouse enter row
+                onMouseLeave: (event) => {
+                  dispatch(setTargetHoverRowId(""));
+                }, // mouse leave row
+              };
+            }}
           />
           <div className={styles.controls}>
             <CustomButton
@@ -148,6 +158,9 @@ export default function Return() {
             rowKey="id"
             columns={orderHistoryCols}
             height="50vh"
+            rowClassName={(record) =>
+              record.id === targetHoverRowId ? styles.highlightedRow : ""
+            }
           />
           <div className={styles.controls}>
             <TotalIndicator className={styles.total} value={99999} />

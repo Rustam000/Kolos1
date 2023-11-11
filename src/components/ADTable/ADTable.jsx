@@ -8,6 +8,7 @@ export default function ADTable({
   rowKey,
   headerBg = "#f0f0f0",
   loading = false,
+  ...args
 }) {
   return (
     <ConfigProvider
@@ -34,6 +35,7 @@ export default function ADTable({
         columns={columns}
         pagination={false}
         scroll={height && { y: height }}
+        {...args}
       />
     </ConfigProvider>
   );
