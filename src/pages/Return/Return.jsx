@@ -43,7 +43,15 @@ export default function Return() {
     0,
   );
 
-  const sourceTotal = 0;
+  const sourceTotalCost = source.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0,
+  );
+
+  const targetTotalCost = target.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0,
+  );
 
   useEffect(() => {
     dispatch(updateSource());
@@ -144,6 +152,7 @@ export default function Return() {
             >
               Сохранить
             </CustomButton>
+            <TotalIndicator className={styles.total} value={targetTotalCost} />
           </div>
         </OrderSection>
         {/* ///////////////////////-----SOURCE-----//////////////////// */}
@@ -160,7 +169,7 @@ export default function Return() {
             }
           />
           <div className={styles.controls}>
-            <TotalIndicator className={styles.total} value={sourceTotal} />
+            <TotalIndicator className={styles.total} value={sourceTotalCost} />
           </div>
         </OrderSection>
       </OrderContainer>
