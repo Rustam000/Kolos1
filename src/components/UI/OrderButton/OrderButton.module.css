@@ -1,24 +1,20 @@
-.button {
-    padding: 10px;
-    border: none;
-    background-color: #ffffff; 
-    cursor: pointer;
-    outline: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 30px;
-  }
-  
-  .icon {
-    display: inline-block;
-    vertical-align: middle;
-    width: 16px;
-    height: 16px;
-    font-size: 24px;
-    user-select: none;
-    font-weight: bold;
-    align-items: center;
-    justify-content: center; 
-  }
-  
+.OrderButton {
+  padding-block: 8px;
+  margin-block: -8px;
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  background-color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.OrderButton:hover {
+  background-color: var(--input-hover-gray);
+}
+
+.OrderButton:active {
+  background-color: var(--blue-hover);
+}

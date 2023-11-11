@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./Order.module.css";
-import editIcon from "../../assets/icons/Vector.svg";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 import ADTable from "../../components/ADTable/ADTable";
@@ -124,11 +123,11 @@ export default function Order() {
       align: "left",
     },
     {
-      title: "Отменить",
+      title: "Отм.",
       dataIndex: "cancel",
       key: "cancel",
-      align: "middle",
-      width: 100,
+      align: "center",
+      width: 50,
       render: (_, record) => (
         <OrderButton variant="remove" onClick={() => cancelOrder(record)} />
       ),
@@ -179,14 +178,12 @@ export default function Order() {
       width: "11%",
     },
     {
-      title: "Отпустить",
+      title: "Отп.",
       key: "action",
       align: "center",
-      width: 100,
+      width: 50,
       render: (_, record) => (
-        <OrderButton variant="add" onClick={() => addToOrder(record)}>
-          <img src={editIcon} alt="Remove" />
-        </OrderButton>
+        <OrderButton variant="add" onClick={() => addToOrder(record)} />
       ),
     },
   ]);

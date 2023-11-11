@@ -1,22 +1,20 @@
-import React from 'react';
-import styles from './OrderButton.module.css';
-import DeleteIcon from '../../../assets/icons/delete.svg'; 
-import PlusIcon from '../../../assets/icons/plus.svg'; 
+import React from "react";
+import styles from "./OrderButton.module.css";
+import deleteIcon from "../../../assets/icons/delete.svg";
+import addIcon from "../../../assets/icons/add.svg";
 
-const OrderButton = ({ variant, onClick }) => {
-  let buttonContent;
-
-  if (variant === 'add') {
-    buttonContent = <img src={PlusIcon} alt='Add' className={styles.icon} />;
-  } else if (variant === 'remove') {
-    buttonContent = <img src={DeleteIcon} alt='Remove' className={styles.icon} />;
-  }
-
+export default function OrderButton({
+  variant = "add",
+  onClick = () => {},
+  className = "",
+}) {
   return (
-    <button onClick={onClick} className={`${styles.button} ${styles[variant]}`}>
-      {buttonContent}
+    <button onClick={onClick} className={`${styles.OrderButton} ${className}`}>
+      <img
+        src={variant === "remove" ? deleteIcon : addIcon}
+        alt={variant}
+        width={12}
+      />
     </button>
   );
-};
-
-export default OrderButton;
+}
