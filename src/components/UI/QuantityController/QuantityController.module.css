@@ -35,6 +35,14 @@
   border: 1px solid transparent;
 }
 
+.arrowButton:first-of-type img {
+  margin-bottom: -2px;
+}
+
+.arrowButton:last-of-type img {
+  margin-top: -2px;
+}
+
 .arrowButton:hover {
   background-color: var(--input-hover-gray);
   border-color: var(--button-inactive-text-gray);
