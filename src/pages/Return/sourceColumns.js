@@ -1,6 +1,6 @@
 import OrderButton from "../../components/UI/OrderButton/OrderButton";
 
-export function orderHistoryColumns(actionFn) {
+export function sourceColumns(actionFn) {
   return [
     {
       title: "№",
@@ -54,7 +54,7 @@ export function orderHistoryColumns(actionFn) {
   ];
 }
 
-export function orderHistoryColumnsNice({ dispatch, addItemToDraft }) {
+export function sourceColumnsClean({ dispatch, addItemToDraft }) {
   return [
     {
       title: "№",

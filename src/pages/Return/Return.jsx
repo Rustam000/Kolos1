@@ -17,14 +17,8 @@ import {
 } from "../../redux/returnSlice";
 import QuantityController from "../../components/UI/QuantityController/QuantityController";
 import OrderButton from "../../components/UI/OrderButton/OrderButton";
-import {
-  orderHistoryColumns,
-  orderHistoryColumnsNice,
-} from "./orderHistoryColumns";
-import {
-  returnDraftColumns,
-  returnDraftColumnsNice,
-} from "./returnDraftColumns";
+import { sourceColumns } from "./sourceColumns";
+import { targetColumns } from "./targetColumns";
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -48,6 +42,8 @@ export default function Return() {
     0,
   );
 
+  const sourceTotal = 0;
+
   useEffect(() => {
     dispatch(updateOrderHistory());
   }, [returnDraftTotalQuantity]);
@@ -62,7 +58,7 @@ export default function Return() {
 
   ///////////////////////////////////////////////////////////////////////////////
 
-  const orderHistoryCols = orderHistoryColumns((_, record) => (
+  const sourceCols = sourceColumns((_, record) => (
     //-------------------add to return draft
     <OrderButton
       variant="add"
@@ -74,7 +70,7 @@ export default function Return() {
 
   //////////////////////////////////////////////////////////////////////
 
-  const returnDraftCols = returnDraftColumns(
+  const targetCols = targetColumns(
     (_, record) => (
       //-------------------remove from return draft
       <OrderButton
@@ -119,7 +115,7 @@ export default function Return() {
             size="small"
             dataSource={returnDraft}
             rowKey="id"
-            columns={returnDraftCols}
+            columns={targetCols}
             height="50vh"
             onRow={(record, rowIndex) => {
               return {
@@ -156,14 +152,14 @@ export default function Return() {
             size="small"
             dataSource={orderHistory}
             rowKey="id"
-            columns={orderHistoryCols}
+            columns={sourceCols}
             height="50vh"
             rowClassName={(record) =>
               record.id === targetHoverRowId ? styles.highlightedRow : ""
             }
           />
           <div className={styles.controls}>
-            <TotalIndicator className={styles.total} value={99999} />
+            <TotalIndicator className={styles.total} value={sourceTotal} />
           </div>
         </OrderSection>
       </OrderContainer>

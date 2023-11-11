@@ -1,7 +1,7 @@
 import OrderButton from "../../components/UI/OrderButton/OrderButton";
 import QuantityController from "../../components/UI/QuantityController/QuantityController";
 
-export function returnDraftColumns(actionFn, quantityFn) {
+export function targetColumns(actionFn, quantityFn) {
   return [
     {
       title: "№",
@@ -62,7 +62,7 @@ export function returnDraftColumns(actionFn, quantityFn) {
   ];
 }
 
-export function returnDraftColumnsNice({
+export function targetColumnsClean({
   dispatch,
   setQuantity,
   removeItemFromDraft,
