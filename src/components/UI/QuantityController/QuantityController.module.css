@@ -1,6 +1,7 @@
 .QuantityController {
   display: flex;
   align-items: center;
+  margin-block: -2px;
 }
 
 .inputWrapper {
