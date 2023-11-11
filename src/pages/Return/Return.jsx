@@ -202,7 +202,6 @@ export default function Return() {
     <div className="fullWidthContainer">
       <PageHeading buttonText="Назад" heading="Возврат товара">
         <CustomSearch
-          className={styles.searchInput}
           onChange={(value) => dispatch(returnActions.setSearch(value))}
         />
       </PageHeading>

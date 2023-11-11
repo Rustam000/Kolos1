@@ -80,42 +80,42 @@ export default function Order() {
       dataIndex: "name",
       key: "name",
       align: "left",
-      width: "15%",
+      //width: "15%",
     },
     {
       title: "Уникальный код",
       dataIndex: "identification_number",
       key: "identification_number",
       align: "left",
-      width: 150,
+      //width: 150,
     },
     {
       title: "Ед. измер.",
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: "11%",
+      //width: "11%",
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: "8%",
+      //width: "8%",
     },
     {
       title: "Цена",
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: "8%",
+      //width: "8%",
     },
     {
       title: "Сумма",
       dataIndex: "sum",
       key: "sum",
       align: "left",
-      render: (text, record) => (record.quantity * record.price).toFixed(2),
+      render: (text, record) => record.quantity * record.price,
     },
     {
       title: "Дата",
@@ -196,7 +196,9 @@ export default function Order() {
 
   return (
     <div className={styles.container}>
-      <PageHeading buttonText="Назад" heading="Оформление заявки" />
+      <PageHeading buttonText="Назад" heading="Оформление заявки">
+        <CustomSearch />
+      </PageHeading>
       <main className={styles.main}>
         <OrderSection>
           <div className={styles.infoWrapper}>
@@ -216,7 +218,7 @@ export default function Order() {
             dataSource={orderItems}
             rowKey="identification_number"
             columns={orderTableColumns}
-            height="70vh"
+            height="50vh"
           />
           <div className={styles.controls}>
             <TotalIndicator
@@ -249,7 +251,7 @@ export default function Order() {
             dataSource={items}
             rowKey="id"
             columns={warehouseTableColumns}
-            height="70vh"
+            height="50vh"
           />
         </OrderSection>
       </main>
