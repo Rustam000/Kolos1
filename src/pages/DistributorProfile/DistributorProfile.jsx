@@ -1,15 +1,14 @@
-import styles from "./DistributorProfile.module.css";
-import ADTable from "../../components/ADTable/ADTable";
-import { products } from "../../components/CustomTable/beer_data";
-import CustomButton from "../../components/UI/CustomButton/CustomButton";
-import { useNavigate, useParams } from "react-router-dom";
-import PageHeading from "../../components/PageHeading/PageHeading";
-import { getDistributorById } from "../../redux/profileSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
-import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
-
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchReturnsHistory, fetchSalesHistory, getDistributorById, profileActions } from '../../redux/profileSlice';
+import PageHeading from '../../components/PageHeading/PageHeading';
+import DistributorInfo from '../../components/DistributorInfo/DistributorInfo';
+import CustomButton from '../../components/UI/CustomButton/CustomButton';
+import ADTable from '../../components/ADTable/ADTable';
+import CustomSelect from '../../components/UI/CustomSelect/CustomSelect';
+import styles from './DistributorProfile.module.css';
+import { products } from '../../components/CustomTable/beer_data';
 const tableColumns = [
   {
     title: "№",
@@ -71,25 +70,52 @@ const tableColumns = [
 ];
 
 export default function DistributorProfile() {
-  const { distributorInfo, isLoading, error } = useSelector(
+  const { distributorInfo, salesHistory, historySales, category, returnsHistory, isLoading, error } = useSelector(
     (state) => state.profile,
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const { setCategory, setSales } = profileActions
+
+  const initialFilterState = {
+    startDate: '',
+    endDate: '',
+    selectedType: '',
+    selectedStatus: '',
+  };
+
+  // Использование одного объекта состояния для всех фильтров
+  const [filters, setFilters] = useState(initialFilterState); 
+
   useEffect(() => {
     dispatch(getDistributorById(id));
   }, []);
 
-  const [year, setYear] = useState('');
+  
 
-  const handleYearChange = (e) => {
-    const yearInput = e.target.value;
-    if (yearInput.length <= 4) {
-      setYear(yearInput);
+  useEffect(() => {
+    console.log(filters.startDate)
+    if(historySales === 'return') {
+      dispatch(fetchReturnsHistory(id,{category, order_date:filters.startDate, return_date:filters.endDate}))
+      return
+    } else if(historySales === 'order') {
+      dispatch(fetchSalesHistory(id,{category, order_date:filters.startDate, return_date:filters.endDate}))
     }
+   
+  },[category, filters.startDate, filters.endDate, dispatch, historySales, fetchReturnsHistory, fetchSalesHistory])
+
+
+  const handleFilterChange = (filterName, value) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterName]: value,
+    }));
   };
+
+
+
 
   return (
     <div className={styles.DistributorProfile}>
@@ -105,25 +131,27 @@ export default function DistributorProfile() {
             <div className={styles.actions}>
               <CustomButton
                 variant="secondary"
-                onClick={() => navigate(`../order/${id}`)}
-              >
-                Отпускать 
-              </CustomButton>
-              <CustomButton
-                variant="secondary"
                 onClick={() => navigate(`../return/${id}`)}
               >
                 Возврат
+              </CustomButton>
+              <CustomButton
+                variant="secondary"
+                onClick={() => navigate(`../order/${id}`)}
+              >
+                Продать
               </CustomButton>
             </div>
           </div>
 
           <form className={styles.filterbar}>
             <CustomSelect
-              options={[{ label: "---", value: "---" }]}
+            onChange={(value) => dispatch(setCategory(value))}
+              options={[{ label: "Все товары", value:'alcohol' }]}
               className={styles.select}
             />
             <CustomSelect
+              onChange={(value) => dispatch(setSales(value)) }
               options={[
                 { label: "История продаж", value: "order" },
                 { label: "История возврата", value: "return" },
@@ -136,17 +164,14 @@ export default function DistributorProfile() {
             >
               От
             </label>
-            <input type="date" id="startDate" value={year}
-          onChange={handleYearChange}
-          placeholder="Год"
-          maxLength={4} />
+            <input type="date" value={filters.startDate} onChange={(e) => handleFilterChange('startDate',e.target.value)} id="startDate" />
             <label className={styles.dateLabel} htmlFor="endDate">
               До
             </label>
-            <input type="date" id="endDate" />
+            <input type="date" value={filters.endDate} onChange={(e) => handleFilterChange('endDate',e.target.value)} id="endDate" />
           </form>
-          <ADTable
-            dataSource={products}
+          <ADTable       
+            dataSource={historySales === 'order' ? salesHistory : returnsHistory}
             rowKey="_id"
             columns={tableColumns}
             height="55vh"
