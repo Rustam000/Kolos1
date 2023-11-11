@@ -1,6 +1,5 @@
 import OrderButton from "../../components/UI/OrderButton/OrderButton";
 import QuantityController from "../../components/UI/QuantityController/QuantityController";
-import { returnActions } from "../../redux/returnSlice";
 
 export function returnDraftColumns(actionFn, quantityFn) {
   return [
@@ -63,7 +62,11 @@ export function returnDraftColumns(actionFn, quantityFn) {
   ];
 }
 
-export function returnDraftColumnsNice(dispatch) {
+export function returnDraftColumnsNice({
+  dispatch,
+  setQuantity,
+  removeItemFromDraft,
+}) {
   return [
     {
       title: "№",
@@ -103,8 +106,7 @@ export function returnDraftColumnsNice(dispatch) {
         QuantityController({
           value: record.quantity,
           maxValue: record.maxQuantity,
-          onChange: (value) =>
-            dispatch(returnActions.setQuantity({ id: record.id, value })),
+          onChange: (value) => dispatch(setQuantity({ id: record.id, value })),
         }),
     },
     {
@@ -130,7 +132,7 @@ export function returnDraftColumnsNice(dispatch) {
         OrderButton({
           variant: "remove",
           onClick: () => {
-            dispatch(returnActions.removeItemFromDraft(record));
+            dispatch(removeItemFromDraft(record));
           },
         }),
     },

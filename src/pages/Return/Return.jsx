@@ -17,8 +17,14 @@ import {
 } from "../../redux/returnSlice";
 import QuantityController from "../../components/UI/QuantityController/QuantityController";
 import OrderButton from "../../components/UI/OrderButton/OrderButton";
-import { orderHistoryColumns } from "./orderHistoryColumns";
-import { returnDraftColumns } from "./returnDraftColumns";
+import {
+  orderHistoryColumns,
+  orderHistoryColumnsNice,
+} from "./orderHistoryColumns";
+import {
+  returnDraftColumns,
+  returnDraftColumnsNice,
+} from "./returnDraftColumns";
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -78,6 +84,16 @@ export default function Return() {
     ),
   );
 
+  ///////////////////////////////////////////////////////////////////////////////
+  /* const orderHistoryCols = orderHistoryColumnsNice({
+    dispatch,
+    addItemToDraft,
+  });
+  const returnDraftCols = returnDraftColumnsNice({
+    dispatch,
+    setQuantity,
+    removeItemFromDraft,
+  }); */
   ///////////////////////////////////////////////////////////////////////////////
 
   return (

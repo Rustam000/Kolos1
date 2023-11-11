@@ -1,5 +1,4 @@
 import OrderButton from "../../components/UI/OrderButton/OrderButton";
-import { returnActions } from "../../redux/returnSlice";
 
 export function orderHistoryColumns(actionFn) {
   return [
@@ -55,7 +54,7 @@ export function orderHistoryColumns(actionFn) {
   ];
 }
 
-export function orderHistoryColumnsNice(dispatch) {
+export function orderHistoryColumnsNice({ dispatch, addItemToDraft }) {
   return [
     {
       title: "№",
@@ -109,7 +108,7 @@ export function orderHistoryColumnsNice(dispatch) {
         OrderButton({
           variant: "add",
           onClick: () => {
-            dispatch(returnActions.addItemToDraft(record));
+            dispatch(addItemToDraft(record));
           },
         }),
     },
