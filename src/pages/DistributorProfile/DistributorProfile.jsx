@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
+import yearLimiter from "../../utils/yearLimiter";
 
 const tableColumns = [
   {
@@ -85,10 +86,10 @@ export default function DistributorProfile() {
   const [endDate, setEndDate] = useState("");
 
   function handleBlur(event) {
-    const [year, month, day] = event.target.value.split("-");
+    /* const [year, month, day] = event.target.value.split("-");
     const fourDigitYear = year.slice(0, 4);
-    const correctDate = [fourDigitYear, month, day].join("-");
-    setEndDate(correctDate);
+    const correctDate = [fourDigitYear, month, day].join("-"); */
+    setEndDate(yearLimiter(event.target.value));
   }
 
   return (
