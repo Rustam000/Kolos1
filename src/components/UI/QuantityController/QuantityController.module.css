@@ -12,6 +12,10 @@
   width: 100%;
   padding: 5px;
   border-radius: 5px;
+  border: 1px solid var(--button-inactive-gray);
+}
+
+.input:hover {
   border: 1px solid var(--button-inactive-text-gray);
 }
 
@@ -27,8 +31,10 @@
   padding-inline: 5px;
   border: none;
   border-radius: 3px;
+  border: 1px solid transparent;
 }
 
 .arrowButton:hover {
   background-color: var(--input-hover-gray);
+  border-color: var(--button-inactive-text-gray);
 }
