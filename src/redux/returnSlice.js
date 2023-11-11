@@ -87,8 +87,15 @@ export const returnSlice = createSlice({
       }
     },
     removeItemFromTarget: (state, action) => {
-      const record = action.payload;
-      state.target = state.target.filter((item) => item.id !== record.id);
+      const { id } = action.payload;
+      state.target = state.target.filter((targetItem) => {
+        if (targetItem.id === id) {
+          state.source.find((sourceItem) => sourceItem.id === id).quantity =
+            targetItem.maxQuantity;
+          return false;
+        }
+        return true;
+      });
     },
     setQuantity: (state, action) => {
       const { id, value } = action.payload;
