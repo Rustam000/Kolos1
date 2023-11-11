@@ -18,6 +18,7 @@ import {
   returnActions,
 } from "../../redux/returnSlice";
 import QuantityController from "../../components/UI/QuantityController/QuantityController";
+import OrderButton from "../../components/UI/OrderButton/OrderButton";
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -93,33 +94,18 @@ export default function Return() {
       width: "11%",
     },
     {
-      title: "+",
+      title: "",
       key: "action",
       align: "center",
-      width: 30,
+      width: 50,
       render: (_, record) => (
         //-------------------add to return draft
-        <button
+        <OrderButton
+          variant="add"
           onClick={() => {
             dispatch(addItemToDraft(record));
-            /* setReturnDraft((prev) => {
-              if (prev.includes((item) => item.id === record.id)) {
-                return prev.map((item) =>
-                  item.id === record.id
-                    ? { ...item, quantity: item.quantity + 1 }
-                    : item,
-                );
-              } else {
-                return [
-                  { ...record, maxQuantity: record.quantity, quantity: 1 },
-                  ...prev,
-                ];
-              }
-            }); */
           }}
-        >
-          <img src={addIcon} alt="add" />
-        </button>
+        />
       ),
     },
   ];
@@ -175,22 +161,18 @@ export default function Return() {
       width: "11%",
     },
     {
-      title: "+",
+      title: "",
       key: "action",
       align: "center",
-      width: 30,
+      width: 50,
       render: (_, record) => (
         //-------------------remove from return draft
-        <button
+        <OrderButton
+          variant="remove"
           onClick={() => {
             dispatch(removeItemFromDraft(record));
-            /* setReturnDraft((prev) =>
-              prev.filter((item) => item.id !== record.id),
-            ); */
           }}
-        >
-          <img src={deleteIcon} alt="edit icon" />
-        </button>
+        />
       ),
     },
   ];

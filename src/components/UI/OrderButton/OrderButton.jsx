@@ -3,6 +3,11 @@ import styles from "./OrderButton.module.css";
 import deleteIcon from "../../../assets/icons/delete.svg";
 import addIcon from "../../../assets/icons/add.svg";
 
+/**
+ * @typedef {'add'|'remove'} Variant
+ * @param {Object} param0
+ * @param {Variant} [param0.variant="add"]
+ */
 export default function OrderButton({
   variant = "add",
   onClick = () => {},
