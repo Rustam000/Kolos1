@@ -43,6 +43,15 @@ export default function Return() {
   } = returnActions;
   const dispatch = useDispatch();
 
+  const returnDraftTotalQuantity = returnDraft.reduce(
+    (acc, item) => acc + item.quantity,
+    0,
+  );
+
+  useEffect(() => {
+    dispatch(updateOrderHistory());
+  }, [returnDraftTotalQuantity]);
+
   useEffect(() => {
     dispatch(getDistributorById(id));
   }, [id, dispatch]);

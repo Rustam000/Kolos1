@@ -51,7 +51,15 @@ export const returnSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
-    updateOrderHistory: (state, action) => {},
+    updateOrderHistory: (state, action) => {
+      const target = state.returnDraft;
+      const source = state.orderHistory;
+      target.forEach((item) => {
+        const id = item.id;
+        source.find((record) => record.id === id).quantity =
+          item.maxQuantity - item.quantity;
+      });
+    },
     addItemToDraft: (state, action) => {
       const record = action.payload;
       const draft = state.returnDraft;
