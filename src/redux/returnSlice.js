@@ -57,7 +57,7 @@ export const returnSlice = createSlice({
       const draft = state.returnDraft;
       const existingRecord = draft.find((item) => item.id === record.id);
       if (!existingRecord) {
-        draft.unshift({
+        draft.push({
           ...record,
           maxQuantity: record.quantity,
           quantity: 1,
@@ -85,24 +85,6 @@ export const returnSlice = createSlice({
         item.quantity = item.maxQuantity;
       }
     },
-    /* incrementQuantity: (state, action) => {
-      const id = action.payload;
-      const item = state.returnDraft.find((item) => item.id === id);
-      if (item.quantity < item.maxQuantity) {
-        item.quantity++;
-      } else {
-        return state;
-      }
-    },
-    decrementQuantity: (state, action) => {
-      const id = action.payload;
-      const item = state.returnDraft.find((item) => item.id === id);
-      if (item.quantity > 1) {
-        item.quantity--;
-      } else {
-        return state;
-      }
-    }, */
   },
   extraReducers: (builder) => {
     builder

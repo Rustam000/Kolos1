@@ -17,16 +17,14 @@ import {
 } from "../../redux/returnSlice";
 import QuantityController from "../../components/UI/QuantityController/QuantityController";
 import OrderButton from "../../components/UI/OrderButton/OrderButton";
-import orderHistoryColumns from "./orderHistoryColumns";
-import returnDraftColumns from "./returnDraftColumns";
+import { orderHistoryColumns } from "./orderHistoryColumns";
+import { returnDraftColumns } from "./returnDraftColumns";
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
 export default function Return() {
-  // const [orderHistory, setOrderHistory] = useState([]);
-  // const [returnDraft, setReturnDraft] = useState([]);
   const { id } = useParams();
   const { distributor, search, orderHistory, returnDraft } = useSelector(
     (state) => state.return,
@@ -48,8 +46,7 @@ export default function Return() {
   }, [id, search, dispatch]);
 
   ///////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////
+
   const orderHistoryCols = orderHistoryColumns((_, record) => (
     //-------------------add to return draft
     <OrderButton
@@ -59,7 +56,9 @@ export default function Return() {
       }}
     />
   ));
+
   //////////////////////////////////////////////////////////////////////
+
   const returnDraftCols = returnDraftColumns(
     (_, record) => (
       //-------------------remove from return draft
@@ -78,8 +77,7 @@ export default function Return() {
       />
     ),
   );
-  ///////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////
+
   ///////////////////////////////////////////////////////////////////////////////
 
   return (
