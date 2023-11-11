@@ -161,6 +161,12 @@ export default function Return() {
       width: "11%",
     },
     {
+      title: "Сумма",
+      align: "left",
+      width: "11%",
+      render: (text, record) => record.quantity * record.price,
+    },
+    {
       title: "",
       key: "action",
       align: "center",
