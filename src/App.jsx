@@ -10,11 +10,9 @@ import DistributorProfile from "./pages/DistributorProfile/DistributorProfile";
 import Distributors from "./pages/Distributors/Distributors";
 import EditDistributor from "./pages/EditDistributor/EditDistributor";
 import EditProduct from "./pages/EditProduct/EditProduct";
-import Order from "./pages/Order/Order";
 import Archive from "./pages/Archive/Archive";
 import Logout from "./pages/Logout/Logout";
 import NotFound from "./pages/NotFound/NotFound";
-import Return from "./pages/Return/Return";
 import Transaction from "./pages/Transaction/Transaction";
 
 const publicRoutes = (

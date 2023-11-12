@@ -65,7 +65,7 @@ export default function Transaction() {
     <div className="fullWidthContainer">
       <PageHeading
         buttonText="Назад"
-        backLink={`/distributor/profile/${id}`}
+        backLink={`/distributors/profile/${id}`}
         heading={isReturn ? "Возврат товара" : "Оформление заявки"}
       >
         <CustomSearch
