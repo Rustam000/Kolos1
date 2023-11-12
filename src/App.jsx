@@ -15,6 +15,7 @@ import Archive from "./pages/Archive/Archive";
 import Logout from "./pages/Logout/Logout";
 import NotFound from "./pages/NotFound/NotFound";
 import Return from "./pages/Return/Return";
+import Transaction from "./pages/Transaction/Transaction";
 
 const publicRoutes = (
   <>
@@ -38,7 +39,7 @@ const privateRoutes = (
         <Route path="profile/:id" element={<DistributorProfile />} />
         <Route path="edit/:id" element={<EditDistributor />} />
         <Route path="order/:id" element={<Order />} />
-        <Route path="return/:id" element={<Return />} />
+        <Route path="return/:id" element={<Transaction />} />
         <Route path="create" element={<EditDistributor />} />
         <Route path="archive" element={<Archive />} />
       </Route>

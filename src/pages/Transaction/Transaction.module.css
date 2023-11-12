@@ -1,0 +1,17 @@
+.controls {
+  margin-top: auto;
+  display: flex;
+  gap: 16px;
+}
+
+.total {
+  margin-left: auto;
+}
+
+.orderButton {
+  flex: 0 1 200px;
+}
+
+.highlightedRow {
+  background-color: var(--blue-light);
+}
