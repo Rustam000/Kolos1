@@ -38,7 +38,7 @@ export default function DistributorProfile() {
   
 
   useEffect(() => {
-    console.log(filters.startDate)
+    
     if(historySales === 'return') {
       dispatch(fetchReturnsHistory({ distributorId: id, queryParams: { category, order_date: filters.startDate, return_date: filters.endDate } }));
       return
@@ -120,7 +120,8 @@ export default function DistributorProfile() {
 
   const products = data.map(product =>  ({
     ...product,
-    sum:Math.round(product.price * product.quantity)
+    sum:Math.round(product.price * product.quantity),
+    key:product.id,
   }))
 
   return (
@@ -187,7 +188,7 @@ export default function DistributorProfile() {
             headerBg={state === "Invalid" ? "#ffc2c2" : undefined}
             loading={isLoading}       
             dataSource={products}
-            rowKey="_id"
+            rowKey={products.key}
             columns={tableColumns}
             height="55vh"
           />
