@@ -173,7 +173,7 @@ export default function Return({
           dataSource={targetData}
           rowKey="id"
           columns={targetColumns}
-          height="60vh"
+          height="55vh"
           onRow={(record) => {
             return {
               onMouseEnter: () => {
