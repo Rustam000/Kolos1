@@ -4,15 +4,12 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
-import OrderSection from "../../components/OrderSection/OrderSection";
-import OrderContainer from "../../components/OrderContainer/OrderContainer";
 import {
   getDistributorById,
   getOrdersById,
   transactionActions,
 } from "../../redux/transactionSlice";
-import ReturnSource from "./ReturnSource/ReturnSource";
-import ReturnTarget from "./ReturnTarget/ReturnTarget";
+import Order from "./Order/Order";
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -27,9 +24,8 @@ export default function Transaction() {
     navigate("/404");
     //TODO: if distributor credentials failed to load > nav to 404
   }
-  const { distributor, search, source, target, hoverRowId } = useSelector(
-    (state) => state.transaction,
-  );
+  const { distributor, search, source, target, hoverRowId, orderNumber } =
+    useSelector((state) => state.transaction);
   const dispatch = useDispatch();
 
   const targetTotalQuantity = target.reduce(
@@ -70,24 +66,53 @@ export default function Transaction() {
           onChange={(value) => dispatch(transactionActions.setSearch(value))}
         />
       </PageHeading>
-      <OrderContainer>
-        <OrderSection>
-          <ReturnTarget
+      <main className={styles.main}>
+        {isReturn ? null : (
+          <Order
             parentStyles={styles}
-            target={target}
-            targetTotalCost={targetTotalCost}
-          />
-        </OrderSection>
-        <OrderSection>
-          <ReturnSource
-            parentStyles={styles}
-            source={source}
+            sourceData={source}
+            targetData={target}
             distributor={distributor}
+            orderNumber={orderNumber}
+            targetTotalCost={targetTotalCost}
             hoverRowId={hoverRowId}
-            sourceTotalCost={sourceTotalCost}
           />
+        )}
+        {/* <OrderSection>
+          {isReturn ? (
+            <ReturnTarget
+              parentStyles={styles}
+              data={target}
+              targetTotalCost={targetTotalCost}
+            />
+          ) : (
+            <OrderTarget
+              parentStyles={styles}
+              data={target}
+              distributor={distributor}
+              orderNumber={orderNumber}
+              targetTotalCost={targetTotalCost}
+            />
+          )}
         </OrderSection>
-      </OrderContainer>
+        <OrderSection>
+          {isReturn ? (
+            <ReturnSource
+              parentStyles={styles}
+              data={source}
+              distributor={distributor}
+              hoverRowId={hoverRowId}
+              sourceTotalCost={sourceTotalCost}
+            />
+          ) : (
+            <OrderSource
+              parentStyles={styles}
+              data={source}
+              hoverRowId={hoverRowId}
+            />
+          )}
+        </OrderSection> */}
+      </main>
     </div>
   );
 }

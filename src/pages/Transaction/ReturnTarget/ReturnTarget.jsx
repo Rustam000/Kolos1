@@ -6,11 +6,7 @@ import ADTable from "../../../components/ADTable/ADTable";
 import CustomButton from "../../../components/UI/CustomButton/CustomButton";
 import TotalIndicator from "../../../components/UI/TotalIndicator/TotalIndicator";
 
-export default function ReturnTarget({
-  parentStyles,
-  target,
-  targetTotalCost,
-}) {
+export default function ReturnTarget({ parentStyles, data, targetTotalCost }) {
   const dispatch = useDispatch();
 
   ////////////////////////////////////////////////////////////////
@@ -100,7 +96,7 @@ export default function ReturnTarget({
     <>
       <ADTable
         size="small"
-        dataSource={target}
+        dataSource={data}
         rowKey="id"
         columns={columns}
         height="60vh"

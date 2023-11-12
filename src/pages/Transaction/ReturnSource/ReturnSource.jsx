@@ -7,7 +7,7 @@ import { transactionActions } from "../../../redux/transactionSlice";
 
 export default function ReturnSource({
   parentStyles,
-  source,
+  data,
   distributor,
   hoverRowId,
   sourceTotalCost,
@@ -18,7 +18,7 @@ export default function ReturnSource({
   ////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
 
-  const sourceCols = [
+  const columns = [
     {
       title: "№",
       dataIndex: "rowIndex",
@@ -87,9 +87,9 @@ export default function ReturnSource({
       <DistributorInfo info={distributor} variant="small" />
       <ADTable
         size="small"
-        dataSource={source}
+        dataSource={data}
         rowKey="id"
-        columns={sourceCols}
+        columns={columns}
         height="50vh"
         rowClassName={(record) =>
           record.id === hoverRowId ? parentStyles.highlightedRow : ""

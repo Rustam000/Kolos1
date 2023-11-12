@@ -1,3 +1,19 @@
+.infoWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formInput input {
+  width: 182px;
+  height: 30px;
+  padding-inline: 15px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  border: 1px solid var(--7B7B7B, #7b7b7b);
+  background-color: var(--input-gray, #f6f6f6);
+}
+
 .controls {
   margin-top: auto;
   display: flex;
@@ -8,10 +24,28 @@
   margin-left: auto;
 }
 
+.orderTotal {
+  margin-right: auto;
+}
+
 .orderButton {
   flex: 0 1 200px;
 }
 
 .highlightedRow {
   background-color: var(--blue-light);
+}
+
+.sectionHeading {
+  color: var(--black-80);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 140%; /* 33.6px */
+  letter-spacing: 0.48px;
+}
+
+.main {
+  display: flex;
+  /* grid-template-columns: 1fr 1fr; */
+  gap: 20px;
 }

@@ -32,6 +32,7 @@ export const getOrdersById = createAsyncThunk(
 
 const initialState = {
   search: "",
+  orderNumber: "",
   distributor: {
     name: "...",
     inn: "...",
@@ -107,6 +108,9 @@ export const transactionSlice = createSlice({
     },
     setHoverRowId: (state, action) => {
       state.hoverRowId = action.payload;
+    },
+    setOrderNumber: (state, action) => {
+      state.orderNumber = action.payload;
     },
   },
   extraReducers: (builder) => {

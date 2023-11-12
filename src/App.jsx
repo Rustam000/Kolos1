@@ -38,7 +38,7 @@ const privateRoutes = (
         <Route index element={<Distributors />} />
         <Route path="profile/:id" element={<DistributorProfile />} />
         <Route path="edit/:id" element={<EditDistributor />} />
-        <Route path="order/:id" element={<Order />} />
+        <Route path="order/:id" element={<Transaction />} />
         <Route path="return/:id" element={<Transaction />} />
         <Route path="create" element={<EditDistributor />} />
         <Route path="archive" element={<Archive />} />
