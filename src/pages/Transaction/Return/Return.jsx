@@ -4,9 +4,9 @@ import DistributorInfo from "../../../components/DistributorInfo/DistributorInfo
 import OrderButton from "../../../components/UI/OrderButton/OrderButton";
 import TotalIndicator from "../../../components/UI/TotalIndicator/TotalIndicator";
 import { transactionActions } from "../../../redux/transactionSlice";
-import OrderSection from "../../../components/OrderSection/OrderSection";
 import QuantityController from "../../../components/UI/QuantityController/QuantityController";
 import CustomButton from "../../../components/UI/CustomButton/CustomButton";
+import TransactionSection from "../../../components/TransactionSection/TransactionSection";
 
 export default function Return({
   parentStyles,
@@ -167,7 +167,7 @@ export default function Return({
   return (
     <>
       {/* -------------------------TARGET------------------------- */}
-      <OrderSection>
+      <TransactionSection>
         <ADTable
           size="small"
           dataSource={targetData}
@@ -205,9 +205,9 @@ export default function Return({
             value={targetTotalCost}
           />
         </div>
-      </OrderSection>
+      </TransactionSection>
       {/* -------------------------SOURCE------------------------- */}
-      <OrderSection>
+      <TransactionSection>
         <DistributorInfo info={distributor} variant="small" />
         <ADTable
           size="small"
@@ -225,7 +225,7 @@ export default function Return({
             value={sourceTotalCost}
           />
         </div>
-      </OrderSection>
+      </TransactionSection>
     </>
   );
 }

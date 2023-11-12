@@ -56,7 +56,6 @@ export default function Transaction() {
 
   useEffect(() => {
     return () => {
-      console.log("cleanup");
       dispatch(transactionActions.clearData());
     };
   }, [dispatch]);

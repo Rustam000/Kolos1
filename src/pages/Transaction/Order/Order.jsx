@@ -6,7 +6,7 @@ import OrderButton from "../../../components/UI/OrderButton/OrderButton";
 import TotalIndicator from "../../../components/UI/TotalIndicator/TotalIndicator";
 import { transactionActions } from "../../../redux/transactionSlice";
 import QuantityController from "../../../components/UI/QuantityController/QuantityController";
-import OrderSection from "../../../components/OrderSection/OrderSection";
+import TransactionSection from "../../../components/TransactionSection/TransactionSection";
 
 export default function Order({
   parentStyles,
@@ -176,7 +176,7 @@ export default function Order({
   return (
     <>
       {/* -------------------------SOURCE------------------------- */}
-      <OrderSection>
+      <TransactionSection>
         <div className={parentStyles.infoWrapper}>
           <DistributorInfo info={distributor} variant="small" />
           <label className={parentStyles.formInput}>
@@ -228,9 +228,9 @@ export default function Order({
             Сохранить
           </CustomButton>
         </div>
-      </OrderSection>
+      </TransactionSection>
       {/* -------------------------TARGET------------------------- */}
-      <OrderSection>
+      <TransactionSection>
         <h3 className={parentStyles.sectionHeading}>Товар со склада</h3>
         <ADTable
           size="small"
@@ -242,7 +242,7 @@ export default function Order({
             record.id === hoverRowId ? parentStyles.highlightedRow : ""
           }
         />
-      </OrderSection>
+      </TransactionSection>
     </>
   );
 }
