@@ -1,6 +1,6 @@
 import styles from "./Transaction.module.css";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
@@ -26,6 +26,13 @@ import { targetColumns } from "./targetColumns";
 
 export default function Transaction() {
   const { id } = useParams();
+  const { pathname } = useLocation();
+  const isReturn = pathname.match("return");
+  const navigate = useNavigate();
+  if (!id) {
+    navigate("/404");
+    //TODO: if distributor credentials failed to load > nav to 404
+  }
   const { distributor, search, source, target, hoverRowId } = useSelector(
     (state) => state.transaction,
   );
@@ -113,7 +120,11 @@ export default function Transaction() {
 
   return (
     <div className="fullWidthContainer">
-      <PageHeading buttonText="Назад" heading="Возврат товара">
+      <PageHeading
+        buttonText="Назад"
+        backLink={`/distributor/profile/${id}`}
+        heading={isReturn ? "Возврат товара" : "Оформление заявки"}
+      >
         <CustomSearch onChange={(value) => dispatch(setSearch(value))} />
       </PageHeading>
       {/* ///////////////////////----TARGET----//////////////////////// */}
