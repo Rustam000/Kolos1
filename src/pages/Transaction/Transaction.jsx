@@ -19,6 +19,7 @@ import QuantityController from "../../components/UI/QuantityController/QuantityC
 import OrderButton from "../../components/UI/OrderButton/OrderButton";
 import { sourceColumns } from "./sourceColumns";
 import { targetColumns } from "./targetColumns";
+import ReturnSource from "./ReturnSource/ReturnSource";
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -167,20 +168,13 @@ export default function Transaction() {
         </OrderSection>
         {/* ///////////////////////-----SOURCE-----//////////////////// */}
         <OrderSection>
-          <DistributorInfo info={distributor} variant="small" />
-          <ADTable
-            size="small"
-            dataSource={source}
-            rowKey="id"
-            columns={sourceCols}
-            height="50vh"
-            rowClassName={(record) =>
-              record.id === hoverRowId ? styles.highlightedRow : ""
-            }
+          <ReturnSource
+            parentStyles={styles}
+            source={source}
+            distributor={distributor}
+            hoverRowId={hoverRowId}
+            sourceTotalCost={sourceTotalCost}
           />
-          <div className={styles.controls}>
-            <TotalIndicator className={styles.total} value={sourceTotalCost} />
-          </div>
         </OrderSection>
       </OrderContainer>
     </div>
