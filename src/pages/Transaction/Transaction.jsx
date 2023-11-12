@@ -10,9 +10,8 @@ import {
   transactionActions,
 } from "../../redux/transactionSlice";
 import Order from "./Order/Order";
+import Return from "./Return/Return";
 
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
 export default function Transaction() {
@@ -22,7 +21,7 @@ export default function Transaction() {
   const navigate = useNavigate();
   if (!id) {
     navigate("/404");
-    //TODO: if distributor credentials failed to load > nav to 404
+    //TODO: if distributor credentials failed to load > nav to 404?
   }
   const { distributor, search, source, target, hoverRowId, orderNumber } =
     useSelector((state) => state.transaction);
@@ -67,7 +66,17 @@ export default function Transaction() {
         />
       </PageHeading>
       <main className={styles.main}>
-        {isReturn ? null : (
+        {isReturn ? (
+          <Return
+            parentStyles={styles}
+            sourceData={source}
+            targetData={target}
+            distributor={distributor}
+            sourceTotalCost={sourceTotalCost}
+            targetTotalCost={targetTotalCost}
+            hoverRowId={hoverRowId}
+          />
+        ) : (
           <Order
             parentStyles={styles}
             sourceData={source}
@@ -78,40 +87,6 @@ export default function Transaction() {
             hoverRowId={hoverRowId}
           />
         )}
-        {/* <OrderSection>
-          {isReturn ? (
-            <ReturnTarget
-              parentStyles={styles}
-              data={target}
-              targetTotalCost={targetTotalCost}
-            />
-          ) : (
-            <OrderTarget
-              parentStyles={styles}
-              data={target}
-              distributor={distributor}
-              orderNumber={orderNumber}
-              targetTotalCost={targetTotalCost}
-            />
-          )}
-        </OrderSection>
-        <OrderSection>
-          {isReturn ? (
-            <ReturnSource
-              parentStyles={styles}
-              data={source}
-              distributor={distributor}
-              hoverRowId={hoverRowId}
-              sourceTotalCost={sourceTotalCost}
-            />
-          ) : (
-            <OrderSource
-              parentStyles={styles}
-              data={source}
-              hoverRowId={hoverRowId}
-            />
-          )}
-        </OrderSection> */}
       </main>
     </div>
   );
