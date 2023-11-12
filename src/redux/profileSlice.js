@@ -55,6 +55,7 @@ const initialState = {
   historySales:'',
   isLoading: false,
   error: null,
+  state:'Valid',
 };
 
 export const profileSlice = createSlice({
@@ -67,6 +68,9 @@ export const profileSlice = createSlice({
     setSales:(state, action) => {
       state.historySales = action.payload;
     },
+    setState:(state, action) => {
+      state.state = action.payload
+    }
   },
 
   extraReducers: (builder) => {

@@ -9,75 +9,17 @@ import ADTable from '../../components/ADTable/ADTable';
 import CustomSelect from '../../components/UI/CustomSelect/CustomSelect';
 import styles from './DistributorProfile.module.css';
 import { products } from '../../components/CustomTable/beer_data';
-const tableColumns = [
-  {
-    title: "№",
-    dataIndex: "rowIndex",
-    key: "rowIndex",
-    align: "center",
-    width: 50,
-    render: (text, record, index) => <span key={index}>{index + 1}</span>,
-  },
-  {
-    title: "Наименование",
-    dataIndex: "name",
-    key: "name",
-    align: "left",
-    width: 215,
-  },
-  {
-    title: "Уникальный код",
-    dataIndex: "num_id",
-    key: "num_id",
-    align: "left",
-    width: 190,
-  },
-  {
-    title: "Ед. изм.",
-    dataIndex: "unit",
-    key: "unit",
-    align: "left",
-    width: 130,
-  },
-  {
-    title: "Кол-во",
-    dataIndex: "quantity",
-    key: "quantity",
-    align: "left",
-    width: 130,
-  },
-  {
-    title: "Цена",
-    dataIndex: "price",
-    key: "price",
-    align: "left",
-    width: 130,
-  },
-  {
-    title: "Сумма",
-    dataIndex: "sum",
-    key: "sum",
-    align: "left",
-    width: 135,
-  },
-  {
-    title: "Дата",
-    dataIndex: "dataDeletionOne",
-    key: "dataDeletionOne",
-    align: "left",
-    width: 135,
-  },
-];
+
 
 export default function DistributorProfile() {
-  const { distributorInfo, salesHistory, historySales, category, returnsHistory, isLoading, error } = useSelector(
+  const { distributorInfo, salesHistory, historySales, category, returnsHistory, isLoading, error, state } = useSelector(
     (state) => state.profile,
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { setCategory, setSales } = profileActions
+  const { setCategory, setSales, setState } = profileActions
 
   const initialFilterState = {
     startDate: '',
@@ -98,10 +40,10 @@ export default function DistributorProfile() {
   useEffect(() => {
     console.log(filters.startDate)
     if(historySales === 'return') {
-      dispatch(fetchReturnsHistory(id,{category, order_date:filters.startDate, return_date:filters.endDate}))
+      dispatch(fetchReturnsHistory({ distributorId: id, queryParams: { category, order_date: filters.startDate, return_date: filters.endDate } }));
       return
     } else if(historySales === 'order') {
-      dispatch(fetchSalesHistory(id,{category, order_date:filters.startDate, return_date:filters.endDate}))
+      dispatch(fetchSalesHistory({ distributorId: id, queryParams: { category, order_date: filters.startDate, return_date: filters.endDate } }));
     }
    
   },[category, filters.startDate, filters.endDate, dispatch, historySales, fetchReturnsHistory, fetchSalesHistory])
@@ -114,8 +56,72 @@ export default function DistributorProfile() {
     }));
   };
 
+  const tableColumns = [
+    {
+      title: "№",
+      dataIndex: "rowIndex",
+      key: "rowIndex",
+      align: "center",
+      width: 50,
+      render: (text, record, index) => <span key={index}>{index + 1}</span>,
+    },
+    {
+      title: "Наименование",
+      dataIndex: "name",
+      key: "name",
+      align: "left",
+      width: 215,
+    },
+    {
+      title: "Уникальный код",
+      dataIndex: "identification_number",
+      key: "identification_number",
+      align: "left",
+      width: 190,
+    },
+    {
+      title: "Ед. изм.",
+      dataIndex: "unit",
+      key: "unit",
+      align: "left",
+      width: 130,
+    },
+    {
+      title: "Кол-во",
+      dataIndex: "quantity",
+      key: "quantity",
+      align: "left",
+      width: 130,
+    },
+    {
+      title: "Цена",
+      dataIndex: "price",
+      key: "price",
+      align: "left",
+      width: 130,
+    },
+    {
+      title: "Сумма",
+      dataIndex: "sum",
+      key: "sum",
+      align: "left",
+      width: 135,
+    },
+    {
+      title: "Дата",
+      dataIndex: state === 'Valid' ? 'order_date':'return_date',
+      key: state === 'Valid' ? 'order_date':'return_date',
+      align: "left",
+      width: 135,
+    },
+  ];
 
+  const data = historySales === 'order' ? salesHistory : returnsHistory
 
+  const products = data.map(product =>  ({
+    ...product,
+    sum:Math.round(product.price * product.quantity)
+  }))
 
   return (
     <div className={styles.DistributorProfile}>
@@ -147,11 +153,18 @@ export default function DistributorProfile() {
           <form className={styles.filterbar}>
             <CustomSelect
             onChange={(value) => dispatch(setCategory(value))}
-              options={[{ label: "Все товары", value:'alcohol' }]}
+              options={[
+                { label: "Все товары", value:'' },
+                { label:"Алкогольное", value:"alcohol" },
+                { label:"Безалкогольное", value:"notAlcohol" }
+              ]}
               className={styles.select}
             />
             <CustomSelect
-              onChange={(value) => dispatch(setSales(value)) }
+              onChange={(value) =>{ 
+                dispatch(setSales(value))
+                dispatch(setState(value === 'return' ? 'Invalid':'Valid'))
+              }}
               options={[
                 { label: "История продаж", value: "order" },
                 { label: "История возврата", value: "return" },
@@ -170,8 +183,10 @@ export default function DistributorProfile() {
             </label>
             <input type="date" value={filters.endDate} onChange={(e) => handleFilterChange('endDate',e.target.value)} id="endDate" />
           </form>
-          <ADTable       
-            dataSource={historySales === 'order' ? salesHistory : returnsHistory}
+          <ADTable
+            headerBg={state === "Invalid" ? "#ffc2c2" : undefined}
+            loading={isLoading}       
+            dataSource={products}
             rowKey="_id"
             columns={tableColumns}
             height="55vh"
