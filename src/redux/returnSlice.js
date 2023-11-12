@@ -16,8 +16,8 @@ export const getDistributorById = createAsyncThunk(
   },
 );
 
-export const getOrderById = createAsyncThunk(
-  "return/getOrderById",
+export const getOrdersById = createAsyncThunk(
+  "return/getOrdersById",
   async ({ id, search }) => {
     try {
       const response = await axiosDummy.get(`/distributor/orders/${id}/`, {
@@ -119,7 +119,7 @@ export const returnSlice = createSlice({
         console.log("getDistributorById failed");
         console.log(action);
       })
-      .addCase(getOrderById.fulfilled, (state, action) => {
+      .addCase(getOrdersById.fulfilled, (state, action) => {
         state.source = action.payload;
       });
   },

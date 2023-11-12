@@ -12,7 +12,7 @@ import OrderSection from "../../components/OrderSection/OrderSection";
 import OrderContainer from "../../components/OrderContainer/OrderContainer";
 import {
   getDistributorById,
-  getOrderById,
+  getOrdersById,
   returnActions,
 } from "../../redux/returnSlice";
 import QuantityController from "../../components/UI/QuantityController/QuantityController";
@@ -62,7 +62,7 @@ export default function Return() {
   }, [id, dispatch]);
 
   useEffect(() => {
-    dispatch(getOrderById({ id, search }));
+    dispatch(getOrdersById({ id, search }));
   }, [id, search, dispatch]);
 
   ///////////////////////////////////////////////////////////////////////////////
