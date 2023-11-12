@@ -54,6 +54,13 @@ export default function Transaction() {
     dispatch(getOrdersById({ id, search }));
   }, [id, search, dispatch]);
 
+  useEffect(() => {
+    return () => {
+      console.log("cleanup");
+      dispatch(transactionActions.clearData());
+    };
+  }, [dispatch]);
+
   return (
     <div className="fullWidthContainer">
       <PageHeading

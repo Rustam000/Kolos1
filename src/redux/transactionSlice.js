@@ -112,6 +112,9 @@ export const transactionSlice = createSlice({
     setOrderNumber: (state, action) => {
       state.orderNumber = action.payload;
     },
+    clearData: (state) => {
+      Object.keys(state).forEach((key) => (state[key] = initialState[key]));
+    },
   },
   extraReducers: (builder) => {
     builder
