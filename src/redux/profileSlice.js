@@ -50,12 +50,13 @@ const initialState = {
     contact2: "...",
   },
   category:'',
+  startDate:'',
+  endDate:'',
   salesHistory: [],
   returnsHistory: [],
   historySales:'',
   isLoading: false,
   error: null,
-  state:'Valid',
 };
 
 export const profileSlice = createSlice({
@@ -68,8 +69,11 @@ export const profileSlice = createSlice({
     setSales:(state, action) => {
       state.historySales = action.payload;
     },
-    setState:(state, action) => {
-      state.state = action.payload
+    setStartDate:(state,action) => {
+      state.startDate = action.payload;
+    },
+    setEndDate:(state,action) => {
+      state.endDate = action.payload;
     }
   },
 

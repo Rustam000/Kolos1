@@ -1,60 +1,75 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchReturnsHistory, fetchSalesHistory, getDistributorById, profileActions } from '../../redux/profileSlice';
-import PageHeading from '../../components/PageHeading/PageHeading';
-import DistributorInfo from '../../components/DistributorInfo/DistributorInfo';
-import CustomButton from '../../components/UI/CustomButton/CustomButton';
-import ADTable from '../../components/ADTable/ADTable';
-import CustomSelect from '../../components/UI/CustomSelect/CustomSelect';
-import styles from './DistributorProfile.module.css';
-import { products } from '../../components/CustomTable/beer_data';
-
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchReturnsHistory,
+  fetchSalesHistory,
+  getDistributorById,
+  profileActions,
+} from "../../redux/profileSlice";
+import PageHeading from "../../components/PageHeading/PageHeading";
+import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
+import ADTable from "../../components/ADTable/ADTable";
+import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
+import styles from "./DistributorProfile.module.css";
 
 export default function DistributorProfile() {
-  const { distributorInfo, salesHistory, historySales, category, returnsHistory, isLoading, error, state } = useSelector(
-    (state) => state.profile,
-  );
+  const {
+    distributorInfo,
+    salesHistory,
+    historySales,
+    startDate,
+    endDate,
+    category,
+    returnsHistory,
+    isLoading,
+    error,
+  } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { setCategory, setSales, setState } = profileActions
-
-  const initialFilterState = {
-    startDate: '',
-    endDate: '',
-    selectedType: '',
-    selectedStatus: '',
-  };
-
-  // Использование одного объекта состояния для всех фильтров
-  const [filters, setFilters] = useState(initialFilterState); 
+  const { setCategory, setSales, setStartDate, setEndDate } = profileActions;
 
   useEffect(() => {
     dispatch(getDistributorById(id));
   }, []);
 
-  
-
   useEffect(() => {
-    
-    if(historySales === 'return') {
-      dispatch(fetchReturnsHistory({ distributorId: id, queryParams: { category, order_date: filters.startDate, return_date: filters.endDate } }));
-      return
-    } else if(historySales === 'order') {
-      dispatch(fetchSalesHistory({ distributorId: id, queryParams: { category, order_date: filters.startDate, return_date: filters.endDate } }));
+    if (historySales === "return") {
+      dispatch(
+        fetchReturnsHistory({
+          distributorId: id,
+          queryParams: {
+            category,
+            start_date: startDate,
+            end_date: endDate,
+          },
+        }),
+      );
+      return;
+    } else if (historySales === "order") {
+      dispatch(
+        fetchSalesHistory({
+          distributorId: id,
+          queryParams: {
+            category,
+            start_date: startDate,
+            end_date: endDate,
+          },
+        }),
+      );
     }
-   
-  },[category, filters.startDate, filters.endDate, dispatch, historySales, fetchReturnsHistory, fetchSalesHistory])
-
-
-  const handleFilterChange = (filterName, value) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterName]: value,
-    }));
-  };
+  }, [
+    category,
+    startDate,
+    endDate,
+    dispatch,
+    historySales,
+    fetchReturnsHistory,
+    fetchSalesHistory,
+  ]);
 
   const tableColumns = [
     {
@@ -106,23 +121,22 @@ export default function DistributorProfile() {
       key: "sum",
       align: "left",
       width: 135,
+      render: (text, record) => Math.round(record.quantity * record.price),
     },
     {
       title: "Дата",
-      dataIndex: state === 'Valid' ? 'order_date':'return_date',
-      key: state === 'Valid' ? 'order_date':'return_date',
+      dataIndex: historySales === "order" ? "order_date" : "return_date",
+      key: historySales === "order" ? "order_date" : "return_date",
       align: "left",
       width: 135,
+      render: (text, record) =>
+        new Date(record?.return_date || record?.order_date)
+          .toLocaleString()
+          .substring(0, 10),
     },
   ];
 
-  const data = historySales === 'order' ? salesHistory : returnsHistory
-
-  const products = data.map(product =>  ({
-    ...product,
-    sum:Math.round(product.price * product.quantity),
-    key:product.id,
-  }))
+  const data = historySales === "order" ? salesHistory : returnsHistory;
 
   return (
     <div className={styles.DistributorProfile}>
@@ -138,33 +152,32 @@ export default function DistributorProfile() {
             <div className={styles.actions}>
               <CustomButton
                 variant="secondary"
-                onClick={() => navigate(`../return/${id}`)}
+                onClick={() => navigate(`../order/${id}`)}
               >
-                Возврат
+                Отпуск
               </CustomButton>
               <CustomButton
                 variant="secondary"
-                onClick={() => navigate(`../order/${id}`)}
+                onClick={() => navigate(`../return/${id}`)}
               >
-                Продать
+                Возврат
               </CustomButton>
             </div>
           </div>
 
           <form className={styles.filterbar}>
             <CustomSelect
-            onChange={(value) => dispatch(setCategory(value))}
+              onChange={(value) => dispatch(setCategory(value))}
               options={[
-                { label: "Все товары", value:'' },
-                { label:"Алкогольное", value:"alcohol" },
-                { label:"Безалкогольное", value:"notAlcohol" }
+                { label: "Все товары", value: "" },
+                { label: "Алкогольное", value: "alcohol" },
+                { label: "Безалкогольное", value: "notAlcohol" },
               ]}
               className={styles.select}
             />
             <CustomSelect
-              onChange={(value) =>{ 
-                dispatch(setSales(value))
-                dispatch(setState(value === 'return' ? 'Invalid':'Valid'))
+              onChange={(value) => {
+                dispatch(setSales(value));
               }}
               options={[
                 { label: "История продаж", value: "order" },
@@ -178,17 +191,27 @@ export default function DistributorProfile() {
             >
               От
             </label>
-            <input type="date" value={filters.startDate} onChange={(e) => handleFilterChange('startDate',e.target.value)} id="startDate" />
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => dispatch(setStartDate(e.target.value))}
+              id="startDate"
+            />
             <label className={styles.dateLabel} htmlFor="endDate">
               До
             </label>
-            <input type="date" value={filters.endDate} onChange={(e) => handleFilterChange('endDate',e.target.value)} id="endDate" />
+            <input
+              type="date"
+              value={endDate}
+              id="endDate"
+              onChange={(e) => dispatch(setEndDate(e.target.value))}
+            />
           </form>
           <ADTable
-            headerBg={state === "Invalid" ? "#ffc2c2" : undefined}
-            loading={isLoading}       
-            dataSource={products}
-            rowKey={products.key}
+            headerBg={historySales === "return" ? "#ffc2c2" : undefined}
+            loading={isLoading}
+            dataSource={data}
+            rowKey="id"
             columns={tableColumns}
             height="55vh"
           />
