@@ -1,0 +1,73 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 56px;
+    position: absolute;
+    width: 361px;
+    height: 226px;
+    left: 40vw; 
+    top: 40vh; 
+    transform: translate(-50%, -50%); 
+}
+
+.textMain {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.upsText {
+    font-family: 'Rubik';
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #3BA1FF;
+}
+
+.errorText {
+    font-family: 'Rubik';
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 52px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.description {
+    font-family: 'Rubik';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.buttonLink {
+    text-decoration: none; 
+}
+
+.buttonError {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 11px 8px;
+    gap: 10px;
+    width: 265px;
+    height: 49px;
+    background: #3BA1FF;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-family: 'Rubik';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+}
