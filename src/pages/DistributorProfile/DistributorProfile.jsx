@@ -13,6 +13,8 @@ import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import styles from "./DistributorProfile.module.css";
+import renderSum from "../../utils/renderSum";
+import renderDate from "../../utils/renderDate";
 
 export default function DistributorProfile() {
   const {
@@ -113,7 +115,7 @@ export default function DistributorProfile() {
       key: "sum",
       align: "left",
       width: 135,
-      render: (text, record) => record.quantity * record.price,
+      render: renderSum,
     },
     {
       title: "Дата",
@@ -121,10 +123,7 @@ export default function DistributorProfile() {
       key: historySales === "order" ? "order_date" : "return_date",
       align: "left",
       width: 135,
-      render: (text, record) =>
-        new Date(record.return_date || record.order_date).toLocaleDateString(
-          "rus",
-        ),
+      render: renderDate,
     },
   ];
 
