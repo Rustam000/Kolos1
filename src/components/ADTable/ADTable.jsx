@@ -17,12 +17,13 @@ export default function ADTable({
           Table: {
             borderColor: "#B9B9B9",
             fontFamily: "Rubik,sans-serif",
-            fontSize: size === "small" ? "12px" : undefined,
+            fontSize: size === "small" ? "11px" : undefined,
             fontWeightStrong: "500",
             headerBg: headerBg,
             lineHeight: "16px",
-            /* cellPaddingBlock: "7",
-            lineHeight: "36px", */
+            cellPaddingInlineSM: 5,
+            cellPaddingBlockSM: 5,
+            /*lineHeight: 36, */
           },
         },
       }}

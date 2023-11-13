@@ -7,6 +7,9 @@ import { transactionActions } from "../../../redux/transactionSlice";
 import QuantityController from "../../../components/UI/QuantityController/QuantityController";
 import CustomButton from "../../../components/UI/CustomButton/CustomButton";
 import TransactionSection from "../../../components/TransactionSection/TransactionSection";
+import renderSum from "../../../utils/renderSum";
+import renderDate from "../../../utils/renderDate";
+import renderIndex from "../../../utils/renderIndex";
 
 export default function Return({
   parentStyles,
@@ -29,45 +32,64 @@ export default function Return({
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: 55,
-      render: (text, record, index) => index + 1,
+      width: 40,
+      ellipsis: true,
+      render: renderIndex,
     },
     {
       title: "Наименование",
       dataIndex: "name",
       key: "name",
       align: "left",
+      ellipsis: true,
     },
     {
-      title: "Уникальный код",
+      title: "Код",
       dataIndex: "identification_number",
       key: "identification_number",
       align: "left",
-      width: 150,
+      width: 90,
+      ellipsis: true,
     },
     {
-      title: "Ед. изм.",
+      title: "Ед.",
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: "11%",
+      width: 40,
+      ellipsis: true,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: "11%",
+      width: 60,
     },
     {
       title: "Цена",
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: "11%",
+      width: 50,
     },
     {
-      title: "",
+      title: "Сумма",
+      dataIndex: "sum",
+      align: "left",
+      width: 60,
+      render: renderSum,
+    },
+    {
+      title: "Дата",
+      dataIndex: "order_date",
+      align: "left",
+      width: "10%",
+      ellipsis: true,
+      render: renderDate,
+    },
+    {
+      title: "Возв.",
       key: "action",
       align: "center",
       width: 50,
@@ -91,35 +113,39 @@ export default function Return({
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: 55,
-      render: (text, record, index) => index + 1,
+      width: 40,
+      ellipsis: true,
+      render: renderIndex,
     },
     {
       title: "Наименование",
       dataIndex: "name",
       key: "name",
       align: "left",
+      ellipsis: true,
     },
     {
-      title: "Уникальный код",
+      title: "Код",
       dataIndex: "identification_number",
       key: "identification_number",
       align: "left",
-      width: 150,
+      width: 90,
+      ellipsis: true,
     },
     {
-      title: "Ед. изм.",
+      title: "Ед.",
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: "11%",
+      width: 40,
+      ellipsis: true,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: "11%",
+      width: 90,
       render: (_, record) => (
         <QuantityController
           value={record.quantity}
@@ -135,19 +161,33 @@ export default function Return({
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: "11%",
+      width: 50,
     },
     {
       title: "Сумма",
       align: "left",
-      width: "11%",
-      render: (text, record) => record.quantity * record.price,
+      width: 60,
+      render: renderSum,
     },
     {
-      title: "",
+      title: "Дата",
+      dataIndex: "order_date",
+      align: "left",
+      width: "10%",
+      ellipsis: true,
+      render: renderDate,
+    },
+    {
+      title: "Статус",
+      dataIndex: "state",
+      align: "left",
+      width: 60,
+    },
+    {
+      title: "Отм.",
       key: "action",
       align: "center",
-      width: 50,
+      width: 45,
       render: (_, record) => (
         //-------------------remove from return draft
         <OrderButton

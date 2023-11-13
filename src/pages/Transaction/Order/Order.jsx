@@ -7,6 +7,9 @@ import TotalIndicator from "../../../components/UI/TotalIndicator/TotalIndicator
 import { transactionActions } from "../../../redux/transactionSlice";
 import QuantityController from "../../../components/UI/QuantityController/QuantityController";
 import TransactionSection from "../../../components/TransactionSection/TransactionSection";
+import renderSum from "../../../utils/renderSum";
+import renderDate from "../../../utils/renderDate";
+import renderIndex from "../../../utils/renderIndex";
 
 export default function Order({
   parentStyles,
@@ -28,9 +31,9 @@ export default function Order({
       title: "№",
       dataIndex: "rowIndex",
       align: "center",
-      width: 60,
+      width: 40,
       ellipsis: true,
-      render: (text, record, index) => index + 1,
+      render: renderIndex,
     },
     {
       title: "Наименование",
@@ -39,35 +42,35 @@ export default function Order({
       ellipsis: true,
     },
     {
-      title: "Уникальный код",
+      title: "Код",
       dataIndex: "identification_number",
       align: "left",
-      width: 130,
+      width: 90,
       ellipsis: true,
     },
     {
-      title: "Ед. Изм.",
+      title: "Ед.",
       dataIndex: "unit",
       align: "left",
-      width: "11%",
+      width: 50,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: "11%",
+      width: 60,
     },
     {
       title: "Цена",
       dataIndex: "price",
       align: "left",
-      width: "11%",
+      width: 60,
     },
     {
       title: "Отпустить",
       align: "center",
-      width: 85,
+      width: 80,
       render: (_, record) => (
         //-------------------add to target
         <OrderButton
@@ -89,7 +92,7 @@ export default function Order({
       align: "center",
       width: 40,
       ellipsis: true,
-      render: (text, record, index) => index + 1,
+      render: renderIndex,
     },
     {
       title: "Наименование",
@@ -98,17 +101,18 @@ export default function Order({
       ellipsis: true,
     },
     {
-      title: "Уникальный код",
+      title: "Код",
       dataIndex: "identification_number",
       align: "left",
       ellipsis: true,
-      width: 120,
+      width: 90,
     },
     {
       title: "Ед.",
       dataIndex: "unit",
       align: "left",
-      width: 50,
+      width: 40,
+      ellipsis: true,
     },
     {
       title: "Кол-во",
@@ -136,7 +140,7 @@ export default function Order({
       dataIndex: "sum",
       align: "left",
       width: 60,
-      render: (text, record) => record.quantity * record.price,
+      render: renderSum,
     },
     {
       title: "Дата",
@@ -144,7 +148,7 @@ export default function Order({
       align: "left",
       width: "10%",
       ellipsis: true,
-      render: (text, record) => new Date(text).toLocaleDateString("rus"),
+      render: renderDate,
     },
     {
       title: "Отм.",
