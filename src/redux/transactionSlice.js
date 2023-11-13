@@ -77,6 +77,11 @@ export const transactionSlice = createSlice({
           ...record,
           maxQuantity: record.quantity,
           quantity: 1,
+          order_date: new Date().toLocaleDateString("fr-CA", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }),
         });
       } else {
         if (existingRecord.quantity < existingRecord.maxQuantity) {

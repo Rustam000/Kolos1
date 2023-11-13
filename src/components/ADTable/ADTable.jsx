@@ -17,6 +17,7 @@ export default function ADTable({
           Table: {
             borderColor: "#B9B9B9",
             fontFamily: "Rubik,sans-serif",
+            fontSize: size === "small" ? "12px" : undefined,
             fontWeightStrong: "500",
             headerBg: headerBg,
             lineHeight: "16px",

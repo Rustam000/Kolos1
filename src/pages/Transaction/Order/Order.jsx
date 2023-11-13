@@ -27,28 +27,27 @@ export default function Order({
     {
       title: "№",
       dataIndex: "rowIndex",
-      key: "rowIndex",
       align: "center",
-      width: 55,
+      width: 60,
+      ellipsis: true,
       render: (text, record, index) => index + 1,
     },
     {
       title: "Наименование",
       dataIndex: "name",
-      key: "name",
       align: "left",
+      ellipsis: true,
     },
     {
       title: "Уникальный код",
       dataIndex: "identification_number",
-      key: "identification_number",
       align: "left",
-      width: 150,
+      width: 130,
+      ellipsis: true,
     },
     {
-      title: "Ед. измер.",
+      title: "Ед. Изм.",
       dataIndex: "unit",
-      key: "unit",
       align: "left",
       width: "11%",
     },
@@ -62,15 +61,13 @@ export default function Order({
     {
       title: "Цена",
       dataIndex: "price",
-      key: "price",
       align: "left",
       width: "11%",
     },
     {
-      title: "Отп.",
-      key: "action",
+      title: "Отпустить",
       align: "center",
-      width: 50,
+      width: 85,
       render: (_, record) => (
         //-------------------add to target
         <OrderButton
@@ -89,38 +86,35 @@ export default function Order({
     {
       title: "№",
       dataIndex: "rowIndex",
-      key: "rowIndex",
       align: "center",
-      width: 55,
+      width: 40,
+      ellipsis: true,
       render: (text, record, index) => index + 1,
     },
     {
       title: "Наименование",
       dataIndex: "name",
-      key: "name",
       align: "left",
-      //width: "15%",
+      ellipsis: true,
     },
     {
       title: "Уникальный код",
       dataIndex: "identification_number",
-      key: "identification_number",
       align: "left",
-      //width: 150,
+      ellipsis: true,
+      width: 120,
     },
     {
-      title: "Ед. измер.",
+      title: "Ед.",
       dataIndex: "unit",
-      key: "unit",
       align: "left",
-      //width: "11%",
+      width: 50,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
-      key: "quantity",
       align: "left",
-      //width: "8%",
+      width: 90,
       render: (_, record) => (
         <QuantityController
           value={record.quantity}
@@ -134,29 +128,29 @@ export default function Order({
     {
       title: "Цена",
       dataIndex: "price",
-      key: "price",
       align: "left",
-      //width: "8%",
+      width: 50,
     },
     {
       title: "Сумма",
       dataIndex: "sum",
-      key: "sum",
       align: "left",
+      width: 60,
       render: (text, record) => record.quantity * record.price,
     },
     {
       title: "Дата",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "order_date",
       align: "left",
+      width: "10%",
+      ellipsis: true,
+      render: (text, record) => new Date(text).toLocaleDateString("rus"),
     },
     {
       title: "Отм.",
       dataIndex: "cancel",
-      key: "cancel",
       align: "center",
-      width: 50,
+      width: 45,
       render: (_, record) => (
         //-------------------remove from return draft
         <OrderButton
