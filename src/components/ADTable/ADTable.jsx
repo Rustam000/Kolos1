@@ -1,4 +1,5 @@
 import { ConfigProvider, Table } from "antd";
+import { useEffect, useRef, useState } from "react";
 
 export default function ADTable({
   size = "large", //large|middle|small
@@ -10,6 +11,24 @@ export default function ADTable({
   loading = false,
   ...args
 }) {
+  const [wrapperHeight, setWrapperHeight] = useState(100);
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    const setDimensions = () => {
+      const { height } = wrapperRef.current?.getBoundingClientRect();
+      setWrapperHeight(height);
+    };
+
+    setDimensions();
+
+    /* window.addEventListener("resize", updateDimensions);
+
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    }; */
+  }, []);
+
   return (
     <ConfigProvider
       theme={{
@@ -28,17 +47,20 @@ export default function ADTable({
         },
       }}
     >
-      <Table
-        size={size}
-        loading={loading}
-        bordered
-        dataSource={dataSource}
-        rowKey={rowKey}
-        columns={columns}
-        pagination={false}
-        scroll={height && { y: height }}
-        {...args}
-      />
+      <div ref={wrapperRef} style={{ flexGrow: "1" }}>
+        <Table
+          size={size}
+          loading={loading}
+          bordered
+          dataSource={dataSource}
+          rowKey={rowKey}
+          columns={columns}
+          pagination={false}
+          /* scroll={height && { y: height }} */
+          scroll={{ y: wrapperHeight - 1 }}
+          {...args}
+        />
+      </div>
     </ConfigProvider>
   );
 }

@@ -1,3 +1,9 @@
+.Distributors {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .filterbar {
   margin-top: 30px;
   margin-bottom: 30px;

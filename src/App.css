@@ -33,6 +33,9 @@
   max-width: calc(1200px + (2 * var(--container-padding)));
   padding-inline: var(--container-padding);
   margin-inline: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .narrowContainer {
