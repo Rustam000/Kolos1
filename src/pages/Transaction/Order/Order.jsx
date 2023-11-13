@@ -10,6 +10,15 @@ import TransactionSection from "../../../components/TransactionSection/Transacti
 import renderSum from "../../../utils/renderSum";
 import renderDate from "../../../utils/renderDate";
 import renderIndex from "../../../utils/renderIndex";
+import {
+  S_ACTION_WIDTH,
+  S_DATE_WIDTH,
+  S_INDEX_WIDTH,
+  S_PRICE_WIDTH,
+  S_QCONTROL_WIDTH,
+  S_UID_WIDTH,
+  S_UNIT_WIDTH,
+} from "../../../common/constants";
 
 export default function Order({
   parentStyles,
@@ -31,7 +40,7 @@ export default function Order({
       title: "№",
       dataIndex: "rowIndex",
       align: "center",
-      width: 40,
+      width: S_INDEX_WIDTH,
       ellipsis: true,
       render: renderIndex,
     },
@@ -45,14 +54,14 @@ export default function Order({
       title: "Код",
       dataIndex: "identification_number",
       align: "left",
-      width: 90,
+      width: S_UID_WIDTH,
       ellipsis: true,
     },
     {
       title: "Ед.",
       dataIndex: "unit",
       align: "left",
-      width: 50,
+      width: S_UNIT_WIDTH,
     },
     {
       title: "Кол-во",
@@ -65,7 +74,7 @@ export default function Order({
       title: "Цена",
       dataIndex: "price",
       align: "left",
-      width: 60,
+      width: S_PRICE_WIDTH,
     },
     {
       title: "Отпустить",
@@ -90,7 +99,7 @@ export default function Order({
       title: "№",
       dataIndex: "rowIndex",
       align: "center",
-      width: 40,
+      width: S_INDEX_WIDTH,
       ellipsis: true,
       render: renderIndex,
     },
@@ -105,20 +114,20 @@ export default function Order({
       dataIndex: "identification_number",
       align: "left",
       ellipsis: true,
-      width: 90,
+      width: S_UID_WIDTH,
     },
     {
       title: "Ед.",
       dataIndex: "unit",
       align: "left",
-      width: 40,
+      width: S_UNIT_WIDTH,
       ellipsis: true,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       align: "left",
-      width: 80,
+      width: S_QCONTROL_WIDTH,
       render: (_, record) => (
         <QuantityController
           value={record.quantity}
@@ -133,20 +142,20 @@ export default function Order({
       title: "Цена",
       dataIndex: "price",
       align: "left",
-      width: 50,
+      width: S_PRICE_WIDTH,
     },
     {
       title: "Сумма",
       dataIndex: "sum",
       align: "left",
-      width: 60,
+      width: S_PRICE_WIDTH,
       render: renderSum,
     },
     {
       title: "Дата",
       dataIndex: "order_date",
       align: "left",
-      width: "10%",
+      width: S_DATE_WIDTH,
       ellipsis: true,
       render: renderDate,
     },
@@ -154,7 +163,7 @@ export default function Order({
       title: "Отм.",
       dataIndex: "cancel",
       align: "center",
-      width: 45,
+      width: S_ACTION_WIDTH,
       render: (_, record) => (
         //-------------------remove from return draft
         <OrderButton

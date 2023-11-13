@@ -10,6 +10,16 @@ import TransactionSection from "../../../components/TransactionSection/Transacti
 import renderSum from "../../../utils/renderSum";
 import renderDate from "../../../utils/renderDate";
 import renderIndex from "../../../utils/renderIndex";
+import {
+  S_ACTION_WIDTH,
+  S_DATE_WIDTH,
+  S_INDEX_WIDTH,
+  S_PRICE_WIDTH,
+  S_QCONTROL_WIDTH,
+  S_SUM_WIDTH,
+  S_UID_WIDTH,
+  S_UNIT_WIDTH,
+} from "../../../common/constants";
 
 export default function Return({
   parentStyles,
@@ -32,7 +42,7 @@ export default function Return({
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: 40,
+      width: S_INDEX_WIDTH,
       ellipsis: true,
       render: renderIndex,
     },
@@ -48,7 +58,7 @@ export default function Return({
       dataIndex: "identification_number",
       key: "identification_number",
       align: "left",
-      width: 90,
+      width: S_UID_WIDTH,
       ellipsis: true,
     },
     {
@@ -56,7 +66,7 @@ export default function Return({
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: 40,
+      width: S_UNIT_WIDTH,
       ellipsis: true,
     },
     {
@@ -71,28 +81,28 @@ export default function Return({
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: 50,
+      width: S_PRICE_WIDTH,
     },
     {
       title: "Сумма",
       dataIndex: "sum",
       align: "left",
-      width: 60,
+      width: S_SUM_WIDTH,
       render: renderSum,
     },
     {
       title: "Дата",
       dataIndex: "order_date",
       align: "left",
-      width: "10%",
+      width: S_DATE_WIDTH,
       ellipsis: true,
       render: renderDate,
     },
     {
-      title: "Возв.",
+      title: "Воз.",
       key: "action",
       align: "center",
-      width: 50,
+      width: S_ACTION_WIDTH,
       render: (_, record) => (
         //-------------------add to target
         <OrderButton
@@ -113,7 +123,7 @@ export default function Return({
       dataIndex: "rowIndex",
       key: "rowIndex",
       align: "center",
-      width: 40,
+      width: S_INDEX_WIDTH,
       ellipsis: true,
       render: renderIndex,
     },
@@ -129,7 +139,7 @@ export default function Return({
       dataIndex: "identification_number",
       key: "identification_number",
       align: "left",
-      width: 90,
+      width: S_UID_WIDTH,
       ellipsis: true,
     },
     {
@@ -137,7 +147,7 @@ export default function Return({
       dataIndex: "unit",
       key: "unit",
       align: "left",
-      width: 40,
+      width: S_UNIT_WIDTH,
       ellipsis: true,
     },
     {
@@ -145,7 +155,7 @@ export default function Return({
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: 80,
+      width: S_QCONTROL_WIDTH,
       render: (_, record) => (
         <QuantityController
           value={record.quantity}
@@ -161,19 +171,19 @@ export default function Return({
       dataIndex: "price",
       key: "price",
       align: "left",
-      width: 50,
+      width: S_PRICE_WIDTH,
     },
     {
       title: "Сумма",
       align: "left",
-      width: 60,
+      width: S_SUM_WIDTH,
       render: renderSum,
     },
     {
       title: "Дата",
       dataIndex: "order_date",
       align: "left",
-      width: "10%",
+      width: S_DATE_WIDTH,
       ellipsis: true,
       render: renderDate,
     },
@@ -187,7 +197,7 @@ export default function Return({
       title: "Отм.",
       key: "action",
       align: "center",
-      width: 45,
+      width: S_ACTION_WIDTH,
       render: (_, record) => (
         //-------------------remove from return draft
         <OrderButton
