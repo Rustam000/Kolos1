@@ -118,7 +118,7 @@ export default function Order({
       title: "Кол-во",
       dataIndex: "quantity",
       align: "left",
-      width: 90,
+      width: 80,
       render: (_, record) => (
         <QuantityController
           value={record.quantity}

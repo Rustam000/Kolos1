@@ -145,7 +145,7 @@ export default function Return({
       dataIndex: "quantity",
       key: "quantity",
       align: "left",
-      width: 90,
+      width: 80,
       render: (_, record) => (
         <QuantityController
           value={record.quantity}
