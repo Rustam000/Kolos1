@@ -133,8 +133,16 @@ export default function DistributorProfile() {
         new Date(record?.return_date || record?.order_date)
           .toLocaleString()
           .substring(0, 10),
+
     },
+
   ];
+
+  const convertDateForInput = (dateString) => {
+    if (!dateString) return '';
+    const [day, month, year] = dateString.split('.');
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  };
 
   const data = historySales === "order" ? salesHistory : returnsHistory;
 
@@ -193,7 +201,7 @@ export default function DistributorProfile() {
             </label>
             <input
               type="date"
-              value={startDate}
+              value={convertDateForInput(startDate)}
               onChange={(e) => dispatch(setStartDate(e.target.value))}
               id="startDate"
             />
@@ -202,7 +210,7 @@ export default function DistributorProfile() {
             </label>
             <input
               type="date"
-              value={endDate}
+              value={convertDateForInput(endDate)}
               id="endDate"
               onChange={(e) => dispatch(setEndDate(e.target.value))}
             />
