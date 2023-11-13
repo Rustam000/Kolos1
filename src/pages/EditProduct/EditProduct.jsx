@@ -65,7 +65,7 @@ export default function EditProduct() {
     return requiredFields.every((field) => formData[field] !== "");
   };
 
-  const sum = (formData.quantity * formData.price).toFixed(2);
+  const sum = (formData.quantity * formData.price).toLocaleString("de-CH");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -135,6 +135,7 @@ export default function EditProduct() {
                   value={formData.quantity}
                   onChange={handleNumericInputChange}
                   placeholder="Пример: 1000"
+                  autoComplete="off"
                 />
               </label>
               <label className={styles.formInput}>
@@ -144,18 +145,13 @@ export default function EditProduct() {
                   name="price"
                   value={formData.price}
                   onChange={handleNumericInputChange}
-                  placeholder="00.00"
+                  placeholder="0"
+                  autoComplete="off"
                 />
               </label>
               <label className={styles.formInput}>
                 <p>Сумма</p>
-                <input
-                  type="text"
-                  name="sum"
-                  value={sum}
-                  readOnly
-                  placeholder="00.00"
-                />
+                <input type="text" name="sum" value={sum} readOnly />
               </label>
             </fieldset>
             <fieldset className={styles.formFlexRow}>
