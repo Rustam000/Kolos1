@@ -99,10 +99,11 @@ export default function Return({
       render: renderDate,
     },
     {
-      title: "Воз.",
+      title: "Возврат",
       key: "action",
       align: "center",
       width: S_ACTION_WIDTH,
+      ellipsis: true,
       render: (_, record) => (
         //-------------------add to target
         <OrderButton
@@ -194,10 +195,11 @@ export default function Return({
       width: 60,
     },
     {
-      title: "Отм.",
+      title: "Отменить",
       key: "action",
       align: "center",
       width: S_ACTION_WIDTH,
+      ellipsis: true,
       render: (_, record) => (
         //-------------------remove from return draft
         <OrderButton

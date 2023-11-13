@@ -80,6 +80,7 @@ export default function Order({
       title: "Отпустить",
       align: "center",
       width: 80,
+      ellipsis: true,
       render: (_, record) => (
         //-------------------add to target
         <OrderButton
@@ -160,10 +161,11 @@ export default function Order({
       render: renderDate,
     },
     {
-      title: "Отм.",
+      title: "Отменить",
       dataIndex: "cancel",
       align: "center",
       width: S_ACTION_WIDTH,
+      ellipsis: true,
       render: (_, record) => (
         //-------------------remove from return draft
         <OrderButton
