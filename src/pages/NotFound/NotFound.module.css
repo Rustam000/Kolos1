@@ -1,73 +1,41 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0;
-    gap: 56px;
-    position: absolute;
-    width: 361px;
-    height: 226px;
-    left: 40vw; 
-    top: 40vh; 
-    transform: translate(-50%, -50%); 
+.NotFound {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 25vw;
+  margin-top: 22vh;
+  max-width: 361px;
 }
 
-.textMain {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
+.oops {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: 0.28px;
+  color: var(--main-color);
 }
 
-.main {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-}
-
-.upsText {
-    font-family: 'Rubik';
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #3BA1FF;
-}
-
-.errorText {
-    font-family: 'Rubik';
-    font-weight: 600;
-    font-size: 44px;
-    line-height: 52px;
-    color: rgba(0, 0, 0, 0.8);
+.heading {
+  margin-top: 4px;
+  font-weight: 600;
+  font-size: 44px;
+  line-height: normal;
+  letter-spacing: 0.88px;
+  color: var(--black-80);
 }
 
 .description {
-    font-family: 'Rubik';
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: rgba(0, 0, 0, 0.8);
+  margin-top: 14px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--black-80);
 }
 
 .buttonLink {
-    text-decoration: none; 
+  margin-top: 56px;
 }
 
-.buttonError {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 11px 8px;
-    gap: 10px;
-    width: 265px;
-    height: 49px;
-    background: #3BA1FF;
-    border-radius: 10px;
-    color: #FFFFFF;
-    font-family: 'Rubik';
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
+.button {
+  width: 265px;
 }

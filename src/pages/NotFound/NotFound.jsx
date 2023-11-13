@@ -1,24 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './NotFound.module.css'; 
+import styles from "./NotFound.module.css";
+import { Link } from "react-router-dom";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
 
 export default function NotFound() {
-    return (
-        <div className={styles.container}>
-            <div className={styles.textMain}>
-                <div className={styles.main}>
-                    <span className={styles.upsText}>Упс...!</span>
-                    <h1 className={styles.errorText}>Ошибка 404</h1>
-                </div>
-                <p className={styles.description}>
-                    Эта страница не найдена, мы уже работаем, чтобы ее восстановить!
-                </p>
-            </div>
-            <Link to="/" className={styles.buttonLink}>
-                <div className={styles.buttonError}>
-                    Вернуться на главную
-                </div>
-            </Link>
-        </div>
-    );
+  return (
+    <div className={styles.NotFound}>
+      <p className={styles.oops}>Упс...!</p>
+      <h2 className={styles.heading}>Ошибка 404</h2>
+      <p className={styles.description}>
+        Эта страница не найдена, мы уже работаем, чтобы ее восстановить!
+      </p>
+      <Link to="/" className={styles.buttonLink}>
+        <CustomButton className={styles.button}>
+          Вернуться на главную
+        </CustomButton>
+      </Link>
+    </div>
+  );
 }
