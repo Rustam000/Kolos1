@@ -1,9 +1,9 @@
+import styles from "./DistributorProfile.module.css";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchReturnsHistory,
-  fetchSalesHistory,
+  fetchItems,
   getDistributorById,
   profileActions,
 } from "../../redux/profileSlice";
@@ -12,19 +12,18 @@ import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
-import styles from "./DistributorProfile.module.css";
 import renderSum from "../../utils/renderSum";
 import renderDate from "../../utils/renderDate";
+import renderIndex from "../../utils/renderIndex";
 
 export default function DistributorProfile() {
   const {
+    data,
     distributorInfo,
-    salesHistory,
-    historySales,
+    isReturns,
     startDate,
     endDate,
     category,
-    returnsHistory,
     isLoading,
     error,
   } = useSelector((state) => state.profile);
@@ -34,100 +33,85 @@ export default function DistributorProfile() {
 
   const { setCategory, setSales, setStartDate, setEndDate } = profileActions;
 
+  const queryParams = {
+    category,
+    start_date: startDate,
+    end_date: endDate,
+  };
+
   useEffect(() => {
     dispatch(getDistributorById(id));
   }, []);
 
   useEffect(() => {
-    if (historySales === "return") {
-      dispatch(
-        fetchReturnsHistory({
-          id,
-          queryParams: {
-            category,
-            start_date: startDate,
-            end_date: endDate,
-          },
-        }),
-      );
-      return;
-    } else if (historySales === "order") {
-      dispatch(
-        fetchSalesHistory({
-          id,
-          queryParams: {
-            category,
-            start_date: startDate,
-            end_date: endDate,
-          },
-        }),
-      );
-    }
-  }, [category, startDate, endDate, dispatch, historySales]);
+    dispatch(
+      fetchItems({
+        id,
+        queryParams,
+        target: isReturns ? "returns" : "orders",
+      }),
+    );
+  }, [
+    queryParams.category,
+    queryParams.start_date,
+    queryParams.end_date,
+    dispatch,
+    isReturns,
+  ]);
 
   const tableColumns = [
     {
       title: "№",
       dataIndex: "rowIndex",
-      key: "rowIndex",
       align: "center",
       width: 50,
-      render: (text, record, index) => index + 1,
+      render: renderIndex,
     },
     {
       title: "Наименование",
       dataIndex: "name",
-      key: "name",
       align: "left",
       width: 215,
     },
     {
       title: "Уникальный код",
       dataIndex: "identification_number",
-      key: "identification_number",
       align: "left",
       width: 190,
     },
     {
       title: "Ед. изм.",
       dataIndex: "unit",
-      key: "unit",
       align: "left",
       width: 130,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
-      key: "quantity",
       align: "left",
       width: 130,
     },
     {
       title: "Цена",
       dataIndex: "price",
-      key: "price",
       align: "left",
       width: 130,
     },
     {
       title: "Сумма",
       dataIndex: "sum",
-      key: "sum",
       align: "left",
       width: 135,
       render: renderSum,
     },
     {
       title: "Дата",
-      dataIndex: historySales === "order" ? "order_date" : "return_date",
-      key: historySales === "order" ? "order_date" : "return_date",
+      dataIndex: isReturns ? "return_date" : "order_date",
       align: "left",
       width: 135,
       render: renderDate,
     },
   ];
-
-  const data = historySales === "order" ? salesHistory : returnsHistory;
 
   return (
     <div className={styles.DistributorProfile}>
@@ -201,7 +185,7 @@ export default function DistributorProfile() {
             />
           </form>
           <ADTable
-            headerBg={historySales === "return" ? "#ffc2c2" : undefined}
+            headerBg={isReturns ? "#ffc2c2" : undefined}
             loading={isLoading}
             dataSource={data}
             rowKey="id"

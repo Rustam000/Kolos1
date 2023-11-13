@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../api/axiosPrivate";
 import { axiosDummy } from "../api/axiosDummy";
+import yearLimiter from "../utils/yearLimiter";
 
 export const getDistributorById = createAsyncThunk(
   "profile/getDistributorById",
@@ -15,26 +16,11 @@ export const getDistributorById = createAsyncThunk(
   },
 );
 
-export const fetchSalesHistory = createAsyncThunk(
-  "profile/fetchSalesHistory",
-  async ({ id, queryParams }, thunkAPI) => {
+export const fetchItems = createAsyncThunk(
+  "profile/fetchItems",
+  async ({ id, queryParams, target }, thunkAPI) => {
     try {
-      const response = await axiosDummy.get(`/distributor/orders/${id}`, {
-        params: queryParams,
-      });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  },
-);
-
-// New thunk for fetching returns history
-export const fetchReturnsHistory = createAsyncThunk(
-  "profile/fetchReturnsHistory",
-  async ({ id, queryParams }, thunkAPI) => {
-    try {
-      const response = await axiosDummy.get(`/distributor/returns/${id}`, {
+      const response = await axiosDummy.get(`/distributor/${target}/${id}`, {
         params: queryParams,
       });
       return response.data;
@@ -52,16 +38,14 @@ const initialState = {
     contact1: "...",
     contact2: "...",
   },
+  isReturns: false,
   category: "",
   startDate: "",
   endDate: "",
-  salesHistory: [],
-  returnsHistory: [],
-  historySales: "",
+  data: [],
   isLoading: false,
   error: null,
 };
-
 export const profileSlice = createSlice({
   name: "profile",
   initialState,
@@ -70,10 +54,10 @@ export const profileSlice = createSlice({
       state.category = action.payload;
     },
     setSales: (state, action) => {
-      state.historySales = action.payload;
+      state.isReturns = action.payload === "return" ? true : false;
     },
     setStartDate: (state, action) => {
-      state.startDate = action.payload;
+      state.startDate = yearLimiter(action.payload);
     },
     setEndDate: (state, action) => {
       state.endDate = action.payload;
@@ -97,33 +81,17 @@ export const profileSlice = createSlice({
       });
 
     builder
-      .addCase(fetchSalesHistory.pending, (state) => {
+      .addCase(fetchItems.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchSalesHistory.fulfilled, (state, action) => {
+      .addCase(fetchItems.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.salesHistory = action.payload;
+        state.data = action.payload;
       })
-      .addCase(fetchSalesHistory.rejected, (state, action) => {
+      .addCase(fetchItems.rejected, (state, action) => {
         state.isLoading = false;
-        state.error =
-          action.payload || "Не удалось получить данные историй продаж";
-      });
-
-    builder
-      .addCase(fetchReturnsHistory.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchReturnsHistory.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.returnsHistory = action.payload;
-      })
-      .addCase(fetchReturnsHistory.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error =
-          action.payload || "Не удалось получить данные возврата продаж";
+        state.error = action.payload || "Не удалось загрузить историю";
       });
   },
 });
