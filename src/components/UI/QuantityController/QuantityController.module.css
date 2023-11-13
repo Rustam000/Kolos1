@@ -11,7 +11,7 @@
 .input {
   background-color: transparent;
   width: 100%;
-  padding: 5px;
+  padding: 3px 5px;
   border-radius: 5px;
   border: 1px solid var(--button-inactive-gray);
   font-size: 12px;
@@ -31,17 +31,21 @@
 .arrowButton {
   background-color: transparent;
   padding-inline: 5px;
+  /* padding-block: 2px; */
   border: none;
   border-radius: 3px;
   border: 1px solid transparent;
+  font-size: 0;
 }
 
 .arrowButton:first-of-type img {
-  margin-bottom: -2px;
+  margin-bottom: -1px;
+  margin-top: 3px;
 }
 
 .arrowButton:last-of-type img {
-  margin-top: -2px;
+  margin-top: -1px;
+  margin-bottom: 3px;
 }
 
 .arrowButton:hover {
