@@ -40,12 +40,6 @@ export const fetchReturnsHistory = createAsyncThunk(
   }
 );
 
-const convertDate = (dateString) => {
-  if (!dateString) return '';
-  const [year, month, day] = dateString.split('-');
-  return `${day}.${month}.${year}`;
-};
-
 
 const initialState = {
   distributorInfo: {
@@ -76,10 +70,10 @@ export const profileSlice = createSlice({
       state.historySales = action.payload;
     },
     setStartDate:(state,action) => {
-      state.startDate = convertDate(action.payload);
+      state.startDate = action.payload;
     },
     setEndDate:(state,action) => {
-      state.endDate = convertDate(action.payload);
+      state.endDate = action.payload;
     }
   },
 
