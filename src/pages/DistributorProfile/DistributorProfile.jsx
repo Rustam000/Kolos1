@@ -1,96 +1,134 @@
-import styles from "./DistributorProfile.module.css";
-import ADTable from "../../components/ADTable/ADTable";
-import { products } from "../../components/CustomTable/beer_data";
-import CustomButton from "../../components/UI/CustomButton/CustomButton";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import PageHeading from "../../components/PageHeading/PageHeading";
-import { getDistributorById } from "../../redux/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import {
+  fetchReturnsHistory,
+  fetchSalesHistory,
+  getDistributorById,
+  profileActions,
+} from "../../redux/profileSlice";
+import PageHeading from "../../components/PageHeading/PageHeading";
 import DistributorInfo from "../../components/DistributorInfo/DistributorInfo";
+import CustomButton from "../../components/UI/CustomButton/CustomButton";
+import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
-import yearLimiter from "../../utils/yearLimiter";
-
-const tableColumns = [
-  {
-    title: "№",
-    dataIndex: "rowIndex",
-    key: "rowIndex",
-    align: "center",
-    width: 50,
-    render: (text, record, index) => <span key={index}>{index + 1}</span>,
-  },
-  {
-    title: "Наименование",
-    dataIndex: "name",
-    key: "name",
-    align: "left",
-    width: 215,
-  },
-  {
-    title: "Уникальный код",
-    dataIndex: "num_id",
-    key: "num_id",
-    align: "left",
-    width: 190,
-  },
-  {
-    title: "Ед. изм.",
-    dataIndex: "unit",
-    key: "unit",
-    align: "left",
-    width: 130,
-  },
-  {
-    title: "Кол-во",
-    dataIndex: "quantity",
-    key: "quantity",
-    align: "left",
-    width: 130,
-  },
-  {
-    title: "Цена",
-    dataIndex: "price",
-    key: "price",
-    align: "left",
-    width: 130,
-  },
-  {
-    title: "Сумма",
-    dataIndex: "sum",
-    key: "sum",
-    align: "left",
-    width: 135,
-  },
-  {
-    title: "Дата",
-    dataIndex: "dataDeletionOne",
-    key: "dataDeletionOne",
-    align: "left",
-    width: 135,
-  },
-];
+import styles from "./DistributorProfile.module.css";
 
 export default function DistributorProfile() {
-  const { distributorInfo, isLoading, error } = useSelector(
-    (state) => state.profile,
-  );
+  const {
+    distributorInfo,
+    salesHistory,
+    historySales,
+    startDate,
+    endDate,
+    category,
+    returnsHistory,
+    isLoading,
+    error,
+  } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const { setCategory, setSales, setStartDate, setEndDate } = profileActions;
 
   useEffect(() => {
     dispatch(getDistributorById(id));
   }, []);
 
-  const [endDate, setEndDate] = useState("");
+  useEffect(() => {
+    if (historySales === "return") {
+      dispatch(
+        fetchReturnsHistory({
+          id,
+          queryParams: {
+            category,
+            start_date: startDate,
+            end_date: endDate,
+          },
+        }),
+      );
+      return;
+    } else if (historySales === "order") {
+      dispatch(
+        fetchSalesHistory({
+          id,
+          queryParams: {
+            category,
+            start_date: startDate,
+            end_date: endDate,
+          },
+        }),
+      );
+    }
+  }, [category, startDate, endDate, dispatch, historySales]);
 
-  function handleBlur(event) {
-    /* const [year, month, day] = event.target.value.split("-");
-    const fourDigitYear = year.slice(0, 4);
-    const correctDate = [fourDigitYear, month, day].join("-"); */
-    setEndDate(yearLimiter(event.target.value));
-  }
+  const tableColumns = [
+    {
+      title: "№",
+      dataIndex: "rowIndex",
+      key: "rowIndex",
+      align: "center",
+      width: 50,
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: "Наименование",
+      dataIndex: "name",
+      key: "name",
+      align: "left",
+      width: 215,
+    },
+    {
+      title: "Уникальный код",
+      dataIndex: "identification_number",
+      key: "identification_number",
+      align: "left",
+      width: 190,
+    },
+    {
+      title: "Ед. изм.",
+      dataIndex: "unit",
+      key: "unit",
+      align: "left",
+      width: 130,
+    },
+    {
+      title: "Кол-во",
+      dataIndex: "quantity",
+      key: "quantity",
+      align: "left",
+      width: 130,
+    },
+    {
+      title: "Цена",
+      dataIndex: "price",
+      key: "price",
+      align: "left",
+      width: 130,
+    },
+    {
+      title: "Сумма",
+      dataIndex: "sum",
+      key: "sum",
+      align: "left",
+      width: 135,
+      render: (text, record) => record.quantity * record.price,
+    },
+    {
+      title: "Дата",
+      dataIndex: historySales === "order" ? "order_date" : "return_date",
+      key: historySales === "order" ? "order_date" : "return_date",
+      align: "left",
+      width: 135,
+      render: (text, record) =>
+        new Date(record.return_date || record.order_date).toLocaleDateString(
+          "rus",
+        ),
+    },
+  ];
+
+  const data = historySales === "order" ? salesHistory : returnsHistory;
 
   return (
     <div className={styles.DistributorProfile}>
@@ -123,10 +161,18 @@ export default function DistributorProfile() {
 
           <form className={styles.filterbar}>
             <CustomSelect
-              options={[{ label: "---", value: "---" }]}
+              onChange={(value) => dispatch(setCategory(value))}
+              options={[
+                { label: "Все товары", value: "" },
+                { label: "Алкогольное", value: "alcohol" },
+                { label: "Безалкогольное", value: "notAlcohol" },
+              ]}
               className={styles.select}
             />
             <CustomSelect
+              onChange={(value) => {
+                dispatch(setSales(value));
+              }}
               options={[
                 { label: "История продаж", value: "order" },
                 { label: "История возврата", value: "return" },
@@ -139,22 +185,27 @@ export default function DistributorProfile() {
             >
               От
             </label>
-            <input type="date" id="startDate" />
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => dispatch(setStartDate(e.target.value))}
+              id="startDate"
+            />
             <label className={styles.dateLabel} htmlFor="endDate">
               До
             </label>
             <input
               type="date"
-              id="endDate"
-              name="endDate"
               value={endDate}
-              onBlur={(event) => handleBlur(event)}
-              onChange={(event) => setEndDate(event.target.value)}
+              id="endDate"
+              onChange={(e) => dispatch(setEndDate(e.target.value))}
             />
           </form>
           <ADTable
-            dataSource={products}
-            rowKey="_id"
+            headerBg={historySales === "return" ? "#ffc2c2" : undefined}
+            loading={isLoading}
+            dataSource={data}
+            rowKey="id"
             columns={tableColumns}
             height="55vh"
           />
