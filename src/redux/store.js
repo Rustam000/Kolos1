@@ -4,7 +4,7 @@ import { warehouseReducer } from "./warehouseSlice";
 import { archiveReducer } from "./archiveSlice";
 import { distributorReducer } from "./editDistributorSlice";
 import { distributorsReducer } from "./distributorsSlice";
-import { productReducer } from "./editproductSlice";
+import { productReducer } from "./editProductSlice";
 import { profileReducer } from "./profileSlice";
 import { optionsReducer } from "./optionsSlice";
 import { transactionReducer } from "./transactionSlice";

@@ -14,7 +14,7 @@ import {
   postProduct,
   productActions,
   updateProductById,
-} from "../../redux/editproductSlice";
+} from "../../redux/editProductSlice";
 
 export default function EditProduct() {
   const [showSaveModal, setShowSaveModal] = useState(false);
