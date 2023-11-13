@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -40,7 +40,7 @@ export default function DistributorProfile() {
     if (historySales === "return") {
       dispatch(
         fetchReturnsHistory({
-          distributorId: id,
+          id,
           queryParams: {
             category,
             start_date: startDate,
@@ -52,7 +52,7 @@ export default function DistributorProfile() {
     } else if (historySales === "order") {
       dispatch(
         fetchSalesHistory({
-          distributorId: id,
+          id,
           queryParams: {
             category,
             start_date: startDate,
@@ -61,15 +61,7 @@ export default function DistributorProfile() {
         }),
       );
     }
-  }, [
-    category,
-    startDate,
-    endDate,
-    dispatch,
-    historySales,
-    fetchReturnsHistory,
-    fetchSalesHistory,
-  ]);
+  }, [category, startDate, endDate, dispatch, historySales]);
 
   const tableColumns = [
     {
@@ -78,7 +70,7 @@ export default function DistributorProfile() {
       key: "rowIndex",
       align: "center",
       width: 50,
-      render: (text, record, index) => <span key={index}>{index + 1}</span>,
+      render: (text, record, index) => index + 1,
     },
     {
       title: "Наименование",
@@ -121,7 +113,7 @@ export default function DistributorProfile() {
       key: "sum",
       align: "left",
       width: 135,
-      render: (text, record) => Math.round(record.quantity * record.price),
+      render: (text, record) => record.quantity * record.price,
     },
     {
       title: "Дата",
@@ -130,11 +122,10 @@ export default function DistributorProfile() {
       align: "left",
       width: 135,
       render: (text, record) =>
-        new Date(record?.return_date || record?.order_date)
-          .toLocaleString('rus')
-          .substring(0, 10),
+        new Date(record.return_date || record.order_date).toLocaleDateString(
+          "rus",
+        ),
     },
-
   ];
 
   const data = historySales === "order" ? salesHistory : returnsHistory;
