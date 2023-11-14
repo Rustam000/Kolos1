@@ -20,6 +20,7 @@ import {
   S_UID_WIDTH,
   S_UNIT_WIDTH,
 } from "../../../common/constants";
+import ConditionSelector from "../../../components/UI/ConditionSelector/ConditionSelector";
 
 export default function Return({
   parentStyles,
@@ -193,6 +194,13 @@ export default function Return({
       dataIndex: "state",
       align: "left",
       width: 60,
+      render: (text, record) => (
+        <ConditionSelector
+          onClick={() => dispatch(transactionActions.toggleCondition(record))}
+        >
+          {text}
+        </ConditionSelector>
+      ),
     },
     {
       title: "Отменить",

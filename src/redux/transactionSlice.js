@@ -111,6 +111,14 @@ export const transactionSlice = createSlice({
         item.quantity = item.maxQuantity;
       }
     },
+    toggleCondition: (state, action) => {
+      const id = action.payload.id;
+      const currentCondition = action.payload.state;
+      const isDefect = currentCondition === "Брак";
+      state.target.find((item) => item.id === id).state = isDefect
+        ? "Норма"
+        : "Брак";
+    },
     setHoverRowId: (state, action) => {
       state.hoverRowId = action.payload;
     },
