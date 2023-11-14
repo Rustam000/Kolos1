@@ -1,6 +1,6 @@
 import styles from "./DistributorProfile.module.css";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchItems,
@@ -71,44 +71,45 @@ export default function DistributorProfile() {
       title: "Наименование",
       dataIndex: "name",
       align: "left",
-      width: 215,
+      ellipsis: true,
     },
     {
       title: "Уникальный код",
       dataIndex: "identification_number",
       align: "left",
-      width: 190,
+      width: "18%",
     },
     {
       title: "Ед. изм.",
       dataIndex: "unit",
       align: "left",
-      width: 130,
+      width: "11%",
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       align: "left",
-      width: 130,
+      width: "11%",
     },
     {
       title: "Цена",
       dataIndex: "price",
       align: "left",
-      width: 130,
+      width: "11%",
     },
     {
       title: "Сумма",
       dataIndex: "sum",
       align: "left",
-      width: 135,
+      width: "11%",
       render: renderSum,
     },
     {
       title: "Дата",
       dataIndex: isReturns ? "return_date" : "order_date",
       align: "left",
-      width: 135,
+      width: "11%",
+      ellipsis: true,
       render: renderDate,
     },
   ];
@@ -125,20 +126,16 @@ export default function DistributorProfile() {
           <div className={styles.infoBlock}>
             <DistributorInfo info={distributorInfo} />
             <div className={styles.actions}>
-              <CustomButton
-                variant="secondary"
-                width="width140"
-                onClick={() => navigate(`../order/${id}`)}
-              >
-                Отпускать
-              </CustomButton>
-              <CustomButton
-                variant="secondary"
-                width="width140"
-                onClick={() => navigate(`../return/${id}`)}
-              >
-                Возврат
-              </CustomButton>
+              <Link to={`../order/${id}`}>
+                <CustomButton variant="secondary" width="width140">
+                  Отпускать
+                </CustomButton>
+              </Link>
+              <Link to={`../return/${id}`}>
+                <CustomButton variant="secondary" width="width140">
+                  Возврат
+                </CustomButton>
+              </Link>
             </div>
           </div>
 
