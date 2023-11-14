@@ -12,6 +12,7 @@ import {
 import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
+import renderIndex from "../../utils/renderIndex";
 
 export default function Warehouse() {
   const { setCategory, setCondition, setSearch } = warehouseActions;
@@ -37,7 +38,7 @@ export default function Warehouse() {
       key: "rowIndex",
       align: "center",
       width: 55,
-      render: (text, record, index) => index + 1,
+      render: renderIndex,
     },
     {
       title: "Наименование",
@@ -111,8 +112,8 @@ export default function Warehouse() {
             value={state}
             onChange={(value) => dispatch(setCondition(value))}
             options={[
-              { value: "Valid", label: "Норма" },
-              { value: "Invalid", label: "Брак" },
+              { value: "norm", label: "Норма" },
+              { value: "defect", label: "Брак" },
             ]}
           />
           <CustomButton
@@ -131,7 +132,8 @@ export default function Warehouse() {
           </CustomButton>
         </form>
         <ADTable
-          headerBg={state === "Invalid" ? "#ffc2c2" : undefined}
+          headerBg={state === "defect" ? "#ffc2c2" : undefined}
+          //headerBg={state === "Invalid" ? "#ffc2c2" : undefined}
           loading={isLoading}
           dataSource={items}
           rowKey="id"

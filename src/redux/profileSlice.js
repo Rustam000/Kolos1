@@ -60,7 +60,7 @@ export const profileSlice = createSlice({
       state.startDate = yearLimiter(action.payload);
     },
     setEndDate: (state, action) => {
-      state.endDate = action.payload;
+      state.endDate = yearLimiter(action.payload);
     },
   },
 
