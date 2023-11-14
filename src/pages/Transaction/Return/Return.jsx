@@ -193,7 +193,7 @@ export default function Return({
       title: "Статус",
       dataIndex: "state",
       align: "left",
-      width: 60,
+      width: 65,
       render: (text, record) => (
         <ConditionSelector
           onClick={() => dispatch(transactionActions.toggleCondition(record))}
