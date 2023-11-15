@@ -59,12 +59,13 @@ export default function DistributorProfile() {
     isReturns,
   ]);
 
-  const tableColumns = [
+  const orderColumns = [
     {
       title: "№",
       dataIndex: "rowIndex",
       align: "center",
-      width: 50,
+      width: 60,
+      ellipsis: true,
       render: renderIndex,
     },
     {
@@ -77,40 +78,107 @@ export default function DistributorProfile() {
       title: "Уникальный код",
       dataIndex: "identification_number",
       align: "left",
-      width: "18%",
+      ellipsis: true,
     },
     {
       title: "Ед. изм.",
       dataIndex: "unit",
       align: "left",
-      width: "11%",
+      width: 100,
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
       align: "left",
-      width: "11%",
+      width: 100,
     },
     {
       title: "Цена",
       dataIndex: "price",
       align: "left",
-      width: "11%",
+      width: 100,
     },
     {
       title: "Сумма",
       dataIndex: "sum",
       align: "left",
-      width: "11%",
+      width: 120,
       render: renderSum,
     },
     {
-      title: "Дата",
-      dataIndex: isReturns ? "return_date" : "order_date",
+      title: "Дата продажи",
+      dataIndex: "order_date",
       align: "left",
-      width: "11%",
-      ellipsis: true,
+      width: 120,
       render: renderDate,
+    },
+  ];
+
+  const returnColumns = [
+    {
+      title: "№",
+      dataIndex: "rowIndex",
+      align: "center",
+      width: 60,
+      ellipsis: true,
+      render: renderIndex,
+    },
+    {
+      title: "Наименование",
+      dataIndex: "name",
+      align: "left",
+      ellipsis: true,
+    },
+    {
+      title: "Уникальный код",
+      dataIndex: "identification_number",
+      align: "left",
+      ellipsis: true,
+    },
+    {
+      title: "Ед. изм.",
+      dataIndex: "unit",
+      align: "left",
+      width: 100,
+    },
+    {
+      title: "Кол-во",
+      dataIndex: "quantity",
+      align: "left",
+      width: 100,
+    },
+    {
+      title: "Цена",
+      dataIndex: "price",
+      align: "left",
+      width: 100,
+    },
+    {
+      title: "Сумма",
+      dataIndex: "sum",
+      align: "left",
+      width: 120,
+      render: renderSum,
+    },
+    {
+      title: "Дата продажи",
+      dataIndex: "order_date",
+      align: "left",
+      width: 120,
+      render: renderDate,
+    },
+    {
+      title: "Дата возврата",
+      dataIndex: "return_date",
+      align: "left",
+      width: 120,
+      render: renderDate,
+    },
+    {
+      title: "Статус возврата",
+      dataIndex: "state",
+      align: "left",
+      width: 100,
     },
   ];
 
@@ -186,7 +254,7 @@ export default function DistributorProfile() {
             loading={isLoading}
             dataSource={data}
             rowKey="id"
-            columns={tableColumns}
+            columns={isReturns ? returnColumns : orderColumns}
             height="55vh"
           />
         </main>
