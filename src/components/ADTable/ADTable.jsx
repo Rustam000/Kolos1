@@ -27,7 +27,7 @@ export default function ADTable({
     return () => {
       window.removeEventListener("resize", updateDimensions);
     }; */
-  }, []);
+  }, [wrapperRef.current]);
 
   return (
     <ConfigProvider
@@ -47,7 +47,7 @@ export default function ADTable({
         },
       }}
     >
-      <div ref={wrapperRef} style={{ flexGrow: "1" }}>
+      <div ref={wrapperRef} style={{ flexGrow: "1", overflow: "hidden" }}>
         <Table
           size={size}
           loading={loading}
@@ -56,11 +56,12 @@ export default function ADTable({
           rowKey={rowKey}
           columns={columns}
           pagination={false}
-          /* scroll={height && { y: height }} */
-          scroll={{ y: wrapperHeight - 1 }}
+          scroll={{ y: wrapperHeight - 70 }}
           {...args}
         />
       </div>
     </ConfigProvider>
   );
 }
+
+/* scroll={height && { y: height }} */
