@@ -13,6 +13,7 @@ import {
   editDistributorById,
   getDistributorById,
 } from "../../redux/editDistributorSlice";
+import { PATHS } from "../../common/constants";
 
 export default function EditDistributor() {
   const [formData, setFormData] = useState({
@@ -104,20 +105,20 @@ export default function EditDistributor() {
     if (isEdit) {
       dispatch(editDistributorById({ id, formData })).then((action) => {
         setShowSaveModal(false);
-        navigate("/distributors");
+        navigate(PATHS.distributors);
       });
       return;
     }
     dispatch(createDistributor(formData)).then((action) => {
       setShowSaveModal(false);
-      navigate("/distributors");
+      navigate(PATHS.distributors);
     });
   }
 
   function handleConfirmDelete() {
     dispatch(archiveDistributorById(id)).then((action) => {
       setShowDeleteModal(false);
-      navigate("/distributors");
+      navigate(PATHS.distributors);
     });
   }
 
