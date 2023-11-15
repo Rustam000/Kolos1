@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ACCESS_DENIED_ERROR, ENDPOINTS } from "../common/constants";
 import { axiosPublic } from "../api/axiosPublic";
-import { axiosPrivate } from "../api/axiosPrivate";
+
+const name = "auth";
 
 export const logUserIn = createAsyncThunk(
-  "auth/logUserIn",
-  async (formData, thunkAPI) => {
+  `${name}/logUserIn`,
+  async (formData) => {
     try {
       const response = await axiosPublic.post(ENDPOINTS.login, formData);
       const data = response.data;
@@ -15,32 +16,14 @@ export const logUserIn = createAsyncThunk(
       return data;
     } catch (error) {
       localStorage.clear();
-      console.warn(error); /*  */
       return Promise.reject(error);
     }
   },
 );
 
-export const pingTestEndpoint = createAsyncThunk(
-  "auth/pingTestEndpoint",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axiosPrivate.get("/users/test/");
-      const data = response.data;
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.warn(error);
-    }
-  },
-);
-
-export const logUserOut = createAsyncThunk(
-  "auth/logUserOut",
-  async (_, thunkAPI) => {
-    localStorage.clear();
-  },
-);
+export const logUserOut = createAsyncThunk(`${name}/logUserOut`, async () => {
+  localStorage.clear();
+});
 
 const initialState = {
   user: localStorage.getItem("user"),
@@ -49,7 +32,7 @@ const initialState = {
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name,
   initialState,
   reducers: {
     clearError: (state) => {
