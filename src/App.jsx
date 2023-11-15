@@ -14,6 +14,7 @@ import Archive from "./pages/Archive/Archive";
 import Logout from "./pages/Logout/Logout";
 import NotFound from "./pages/NotFound/NotFound";
 import Transaction from "./pages/Transaction/Transaction";
+import Warehouse_ from "./experimental_pages/ExperimentalWarehouse/Warehouse_";
 
 const publicRoutes = (
   <>
@@ -26,6 +27,8 @@ const privateRoutes = (
   <>
     <Route path="/" element={<Layout />}>
       <Route index element={<Navigate to="/warehouse" replace />} />
+      {/* temporary table route */}
+      <Route path="/table" element={<Warehouse_ />} />
       <Route path="warehouse" element={<Outlet />}>
         <Route index element={<Warehouse />} />
         <Route path="archive" element={<Archive />} />
