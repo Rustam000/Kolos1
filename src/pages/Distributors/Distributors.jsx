@@ -1,12 +1,14 @@
 import styles from "./Distributors.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { fetchDistributors } from "../../redux/distributorsSlice";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import TableButton from "../../components/UI/TableButton/TableButton";
 import editIcon from "../../assets/icons/mode_edit.svg";
 import ADTable from "../../components/ADTable/ADTable";
+import { PATHS } from "../../common/constants";
+import renderIndex from "../../utils/renderIndex";
 
 export default function Distributors() {
   const { distributors, isLoading, error } = useSelector(
@@ -26,19 +28,19 @@ export default function Distributors() {
       key: "rowIndex",
       align: "center",
       width: 55,
-      render: (text, record, index) => index + 1,
+      render: renderIndex,
     },
     {
       title: "ФИО",
       dataIndex: "name",
-      key: "name",
       align: "left",
-      render: (_, record) => (
+      render: (text, record) => (
         <Link
           className={styles.distributorLink}
-          to={`/distributors/profile/${record.id}`}
+          to={`${PATHS.distributorsProfile}/${record.id}`}
+          onClick={(e) => e.stopPropagation()}
         >
-          {record.name + " (cсылка на профиль)"}
+          {text}
         </Link>
       ),
     },
@@ -54,15 +56,14 @@ export default function Distributors() {
       align: "center",
       width: 78,
       render: (_, record) => (
-        <TableButton
-          onClick={() =>
-            navigate(`/distributors/edit/${record.id}`, {
-              state: record,
-            })
-          }
+        <Link
+          to={`${PATHS.distributorsEdit}/${record.id}`}
+          onClick={(event) => event.stopPropagation()}
         >
-          <img src={editIcon} alt="edit icon" />
-        </TableButton>
+          <TableButton>
+            <img src={editIcon} alt="edit icon" />
+          </TableButton>
+        </Link>
       ),
     },
   ];
@@ -71,18 +72,23 @@ export default function Distributors() {
     <div className={styles.Distributors}>
       <div className="container">
         <div className={styles.filterbar}>
-          <CustomButton
-            variant="primary"
-            onClick={() => navigate("/distributors/create")}
-          >
-            Создать
-          </CustomButton>
+          <Link to={PATHS.distributorsCreate}>
+            <CustomButton variant="primary">Создать</CustomButton>
+          </Link>
         </div>
 
         <ADTable
           loading={isLoading}
           dataSource={distributors}
           rowKey="id"
+          rowClassName={styles.tableRow}
+          onRow={(record) => {
+            return {
+              onClick: () => {
+                navigate(`${PATHS.distributorsProfile}/${record.id}`);
+              },
+            };
+          }}
           columns={tableColumns}
           height="70vh"
         />

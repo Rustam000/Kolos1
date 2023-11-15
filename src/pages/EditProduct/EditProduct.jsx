@@ -15,6 +15,8 @@ import {
   productActions,
   updateProductById,
 } from "../../redux/editProductSlice";
+import { PATHS } from "../../common/constants";
+import handleError from "../../utils/handleError";
 
 export default function EditProduct() {
   const [showSaveModal, setShowSaveModal] = useState(false);
@@ -28,7 +30,7 @@ export default function EditProduct() {
 
   useEffect(() => {
     if (isEdit) {
-      dispatch(getProductById(id));
+      dispatch(getProductById(id)).then(handleError);
     }
   }, [id]);
 
@@ -36,7 +38,7 @@ export default function EditProduct() {
     setShowDeleteModal(false);
     dispatch(archiveProductById(id)).then(() => {
       dispatch(clearData());
-      navigate("/warehouse");
+      navigate(PATHS.products);
     });
   };
 
@@ -50,13 +52,13 @@ export default function EditProduct() {
     if (isEdit) {
       dispatch(updateProductById(id)).then(() => {
         dispatch(clearData());
-        navigate("/warehouse");
+        navigate(PATHS.products);
       });
       return;
     }
     dispatch(postProduct()).then(() => {
       dispatch(clearData());
-      navigate("/warehouse");
+      navigate(PATHS.products);
     });
   };
 

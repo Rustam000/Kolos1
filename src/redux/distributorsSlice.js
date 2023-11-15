@@ -1,22 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../api/axiosPrivate";
-import { axiosDummy } from "../api/axiosDummy";
 
 export const fetchDistributors = createAsyncThunk(
   "distributors/fetchDistributors",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axiosDummy.get(`/distributors/?limit=10000`);
-      return response.data.results;
-    } catch (error) {
-      console.warn(error);
-    }
-  },
-);
-/* 
-export const fetchDistributors = createAsyncThunk(
-  "distributors/fetchDistributors",
-  async (_, thunkAPI) => {
+  async () => {
     try {
       const response = await axiosPrivate.get(`/distributors/?limit=10000`);
       return response.data.results;
@@ -24,7 +11,7 @@ export const fetchDistributors = createAsyncThunk(
       console.warn(error);
     }
   },
-); */
+);
 
 const initialState = {
   distributors: [],

@@ -44,8 +44,8 @@ const privateRoutes = (
     </Route>
     <Route path="/login" element={<Navigate to="/warehouse" />} />
     <Route path="/logout" element={<Logout />} />
-    <Route path="*" element={<NotFound />} />
-    <Route path="/404" element={<NotFound />} />
+    <Route path="*" element={<Navigate to="/not-found" />} />
+    <Route path="/not-found" element={<NotFound />} />
   </>
 );
 

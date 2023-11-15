@@ -2,12 +2,9 @@ import styles from "./Header.module.css";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import CustomButton from "../UI/CustomButton/CustomButton";
-import { useDispatch } from "react-redux";
-import { pingTestEndpoint } from "../../redux/authSlice";
+import { PATHS } from "../../common/constants";
 
 export default function Header() {
-  const dispatch = useDispatch();
-
   function getNavlinkClasses({ isActive }) {
     return isActive ? `${styles.navLink} ${styles.active}` : styles.navLink;
   }
@@ -16,19 +13,16 @@ export default function Header() {
     <header className={styles.Header}>
       <div className="container">
         <div className={styles.flexContainer}>
-          <span
-            className={styles.logoWrapper}
-            onClick={() => dispatch(pingTestEndpoint())}
-          >
+          <span className={styles.logoWrapper}>
             <Logo />
           </span>
-          <NavLink className={getNavlinkClasses} to="/warehouse">
+          <NavLink className={getNavlinkClasses} to={PATHS.products}>
             Склад
           </NavLink>
-          <NavLink className={getNavlinkClasses} to="/distributors">
+          <NavLink className={getNavlinkClasses} to={PATHS.distributors}>
             Дистрибьюторы
           </NavLink>
-          <Link to="/logout">
+          <Link to={PATHS.logOut}>
             <CustomButton variant="secondary" height="low" width="narrow">
               Выйти
             </CustomButton>

@@ -1,5 +1,5 @@
 import styles from "./Archive.module.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import PageHeading from "../../components/PageHeading/PageHeading";
@@ -13,12 +13,16 @@ import {
   fetchArchiveItems,
   restoreItemById,
 } from "../../redux/archiveSlice";
+import { PATHS } from "../../common/constants";
+import renderIndex from "../../utils/renderIndex";
+import renderSum from "../../utils/renderSum";
+import renderDate from "../../utils/renderDate";
 
 export default function Archive() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const isWarehouse = location.pathname.includes("warehouse");
+  const isWarehouse = location.pathname.includes(PATHS.products);
   const { items, isLoading, error } = useSelector((state) => state.archive);
 
   const total =
@@ -51,7 +55,7 @@ export default function Archive() {
       key: "rowIndex",
       align: "center",
       width: 55,
-      render: (text, record, index) => index + 1,
+      render: renderIndex,
     },
     {
       title: "ФИО",
@@ -104,7 +108,7 @@ export default function Archive() {
       key: "rowIndex",
       align: "center",
       width: 55,
-      render: (text, record, index) => index + 1,
+      render: renderIndex,
     },
     {
       title: "Наименование",
@@ -144,8 +148,7 @@ export default function Archive() {
       key: "sum",
       align: "left",
       width: 100,
-      render: (_, record) =>
-        (record.price * record.quantity).toLocaleString("de-CH"),
+      render: renderSum,
     },
     {
       title: "Дата удаления",
@@ -153,8 +156,7 @@ export default function Archive() {
       key: "updated_at",
       align: "left",
       width: 115,
-      render: (_, record) =>
-        new Date(record.updated_at).toLocaleDateString("ru"),
+      render: renderDate,
     },
     {
       title: "Статус возврата",
@@ -180,8 +182,6 @@ export default function Archive() {
   ///////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////
 
-  const displayColumns = isWarehouse ? productColumns : distributorColumns;
-
   return (
     <div className={styles.Archive}>
       <div className="container">
@@ -191,24 +191,22 @@ export default function Archive() {
               {isWarehouse && (
                 <TotalIndicator className={styles.total} value={total} />
               )}
-              <CustomButton
-                variant={isWarehouse ? "primary" : "secondary"}
-                onClick={() => navigate("/warehouse/archive")}
-              >
-                Товары
-              </CustomButton>
-              <CustomButton
-                variant={!isWarehouse ? "primary" : "secondary"}
-                onClick={() => navigate("/distributors/archive")}
-              >
-                Дистрибьюторы
-              </CustomButton>
+              <Link to={PATHS.productsArchive}>
+                <CustomButton variant={isWarehouse ? "primary" : "secondary"}>
+                  Товары
+                </CustomButton>
+              </Link>
+              <Link to={PATHS.distributorsArchive}>
+                <CustomButton variant={!isWarehouse ? "primary" : "secondary"}>
+                  Дистрибьюторы
+                </CustomButton>
+              </Link>
             </div>
           </div>
         </PageHeading>
         <ADTable
           dataSource={items}
-          columns={displayColumns}
+          columns={isWarehouse ? productColumns : distributorColumns}
           rowKey="id"
           height="65vh"
         />

@@ -1,6 +1,6 @@
 import styles from "./DistributorProfile.module.css";
 import { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchItems,
@@ -15,6 +15,7 @@ import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import renderSum from "../../utils/renderSum";
 import renderDate from "../../utils/renderDate";
 import renderIndex from "../../utils/renderIndex";
+import { PATHS } from "../../common/constants";
 
 export default function DistributorProfile() {
   const {
@@ -28,7 +29,6 @@ export default function DistributorProfile() {
     error,
   } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
 
   const { setCategory, setSales, setStartDate, setEndDate } = profileActions;
@@ -126,12 +126,12 @@ export default function DistributorProfile() {
           <div className={styles.infoBlock}>
             <DistributorInfo info={distributorInfo} />
             <div className={styles.actions}>
-              <Link to={`../order/${id}`}>
+              <Link to={`${PATHS.order}/${id}`}>
                 <CustomButton variant="secondary" width="width140">
                   Отпускать
                 </CustomButton>
               </Link>
-              <Link to={`../return/${id}`}>
+              <Link to={`${PATHS.return}/${id}`}>
                 <CustomButton variant="secondary" width="width140">
                   Возврат
                 </CustomButton>

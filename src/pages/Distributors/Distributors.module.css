@@ -12,10 +12,14 @@
   gap: 27px;
 }
 
-.filterbar button {
+.filterbar a {
   margin-left: auto;
 }
 
 .distributorLink {
   color: var(--black);
+}
+
+.tableRow:hover {
+  cursor: pointer;
 }

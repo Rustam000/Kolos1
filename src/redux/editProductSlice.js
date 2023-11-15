@@ -46,8 +46,7 @@ export const getProductById = createAsyncThunk(
       const response = await axiosPrivate.get(`/products/${id}/`);
       return response.data;
     } catch (error) {
-      console.warn(error);
-      console.warn({ errorData: error.response.data });
+      return error;
     }
   },
 );

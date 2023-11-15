@@ -1,10 +1,10 @@
 import styles from "./Warehouse.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import editIcon from "../../assets/icons/mode_edit.svg";
 import TableButton from "../../components/UI/TableButton/TableButton";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import {
   fetchWarehouseItems,
   warehouseActions,
@@ -13,6 +13,7 @@ import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 import renderIndex from "../../utils/renderIndex";
+import { PATHS } from "../../common/constants";
 
 export default function Warehouse() {
   const { setCategory, setCondition, setSearch } = warehouseActions;
@@ -79,13 +80,11 @@ export default function Warehouse() {
       align: "center",
       width: 78,
       render: (_, record) => (
-        <TableButton
-          onClick={() =>
-            navigate(`/warehouse/edit/${record.id}`, { state: record })
-          }
-        >
-          <img src={editIcon} alt="edit icon" />
-        </TableButton>
+        <Link to={`${PATHS.productsEdit}/${record.id}`}>
+          <TableButton>
+            <img src={editIcon} alt="edit icon" />
+          </TableButton>
+        </Link>
       ),
     },
   ];
@@ -116,20 +115,16 @@ export default function Warehouse() {
               { value: "defect", label: "Брак" },
             ]}
           />
-          <CustomButton
-            type="button"
-            variant="secondary"
-            onClick={() => navigate("/warehouse/archive")}
-          >
-            Архив
-          </CustomButton>
-          <CustomButton
-            type="button"
-            variant="primary"
-            onClick={() => navigate("/warehouse/create")}
-          >
-            Создать
-          </CustomButton>
+          <Link to={PATHS.productsArchive}>
+            <CustomButton type="button" variant="secondary">
+              Архив
+            </CustomButton>
+          </Link>
+          <Link to={PATHS.productsCreate}>
+            <CustomButton type="button" variant="primary">
+              Создать
+            </CustomButton>
+          </Link>
         </form>
         <ADTable
           headerBg={state === "defect" ? "#ffc2c2" : undefined}
