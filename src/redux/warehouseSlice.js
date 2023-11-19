@@ -35,9 +35,6 @@ const initialState = {
   category: "",
   state: "normal",
   items: [],
-  options: {
-    search: [],
-  },
   isLoading: false,
   error: null,
 };

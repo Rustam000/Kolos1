@@ -93,9 +93,8 @@ export default function Warehouse() {
       <div className="container">
         <form className={styles.filterbar}>
           <CustomSearch
-            options={options.search}
-            onChange={(value) => dispatch(setSearch(value))}
-            onSearch={console.log}
+            params={{ state, category }}
+            onSearch={(value) => dispatch(setSearch(value))}
           />
           <CustomSelect
             className={styles.categorySelect}
