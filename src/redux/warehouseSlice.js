@@ -33,7 +33,7 @@ export const fetchWarehouseItems = createAsyncThunk(
 const initialState = {
   search: "",
   category: "",
-  state: "Valid",
+  state: "normal",
   items: [],
   options: {
     search: [],

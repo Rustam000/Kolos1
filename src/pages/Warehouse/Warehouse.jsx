@@ -1,5 +1,5 @@
 import styles from "./Warehouse.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
@@ -21,7 +21,6 @@ export default function Warehouse() {
   const { items, isLoading, error, search, category, state } = useSelector(
     (state) => state.warehouse,
   );
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -111,7 +110,7 @@ export default function Warehouse() {
             value={state}
             onChange={(value) => dispatch(setCondition(value))}
             options={[
-              { value: "norm", label: "Норма" },
+              { value: "normal", label: "Норма" },
               { value: "defect", label: "Брак" },
             ]}
           />

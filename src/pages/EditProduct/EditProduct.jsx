@@ -179,8 +179,8 @@ export default function EditProduct() {
                     <CustomRadioButton
                       className={styles.radioButton}
                       name="state"
-                      value="Normal"
-                      checked={formData.state === "Normal"}
+                      value="normal"
+                      checked={formData.state === "normal"}
                       onChange={handleInputChange}
                     />
                     <span>Норма</span>
@@ -189,8 +189,8 @@ export default function EditProduct() {
                     <CustomRadioButton
                       className={styles.radioButton}
                       name="state"
-                      value="Invalid"
-                      checked={formData.state === "Invalid"}
+                      value="defect"
+                      checked={formData.state === "defect"}
                       onChange={handleInputChange}
                       disabled={!isEdit}
                     />

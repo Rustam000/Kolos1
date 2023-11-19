@@ -58,7 +58,7 @@ const defaultData = {
   price: "",
   unit: "liter",
   category: "alcohol",
-  state: "Normal",
+  state: "normal",
 };
 
 const initialState = {
