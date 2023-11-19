@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../api/axiosPrivate";
 import { axiosDummy } from "../api/axiosDummy";
 
-export const fetchWarehouseItems = createAsyncThunk(
+/* export const fetchWarehouseItems = createAsyncThunk(
   "warehouse/fetchWarehouseItems",
   async (queryParams) => {
     try {
@@ -14,8 +14,8 @@ export const fetchWarehouseItems = createAsyncThunk(
       console.warn(error);
     }
   },
-);
-/* 
+); */
+
 export const fetchWarehouseItems = createAsyncThunk(
   "warehouse/fetchWarehouseItems",
   async (queryParams) => {
@@ -28,7 +28,7 @@ export const fetchWarehouseItems = createAsyncThunk(
       console.warn(error);
     }
   },
-); */
+);
 
 const initialState = {
   search: "",
