@@ -28,7 +28,7 @@ export default function EditDistributor() {
     issued_by: "",
     issue_date: "",
     validity: "",
-    contact1: "",
+    contact: "",
     contact2: "",
   });
   const dispatch = useDispatch();
@@ -45,7 +45,6 @@ export default function EditDistributor() {
   useEffect(() => {
     if (isEdit) {
       dispatch(getDistributorById(id)).then((action) => {
-        console.log(action);
         setFormData(action.payload);
       });
     }
@@ -63,7 +62,7 @@ export default function EditDistributor() {
       "issued_by",
       "issue_date",
       "validity",
-      "contact1",
+      "contact",
     ];
     return requiredFields.every((field) => formData[field] !== "");
   }
@@ -262,8 +261,8 @@ export default function EditDistributor() {
                     <span className={styles.countryCode}>+996</span>
                     <input
                       type="tel"
-                      name="contact1"
-                      value={formData.contact1 || ""}
+                      name="contact"
+                      value={formData.contact || ""}
                       onChange={handleInputChange}
                       placeholder=""
                       required
