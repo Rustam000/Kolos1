@@ -90,12 +90,15 @@ export default function Warehouse() {
     },
   ];
 
+  const searchParams = { state };
+  category && (searchParams.category = category);
+
   return (
     <div className={styles.Warehouse}>
       <div className="container">
         <form className={styles.filterbar}>
           <CustomSearch
-            params={{ state, category }}
+            params={searchParams}
             onSearch={(value) => dispatch(setSearch(value))}
           />
           <CustomSelect

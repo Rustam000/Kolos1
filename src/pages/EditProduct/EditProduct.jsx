@@ -123,8 +123,7 @@ export default function EditProduct() {
                   options={[
                     { value: "item", label: "Шт" },
                     { value: "kilogram", label: "Кг" },
-                    { value: "liter", label: "Л" },
-                    { value: "m", label: "М" },
+                    { value: "liter", label: "Литр" },
                   ]}
                   onChange={(value) => dispatch(setData({ unit: value }))}
                 />

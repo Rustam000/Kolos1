@@ -3,7 +3,7 @@ export default function renderUnit(text) {
     case "item":
       return "Штука";
     case "kilogram":
-      return "Килограмм";
+      return "Кг";
     case "liter":
       return "Литр";
 

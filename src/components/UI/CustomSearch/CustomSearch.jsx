@@ -16,11 +16,15 @@ export default function CustomSearch({
 }) {
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
+  const [active, setActive] = useState(true);
   const debouncedSearch = useDebounce(search, delay);
 
   useEffect(() => {
     if (debouncedSearch === "") {
       setOptions([]);
+      return;
+    }
+    if (!active) {
       return;
     }
 
@@ -30,13 +34,13 @@ export default function CustomSearch({
           `/products/tip/?search=${debouncedSearch}`,
         );
         const options = response.data.results
-          .map((item) => item.name)
           .filter((item) => {
             return Object.keys(params).reduce(
               (acc, key) => acc * (item[key] === params[key]),
               true,
             );
-          });
+          })
+          .map((item) => item.name);
         const uniqueOptions = [...new Set(options)].map((item) => ({
           label: item,
           value: item,
@@ -60,7 +64,9 @@ export default function CustomSearch({
   }
 
   function handleBlur() {
-    setOptions([]);
+    setTimeout(() => {
+      active && setOptions([]);
+    }, 300);
   }
 
   function handleClear() {
@@ -69,16 +75,28 @@ export default function CustomSearch({
     onSearch("");
   }
 
+  function handleOptionClick(option) {
+    setSearch(option.label);
+    setOptions([]);
+    setActive(false);
+    onSearch(option.label);
+  }
+
+  function handleChange(event) {
+    setSearch(event.target.value);
+    setActive(true);
+  }
+
   return (
     <span className={`${styles.CustomSearch} ${className}`}>
-      <Dropdown options={options}>
+      <Dropdown options={options} onClick={handleOptionClick}>
         <div className={styles.inputIconContainer}>
           <input
             className={styles.searchInput}
             type="text"
             placeholder={placeholder}
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleChange}
             onKeyDown={handleKeyDown}
             onBlur={handleBlur}
           />
