@@ -271,7 +271,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={styles.formInput}>
+                <label className={`${styles.formInput} ${styles.dateInput}`}>
                   <p>Дата выдачи</p>
                   <input
                     type="date"
@@ -281,7 +281,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={styles.formInput}>
+                <label className={`${styles.formInput} ${styles.dateInput}`}>
                   <p>Срок действия</p>
                   <input
                     type="date"

@@ -90,6 +90,10 @@
   flex: 0 0 309px;
 } */
 
+.dateInput {
+  flex: 0 0 181px;
+}
+
 .phoneInput {
   flex: 0 0 309px;
 }
