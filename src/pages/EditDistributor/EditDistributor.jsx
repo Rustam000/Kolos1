@@ -28,8 +28,8 @@ export default function EditDistributor() {
     issued_by: "",
     issue_date: "",
     validity: "",
-    contact: "",
-    contact2: "",
+    contact: null,
+    contact2: null,
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,6 +42,7 @@ export default function EditDistributor() {
   //TODO: if pathname includes 'edit', must have an id
   const passport =
     formData.passport_series.toString() + formData.passport_id.toString();
+
   useEffect(() => {
     if (isEdit) {
       dispatch(getDistributorById(id)).then((action) => {
@@ -74,6 +75,11 @@ export default function EditDistributor() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleNumberChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: +value });
+  };
+
   function handlePassportChange(event) {
     const valueArray = event.target.value.split("");
     const passportSeriesArray = [];
@@ -100,18 +106,30 @@ export default function EditDistributor() {
     setShowSaveModal(true);
   }
 
+  function createFormDataObject(data) {
+    const formDataObject = new FormData();
+    Object.keys(data).forEach((key) => {
+      data[key] && formDataObject.append(key, data[key]);
+    });
+    return formDataObject;
+  }
+
   function handleConfirmSave() {
     if (isEdit) {
-      dispatch(editDistributorById({ id, formData })).then((action) => {
+      dispatch(
+        editDistributorById({ id, formData: createFormDataObject(formData) }),
+      ).then((action) => {
         setShowSaveModal(false);
         navigate(PATHS.distributors);
       });
       return;
     }
-    dispatch(createDistributor(formData)).then((action) => {
-      setShowSaveModal(false);
-      navigate(PATHS.distributors);
-    });
+    dispatch(createDistributor(createFormDataObject(formData))).then(
+      (action) => {
+        setShowSaveModal(false);
+        navigate(PATHS.distributors);
+      },
+    );
   }
 
   function handleConfirmDelete() {
@@ -119,6 +137,12 @@ export default function EditDistributor() {
       setShowDeleteModal(false);
       navigate(PATHS.distributors);
     });
+  }
+
+  function getPhotoUrl() {
+    if (!formData.photo) return null;
+    if (typeof formData.photo === "string") return formData.photo;
+    return URL.createObjectURL(formData.photo);
   }
 
   return (
@@ -139,11 +163,19 @@ export default function EditDistributor() {
                   accept="image/*"
                   onChange={handlePhotoChange}
                 />
-                <div className={styles.getPhoto}>
-                  <img src={getApp} alt="icon" />
-                  <span>Добавить</span>
-                  <span>фотографию</span>
-                </div>
+                {formData.photo ? (
+                  <img
+                    className={styles.picture}
+                    src={getPhotoUrl()}
+                    alt="distributor photo"
+                  />
+                ) : (
+                  <div className={styles.getPhoto}>
+                    <img src={getApp} alt="icon" />
+                    <span>Добавить</span>
+                    <span>фотографию</span>
+                  </div>
+                )}
               </label>
               <fieldset className={styles.formFlexRow}>
                 <label className={`${styles.formInput} ${styles.addressInput}`}>
@@ -263,7 +295,7 @@ export default function EditDistributor() {
                       type="tel"
                       name="contact"
                       value={formData.contact || ""}
-                      onChange={handleInputChange}
+                      onChange={handleNumberChange}
                       placeholder=""
                       required
                     />
@@ -282,7 +314,7 @@ export default function EditDistributor() {
                       type="tel"
                       name="contact2"
                       value={formData.contact2 || ""}
-                      onChange={handleInputChange}
+                      onChange={handleNumberChange}
                       placeholder=""
                     />
                   </div>
