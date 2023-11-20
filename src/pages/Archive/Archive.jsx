@@ -160,7 +160,7 @@ export default function Archive() {
       render: renderDate,
     },
     {
-      title: "Статус возврата",
+      title: "Статус",
       dataIndex: "state",
       key: "state",
       align: "left",
