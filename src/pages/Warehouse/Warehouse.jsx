@@ -13,6 +13,7 @@ import ADTable from "../../components/ADTable/ADTable";
 import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 import renderIndex from "../../utils/renderIndex";
+import renderUnit from "../../utils/renderUnit";
 import { PATHS } from "../../common/constants";
 
 export default function Warehouse() {
@@ -58,6 +59,7 @@ export default function Warehouse() {
       key: "unit",
       align: "left",
       width: "11%",
+      render: renderUnit,
     },
     {
       title: "Кол-во",
