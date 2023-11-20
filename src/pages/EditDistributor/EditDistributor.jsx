@@ -14,6 +14,7 @@ import {
   getDistributorById,
 } from "../../redux/editDistributorSlice";
 import { PATHS } from "../../common/constants";
+import yearLimiter from "../../utils/yearLimiter";
 
 export default function EditDistributor() {
   const [formData, setFormData] = useState({
@@ -70,15 +71,20 @@ export default function EditDistributor() {
 
   const formIsValid = isFormValid();
 
-  const handleInputChange = (e) => {
+  function handleInputChange(e) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
+  }
 
-  const handleNumberChange = (e) => {
+  function handleNumberChange(e) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: +value });
-  };
+  }
+
+  function handleDateChange(e) {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: yearLimiter(value) });
+  }
 
   function handlePassportChange(event) {
     const valueArray = event.target.value.split("");
@@ -107,9 +113,13 @@ export default function EditDistributor() {
   }
 
   function createFormDataObject(data) {
+    const dataWithPhoto = { ...data };
+    if (typeof data.photo === "string") {
+      delete dataWithPhoto.photo;
+    }
     const formDataObject = new FormData();
-    Object.keys(data).forEach((key) => {
-      data[key] && formDataObject.append(key, data[key]);
+    Object.keys(dataWithPhoto).forEach((key) => {
+      dataWithPhoto[key] && formDataObject.append(key, dataWithPhoto[key]);
     });
     return formDataObject;
   }
@@ -264,22 +274,20 @@ export default function EditDistributor() {
                 <label className={styles.formInput}>
                   <p>Дата выдачи</p>
                   <input
-                    type="text"
+                    type="date"
                     name="issue_date"
                     value={formData.issue_date}
-                    onChange={handleInputChange}
-                    placeholder="00.00.0000"
+                    onChange={handleDateChange}
                     required
                   />
                 </label>
                 <label className={styles.formInput}>
                   <p>Срок действия</p>
                   <input
-                    type="text"
+                    type="date"
                     name="validity"
                     value={formData.validity}
-                    onChange={handleInputChange}
-                    placeholder="00.00.0000"
+                    onChange={handleDateChange}
                     required
                   />
                 </label>
@@ -360,7 +368,7 @@ export default function EditDistributor() {
     </>
   );
 }
-
+//FIX_ME )
 /* import styles from "./EditDistributor.module.css";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
