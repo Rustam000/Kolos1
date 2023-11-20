@@ -17,6 +17,7 @@ import { PATHS } from "../../common/constants";
 import renderIndex from "../../utils/renderIndex";
 import renderSum from "../../utils/renderSum";
 import renderDate from "../../utils/renderDate";
+import renderCondition from "../../utils/renderCondition";
 
 export default function Archive() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ export default function Archive() {
         entity,
         id,
       }),
-    ).then(navigate(destination || "../"));
+    ).then(() => navigate(destination || "../"));
   }
 
   ///////////////////////////////////////////////////////////////////////
@@ -164,6 +165,7 @@ export default function Archive() {
       key: "state",
       align: "left",
       width: 100,
+      render: renderCondition,
     },
     {
       title: "Восстановить",

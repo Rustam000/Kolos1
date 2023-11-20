@@ -165,8 +165,9 @@ export default function EditProduct() {
                   name="category"
                   value={formData.category}
                   options={[
-                    { value: "alcohol", label: "Алкогольный" },
-                    { value: "notAlcohol", label: "Безалкогольный" },
+                    { value: "Алкогольное", label: "Алкогольное" },
+                    { value: "Безалкогольное", label: "Безалкогольное" },
+                    { value: "Оборудование", label: "Оборудование" },
                   ]}
                   onChange={(value) => dispatch(setData({ category: value }))}
                 />

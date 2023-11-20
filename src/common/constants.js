@@ -1,7 +1,5 @@
-//export const BASE_URL = "http://51.20.115.221/api/v1/";
-//export const BASE_URL = "http://134.209.252.52:83/api/v1/";
-//export const BASE_URL = "http://192.168.0.101:8000/api/v1/";
-export const BASE_URL = "https://beerhouse.vercel.app/api/";
+export const BASE_URL = "http://134.209.252.52:83/api/v1/";
+//export const BASE_URL = "https://beerhouse.vercel.app/api/";
 
 export const ENDPOINTS = {
   login: "/users/login/",
