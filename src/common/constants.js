@@ -5,6 +5,13 @@ export const ENDPOINTS = {
   login: "/users/login/",
 };
 
+export const CATEGORIES = [
+  { value: "", label: "Все товары" },
+  { value: "Алкогольное", label: "Алкогольное" },
+  { value: "Безалкогольное", label: "Безалкогольное" },
+  { value: "Оборудование", label: "Оборудование" },
+];
+
 export const PATHS = {
   products: "/warehouse",
   productsArchive: "/warehouse/archive",

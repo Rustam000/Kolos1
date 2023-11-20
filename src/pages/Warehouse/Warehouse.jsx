@@ -14,7 +14,7 @@ import CustomSelect from "../../components/UI/CustomSelect/CustomSelect";
 import CustomSearch from "../../components/UI/CustomSearch/CustomSearch";
 import renderIndex from "../../utils/renderIndex";
 import renderUnit from "../../utils/renderUnit";
-import { PATHS } from "../../common/constants";
+import { CATEGORIES, PATHS } from "../../common/constants";
 
 export default function Warehouse() {
   const { setCategory, setCondition, setSearch } = warehouseActions;
@@ -106,7 +106,7 @@ export default function Warehouse() {
             name="category"
             value={category}
             onChange={(value) => dispatch(setCategory(value))}
-            options={options.category}
+            options={CATEGORIES}
           />
           <CustomSelect
             className={styles.conditionSelect}
