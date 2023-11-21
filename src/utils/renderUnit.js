@@ -1,7 +1,7 @@
 export default function renderUnit(text) {
   switch (text) {
     case "item":
-      return "Штука";
+      return "Шт";
     case "kilogram":
       return "Кг";
     case "liter":

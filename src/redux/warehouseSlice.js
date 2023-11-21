@@ -53,7 +53,12 @@ export const warehouseSlice = createSlice({
       state.search = action.payload;
     },
     clearData: (state, action) => {
-      state.items = [];
+      state.items = initialState.items;
+      state.search = initialState.search;
+      state.category = initialState.category;
+      state.state = initialState.state;
+      state.isLoading = initialState.isLoading;
+      state.error = initialState.error;
     },
   },
   extraReducers: (builder) => {

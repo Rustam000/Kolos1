@@ -53,7 +53,6 @@ export default function Archive() {
     {
       title: "№",
       dataIndex: "rowIndex",
-      key: "rowIndex",
       align: "center",
       width: 55,
       render: renderIndex,
@@ -61,35 +60,30 @@ export default function Archive() {
     {
       title: "ФИО",
       dataIndex: "name",
-      key: "name",
     },
     {
       title: "Регион",
       dataIndex: "region",
-      key: "region",
     },
     {
       title: "Контактный номер (1)",
-      dataIndex: "contact1",
-      key: "contact1",
+      dataIndex: "contact",
       width: 190,
     },
     {
       title: "Контактный номер (2)",
       dataIndex: "contact2",
-      key: "contact2",
       width: 190,
     },
     {
       title: "Дата удаления",
       dataIndex: "dataDeletion",
-      key: "dataDeletion",
       align: "left",
       width: 110,
+      render: renderDate,
     },
     {
       title: "Восстановить",
-      key: "restore",
       width: 145,
       align: "center",
       render: (_, record) => (
@@ -106,7 +100,6 @@ export default function Archive() {
     {
       title: "№",
       dataIndex: "rowIndex",
-      key: "rowIndex",
       align: "center",
       width: 55,
       render: renderIndex,
@@ -114,39 +107,33 @@ export default function Archive() {
     {
       title: "Наименование",
       dataIndex: "name",
-      key: "name",
       align: "left",
       width: "15%",
     },
     {
       title: "Уникальный код",
       dataIndex: "identification_number",
-      key: "identification_number",
       align: "left",
       width: "15%",
     },
     {
       title: "Ед. изм.",
       dataIndex: "unit",
-      key: "unit",
       align: "left",
     },
     {
       title: "Кол-во",
       dataIndex: "quantity",
-      key: "quantity",
       align: "left",
     },
     {
       title: "Цена",
       dataIndex: "price",
-      key: "price",
       align: "left",
     },
     {
       title: "Сумма",
       dataIndex: "sum",
-      key: "sum",
       align: "left",
       width: 100,
       render: renderSum,
@@ -154,7 +141,6 @@ export default function Archive() {
     {
       title: "Дата удаления",
       dataIndex: "updated_at",
-      key: "updated_at",
       align: "left",
       width: 115,
       render: renderDate,
@@ -162,14 +148,12 @@ export default function Archive() {
     {
       title: "Статус",
       dataIndex: "state",
-      key: "state",
       align: "left",
       width: 100,
       render: renderCondition,
     },
     {
       title: "Восстановить",
-      key: "action",
       align: "center",
       width: 145,
       render: (_, record) => (
