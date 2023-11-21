@@ -15,7 +15,6 @@ import {
 } from "../../redux/editDistributorSlice";
 import { PATHS } from "../../common/constants";
 import yearLimiter from "../../utils/yearLimiter";
-import tempBackupImage from "../../assets/temp_backup_image.png";
 
 export default function EditDistributor() {
   const [formData, setFormData] = useState({
@@ -179,11 +178,6 @@ export default function EditDistributor() {
                     className={styles.picture}
                     src={getPhotoUrl()}
                     alt="distributor photo"
-                    onError={(event) => {
-                      console.log(event);
-                      event.target.src = { tempBackupImage };
-                      event.onerror = null;
-                    }}
                   />
                 ) : (
                   <div className={styles.getPhoto}>
