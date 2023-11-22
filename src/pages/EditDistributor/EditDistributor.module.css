@@ -51,64 +51,28 @@
 .gridContainer {
   display: grid;
   gap: 34px 29px;
-  /* grid-template-columns: repeat(4, 1fr); */
-  grid-template-areas:
-    "name name address address"
-    "registration registration region passport"
-    "inn department issued expires"
-    "contacts contacts contacts contacts"
-    "buttons buttons buttons buttons";
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.name {
-  grid-area: name;
+.single {
+  grid-column: auto / span 1;
 }
 
-.address {
-  grid-area: address;
+.double {
+  grid-column: auto / span 2;
 }
 
-.registration {
-  grid-area: registration;
-}
-
-.region {
-  grid-area: region;
-}
-
-.passport {
-  grid-area: passport;
-}
-
-.inn {
-  grid-area: inn;
-}
-
-.department {
-  grid-area: department;
-}
-
-.issued {
-  grid-area: issued;
-}
-
-.expires {
-  grid-area: expires;
-}
-
-.contacts {
-  grid-area: contacts;
+.full {
+  grid-column: 1 / -1;
   display: flex;
   gap: 29px;
   justify-content: start;
+  flex-wrap: wrap;
 }
 
 .buttons {
   margin-top: 38px;
-  grid-area: buttons;
-  display: flex;
-  gap: 29px;
-  justify-content: start;
+  flex-wrap: wrap-reverse;
 }
 
 .phoneLabel {
@@ -121,13 +85,13 @@
 
 .inputContainer {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .countryCode {
   position: absolute;
-  top: 50%;
   left: 2px;
-  transform: translateY(-50%);
   pointer-events: none;
   border: 1px solid #e7e8e7;
   width: 60px;
@@ -140,4 +104,23 @@
 
 .optional {
   color: var(--848484, #848484);
+}
+
+@media (max-width: 1000px) {
+  .single {
+    grid-column: auto / span 2;
+  }
+}
+
+@media (max-width: 650px) {
+  .single,
+  .double {
+    grid-column: auto / span 4;
+  }
+  .phoneLabel {
+    flex: 1 1 309px;
+  }
+  .buttons button {
+    width: 100%;
+  }
 }

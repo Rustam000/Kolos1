@@ -189,7 +189,7 @@ export default function EditDistributor() {
               </label>
 
               <div className={styles.gridContainer}>
-                <label className={`formLabel ${styles.name}`}>
+                <label className={`formLabel ${styles.double}`}>
                   <p>ФИО</p>
                   <input
                     type="text"
@@ -200,7 +200,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={`formLabel ${styles.address}`}>
+                <label className={`formLabel ${styles.double}`}>
                   <p>Фактическое место жительства</p>
                   <input
                     type="text"
@@ -212,7 +212,7 @@ export default function EditDistributor() {
                   />
                 </label>
 
-                <label className={`formLabel ${styles.registration}`}>
+                <label className={`formLabel ${styles.double}`}>
                   <p>Адрес по прописке</p>
                   <input
                     type="text"
@@ -223,7 +223,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={`formLabel ${styles.region}`}>
+                <label className={`formLabel ${styles.single}`}>
                   <p>Регион</p>
                   <input
                     type="text"
@@ -234,7 +234,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={`formLabel ${styles.passport}`}>
+                <label className={`formLabel ${styles.single}`}>
                   <p>Серия и номер паспорта</p>
                   <input
                     type="text"
@@ -246,7 +246,7 @@ export default function EditDistributor() {
                   />
                 </label>
 
-                <label className={`formLabel ${styles.inn}`}>
+                <label className={`formLabel ${styles.single}`}>
                   <p>ИНН</p>
                   <input
                     type="text"
@@ -257,7 +257,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={`formLabel ${styles.department}`}>
+                <label className={`formLabel ${styles.single}`}>
                   <p>Орган выдачи</p>
                   <input
                     type="text"
@@ -268,7 +268,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={`formLabel ${styles.issued}`}>
+                <label className={`formLabel ${styles.single}`}>
                   <p>Дата выдачи</p>
                   <input
                     type="date"
@@ -278,7 +278,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={`formLabel ${styles.expires}`}>
+                <label className={`formLabel ${styles.single}`}>
                   <p>Срок действия</p>
                   <input
                     type="date"
@@ -289,7 +289,7 @@ export default function EditDistributor() {
                   />
                 </label>
 
-                <div className={`${styles.contacts}`}>
+                <div className={`${styles.contacts} ${styles.full}`}>
                   <label className={`formLabel ${styles.phoneLabel}`}>
                     <p>Контактный номер 1</p>
                     <div className={styles.inputContainer}>
@@ -324,7 +324,7 @@ export default function EditDistributor() {
                   </label>
                 </div>
 
-                <div className={`${styles.buttons}`}>
+                <div className={`${styles.buttons} ${styles.full}`}>
                   {isEdit && (
                     <CustomButton
                       type="button"
