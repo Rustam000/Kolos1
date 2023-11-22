@@ -1,12 +1,12 @@
 import styles from "./EditDistributor.module.css";
+import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import CustomButton from "../../components/UI/CustomButton/CustomButton";
 import getApp from "../../assets/icons/get_app.svg";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CustomModal from "../../components/CustomModal/CustomModal";
-import { useDispatch } from "react-redux";
 import {
   archiveDistributorById,
   createDistributor,
@@ -187,8 +187,9 @@ export default function EditDistributor() {
                   </div>
                 )}
               </label>
-              <fieldset className={styles.formFlexRow}>
-                <label className={`${styles.formInput} ${styles.addressInput}`}>
+
+              <div className={styles.gridContainer}>
+                <label className={`formLabel ${styles.name}`}>
                   <p>ФИО</p>
                   <input
                     type="text"
@@ -199,7 +200,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={styles.formInput}>
+                <label className={`formLabel ${styles.address}`}>
                   <p>Фактическое место жительства</p>
                   <input
                     type="text"
@@ -210,9 +211,8 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-              </fieldset>
-              <fieldset className={styles.formFlexRow}>
-                <label className={`${styles.formInput} ${styles.addressInput}`}>
+
+                <label className={`formLabel ${styles.registration}`}>
                   <p>Адрес по прописке</p>
                   <input
                     type="text"
@@ -223,7 +223,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={styles.formInput}>
+                <label className={`formLabel ${styles.region}`}>
                   <p>Регион</p>
                   <input
                     type="text"
@@ -234,8 +234,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-
-                <label className={styles.formInput}>
+                <label className={`formLabel ${styles.passport}`}>
                   <p>Серия и номер паспорта</p>
                   <input
                     type="text"
@@ -246,9 +245,8 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-              </fieldset>
-              <fieldset className={styles.formFlexRow}>
-                <label className={`${styles.formInput} ${styles.innInput}`}>
+
+                <label className={`formLabel ${styles.inn}`}>
                   <p>ИНН</p>
                   <input
                     type="text"
@@ -259,8 +257,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-
-                <label className={styles.formInput}>
+                <label className={`formLabel ${styles.department}`}>
                   <p>Орган выдачи</p>
                   <input
                     type="text"
@@ -271,7 +268,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={`${styles.formInput} ${styles.dateInput}`}>
+                <label className={`formLabel ${styles.issued}`}>
                   <p>Дата выдачи</p>
                   <input
                     type="date"
@@ -281,7 +278,7 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-                <label className={`${styles.formInput} ${styles.dateInput}`}>
+                <label className={`formLabel ${styles.expires}`}>
                   <p>Срок действия</p>
                   <input
                     type="date"
@@ -291,56 +288,56 @@ export default function EditDistributor() {
                     required
                   />
                 </label>
-              </fieldset>
-              <fieldset
-                className={`${styles.formFlexRow} ${styles.phoneNumberRow}`}
-              >
-                <label className={`${styles.formInput} ${styles.phoneInput}`}>
-                  <p>Контактный номер 1</p>
-                  <div className={styles.inputContainer}>
-                    <span className={styles.countryCode}>+996</span>
-                    <input
-                      type="tel"
-                      name="contact"
-                      value={formData.contact || ""}
-                      onChange={handleNumberChange}
-                      placeholder=""
-                      required
-                    />
-                  </div>
-                </label>
-                <label className={`${styles.formInput} ${styles.phoneInput}`}>
-                  <p>
-                    Контактный номер 2
-                    <span className={styles.optional}>
-                      {" (необязательно)"}
-                    </span>
-                  </p>
-                  <div className={styles.inputContainer}>
-                    <span className={styles.countryCode}>+996</span>
-                    <input
-                      type="tel"
-                      name="contact2"
-                      value={formData.contact2 || ""}
-                      onChange={handleNumberChange}
-                      placeholder=""
-                    />
-                  </div>
-                </label>
-              </fieldset>
-              <div className={`${styles.formFlexRow} ${styles.formButtonRow}`}>
-                {isEdit && (
-                  <CustomButton
-                    type="button"
-                    variant="secondary"
-                    onClick={() => setShowDeleteModal(true)}
-                  >
-                    Удалить
+
+                <div className={`${styles.contacts}`}>
+                  <label className={`formLabel ${styles.phoneLabel}`}>
+                    <p>Контактный номер 1</p>
+                    <div className={styles.inputContainer}>
+                      <span className={styles.countryCode}>+996</span>
+                      <input
+                        type="tel"
+                        name="contact"
+                        value={formData.contact || ""}
+                        onChange={handleNumberChange}
+                        placeholder=""
+                        required
+                      />
+                    </div>
+                  </label>
+                  <label className={`formLabel ${styles.phoneLabel}`}>
+                    <p>
+                      Контактный номер 2
+                      <span className={styles.optional}>
+                        {" (необязательно)"}
+                      </span>
+                    </p>
+                    <div className={styles.inputContainer}>
+                      <span className={styles.countryCode}>+996</span>
+                      <input
+                        type="tel"
+                        name="contact2"
+                        value={formData.contact2 || ""}
+                        onChange={handleNumberChange}
+                        placeholder=""
+                      />
+                    </div>
+                  </label>
+                </div>
+
+                <div className={`${styles.buttons}`}>
+                  {isEdit && (
+                    <CustomButton
+                      type="button"
+                      variant="secondary"
+                      onClick={() => setShowDeleteModal(true)}
+                    >
+                      Удалить
+                    </CustomButton>
+                  )}
+                  <CustomButton width="xwide" disabled={!formIsValid}>
+                    Сохранить
                   </CustomButton>
-                )}
-                <CustomButton width="xwide" disabled={!formIsValid}>
-                  Сохранить
-                </CustomButton>
+                </div>
               </div>
             </form>
           </FormContainer>

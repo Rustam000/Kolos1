@@ -48,57 +48,74 @@
   object-position: center;
 }
 
-.formFlexRow {
-  border: none;
-  display: flex;
-  gap: 29px;
-  width: 100%;
+.gridContainer {
+  display: grid;
+  gap: 34px 29px;
+  /* grid-template-columns: repeat(4, 1fr); */
+  grid-template-areas:
+    "name name address address"
+    "registration registration region passport"
+    "inn department issued expires"
+    "contacts contacts contacts contacts"
+    "buttons buttons buttons buttons";
 }
 
-.phoneNumberRow {
+.name {
+  grid-area: name;
+}
+
+.address {
+  grid-area: address;
+}
+
+.registration {
+  grid-area: registration;
+}
+
+.region {
+  grid-area: region;
+}
+
+.passport {
+  grid-area: passport;
+}
+
+.inn {
+  grid-area: inn;
+}
+
+.department {
+  grid-area: department;
+}
+
+.issued {
+  grid-area: issued;
+}
+
+.expires {
+  grid-area: expires;
+}
+
+.contacts {
+  grid-area: contacts;
+  display: flex;
+  gap: 29px;
   justify-content: start;
 }
 
-.formButtonRow {
-  margin-top: 32px;
-}
-
-.formInput {
-  flex-grow: 1;
-}
-
-.formInput p {
-  margin-bottom: 10px;
-}
-
-.formInput input {
-  height: 44px;
-  padding-inline: 15px;
+.buttons {
+  margin-top: 38px;
+  grid-area: buttons;
   display: flex;
-  align-items: center;
-  border-radius: 10px;
-  border: 1px solid var(--stroke, #e7e8e7);
-  background-color: rgba(241, 241, 241, 0.6);
-  width: 100%;
+  gap: 29px;
+  justify-content: start;
 }
 
-.addressInput {
-  flex: 0 0 394px;
-}
-/* 
-.innInput {
-  flex: 0 0 309px;
-} */
-
-.dateInput {
-  flex: 0 0 181px;
-}
-
-.phoneInput {
+.phoneLabel {
   flex: 0 0 309px;
 }
 
-.phoneInput input {
+.phoneLabel input {
   padding-left: 68px;
 }
 
