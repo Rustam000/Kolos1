@@ -69,7 +69,7 @@ export default function EditDistributor() {
     ];
     return requiredFields.every((field) => !!formData[field]);
   }
-  console.log("---");
+
   const formIsValid = isFormValid();
 
   function handleInputChange(e) {
