@@ -18,6 +18,7 @@ import renderIndex from "../../utils/renderIndex";
 import renderSum from "../../utils/renderSum";
 import renderDate from "../../utils/renderDate";
 import renderCondition from "../../utils/renderCondition";
+import renderUnit from "../../utils/renderUnit";
 
 export default function Archive() {
   const dispatch = useDispatch();
@@ -120,6 +121,7 @@ export default function Archive() {
       title: "Ед. изм.",
       dataIndex: "unit",
       align: "left",
+      render: renderUnit,
     },
     {
       title: "Кол-во",
