@@ -137,6 +137,7 @@ export default function Warehouse() {
           rowKey="id"
           columns={tableColumns}
           height="70vh"
+          pagination={{style: { justifyContent: 'center' }}}
         />
       </div>
     </div>
